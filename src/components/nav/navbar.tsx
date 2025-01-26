@@ -22,7 +22,7 @@ const MainNavBar: React.FC = () => {
   return (
     <Navbar
       shouldHideOnScroll
-      className="w-full px-5 py-1 main-nav-bar drop-shadow-sm"
+      className="w-full px-1 md:px-5 py-1 main-nav-bar shadow-md"
       isBordered
     >
       <NavbarBrand>
@@ -35,13 +35,17 @@ const MainNavBar: React.FC = () => {
         justify="center"
       ></NavbarContent>
       <NavbarContent justify="end" className="gap-2">
-        <NavbarItem className="hidden lg:flex">
-          <Button className=" text-green min-w-0 px-3">
-            <Bell size="23" />
+        <NavbarItem className="hidden md:flex">
+          <Button className="text-green min-w-0 px-3 text-sm md:text-lg">
+            <Bell />
           </Button>
         </NavbarItem>
-        <NavbarItem className="hidden lg:flex">
-          <Button as={Link} href="/" className="bg-green text-light text-lg">
+        <NavbarItem>
+          <Button
+            as={Link}
+            href="/"
+            className="bg-green text-light sm md:text-lg"
+          >
             ورود یا ثبت نام
             <UserRound />
           </Button>
