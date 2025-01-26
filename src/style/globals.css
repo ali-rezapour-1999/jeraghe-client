@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "dana";
+  src: url("/font/dana/regular.ttf") format("truetype");
+}
+
+:root {
+  --background: #ffffff;
+  --dark-main: #171717;
+  --green-main: "#004B23";
+  --blue-main: "#1334FD";
+  --light-main: "#EDF2FB";
+}
+
+html,
+body {
+  scroll-behavior: "smooth";
+  background: "background_color";
+  color: "text_dark";
+}
+
+::-webkit-scrollbar {
+  width: "7px";
+}
+
+::-webkit-scrollbar-track {
+  background: "background_color";
+  width: "7px";
+}
+
+::-webkit-scrollbar-thumb {
+  background: "light";
+  border-radius: "full";
+}
+
+body {
+  color: var(--dark-main);
+  background: var(--background);
+  font-family: dana;
+}
