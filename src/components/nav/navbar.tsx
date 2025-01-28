@@ -6,6 +6,7 @@ import {
   NavbarContent,
   NavbarItem,
   Button,
+  useDisclosure,
 } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
@@ -14,10 +15,12 @@ import "../../style/nav-css.css";
 import Link from "next/link";
 import { Bell, UserRound } from "lucide-react";
 import { motion } from "framer-motion";
+import ProfileDrawer from "../sidebar/profileDrawer";
 
 const MotionNav = motion.create(Navbar);
 
 const MainNavBar: React.FC = () => {
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const text = "سلام به جرقه خوش آومدی";
   const words = text.split(" ");
   return (
@@ -53,14 +56,14 @@ const MainNavBar: React.FC = () => {
         </NavbarItem>
         <NavbarItem>
           <Button
-            as={Link}
-            href="/"
+            onPress={onOpen}
             className="bg-primary text-light min-w-0 px-3 text-sm md:text-lg"
           >
             <UserRound />
           </Button>
         </NavbarItem>
       </NavbarContent>
+      <ProfileDrawer onClose={onClose} isOpen={isOpen} />
     </MotionNav>
   );
 };
