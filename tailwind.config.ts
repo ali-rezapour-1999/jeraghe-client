@@ -15,7 +15,7 @@ export default {
         secondary: "#0F67B1",
         light: "#EDF2FB",
         dark: "#171717",
-        greylight: "#F5F5F5",
+        greylight: "#F6F8F6",
       },
     },
   },

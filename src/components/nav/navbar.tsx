@@ -26,7 +26,7 @@ const MainNavBar: React.FC = () => {
   return (
     <MotionNav
       shouldHideOnScroll
-      className="w-full px-1 md:px-10 py-1 main-nav-bar "
+      className="w-full px-1 drop-shadow md:px-10 py-1 main-nav-bar "
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
