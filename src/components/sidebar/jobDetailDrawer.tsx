@@ -13,6 +13,7 @@ import Image from "next/image";
 import logo from "../../../public/logo.png";
 import { Bookmark } from "lucide-react";
 import DescriptionForJob from "../section/descriptionForJob";
+import JobOwnerDetial from "../section/jobOwnerDetail";
 
 interface JobDetialDrawerProps {
   isOpen: boolean;
@@ -106,7 +107,7 @@ const JobDetailDrawer: React.FC<JobDetialDrawerProps> = ({
                     </Button>
                   </div>
                   <div>
-                    <DescriptionForJob />
+                    {!detailRoute ? <DescriptionForJob /> : <JobOwnerDetial />}
                   </div>
                 </section>
               </section>
@@ -118,7 +119,7 @@ const JobDetailDrawer: React.FC<JobDetialDrawerProps> = ({
 
               <Button
                 color="danger"
-                className="bg-red-700 text-light"
+                className="bg-red-700 text-light rounded-2xl"
                 onPress={onClose}
               >
                 بستن
