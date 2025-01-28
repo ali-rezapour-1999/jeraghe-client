@@ -1,6 +1,7 @@
 "use client";
 
 import MainNavBar from "@/components/nav/navbar";
+import ProfileAboutMeSection from "@/components/section/ProfileAboutMeSection";
 import ProfileSection from "@/components/section/profileSection";
 import ProfileViewSection from "@/components/section/profileViewSection";
 
@@ -14,6 +15,7 @@ const Home = () => {
         <section className="hidden xl:flex flex-col xl:w-3/12 overflow-hidden">
           <ProfileSection />
           <ProfileViewSection />
+          <ProfileAboutMeSection />
         </section>
       </div>
     </main>
