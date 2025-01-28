@@ -50,14 +50,14 @@ const MainNavBar: React.FC = () => {
       </NavbarBrand>
       <NavbarContent justify="end" className="gap-2">
         <NavbarItem className="hidden md:flex">
-          <Button className="text-green min-w-0 px-3 text-sm md:text-lg">
+          <Button className="text-primary rounded-2xl min-w-0 px-3 text-sm md:text-lg">
             <Bell />
           </Button>
         </NavbarItem>
         <NavbarItem>
           <Button
             onPress={onOpen}
-            className="bg-primary text-light min-w-0 px-3 text-sm md:text-lg"
+            className="bg-primary rounded-2xl text-light min-w-0 px-3 text-sm md:text-lg"
           >
             <UserRound />
           </Button>

@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const ProfileSectionContainer = ({
+const HomeSectionContainer = ({
   children,
   delay = 0,
 }: {
@@ -11,16 +11,16 @@ const ProfileSectionContainer = ({
 }) => {
   return (
     <motion.section
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay }}
       className="w-full p-2"
     >
-      <div className="bg-greylight rounded-3xl drop-shadow flex items-center justify-center flex-col p-4 gap-3">
+      <div className="bg-greylight rounded-2xl drop-shadow flex items-center justify-center flex-col p-3 gap-3">
         {children}
       </div>
     </motion.section>
   );
 };
 
-export default ProfileSectionContainer;
+export default HomeSectionContainer;

@@ -43,7 +43,7 @@ const ProfileSection = () => {
         ))}
       </div>
 
-      <Button className="shadow-md mt-5 px-14 bg-primary text-light">
+      <Button className="drop-shadow mt-5 px-14 text-light bg-primary">
         ویرایش
       </Button>
     </ProfileSectionContainer>

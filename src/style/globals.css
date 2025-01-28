@@ -9,9 +9,7 @@
 
 :root {
   --background: #ffffff;
-  --dark: #171717;
-  --primary: "#004B23";
-  --secondary: "#1334FD";
+  --primary: "#171717";
   --light: "#EDF2FB";
 }
 
@@ -19,7 +17,7 @@ html,
 body {
   scroll-behavior: "smooth";
   background: "background_color";
-  color: "text_dark";
+  color: "primary";
 }
 
 ::-webkit-scrollbar {
@@ -37,7 +35,7 @@ body {
 }
 
 body {
-  color: var(--dark-main);
+  color: var(--primary);
   background: var(--background);
   font-family: dana;
 }
