@@ -27,9 +27,17 @@ const ProfileViewSection: React.FC = () => {
   return (
     <ProfileSectionContainer delay={0.3}>
       <ItemSection title="درخواست های من" count={10} className="w-full" />
-      <div className="flex w-full gap-2">
-        <ItemSection title="مشارکت" count={10} className="w-1/2" />
-        <ItemSection title="ایده های تکمیل شده" count={10} className="w-1/2" />
+      <div className="flex flex-col xl:flex-row w-full h-full gap-2">
+        <ItemSection
+          title="مشارکت"
+          count={10}
+          className="w-full text-center xl:w-1/2"
+        />
+        <ItemSection
+          title="تکمیلی"
+          count={10}
+          className="w-full xl:w-1/2 text-center "
+        />
       </div>
     </ProfileSectionContainer>
   );

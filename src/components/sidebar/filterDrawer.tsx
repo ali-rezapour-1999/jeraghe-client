@@ -18,10 +18,10 @@ interface ProfileDrawerProps {
 const FilterDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose }) => {
   return (
     <Drawer
-      placement="left"
+      placement="right"
       isOpen={isOpen}
       size="5xl"
-      backdrop="opaque"
+      backdrop="blur"
       onClose={onClose}
     >
       <DrawerContent>
