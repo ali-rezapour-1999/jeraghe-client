@@ -15,7 +15,8 @@ import "../../style/nav-css.css";
 import Link from "next/link";
 import { Bell, UserRound } from "lucide-react";
 import { motion } from "framer-motion";
-import ProfileDrawer from "../sidebar/profileDrawer";
+// import ProfileDrawer from "../sidebar/profileDrawer";
+import AuthDrawer from "../sidebar/authDrawer";
 
 const MotionNav = motion.create(Navbar);
 
@@ -63,9 +64,11 @@ const MainNavBar: React.FC = () => {
           </Button>
         </NavbarItem>
       </NavbarContent>
-      <ProfileDrawer onClose={onClose} isOpen={isOpen} />
+      <AuthDrawer onClose={onClose} isOpen={isOpen} />
     </MotionNav>
   );
 };
+
+// <ProfileDrawer onClose={onClose} isOpen={isOpen} />
 
 export default MainNavBar;
