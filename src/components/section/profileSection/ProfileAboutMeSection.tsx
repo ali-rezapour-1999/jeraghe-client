@@ -1,5 +1,5 @@
+import ProfileSectionContainer from "@/components/container/prfileContainer";
 import React from "react";
-import ProfileSectionContainer from "../container/prfileContainer";
 
 const ProfileAboutMeSection: React.FC = () => {
   return (

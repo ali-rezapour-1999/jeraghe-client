@@ -10,12 +10,14 @@ const Login: React.FC = () => {
     password: "",
   });
 
-  const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-    const form = e.target as HTMLFormElement;
-    const email = (form.email as HTMLInputElement).value;
-    const password = (form.password as HTMLInputElement).value;
+  const validateForm = (form: HTMLFormElement) => {
+    const email = form.email.value;
+    const password = form.password.value;
 
     const errors = {
       email: "",
@@ -23,15 +25,27 @@ const Login: React.FC = () => {
     };
 
     if (!email) {
-      errors.email = "ایمیل خود را وارد کنید";
+      errors.email = "ایمیل وارد نکردی";
     }
     if (!password) {
-      errors.password = "رمز عبور خود را وارد کنید";
+      errors.password = "رمز عبور وارد نکردی";
     }
+    return errors;
+  };
 
-    if (errors.email || errors.password) {
+  const inputChangeHandler = (input: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [input.target.name]: input.target.value });
+  };
+  const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+
+    const errors = validateForm(form);
+
+    if (Object.values(errors).some((error) => error !== "")) {
       setFormErrors(errors);
-      return;
+    } else {
+      console.log(formData);
     }
   };
 
@@ -55,11 +69,9 @@ const Login: React.FC = () => {
           placeholder="ایمیل خود را وارد کنید"
           type="email"
           size="lg"
-          validate={() => {
-            if (formErrors.email) {
-              return "این فیلد باید پر شده باشه";
-            }
-          }}
+          validate={() => formErrors.email || ""}
+          value={formData.email}
+          onChange={inputChangeHandler}
         />
         <Input
           isRequired
@@ -69,11 +81,9 @@ const Login: React.FC = () => {
           placeholder="رمز عبور خود را وارد کنید"
           type="password"
           size="lg"
-          validate={() => {
-            if (formErrors.password) {
-              return "این فیلد باید پر شده باشه";
-            }
-          }}
+          validate={() => formErrors.password || ""}
+          value={formData.password}
+          onChange={inputChangeHandler}
         />
         <Button color="primary" type="submit" className="px-10">
           ورود

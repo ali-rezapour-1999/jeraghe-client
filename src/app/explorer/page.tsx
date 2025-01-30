@@ -3,9 +3,9 @@
 import MainNavBar from "@/components/nav/navbar";
 import HomeSectionSearch from "@/components/search/homeSectionSearch";
 import HomeShowJobItems from "@/components/section/homeShowJobItems";
-import ProfileAboutMeSection from "@/components/section/ProfileAboutMeSection";
-import ProfileSection from "@/components/section/profileSection";
-import ProfileViewSection from "@/components/section/profileViewSection";
+import ProfileAboutMeSection from "@/components/section/profileSection/ProfileAboutMeSection";
+import ProfileSection from "@/components/section/profileSection/profileSection";
+import ProfileViewSection from "@/components/section/profileSection/profileViewSection";
 
 const Explorer = () => {
   return (

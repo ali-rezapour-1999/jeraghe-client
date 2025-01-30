@@ -1,13 +1,13 @@
 import Image from "next/image";
 import React from "react";
-import imageplaceholder from "../../../public/userplaceholder.png";
+import imageplaceholder from "../../../../public/userplaceholder.png";
 import { Button } from "@heroui/react";
-import instagramIcons from "../../../public/icons/icons8-instagram-logo.svg";
-import telgeramIcons from "../../../public/icons/icons8-telegram.svg";
-import gitlabIcons from "../../../public/icons/icons8-gitlab.svg";
-import linkedinIcons from "../../../public/icons/icons8-linkedin.svg";
-import githubIcons from "../../../public/icons/icons8-github.svg";
-import ProfileSectionContainer from "../container/prfileContainer";
+import instagramIcons from "../../../../public/icons/icons8-instagram-logo.svg";
+import telgeramIcons from "../../../../public/icons/icons8-telegram.svg";
+import gitlabIcons from "../../../../public/icons/icons8-gitlab.svg";
+import linkedinIcons from "../../../../public/icons/icons8-linkedin.svg";
+import githubIcons from "../../../../public/icons/icons8-github.svg";
+import ProfileSectionContainer from "@/components/container/prfileContainer";
 
 const iconsSocialMedia = [
   { id: 1, icons: instagramIcons },
