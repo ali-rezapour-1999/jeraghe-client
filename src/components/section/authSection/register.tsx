@@ -1,74 +1,111 @@
 "use client";
-import { Form, Input, Button } from "@heroui/react";
+import { Form, Input, Button, Spinner } from "@heroui/react";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useAuthStore } from "@/state/authState";
+import toast, { Toaster } from "react-hot-toast";
 
 const Register: React.FC = () => {
+  const { isLoading, register, setLoading } = useAuthStore();
   const [formErrors, setFormErrors] = useState({
     email: "",
-    username: "",
+    first_last_name: "",
     password: "",
     repassword: "",
   });
 
   const [formData, setFormData] = useState({
     email: "",
-    username: "",
+    first_last_name: "",
     password: "",
     repassword: "",
   });
 
-  const validateForm = (form: HTMLFormElement) => {
-    const email = form.email.value;
-    const username = form.username.value;
-    const password = form.password.value;
-    const repassword = form.repassword.value;
+  const validateField = (name: string, value: string) => {
+    let error = "";
 
-    const errors = {
-      email: "",
-      username: "",
-      password: "",
-      repassword: "",
-    };
-
-    if (!email) errors.email = "ایمیل خود را وارد کنید";
-
-    if (!username || username.length < 4) {
-      errors.username = "نام و نام خانوادگی خود را وارد کنید (حداقل ۴ کاراکتر)";
+    switch (name) {
+      case "email":
+        if (!value) {
+          error = "ایمیل خود را وارد کنید";
+        }
+        break;
+      case "first_last_name":
+        if (!value || value.length < 4) {
+          error = "نام و نام خانوادگی خود را وارد کنید (حداقل ۴ کاراکتر)";
+        }
+        break;
+      case "password":
+        const strongPasswordRegex =
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        if (!value) {
+          error = "رمز عبور خود را وارد کنید";
+        } else if (!strongPasswordRegex.test(value)) {
+          error =
+            "رمز عبور باید حداقل ۶ کاراکتر و شامل حرف بزرگ، حرف کوچک و عدد باشد";
+        }
+        break;
+      case "repassword":
+        if (!value) {
+          error = "تکرار رمز عبور الزامیس";
+        } else if (value !== formData.password) {
+          error = "رمز عبور با تکرارش برابر نیست";
+        }
+        break;
+      default:
+        break;
     }
 
-    const strongPasswordRegex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
-    if (!password) {
-      errors.password = "رمز عبور خود را وارد کنید";
-    } else if (!strongPasswordRegex.test(password)) {
-      errors.password =
-        "رمز عبور باید حداقل ۶ کاراکتر و شامل حرف بزرگ، حرف کوچک و عدد باشد";
-    }
-
-    if (!repassword) {
-      errors.repassword = "تکرار رمز عبور الزامیس";
-    } else if (password !== repassword) {
-      errors.repassword = "رمز عبور با تکرارش برابر نیست";
-    }
-
-    return errors;
+    return error;
   };
 
   const inputChangeHandler = (input: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [input.target.name]: input.target.value });
+    const { name, value } = input.target;
+
+    setFormData({ ...formData, [name]: value });
+
+    const error = validateField(name, value);
+    setFormErrors({ ...formErrors, [name]: error });
   };
 
-  const onSubmitRegisterd = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitRegisterd = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
 
-    const errors = validateForm(form);
+    const errors = {
+      email: validateField("email", form.email.value),
+      first_last_name: validateField(
+        "first_last_name",
+        form.first_last_name.value,
+      ),
+      password: validateField("password", form.password.value),
+      repassword: validateField("repassword", form.repassword.value),
+    };
 
     if (Object.values(errors).some((error) => error !== "")) {
       setFormErrors(errors);
     } else {
-      console.log(formData);
+      setLoading(true);
+      const result = await register(
+        formData.email,
+        formData.password,
+        formData.first_last_name,
+      );
+      try {
+        if (result.success) {
+          setTimeout(() => {
+            setLoading(false);
+          }, 1500);
+          toast.success(result.message);
+        } else {
+          toast.error(result.message);
+          setLoading(false);
+        }
+      } catch (err) {
+        toast.error(err);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -100,12 +137,12 @@ const Register: React.FC = () => {
           isRequired
           label="نام و نام خانوادگی (فارسی)"
           labelPlacement="outside"
-          name="username"
+          name="first_last_name"
           placeholder="نام و نام خانوادگی خود را وارد کنید"
           type="text"
           size="lg"
-          validate={() => formErrors.username || ""}
-          value={formData.username}
+          validate={() => formErrors.first_last_name || ""}
+          value={formData.first_last_name}
           onChange={inputChangeHandler}
         />
         <Input
@@ -132,10 +169,16 @@ const Register: React.FC = () => {
           value={formData.repassword}
           onChange={inputChangeHandler}
         />
-        <Button color="primary" type="submit" className="px-10">
-          ثبت نام
+        <Button
+          color="primary"
+          type="submit"
+          className="px-10"
+          disabled={isLoading}
+        >
+          {isLoading ? <Spinner /> : "ثبت نام"}
         </Button>
       </Form>
+      <Toaster position="top-center" />
     </motion.div>
   );
 };
