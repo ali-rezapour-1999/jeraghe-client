@@ -15,7 +15,7 @@ const ItemSection: React.FC<PropsItemSection> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col justify-center bg-background rounded-3xl h-full p-2 pt-4 shadow-md items-center gap-1 ${className || ""}`}
+      className={`flex flex-col justify-center bg-background rounded-3xl h-full p-2 pt-4 shadow-sm items-center gap-1 ${className || ""}`}
     >
       <span>{title}</span>
       <span>{count}</span>
