@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import { useAuthStore } from "@/state/authState";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const { restoreAuthState, userPersonal } = useAuthStore();
+  const { restoreAuthState, userPersonal, isAuthenticated } = useAuthStore();
 
   useEffect(() => {
     restoreAuthState();
@@ -18,7 +18,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         console.error("Failed to fetch user:", err);
       });
     }
-  }, [userPersonal]);
+  }, [userPersonal, isAuthenticated]);
 
   return <main>{children}</main>;
 };

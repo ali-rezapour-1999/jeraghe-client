@@ -26,7 +26,8 @@ const MotionNav = motion.create(Navbar);
 const MainNavBar: React.FC = () => {
   const router = usePathname();
   const { isOpenUserDrawer, setUserDrawer } = useDrawerState();
-  const { isAuthenticated, isLoading } = useAuthStore();
+  const { isAuthenticated, isLoading, user } = useAuthStore();
+
   return (
     <MotionNav
       shouldHideOnScroll
@@ -60,7 +61,7 @@ const MainNavBar: React.FC = () => {
             onPress={() => setUserDrawer(true)}
             className="rounded-2xl text-primary min-w-0 px-3 text-sm md:text-lg"
           >
-            <p>ورود یا ثبت نام</p>
+            <p>{user ? user.first_last_name : "ورود یا ثبت نام"}</p>
             <UserRound />
           </Button>
         </NavbarItem>

@@ -95,7 +95,6 @@ const Register: React.FC = () => {
         if (result.success) {
           setTimeout(() => {
             setLoading(false);
-            window.location.reload();
           }, 1000);
           toast.success(result.message);
         } else {

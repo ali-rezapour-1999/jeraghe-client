@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { Form, Input, Button } from "@heroui/react";
+import { Form, Input, Button, Spinner } from "@heroui/react";
 import { motion } from "framer-motion";
+import { useAuthStore } from "@/state/authState";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login: React.FC = () => {
+  const { login, isLoading, setLoading } = useAuthStore();
   const [formErrors, setFormErrors] = useState({
     email: "",
     password: "",
@@ -33,10 +36,12 @@ const Login: React.FC = () => {
     return errors;
   };
 
-  const inputChangeHandler = (input: React.ChangeEvent<HTMLInputElement>) => {
+  const inputChangeHandler = async (
+    input: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setFormData({ ...formData, [input.target.name]: input.target.value });
   };
-  const onSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
 
@@ -45,7 +50,22 @@ const Login: React.FC = () => {
     if (Object.values(errors).some((error) => error !== "")) {
       setFormErrors(errors);
     } else {
-      console.log(formData);
+      setLoading(true);
+      const result = await login(formData.email, formData.password);
+      try {
+        if (result.success) {
+          setTimeout(() => {
+            setLoading(false);
+          }, 1000);
+          toast.success(result.message);
+        } else {
+          toast.error(result.message);
+        }
+      } catch (err) {
+        toast.error(err);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -86,9 +106,10 @@ const Login: React.FC = () => {
           onChange={inputChangeHandler}
         />
         <Button color="primary" type="submit" className="px-10">
-          ورود
+          {isLoading ? <Spinner /> : " ورود "}
         </Button>
       </Form>
+      <Toaster position="top-center" />
     </motion.div>
   );
 };

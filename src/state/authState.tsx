@@ -72,13 +72,22 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (response.status === 200) {
         const data = response.data;
 
-        Cookies.set("access", data.access, { expires: 7, path: "/" });
-        Cookies.set("refresh", data.refresh, { expires: 7, path: "/" });
-        Cookies.set("user-id", data.user.slug || "", { expires: 7, path: "/" });
+        Cookies.set("access_token", data.access, { expires: 7, path: "/" });
+        Cookies.set("refresh_token", data.refresh, { expires: 7, path: "/" });
+        Cookies.set("user_slug", data.user.slug || "", {
+          expires: 7,
+          path: "/",
+        });
 
         set({
           isAuthenticated: true,
-          user: { email, ...data.user },
+          user: {
+            email: data.email,
+            slug: data.slug_id,
+            profile_image: data.profile_image,
+            first_last_name: data.first_last_name,
+            phone_number: data.phone_number,
+          },
           token: data.access,
           error: null,
         });
@@ -159,7 +168,13 @@ export const useAuthStore = create<AuthState>((set) => ({
 
         set({
           isAuthenticated: true,
-          user: { email, ...data.user },
+          user: {
+            email: data.email,
+            slug: data.slug_id,
+            profile_image: data.profile_image,
+            first_last_name: data.first_last_name,
+            phone_number: data.phone_number,
+          },
           token: data.access,
           error: null,
         });
