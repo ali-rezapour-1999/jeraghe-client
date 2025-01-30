@@ -11,6 +11,13 @@ const Register: React.FC = () => {
     repassword: "",
   });
 
+  const [formData, setFormData] = useState({
+    email: "",
+    username: "",
+    password: "",
+    repassword: "",
+  });
+
   const validateForm = (form: HTMLFormElement) => {
     const email = form.email.value;
     const username = form.username.value;
@@ -48,6 +55,10 @@ const Register: React.FC = () => {
     return errors;
   };
 
+  const inputChangeHandler = (input: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [input.target.name]: input.target.value });
+  };
+
   const onSubmitRegisterd = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -57,7 +68,7 @@ const Register: React.FC = () => {
     if (Object.values(errors).some((error) => error !== "")) {
       setFormErrors(errors);
     } else {
-      console.log("اوکی");
+      console.log(formData);
     }
   };
 
@@ -82,6 +93,8 @@ const Register: React.FC = () => {
           type="email"
           size="lg"
           validate={() => formErrors.email || ""}
+          value={formData.email}
+          onChange={inputChangeHandler}
         />
         <Input
           isRequired
@@ -92,6 +105,8 @@ const Register: React.FC = () => {
           type="text"
           size="lg"
           validate={() => formErrors.username || ""}
+          value={formData.username}
+          onChange={inputChangeHandler}
         />
         <Input
           isRequired
@@ -102,6 +117,8 @@ const Register: React.FC = () => {
           type="password"
           size="lg"
           validate={() => formErrors.password || ""}
+          value={formData.password}
+          onChange={inputChangeHandler}
         />
         <Input
           isRequired
@@ -112,6 +129,8 @@ const Register: React.FC = () => {
           type="password"
           size="lg"
           validate={() => formErrors.repassword || ""}
+          value={formData.repassword}
+          onChange={inputChangeHandler}
         />
         <Button color="primary" type="submit" className="px-10">
           ثبت نام
