@@ -6,7 +6,6 @@ import {
   NavbarContent,
   NavbarItem,
   Button,
-  useDisclosure,
 } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
@@ -18,12 +17,13 @@ import { motion } from "framer-motion";
 // import ProfileDrawer from "../sidebar/profileDrawer";
 import AuthDrawer from "../sidebar/authDrawer";
 import { usePathname } from "next/navigation";
+import useDrawerState from "@/state/drawerState";
 
 const MotionNav = motion.create(Navbar);
 
 const MainNavBar: React.FC = () => {
   const router = usePathname();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const { isOpenUserDrawer, setUserDrawer } = useDrawerState();
   return (
     <MotionNav
       shouldHideOnScroll
@@ -54,14 +54,17 @@ const MainNavBar: React.FC = () => {
         </NavbarItem>
         <NavbarItem>
           <Button
-            onPress={onOpen}
+            onPress={() => setUserDrawer(true)}
             className="rounded-2xl text-primary min-w-0 px-3 text-sm md:text-lg"
           >
             <UserRound />
           </Button>
         </NavbarItem>
       </NavbarContent>
-      <AuthDrawer onClose={onClose} isOpen={isOpen} />
+      <AuthDrawer
+        onClose={() => setUserDrawer(false)}
+        isOpen={isOpenUserDrawer}
+      />
     </MotionNav>
   );
 };

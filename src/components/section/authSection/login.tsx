@@ -29,14 +29,10 @@ const Login: React.FC = () => {
       errors.password = "رمز عبور خود را وارد کنید";
     }
 
-    // If there are errors, update the state and don't submit
     if (errors.email || errors.password) {
       setFormErrors(errors);
       return;
     }
-
-    // If no errors, proceed with form submission
-    console.log("Form submitted successfully with:", { email, password });
   };
 
   return (

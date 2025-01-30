@@ -56,6 +56,10 @@ const AuthDrawer: React.FC<AuthDrawerProps> = ({ isOpen, onClose }) => {
                 >
                   بستن
                 </Button>
+
+                <Button color="primary" type="submit" className="w-full">
+                  ورود از طریق حساب گوگل
+                </Button>
               </DrawerFooter>
             </>
           )}

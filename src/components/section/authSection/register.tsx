@@ -1,9 +1,66 @@
 "use client";
 import { Form, Input, Button } from "@heroui/react";
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
 
 const Register: React.FC = () => {
+  const [formErrors, setFormErrors] = useState({
+    email: "",
+    username: "",
+    password: "",
+    repassword: "",
+  });
+
+  const validateForm = (form: HTMLFormElement) => {
+    const email = form.email.value;
+    const username = form.username.value;
+    const password = form.password.value;
+    const repassword = form.repassword.value;
+
+    const errors = {
+      email: "",
+      username: "",
+      password: "",
+      repassword: "",
+    };
+
+    if (!email) errors.email = "ایمیل خود را وارد کنید";
+
+    if (!username || username.length < 4) {
+      errors.username = "نام و نام خانوادگی خود را وارد کنید (حداقل ۴ کاراکتر)";
+    }
+
+    const strongPasswordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    if (!password) {
+      errors.password = "رمز عبور خود را وارد کنید";
+    } else if (!strongPasswordRegex.test(password)) {
+      errors.password =
+        "رمز عبور باید حداقل ۶ کاراکتر و شامل حرف بزرگ، حرف کوچک و عدد باشد";
+    }
+
+    if (!repassword) {
+      errors.repassword = "تکرار رمز عبور الزامیس";
+    } else if (password !== repassword) {
+      errors.repassword = "رمز عبور با تکرارش برابر نیست";
+    }
+
+    return errors;
+  };
+
+  const onSubmitRegisterd = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+
+    const errors = validateForm(form);
+
+    if (Object.values(errors).some((error) => error !== "")) {
+      setFormErrors(errors);
+    } else {
+      console.log("اوکی");
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
@@ -12,36 +69,49 @@ const Register: React.FC = () => {
       className="w-full flex flex-col px-10 items-center justify-center"
     >
       <h1 className="text-2xl font-bold mb-8 border-b-1">ثبت نام در جرقه</h1>
-      <Form className="w-full items-center justify-center flex flex-col gap-8">
+      <Form
+        onSubmit={onSubmitRegisterd}
+        className="w-full items-center justify-center flex flex-col gap-8"
+      >
         <Input
           isRequired
-          errorMessage="ایمیل خود را به درستی وارد کنید"
           label="ایمیل"
           labelPlacement="outside"
           name="email"
           placeholder="ایمیل خود را وارد کنید"
           type="email"
           size="lg"
+          validate={() => formErrors.email || ""}
         />
         <Input
           isRequired
-          errorMessage="Please enter a valid username"
+          label="نام و نام خانوادگی (فارسی)"
+          labelPlacement="outside"
+          name="username"
+          placeholder="نام و نام خانوادگی خود را وارد کنید"
+          type="text"
+          size="lg"
+          validate={() => formErrors.username || ""}
+        />
+        <Input
+          isRequired
           label="رمز عبور"
           labelPlacement="outside"
-          name="رمز عبور"
+          name="password"
           placeholder="رمز عبور خود را وارد کنید"
           type="password"
           size="lg"
+          validate={() => formErrors.password || ""}
         />
         <Input
           isRequired
-          errorMessage="Please enter a valid username"
           label="رمز عبور تکرار"
           labelPlacement="outside"
-          name="رمز عبور"
+          name="repassword"
           placeholder="رمز عبور خود را تکرار کنید"
           type="password"
           size="lg"
+          validate={() => formErrors.repassword || ""}
         />
         <Button color="primary" type="submit" className="px-10">
           ثبت نام
