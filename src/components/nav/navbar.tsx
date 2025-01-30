@@ -13,17 +13,17 @@ import React from "react";
 import logo from "../../../public/logo.png";
 import "../../style/nav-css.css";
 import Link from "next/link";
-import { Bell, UserRound } from "lucide-react";
+import { Bell, Home, Telescope, UserRound } from "lucide-react";
 import { motion } from "framer-motion";
 // import ProfileDrawer from "../sidebar/profileDrawer";
 import AuthDrawer from "../sidebar/authDrawer";
+import { usePathname } from "next/navigation";
 
 const MotionNav = motion.create(Navbar);
 
 const MainNavBar: React.FC = () => {
+  const router = usePathname();
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const text = "سلام به جرقه خوش آومدی";
-  const words = text.split(" ");
   return (
     <MotionNav
       shouldHideOnScroll
@@ -36,20 +36,17 @@ const MainNavBar: React.FC = () => {
         <Link href="/">
           <Image src={logo} width={60} height={60} alt="website logo" />
         </Link>
-        <div className="sm:text-lg md:text-xl mr-4 font-bold text-primary flex space-x-1 rtl:space-x-reverse">
-          {words.map((word, index) => (
-            <motion.span
-              key={index}
-              initial={{ opacity: 0, y: 0 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: index * 0.3 }}
-            >
-              {word}
-            </motion.span>
-          ))}
-        </div>
       </NavbarBrand>
       <NavbarContent justify="end" className="gap-2">
+        <NavbarItem>
+          <Button
+            as={Link}
+            href={router == "/" ? "/explorer" : "/"}
+            className="rounded-2xl bg-primary text-light min-w-0 px-3 text-sm md:text-lg"
+          >
+            {router == "/" ? <Telescope /> : <Home />}
+          </Button>
+        </NavbarItem>
         <NavbarItem className="hidden md:flex">
           <Button className="text-primary rounded-2xl min-w-0 px-3 text-sm md:text-lg">
             <Bell />
@@ -58,7 +55,7 @@ const MainNavBar: React.FC = () => {
         <NavbarItem>
           <Button
             onPress={onOpen}
-            className="bg-primary rounded-2xl text-light min-w-0 px-3 text-sm md:text-lg"
+            className="rounded-2xl text-primary min-w-0 px-3 text-sm md:text-lg"
           >
             <UserRound />
           </Button>
