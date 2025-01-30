@@ -9,29 +9,28 @@
 
 :root {
   --background: #ffffff;
-  --primary: "#171717";
-  --light: "#EDF2FB";
+  --primary: #171717;
+  --light: #edf2fb;
 }
 
 html,
 body {
-  scroll-behavior: "smooth";
-  background: "background_color";
-  color: "primary";
+  scroll-behavior: smooth;
+  background: var(--background);
+  color: var(--primary);
 }
 
 ::-webkit-scrollbar {
-  width: "7px";
+  width: 7px;
 }
 
 ::-webkit-scrollbar-track {
-  background: "background_color";
-  width: "7px";
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: "light";
-  border-radius: "full";
+  background: var(--light);
+  border-radius: 50px;
 }
 
 body {

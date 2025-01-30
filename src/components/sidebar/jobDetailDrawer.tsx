@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
+  Tabs,
+  Tab,
   Drawer,
   DrawerContent,
   DrawerHeader,
@@ -41,7 +43,6 @@ const JobDetailDrawer: React.FC<JobDetialDrawerProps> = ({
   isOpen,
   onClose,
 }) => {
-  const [detailRoute, setDetailRoute] = useState<boolean>(false);
   return (
     <Drawer
       placement="right"
@@ -91,24 +92,23 @@ const JobDetailDrawer: React.FC<JobDetialDrawerProps> = ({
                     detail="۱ الی ۴ ساعت"
                   />
                 </section>
-                <section>
-                  <div className="flex w-full gap-2">
-                    <Button
-                      className={`w-full rounded-2xl shadow ${!detailRoute ? "bg-primary text-light" : ""}`}
-                      onPress={() => setDetailRoute(false)}
+                <section className="w-full">
+                  <Tabs
+                    className="w-full drawer-job-content-select max-w-full"
+                    aria-label="drawer-job-content-select"
+                    radius="full"
+                  >
+                    <Tab
+                      key="desiptionConponents"
+                      className="w-full"
+                      title="توضیحات"
                     >
-                      توضیحات
-                    </Button>
-                    <Button
-                      className={`w-full rounded-2xl shadow ${detailRoute ? "bg-primary text-light" : ""}`}
-                      onPress={() => setDetailRoute(true)}
-                    >
-                      درباره ثبت کننده
-                    </Button>
-                  </div>
-                  <div>
-                    {!detailRoute ? <DescriptionForJob /> : <JobOwnerDetial />}
-                  </div>
+                      <DescriptionForJob />
+                    </Tab>
+                    <Tab key="jobOwnerDetial" title="درباره ثبت کننده ">
+                      <JobOwnerDetial />
+                    </Tab>
+                  </Tabs>
                 </section>
               </section>
             </DrawerBody>

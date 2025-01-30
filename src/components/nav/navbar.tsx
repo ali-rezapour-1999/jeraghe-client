@@ -34,7 +34,7 @@ const MainNavBar: React.FC = () => {
     >
       <NavbarBrand>
         <Link href="/">
-          <Image src={logo} width={60} height={60} alt="website logo" />
+          <Image src={logo} width={80} height={80} alt="website logo" />
         </Link>
       </NavbarBrand>
       <NavbarContent justify="end" className="gap-2">
