@@ -95,11 +95,11 @@ const Register: React.FC = () => {
         if (result.success) {
           setTimeout(() => {
             setLoading(false);
-          }, 1500);
+            window.location.reload();
+          }, 1000);
           toast.success(result.message);
         } else {
           toast.error(result.message);
-          setLoading(false);
         }
       } catch (err) {
         toast.error(err);

@@ -18,6 +18,7 @@ interface AuthDrawerProps {
 
 const AuthDrawer: React.FC<AuthDrawerProps> = ({ isOpen, onClose }) => {
   const [isLogin, setAuthSection] = useState<boolean>(true);
+
   return (
     <>
       <Drawer

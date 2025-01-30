@@ -6,6 +6,7 @@ import {
   NavbarContent,
   NavbarItem,
   Button,
+  Spinner,
 } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
@@ -14,16 +15,18 @@ import "../../style/nav-css.css";
 import Link from "next/link";
 import { Bell, Home, Telescope, UserRound } from "lucide-react";
 import { motion } from "framer-motion";
-// import ProfileDrawer from "../sidebar/profileDrawer";
+import ProfileDrawer from "../sidebar/profileDrawer";
 import AuthDrawer from "../sidebar/authDrawer";
 import { usePathname } from "next/navigation";
 import useDrawerState from "@/state/drawerState";
+import { useAuthStore } from "@/state/authState";
 
 const MotionNav = motion.create(Navbar);
 
 const MainNavBar: React.FC = () => {
   const router = usePathname();
   const { isOpenUserDrawer, setUserDrawer } = useDrawerState();
+  const { isAuthenticated, isLoading } = useAuthStore();
   return (
     <MotionNav
       shouldHideOnScroll
@@ -62,14 +65,21 @@ const MainNavBar: React.FC = () => {
           </Button>
         </NavbarItem>
       </NavbarContent>
-      <AuthDrawer
-        onClose={() => setUserDrawer(false)}
-        isOpen={isOpenUserDrawer}
-      />
+      {isLoading ? (
+        <Spinner />
+      ) : isAuthenticated ? (
+        <ProfileDrawer
+          onClose={() => setUserDrawer(false)}
+          isOpen={isOpenUserDrawer}
+        />
+      ) : (
+        <AuthDrawer
+          isOpen={isOpenUserDrawer}
+          onClose={() => setUserDrawer(false)}
+        />
+      )}
     </MotionNav>
   );
 };
-
-// <ProfileDrawer onClose={onClose} isOpen={isOpen} />
 
 export default MainNavBar;

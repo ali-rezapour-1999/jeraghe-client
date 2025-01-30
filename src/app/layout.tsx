@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "../style/globals.css";
 import "../style/drawer.css";
 import { Providers } from "@/lib/provider";
+import MainLayout from "./checkerLayout";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <MainLayout>{children}</MainLayout>
+        </Providers>
       </body>
     </html>
   );
