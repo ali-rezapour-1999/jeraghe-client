@@ -8,6 +8,7 @@ import gitlabIcons from "../../../../public/icons/icons8-gitlab.svg";
 import linkedinIcons from "../../../../public/icons/icons8-linkedin.svg";
 import githubIcons from "../../../../public/icons/icons8-github.svg";
 import ProfileSectionContainer from "@/components/container/prfileContainer";
+import useDrawerState from "@/state/drawerState";
 
 const iconsSocialMedia = [
   { id: 1, icons: instagramIcons },
@@ -18,6 +19,7 @@ const iconsSocialMedia = [
 ];
 
 const ProfileSection = () => {
+  const { setProfileDrawer } = useDrawerState();
   return (
     <ProfileSectionContainer delay={0.2}>
       <Image
@@ -43,7 +45,10 @@ const ProfileSection = () => {
         ))}
       </div>
 
-      <Button className="drop-shadow mt-5 px-14 text-light bg-primary">
+      <Button
+        className="drop-shadow mt-5 px-14 text-light bg-primary"
+        onPress={() => setProfileDrawer(true)}
+      >
         ویرایش
       </Button>
     </ProfileSectionContainer>

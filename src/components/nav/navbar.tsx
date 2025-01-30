@@ -25,7 +25,12 @@ const MotionNav = motion.create(Navbar);
 
 const MainNavBar: React.FC = () => {
   const router = usePathname();
-  const { isOpenUserDrawer, setUserDrawer } = useDrawerState();
+  const {
+    isOpenUserDrawer,
+    setUserDrawer,
+    isOpenProfileDrawer,
+    setProfileDrawer,
+  } = useDrawerState();
   const { isAuthenticated, isLoading, user } = useAuthStore();
 
   return (
@@ -58,7 +63,9 @@ const MainNavBar: React.FC = () => {
         </NavbarItem>
         <NavbarItem>
           <Button
-            onPress={() => setUserDrawer(true)}
+            onPress={() =>
+              isAuthenticated ? setProfileDrawer(true) : setUserDrawer(true)
+            }
             className="rounded-2xl text-primary min-w-0 px-3 text-sm md:text-lg"
           >
             <p>{user ? user.first_last_name : "ورود یا ثبت نام"}</p>
@@ -70,8 +77,8 @@ const MainNavBar: React.FC = () => {
         <Spinner />
       ) : isAuthenticated ? (
         <ProfileDrawer
-          onClose={() => setUserDrawer(false)}
-          isOpen={isOpenUserDrawer}
+          onClose={() => setProfileDrawer(false)}
+          isOpen={isOpenProfileDrawer}
         />
       ) : (
         <AuthDrawer
