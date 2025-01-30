@@ -57,6 +57,7 @@ const MainNavBar: React.FC = () => {
             onPress={() => setUserDrawer(true)}
             className="rounded-2xl text-primary min-w-0 px-3 text-sm md:text-lg"
           >
+            <p>ورود یا ثبت نام</p>
             <UserRound />
           </Button>
         </NavbarItem>
