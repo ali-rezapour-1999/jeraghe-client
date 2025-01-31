@@ -1,10 +1,10 @@
 "use client";
 
 import MainNavBar from "@/components/nav/navbar";
-import { motion } from "framer-motion";
 import Image from "next/image";
 import ideaImage from "../../public/idea_picture.jpg";
 import partnerShipImage from "../../public/partnership_pictrue.jpg";
+import MainSectionContainer from "@/components/container/mainContainer";
 
 const Home = () => {
   return (
@@ -12,18 +12,14 @@ const Home = () => {
       <MainNavBar />
       <section>
         <div className="flex flex-col justify-center items-center gap-10 mt-20">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+          <MainSectionContainer
+            delay={0.3}
             className="text-7xl text-center font-bold text-primary dark:text-light"
           >
-            سلام به جرقه خوش آومدی
-          </motion.h1>
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
+            <h1>سلام به جرقه خوش آومدی</h1>
+          </MainSectionContainer>
+          <MainSectionContainer
+            delay={0.5}
             className="text-center text-xl w-[90%] md:w-[55%] leading-relaxed text-primary dark:text-gray-400 "
           >
             <p>
@@ -49,9 +45,12 @@ const Home = () => {
             <p className="mt-2 text-gray-500 dark:text-gray-400">
               یه فضای خلاق و مطمئن برای رشد، یادگیری و پیشرفت!
             </p>
-          </motion.div>
+          </MainSectionContainer>
         </div>
-        <div className="w-full flex justify-center overflow-hidden mt-10 gap-10">
+        <MainSectionContainer
+          delay={0.7}
+          className="w-full flex justify-center overflow-hidden mt-10 gap-10"
+        >
           <Image
             src={ideaImage}
             alt="idea image"
@@ -66,7 +65,7 @@ const Home = () => {
             height={400}
             className="rounded-2xl"
           />
-        </div>
+        </MainSectionContainer>
       </section>
     </main>
   );

@@ -22,11 +22,7 @@ const Explorer = () => {
           <HomeShowJobItems />
         </section>
 
-        <section
-          className={`hidden xl:flex flex-col xl:w-4/12 2xl:w-3/12 px-4 h-[90vh] overflow-y-auto scrollbar-hide ${
-            isAuthenticated ? "sticky top-20" : "relative"
-          }`}
-        >
+        <section className="hidden sticky top-20 xl:flex flex-col xl:w-4/12 2xl:w-3/12 px-4 h-[90vh] overflow-y-auto scrollbar-hide">
           {!isAuthenticated && (
             <motion.button
               initial={{ opacity: 0 }}
