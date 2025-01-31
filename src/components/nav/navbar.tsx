@@ -47,8 +47,18 @@ const MainNavBar: React.FC = () => {
         <Link href="/">
           <Image src={logo} width={70} height={70} alt="website logo" />
         </Link>
-        <Link href="/">نوشتن</Link>
-        <Link href="/">همکاری</Link>
+        <Link
+          href="/write"
+          className={router == "/write" ? "underline underline-offset-4" : ""}
+        >
+          نوشتن
+        </Link>
+        <Link
+          href="/partner"
+          className={router == "/partner" ? "underline underline-offset-4" : ""}
+        >
+          همکاری
+        </Link>
       </NavbarBrand>
       <NavbarContent justify="end" className="gap-2">
         <NavbarItem>
