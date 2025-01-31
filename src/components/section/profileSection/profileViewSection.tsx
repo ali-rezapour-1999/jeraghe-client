@@ -8,17 +8,13 @@ interface PropsItemSection {
   className?: string;
 }
 
-const ItemSection: React.FC<PropsItemSection> = ({
-  title,
-  count,
-  className,
-}) => {
+const ItemSection: React.FC<PropsItemSection> = ({ title, count }) => {
   return (
     <div
-      className={`flex flex-col justify-center bg-light-light text-darkPrimary dark:text-light dark:bg-light-dark rounded-3xl h-full p-2 pt-4 shadow-sm items-center gap-1 ${className || ""}`}
+      className={`w-full flex justify-between px-10 py-2 items-center bg-light-light text-darkPrimary dark:text-light dark:bg-light-dark rounded-2xl h-full`}
     >
       <span>{title}</span>
-      <span>{count}</span>
+      <span className="pt-1 text-xl">{count}</span>
     </div>
   );
 };
@@ -26,19 +22,9 @@ const ItemSection: React.FC<PropsItemSection> = ({
 const ProfileViewSection: React.FC = () => {
   return (
     <ProfileSectionContainer delay={0.3}>
-      <ItemSection title="درخواست های من" count={10} className="w-full" />
-      <div className="flex flex-col xl:flex-row w-full h-full gap-2">
-        <ItemSection
-          title="مشارکت"
-          count={10}
-          className="w-full text-center xl:w-1/2"
-        />
-        <ItemSection
-          title="تکمیلی"
-          count={10}
-          className="w-full xl:w-1/2 text-center "
-        />
-      </div>
+      <ItemSection title="درخواست های من" count={10} />
+      <ItemSection title="مشارکت" count={10} />
+      <ItemSection title="تکمیلی" count={10} />
     </ProfileSectionContainer>
   );
 };

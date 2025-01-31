@@ -1,44 +1,7 @@
 import { create } from "zustand";
 import Cookies from "js-cookie";
 import api from "@/api/baseApi";
-
-interface User {
-  email: string;
-  slug: string;
-  profile_image?: string;
-  first_last_name: string;
-  phone_number?: string;
-}
-
-interface AuthResult {
-  success: boolean;
-  status: number;
-  message: string;
-  data?: {
-    access: string;
-    refresh: string;
-    user: User;
-  };
-}
-
-interface AuthState {
-  isAuthenticated: boolean;
-  user: User | null;
-  token: string | null;
-  isLoading: boolean;
-  error: string | null;
-  setLoading: (isLoading: boolean) => void;
-  setError: (error: string | null) => void;
-  restoreAuthState: () => void;
-  login: (email: string, password: string) => Promise<AuthResult>;
-  register: (
-    email: string,
-    password: string,
-    first_last_name: string,
-  ) => Promise<AuthResult>;
-  logout: () => void;
-  userPersonal: () => Promise<void>;
-}
+import { AuthState } from "@/type/authStateType";
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,

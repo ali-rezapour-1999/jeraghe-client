@@ -9,6 +9,7 @@ import githubIcons from "../../../../public/icons/icons8-github.svg";
 import ProfileSectionContainer from "@/components/container/prfileContainer";
 import useDrawerState from "@/state/drawerState";
 import Btn from "@/components/button/btn";
+import { useAuthStore } from "@/state/authState";
 
 const iconsSocialMedia = [
   { id: 1, icons: instagramIcons },
@@ -20,6 +21,7 @@ const iconsSocialMedia = [
 
 const ProfileSection = () => {
   const { setProfileDrawer } = useDrawerState();
+  const { user } = useAuthStore();
   return (
     <ProfileSectionContainer delay={0.2}>
       <Image
@@ -30,7 +32,7 @@ const ProfileSection = () => {
         className="rounded-xl mb-3"
       />
       <h3 className="font-bold text-darkPrimary dark:text-light text-[1.1em] mb-2">
-        علی رضاپور گتابی
+        {user?.first_last_name}
       </h3>
       <h4 className="text-[.8em] text-primary dark:text-light">
         برنامه نویس , موسیقی دان , عکاس ...

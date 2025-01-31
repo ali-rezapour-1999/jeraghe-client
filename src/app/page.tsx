@@ -27,19 +27,23 @@ const Home = () => {
             className="text-center text-xl w-[90%] md:w-[55%] leading-relaxed text-primary dark:text-gray-400 "
           >
             <p>
-              <span className="font-bold ">جرقه</span> قراره جایی باشه که بتونی{" "}
+              <span className="font-bold">جرقه</span> قراره جایی باشه که بتونی{" "}
               <span className="underline underline-offset-8 mx-1 text-primary dark:text-light">
                 یاد بگیری
               </span>
-              ،
+              ،{" "}
               <span className="underline underline-offset-8 mx-1 text-primary dark:text-light">
-                مشکلات رو حل کنی
-              </span>
-              ،
+                مشکلات رو حل
+              </span>{" "}
+              کنی،{" "}
               <span className="underline underline-offset-8 mx-1 text-primary dark:text-light">
                 ایده‌های جدید
               </span>{" "}
-              پیدا کنی، و توی ایده‌ها همکاری کنی.
+              پیدا کنی و توی{" "}
+              <span className="underline underline-offset-8 mx-1 text-primary dark:text-light">
+                ایده‌ها همکاری کنی
+              </span>
+              .
             </p>
 
             <p className="mt-2 text-gray-500 dark:text-gray-400">
