@@ -7,6 +7,7 @@ export interface ProfileResponse {
   city: string | null;
   address: string | null;
   description_myself: string | null;
+  my_skill: [{ name: string; id: number }] | null;
 }
 
 export interface WorkHistoryResponse {

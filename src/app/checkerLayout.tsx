@@ -3,11 +3,11 @@
 import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useAuthStore } from "@/state/authState";
-import { useProfileStore } from "@/state/profileState";
+import { useProfileState } from "@/state/profileState";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { restoreAuthState, userPersonal, isAuthenticated } = useAuthStore();
-  const { profileRequest } = useProfileStore();
+  const { profileRequest } = useProfileState();
 
   useEffect(() => {
     restoreAuthState();

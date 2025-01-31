@@ -1,9 +1,9 @@
 import ProfileSectionContainer from "@/components/container/prfileContainer";
-import { useProfileStore } from "@/state/profileState";
+import { useProfileState } from "@/state/profileState";
 import React from "react";
 
 const ProfileAboutMeSection: React.FC = () => {
-  const { personalData } = useProfileStore();
+  const { personalData } = useProfileState();
   return (
     <ProfileSectionContainer delay={0.4}>
       <h4 className="border-b-1 w-full py-2 text-center text-darkPrimary dark:text-light text-lg font-bold">

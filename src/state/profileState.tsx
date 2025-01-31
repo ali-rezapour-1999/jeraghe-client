@@ -8,7 +8,7 @@ import {
 } from "../type/profileStateType";
 import api from "@/api/baseApi";
 
-export const useProfileStore = create<ProfileState>((set) => ({
+export const useProfileState = create<ProfileState>((set) => ({
   isLoading: false,
   error: null,
   personalData: null,

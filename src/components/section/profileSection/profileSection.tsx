@@ -10,6 +10,7 @@ import ProfileSectionContainer from "@/components/container/prfileContainer";
 import useDrawerState from "@/state/drawerState";
 import Btn from "@/components/button/btn";
 import { useAuthStore } from "@/state/authState";
+import { useProfileState } from "@/state/profileState";
 
 const iconsSocialMedia = [
   { id: 1, icons: instagramIcons },
@@ -22,6 +23,7 @@ const iconsSocialMedia = [
 const ProfileSection = () => {
   const { setProfileDrawer } = useDrawerState();
   const { user } = useAuthStore();
+  const { personalData } = useProfileState();
   return (
     <ProfileSectionContainer delay={0.2}>
       <Image
@@ -34,8 +36,15 @@ const ProfileSection = () => {
       <h3 className="font-bold text-darkPrimary dark:text-light text-[1.1em] mb-2">
         {user?.first_last_name}
       </h3>
-      <h4 className="text-[.8em] text-primary dark:text-light">
-        برنامه نویس , موسیقی دان , عکاس ...
+      <h4 className="text-[.9em] text-primary dark:text-light">
+        {personalData?.my_skill && personalData.my_skill.length > 0
+          ? personalData.my_skill.map((skill, index) => (
+              <span key={skill.id}>
+                {skill.name}
+                {index < personalData.my_skill!.length - 1 && " , "}
+              </span>
+            ))
+          : "هنوز علایقت و ثبت نکردی"}
       </h4>
       <div className="flex gap-3 my-2">
         {iconsSocialMedia.map((i) => (

@@ -43,23 +43,25 @@ const MainNavBar: React.FC = () => {
       transition={{ duration: 0.5 }}
       isBordered
     >
-      <NavbarBrand>
+      <NavbarBrand className="flex gap-7">
         <Link href="/">
-          <Image src={logo} width={80} height={80} alt="website logo" />
+          <Image src={logo} width={70} height={70} alt="website logo" />
         </Link>
+        <Link href="/">نوشتن</Link>
+        <Link href="/">همکاری</Link>
       </NavbarBrand>
       <NavbarContent justify="end" className="gap-2">
         <NavbarItem>
           <Btn
             link={router === "/" ? "/explorer" : "/"}
-            className="text-sm md:text-lg w-14 bg-primary-dark text-light-light dark:bg-light dark:text-primary"
+            className="w-10 h-10 px-0 bg-primary-dark text-light-light dark:bg-light dark:text-primary"
           >
-            {router === "/" ? <Telescope /> : <Home />}
+            {router === "/" ? <Telescope size={20} /> : <Home size={20} />}
           </Btn>
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
-          <Btn className="text-sm w-14 md:text-lg">
-            <Bell />
+          <Btn className=" w-10 h-10 px-0">
+            <Bell size={20} />
           </Btn>
         </NavbarItem>
 
@@ -71,9 +73,9 @@ const MainNavBar: React.FC = () => {
             onClick={() =>
               isAuthenticated ? setProfileDrawer(true) : setUserDrawer(true)
             }
-            className="w-14 text-sm md:text-lg"
+            className="w-10 h-10 px-0"
           >
-            <UserRound />
+            <UserRound size={20} />
           </Btn>
         </NavbarItem>
       </NavbarContent>

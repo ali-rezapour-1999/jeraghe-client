@@ -38,8 +38,8 @@ export default function DarkModeToggle() {
   };
 
   return (
-    <Btn onClick={toggleTheme} className="">
-      {theme === "light" ? <Moon /> : <Sun />}
+    <Btn onClick={toggleTheme} className="w-10 h-10 px-0">
+      {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
     </Btn>
   );
 }
