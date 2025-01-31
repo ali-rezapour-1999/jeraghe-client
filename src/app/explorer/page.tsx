@@ -28,7 +28,7 @@ const Explorer = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.2 }}
-              className="absolute flex justify-center items-center z-50 w-full h-full backdrop-blur-xl rounded-2xl text-2xl"
+              className="absolute flex justify-center items-center z-50 w-full h-full backdrop-blur-xl rounded-2xl text-2xl text-darkPrimary dark:text-light font-bold"
               onClick={() => setUserDrawer(true)}
             >
               ورود یا ثبت نام
