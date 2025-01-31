@@ -31,7 +31,7 @@ html {
 }
 
 body {
-  height: 100vh;
+  min-height: 100vh;
   font-family: "dana", sans-serif;
   background-color: var(--background);
   color: var(--primary);
