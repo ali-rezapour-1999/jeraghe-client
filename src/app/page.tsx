@@ -5,6 +5,7 @@ import Image from "next/image";
 import ideaImage from "../../public/idea_picture.jpg";
 import partnerShipImage from "../../public/partnership_pictrue.jpg";
 import MainSectionContainer from "@/components/container/mainContainer";
+import Link from "next/link";
 
 const Home = () => {
   return (
@@ -20,7 +21,7 @@ const Home = () => {
           </MainSectionContainer>
           <MainSectionContainer
             delay={0.5}
-            className="text-center text-xl w-[90%] md:w-[55%] leading-relaxed text-primary dark:text-gray-400 "
+            className="text-center text-xl w-[90%] leading-relaxed text-primary dark:text-gray-400 "
           >
             <p>
               <span className="font-bold">جرقه</span> قراره جایی باشه که بتونی{" "}
@@ -51,20 +52,24 @@ const Home = () => {
           delay={0.7}
           className="w-full flex justify-center overflow-hidden mt-10 gap-10"
         >
-          <Image
-            src={ideaImage}
-            alt="idea image"
-            width={400}
-            height={400}
-            className="rounded-2xl"
-          />
-          <Image
-            src={partnerShipImage}
-            alt="partnership image"
-            width={400}
-            height={400}
-            className="rounded-2xl"
-          />
+          <Link href="/write">
+            <Image
+              src={ideaImage}
+              alt="idea image"
+              width={400}
+              height={400}
+              className="rounded-2xl"
+            />
+          </Link>
+          <Link href="/partner">
+            <Image
+              src={partnerShipImage}
+              alt="partnership image"
+              width={400}
+              height={400}
+              className="rounded-2xl"
+            />
+          </Link>
         </MainSectionContainer>
       </section>
     </main>
