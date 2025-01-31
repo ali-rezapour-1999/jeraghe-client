@@ -1,15 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerBody,
-  Button,
-  DrawerFooter,
-} from "@heroui/react";
+import { Drawer, DrawerContent, DrawerBody, DrawerFooter } from "@heroui/react";
 import Login from "../section/authSection/login";
 import Register from "../section/authSection/register";
+import Btn from "../button/btn";
 
 interface AuthDrawerProps {
   isOpen: boolean;
@@ -36,14 +31,14 @@ const AuthDrawer: React.FC<AuthDrawerProps> = ({ isOpen, onClose }) => {
 
                 {isLogin ? (
                   <h3
-                    className="hover:cursor-pointer mt-3 text-gray-700"
+                    className="hover:cursor-pointer mt-3 text-gray-700 dark:text-gray-200"
                     onClick={() => setAuthSection(false)}
                   >
                     هنوز حساب کاربری ندارم!
                   </h3>
                 ) : (
                   <h3
-                    className="hover:cursor-pointer mt-3 text-gray-700"
+                    className="hover:cursor-pointer mt-3 text-gray-700 dark:text-gray-200"
                     onClick={() => setAuthSection(true)}
                   >
                     حساب کاربری دارم!
@@ -51,16 +46,16 @@ const AuthDrawer: React.FC<AuthDrawerProps> = ({ isOpen, onClose }) => {
                 )}
               </DrawerBody>
               <DrawerFooter>
-                <Button
-                  className="w-full bg-red-400 text-light"
-                  onPress={onClose}
+                <Btn
+                  className="w-full dark:bg-red-500 text-light"
+                  onClick={onClose}
                 >
                   بستن
-                </Button>
+                </Btn>
 
-                <Button color="primary" type="submit" className="w-full">
+                <Btn type="submit" className="w-full dark:bg-light-dark">
                   ورود از طریق حساب گوگل
-                </Button>
+                </Btn>
               </DrawerFooter>
             </>
           )}

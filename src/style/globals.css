@@ -5,6 +5,7 @@
 @font-face {
   font-family: "dana";
   src: url("/font/dana/regular.ttf") format("truetype");
+  font-display: swap; /* برای افزایش سرعت لود */
 }
 
 :root {
@@ -13,15 +14,33 @@
   --light: #edf2fb;
 }
 
-html,
-body {
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #121212;
+    --primary: #ffffff;
+    --light: #374151;
+  }
+}
+
+html {
   scroll-behavior: smooth;
-  background: var(--background);
+  font-size: 16px;
+  direction: rtl;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  height: 100vh;
+  font-family: "dana", sans-serif;
+  background-color: var(--background);
   color: var(--primary);
+  line-height: 1.75;
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -33,8 +52,6 @@ body {
   border-radius: 50px;
 }
 
-body {
-  color: var(--primary);
-  background: var(--background);
-  font-family: dana;
+::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
 }

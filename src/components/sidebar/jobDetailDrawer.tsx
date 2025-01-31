@@ -9,13 +9,13 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
-  Button,
 } from "@heroui/react";
 import Image from "next/image";
 import logo from "../../../public/logo.png";
 import { Bookmark } from "lucide-react";
 import DescriptionForJob from "../section/descriptionForJob";
 import JobOwnerDetial from "../section/jobOwnerDetail";
+import Btn from "../button/btn";
 
 interface JobDetialDrawerProps {
   isOpen: boolean;
@@ -30,11 +30,13 @@ const CategoryItemTempalte = ({
   detail: string;
 }) => {
   return (
-    <div className="flex flex-col shadow w-full justify-center items-center rounded-2xl bg-light overflow-hidden">
-      <span className="bg-primary py-2 text-center w-full text-light">
+    <div className="flex flex-col shadow w-full justify-center items-center rounded-2xl overflow-hidden">
+      <span className="bg-darkPrimary text-light dark:bg-light-dark py-2 text-center w-full text-dark">
         {title}
       </span>
-      <span className="bg-light px-5 py-2 text-primary">{detail}</span>
+      <span className="bg-light  dark:bg-darkPrimary-dark text-center w-full px-5 py-2 text-dark">
+        {detail}
+      </span>
     </div>
   );
 };
@@ -71,9 +73,9 @@ const JobDetailDrawer: React.FC<JobDetialDrawerProps> = ({
                     <h6 className="text-sm">برنامه نویسی و حوضه های وابسته</h6>
                   </div>
                 </div>
-                <Button className="px-0 min-w-10 rounded-2xl">
+                <Btn className="rounded-2xl dark:bg-dark-dark">
                   <Bookmark />
-                </Button>
+                </Btn>
               </section>
             </DrawerHeader>
             <DrawerBody>
@@ -113,17 +115,16 @@ const JobDetailDrawer: React.FC<JobDetialDrawerProps> = ({
               </section>
             </DrawerBody>
             <DrawerFooter className="flex justify-center items-center">
-              <Button className="w-full rounded-2xl bg-primary text-light text-lg">
+              <Btn className="w-full dark:bg-light-light dark:text-primary text-lg">
                 درخواست همکاری
-              </Button>
+              </Btn>
 
-              <Button
-                color="danger"
-                className="bg-red-700 text-light rounded-2xl"
-                onPress={onClose}
+              <Btn
+                onClick={onClose}
+                className="bg-red-300 dark:bg-red-500 w-40"
               >
                 بستن
-              </Button>
+              </Btn>
             </DrawerFooter>
           </>
         )}

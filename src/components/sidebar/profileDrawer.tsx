@@ -7,10 +7,10 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
-  Button,
 } from "@heroui/react";
 import { useAuthStore } from "@/state/authState";
 import useDrawerState from "@/state/drawerState";
+import Btn from "../button/btn";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -34,18 +34,12 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
             Drawer Title
           </DrawerHeader>
           <DrawerBody>
-            <Button color="danger" variant="light" onPress={logout}>
+            <Btn onClick={logout} className="dark:bg-red-500 text-light">
               خروج از حساب کاربری
-            </Button>
+            </Btn>
           </DrawerBody>
           <DrawerFooter>
-            <Button
-              color="danger"
-              variant="light"
-              onPress={() => setProfileDrawer(false)}
-            >
-              بستن
-            </Button>
+            <Btn onClick={() => setProfileDrawer(false)}>بستن</Btn>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

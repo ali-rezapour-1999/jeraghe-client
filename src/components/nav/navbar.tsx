@@ -5,7 +5,6 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Button,
   Spinner,
 } from "@heroui/react";
 import Image from "next/image";
@@ -20,6 +19,8 @@ import AuthDrawer from "../sidebar/authDrawer";
 import { usePathname } from "next/navigation";
 import useDrawerState from "@/state/drawerState";
 import { useAuthStore } from "@/state/authState";
+import DarkModeToggle from "../darkModeToggle";
+import Btn from "../button/btn";
 
 const MotionNav = motion.create(Navbar);
 
@@ -31,15 +32,16 @@ const MainNavBar: React.FC = () => {
     isOpenProfileDrawer,
     setProfileDrawer,
   } = useDrawerState();
-  const { isAuthenticated, isLoading, user } = useAuthStore();
+  const { isAuthenticated, isLoading } = useAuthStore();
 
   return (
     <MotionNav
       shouldHideOnScroll
-      className="w-full px-1 drop-shadow md:px-10 py-1 main-nav-bar "
+      className="w-full px-1 md:px-10 py-1 main-nav-bar bg-light dark:bg-darkPrimary"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
+      isBordered
     >
       <NavbarBrand>
         <Link href="/">
@@ -48,29 +50,31 @@ const MainNavBar: React.FC = () => {
       </NavbarBrand>
       <NavbarContent justify="end" className="gap-2">
         <NavbarItem>
-          <Button
-            as={Link}
-            href={router == "/" ? "/explorer" : "/"}
-            className="rounded-2xl bg-primary text-light min-w-0 px-3 text-sm md:text-lg"
+          <Btn
+            link={router === "/" ? "/explorer" : "/"}
+            className="text-sm md:text-lg w-14 bg-primary-dark text-light-light dark:bg-light dark:text-primary"
           >
-            {router == "/" ? <Telescope /> : <Home />}
-          </Button>
+            {router === "/" ? <Telescope /> : <Home />}
+          </Btn>
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
-          <Button className="text-primary rounded-2xl min-w-0 px-3 text-sm md:text-lg">
+          <Btn className="text-sm w-14 md:text-lg">
             <Bell />
-          </Button>
+          </Btn>
+        </NavbarItem>
+
+        <NavbarItem className="hidden md:flex">
+          <DarkModeToggle />
         </NavbarItem>
         <NavbarItem>
-          <Button
-            onPress={() =>
+          <Btn
+            onClick={() =>
               isAuthenticated ? setProfileDrawer(true) : setUserDrawer(true)
             }
-            className="rounded-2xl text-primary min-w-0 px-3 text-sm md:text-lg"
+            className="w-14 text-sm md:text-lg"
           >
-            <p>{user ? user.first_last_name : "ورود یا ثبت نام"}</p>
             <UserRound />
-          </Button>
+          </Btn>
         </NavbarItem>
       </NavbarContent>
       {isLoading ? (

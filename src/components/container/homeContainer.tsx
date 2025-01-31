@@ -16,7 +16,7 @@ const HomeSectionContainer = ({
       transition={{ duration: 0.5, delay }}
       className="w-full p-2"
     >
-      <div className="bg-greylight rounded-2xl drop-shadow flex items-center justify-center flex-col p-3 gap-3">
+      <div className="bg-light dark:bg-darkPrimary rounded-2xl drop-shadow flex items-center justify-center flex-col p-3 gap-3">
         {children}
       </div>
     </motion.section>

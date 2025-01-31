@@ -7,8 +7,8 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
-  Button,
 } from "@heroui/react";
+import Btn from "../button/btn";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -32,9 +32,7 @@ const FilterDrawer: React.FC<ProfileDrawerProps> = ({ isOpen, onClose }) => {
             </DrawerHeader>
             <DrawerBody></DrawerBody>
             <DrawerFooter>
-              <Button color="danger" variant="light" onPress={onClose}>
-                بستن
-              </Button>
+              <Btn onClick={onClose}>بستن</Btn>
             </DrawerFooter>
           </div>
         )}

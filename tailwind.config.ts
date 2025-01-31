@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 import { heroui } from "@heroui/react";
 
 export default {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,10 +12,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#171717",
-        secondary: "#004B23",
-        light: "#EDF2FB",
-        greylight: "#F8F9FA",
+        primary: {
+          DEFAULT: "#171717",
+          light: "#ffffff",
+          dark: "#0f0f0f",
+        },
+        darkPrimary: {
+          DEFAULT: "#1E1E1E",
+          light: "#F8F9FA",
+          dark: "#131313",
+        },
+        light: {
+          DEFAULT: "#F1F1F1",
+          light: "#ffffff",
+          dark: "#222831",
+        },
+        greylight: {
+          DEFAULT: "#121212",
+        },
       },
     },
   },

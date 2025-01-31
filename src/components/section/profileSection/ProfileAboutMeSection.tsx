@@ -4,10 +4,10 @@ import React from "react";
 const ProfileAboutMeSection: React.FC = () => {
   return (
     <ProfileSectionContainer delay={0.4}>
-      <h4 className="border-b-1 w-full py-2 text-center text-lg font-bold">
+      <h4 className="border-b-1 w-full py-2 text-center text-darkPrimary dark:text-light text-lg font-bold">
         درباره من
       </h4>
-      <p className="bg-background rounded-3xl p-5">
+      <p className="dark:bg-darkPrimary text-darkPrimary dark:text-light bg-light rounded-3xl p-5">
         Explanation: delay prop in ProfileSectionContainer: This allows each
         section to have a different delay for animation. The delay is passed as
         a prop and added to the transition object. Dynamic Delays: Each section

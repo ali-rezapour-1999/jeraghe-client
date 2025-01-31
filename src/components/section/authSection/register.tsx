@@ -1,9 +1,10 @@
 "use client";
-import { Form, Input, Button, Spinner } from "@heroui/react";
+import { Form, Input, Spinner } from "@heroui/react";
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { useAuthStore } from "@/state/authState";
 import toast, { Toaster } from "react-hot-toast";
+import Btn from "@/components/button/btn";
 
 const Register: React.FC = () => {
   const { isLoading, register, setLoading } = useAuthStore();
@@ -168,14 +169,12 @@ const Register: React.FC = () => {
           value={formData.repassword}
           onChange={inputChangeHandler}
         />
-        <Button
-          color="primary"
+        <Btn
           type="submit"
-          className="px-10"
-          disabled={isLoading}
+          className="w-40 dark:bg-primary-light dark:text-primary-dark"
         >
           {isLoading ? <Spinner /> : "ثبت نام"}
-        </Button>
+        </Btn>
       </Form>
       <Toaster position="top-center" />
     </motion.div>
