@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Btn from "./button/btn";
 import { Moon, Sun } from "lucide-react";
 
-export default function DarkModeToggle() {
+export default function DarkModeToggle({ className }: { className?: string }) {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function DarkModeToggle() {
   };
 
   return (
-    <Btn onClick={toggleTheme} className="w-10 h-10 px-0">
+    <Btn onClick={toggleTheme} className={`w-10 h-10 px-0 ${className}`}>
       {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
     </Btn>
   );

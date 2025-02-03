@@ -2,10 +2,6 @@
   width: 100%;
 }
 
-.drawer-job-content-select button[aria-selected="true"] span {
-  background-color: var(--primary);
-}
-
-.drawer-job-content-select button[aria-selected="true"] div {
-  color: white !important;
+.drawer-profile-content-select div {
+  width: 100%;
 }

@@ -98,7 +98,7 @@ const JobDetailDrawer: React.FC<JobDetialDrawerProps> = ({
                   <Tabs
                     className="w-full drawer-job-content-select max-w-full"
                     aria-label="drawer-job-content-select"
-                    radius="full"
+                    radius="lg"
                   >
                     <Tab
                       key="desiptionConponents"
