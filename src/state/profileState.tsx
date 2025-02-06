@@ -5,6 +5,7 @@ import {
   ProfileState,
   ProfileResponse,
   WorkHistoryResponse,
+  ProfileResult,
 } from "../type/profileStateType";
 import api from "@/api/baseApi";
 
@@ -13,25 +14,19 @@ export const useProfileState = create<ProfileState>((set) => ({
   error: null,
   personalData: null,
   workHistoryData: null,
-
   setLoading: (isLoading) => set({ isLoading }),
   setError: (error) => set({ error }),
 
-  profileRequest: async (slug_id: string) => {
+  profileRequest: async () => {
     set({ isLoading: true, error: null });
     try {
       const userId = Cookies.get("user_slug");
       if (userId) {
         const personalRes = await api.get<ProfileResponse>(
-          `/profile/profiles/${slug_id}`,
+          `/profile/profiles/${userId}/`,
         );
-        const workHistoryRes = await api.get<WorkHistoryResponse>(
-          `/profile/work-history/${slug_id}`,
-        );
-
         set({
           personalData: personalRes.data,
-          workHistoryData: workHistoryRes.data,
         });
       }
     } catch (error: unknown) {
@@ -47,12 +42,18 @@ export const useProfileState = create<ProfileState>((set) => ({
     }
   },
 
-  profileUpdate: async (data: ProfileResponse) => {
+  workHistoryRequest: async (slug_id: string) => {
     set({ isLoading: true, error: null });
     try {
-      const userId = Cookies.get("user_id");
+      const userId = Cookies.get("user_slug");
       if (userId) {
-        await api.patch<ProfileResponse>(`/profile/profiles/${userId}/`, data);
+        const workHistoryRes = await api.get<WorkHistoryResponse>(
+          `/profile/work-history/${slug_id}/`,
+        );
+
+        set({
+          workHistoryData: workHistoryRes.data,
+        });
       }
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
@@ -60,8 +61,73 @@ export const useProfileState = create<ProfileState>((set) => ({
       } else if (error instanceof Error) {
         set({ error: error.message });
       } else {
-        set({ error: "An unknown error occurred" });
+        set({ error: "مشکلی پیش اومده لطفا مجدد تلاش کنید" });
       }
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  profileUpdate: async (data: ProfileResponse): Promise<ProfileResult> => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const userId = Cookies.get("user_slug");
+      if (!userId) {
+        return {
+          success: false,
+          status: 400,
+          message: "شناسه کاربری یافت نشد.",
+        };
+      }
+
+      const response = await api.patch<ProfileResponse>(
+        `/profile/profiles/${userId}/`,
+        data,
+      );
+
+      if (response.status === 200) {
+        return {
+          success: true,
+          status: response.status,
+          message: "تغییرات با موفقیت اعمال شد",
+        };
+      }
+
+      return {
+        success: false,
+        status: response.status,
+        message: "تلاش برای تغییرات با خطا مواجه شده، دوباره تلاش کنید",
+      };
+    } catch (error: unknown) {
+      const status =
+        (error as { response?: { status: number } })?.response?.status || 500;
+
+      let message = "تلاش برای تغییرات با خطا مواجه شده، دوباره تلاش کنید";
+
+      switch (status) {
+        case 404:
+          message = "حساب کاربری پیدا نشد. لطفاً ثبت‌نام کنید.";
+          break;
+        case 400:
+        case 401:
+          message = "رمز عبور نادرست است.";
+          break;
+        case 500:
+          message = "خطای سرور. لطفاً مجدد تلاش کنید.";
+          break;
+        default:
+          message = "خطای ناشناخته";
+          break;
+      }
+
+      set({ error: message });
+
+      return {
+        success: false,
+        status,
+        message,
+      };
     } finally {
       set({ isLoading: false });
     }

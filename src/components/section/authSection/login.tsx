@@ -113,7 +113,7 @@ const Login: React.FC = () => {
           {isLoading ? <Spinner /> : " ورود "}
         </Btn>
       </Form>
-      <Toaster position="top-center" />
+      <Toaster position="top-right" />
     </motion.div>
   );
 };

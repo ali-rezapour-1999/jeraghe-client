@@ -21,7 +21,7 @@ const Btn: React.FC<BtnProps> = ({
   return link ? (
     <Link href={link} legacyBehavior passHref>
       <Button
-        className={`rounded-2xl min-w-0 text-primary dark:text-light dark:bg-darkPrimary ${className}`}
+        className={`focus:outline-none rounded-2xl min-w-0 text-primary dark:text-light dark:bg-darkPrimary ${className}`}
       >
         {children}
       </Button>

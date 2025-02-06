@@ -28,6 +28,10 @@ html {
   direction: rtl;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
+  outline: none;
+}
+html:focus {
+  outline: none;
 }
 
 body {

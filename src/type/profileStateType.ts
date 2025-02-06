@@ -1,13 +1,16 @@
+export interface ProfileResult {
+  success: boolean;
+  status: number;
+  message: string;
+}
+
 export interface ProfileResponse {
-  first_name: string | null;
-  last_name: string | null;
   age: string | null;
   gender: string | null;
   state: string | null;
   city: string | null;
   address: string | null;
   description_myself: string | null;
-  my_skill: [{ name: string; id: number }] | null;
 }
 
 export interface WorkHistoryResponse {
@@ -24,8 +27,8 @@ export interface ProfileState {
   error: string | null;
   personalData: ProfileResponse | null;
   workHistoryData: WorkHistoryResponse | null;
-  profileRequest: (slug_id: string) => Promise<void>;
-  profileUpdate: (data: ProfileResponse) => Promise<void>;
+  profileRequest: () => Promise<void>;
+  profileUpdate: (data: ProfileResponse) => Promise<ProfileResult>;
   workHistoryUpdate: (data: WorkHistoryResponse) => Promise<void>;
   setLoading: (isLoading: boolean) => void;
   setError: (error: string | null) => void;

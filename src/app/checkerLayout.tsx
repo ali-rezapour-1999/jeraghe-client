@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useAuthStore } from "@/state/authState";
@@ -17,7 +16,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     const slugId = Cookies.get("user_slug");
     if (slugId) {
       userPersonal();
-      profileRequest(slugId);
+      profileRequest();
     }
   }, [userPersonal, isAuthenticated, profileRequest]);
 
