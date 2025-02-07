@@ -33,6 +33,8 @@ interface navLintType {
 const navLinkList: navLintType[] = [
   { id: 1, href: "/write", label: "نوشتن" },
   { id: 2, href: "/partner", label: "همکاری" },
+  { id: 3, href: "/rule", label: "قوانین" },
+  { id: 4, href: "/about-us", label: "چرا ؟؟" },
 ];
 
 const MainNavBar: React.FC = () => {
