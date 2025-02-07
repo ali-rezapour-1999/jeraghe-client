@@ -57,12 +57,18 @@ const MainNavBar: React.FC = () => {
       isBordered
     >
       <NavbarBrand className="flex gap-7">
-        <Link href="/">
-          <Image src={logo} width={70} height={70} alt="website logo" />
+        <Link href="/" className="w-[70px] h-[70px]">
+          <Image
+            src={logo}
+            width={70}
+            height={70}
+            alt="website logo"
+            className="w-full h-full object-contain"
+          />
         </Link>
         {navLinkList.map((item) => (
           <Link
-            className="dark:text-light text-primary"
+            className="dark:text-light text-primary font-bold hidden lg:flex"
             href={item.href}
             key={item.id}
           >
@@ -80,7 +86,7 @@ const MainNavBar: React.FC = () => {
           </Btn>
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
-          <Btn className=" w-10 h-10 px-0 dark:bg-primary-dark bg-primary-light text-dark">
+          <Btn className=" w-10 h-10 px-0 dark:bg-primary-dark bg-primary-light text-primary">
             <Bell size={20} />
           </Btn>
         </NavbarItem>
@@ -93,7 +99,7 @@ const MainNavBar: React.FC = () => {
             onClick={() =>
               isAuthenticated ? setProfileDrawer(true) : setUserDrawer(true)
             }
-            className="w-10 h-10 px-0 dark:bg-primary-dark bg-primary-light text-dark"
+            className="w-10 h-10 px-0 dark:bg-primary-dark bg-primary-light text-primary"
           >
             <UserRound size={20} />
           </Btn>

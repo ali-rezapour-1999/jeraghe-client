@@ -1,0 +1,35 @@
+:root {
+  --editor-background: #ffffff;
+  --editor-text: #171717;
+  --editor-border: #e0e0e0;
+}
+
+.dark {
+  --editor-background: #1e1e1e;
+  --editor-text: #f1f1f1;
+  --editor-border: #3a3a3a;
+}
+
+.fr-box {
+  background-color: transparent !important;
+  color: var(--editor-text) !important;
+  border: none !important;
+}
+
+.fr-toolbar {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.fr-box.fr-basic .fr-wrapper {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.fr-box.fr-basic .fr-element {
+  color: var(--editor-text) !important;
+  font-size: 25px;
+}
+.fr-second-toolbar {
+  display: none !important;
+}
