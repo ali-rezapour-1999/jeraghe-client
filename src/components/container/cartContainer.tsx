@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const CartItemsContainer = ({
+const CartContainer = ({
   children,
   delay = 0,
 }: {
@@ -23,4 +23,4 @@ const CartItemsContainer = ({
   );
 };
 
-export default CartItemsContainer;
+export default CartContainer;

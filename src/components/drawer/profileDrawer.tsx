@@ -12,16 +12,16 @@ import {
 } from "@heroui/react";
 import { useAuthStore } from "@/state/authState";
 import useDrawerState from "@/state/drawerState";
-import Btn from "../button/btn";
-import ProfileUpdateSection from "../section/profileDrawerSection/profileUpdateSection";
+import Btn from "../btn";
+import ProfileUpdateSection from "../../app/_profile/profileUpdateSection";
 import Image from "next/image";
 // import { useProfileState } from "@/state/profileState";
 import imageplaceholder from "../../../public/userplaceholder.png";
 import DarkModeToggle from "../darkModeToggle";
-import PostSection from "../section/profileDrawerSection/postSection";
-import ReqeuestSection from "../section/profileDrawerSection/requestSection";
-import MassageSection from "../section/profileDrawerSection/massageSection";
-import SettingSection from "../section/profileDrawerSection/settingSection";
+import PostSection from "../../app/_profile/postSection";
+import ReqeuestSection from "../../app/_profile/requestSection";
+import MassageSection from "../../app/_profile/massageSection";
+import SettingSection from "../../app/_profile/settingSection";
 
 interface ProfileDrawerProps {
   isOpen: boolean;

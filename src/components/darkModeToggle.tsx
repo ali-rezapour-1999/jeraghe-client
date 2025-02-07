@@ -1,11 +1,12 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import Btn from "./button/btn";
+import Btn from "./btn";
 import { Moon, Sun } from "lucide-react";
+import { useThemeState } from "@/state/themeState";
 
 export default function DarkModeToggle({ className }: { className?: string }) {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const { setIsDark } = useThemeState();
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme") as
@@ -16,6 +17,7 @@ export default function DarkModeToggle({ className }: { className?: string }) {
     if (storedTheme) {
       setTheme(storedTheme);
       document.documentElement.classList.toggle("dark", storedTheme === "dark");
+      setIsDark(theme);
     } else {
       document.documentElement.classList.add("dark");
       localStorage.setItem("theme", "dark");
@@ -24,7 +26,7 @@ export default function DarkModeToggle({ className }: { className?: string }) {
     document.body.classList.add("transition-colors", "duration-300");
     document.body.classList.toggle("bg-white", theme === "light");
     document.body.classList.toggle("bg-[#121212]", theme === "dark");
-  }, [theme]);
+  }, [theme, setIsDark]);
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -32,7 +34,6 @@ export default function DarkModeToggle({ className }: { className?: string }) {
     localStorage.setItem("theme", newTheme);
     document.documentElement.classList.toggle("dark", newTheme === "dark");
 
-    // تغییر پس‌زمینه هنگام تغییر تم
     document.body.classList.toggle("bg-white", newTheme === "light");
     document.body.classList.toggle("bg-[#121212]", newTheme === "dark");
   };

@@ -1,11 +1,11 @@
 "use client";
 
-import MainNavBar from "@/components/nav/navbar";
-import HomeSectionSearch from "@/components/search/homeSectionSearch";
+import MainNavBar from "@/components/navbar";
+import HomeSectionSearch from "@/components/search";
 import HomeShowJobItems from "@/components/section/homeShowJobItems";
-import ProfileAboutMeSection from "@/components/section/profileSection/ProfileAboutMeSection";
-import ProfileSection from "@/components/section/profileSection/profileSection";
-import ProfileViewSection from "@/components/section/profileSection/profileViewSection";
+import ProfileAboutMeSection from "@/components/section/userDetail/ProfileAboutMe";
+import ProfileSection from "@/components/section/userDetail/profileSection";
+import ProfileViewSection from "@/components/section/userDetail/profileReview";
 import { useAuthStore } from "@/state/authState";
 import useDrawerState from "@/state/drawerState";
 import { motion } from "framer-motion";

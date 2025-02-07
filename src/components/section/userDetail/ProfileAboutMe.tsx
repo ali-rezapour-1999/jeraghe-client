@@ -9,7 +9,7 @@ const ProfileAboutMeSection: React.FC = () => {
       <h4 className="border-b-1 w-full py-2 text-center text-darkPrimary dark:text-light text-lg font-bold">
         درباره من
       </h4>
-      <p className="dark:bg-darkPrimary text-darkPrimary dark:text-light bg-light rounded-3xl p-5">
+      <p className="dark:bg-darkPrimary text-darkPrimary dark:text-light bg-light rounded-3xl p-5 text-justify">
         {personalData?.description_myself ||
           "میتونی از بخش ویرایش این بخش و پر کنی"}
       </p>

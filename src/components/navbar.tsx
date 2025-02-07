@@ -9,18 +9,18 @@ import {
 } from "@heroui/react";
 import Image from "next/image";
 import React from "react";
-import logo from "../../../public/logo.png";
-import "../../style/nav-css.css";
+import logo from "../../public/logo.png";
+import "@/style/nav-css.css";
 import Link from "next/link";
 import { Bell, Home, Telescope, UserRound } from "lucide-react";
 import { motion } from "framer-motion";
-import ProfileDrawer from "../sidebar/profileDrawer";
-import AuthDrawer from "../sidebar/authDrawer";
+import ProfileDrawer from "@/components/drawer/profileDrawer";
+import AuthDrawer from "@/components/drawer/authDrawer";
 import { usePathname } from "next/navigation";
 import useDrawerState from "@/state/drawerState";
 import { useAuthStore } from "@/state/authState";
-import DarkModeToggle from "../darkModeToggle";
-import Btn from "../button/btn";
+import DarkModeToggle from "./darkModeToggle";
+import Btn from "@/components/btn";
 
 const MotionNav = motion.create(Navbar);
 

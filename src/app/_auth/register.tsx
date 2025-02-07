@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { useAuthStore } from "@/state/authState";
 import toast, { Toaster } from "react-hot-toast";
-import Btn from "@/components/button/btn";
+import Btn from "@/components/btn";
 
 const Register: React.FC = () => {
   const { isLoading, register, setLoading } = useAuthStore();

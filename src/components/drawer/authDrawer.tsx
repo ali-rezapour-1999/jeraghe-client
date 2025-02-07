@@ -2,9 +2,9 @@
 
 import React, { useState } from "react";
 import { Drawer, DrawerContent, DrawerBody, DrawerFooter } from "@heroui/react";
-import Login from "../section/authSection/login";
-import Register from "../section/authSection/register";
-import Btn from "../button/btn";
+import Login from "@/app/_auth/login";
+import Register from "@/app/_auth/register";
+import Btn from "../btn";
 
 interface AuthDrawerProps {
   isOpen: boolean;

@@ -2,7 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const MainSectionContainer = ({
+const MainContainer = ({
   children,
   delay = 0,
   className,
@@ -23,4 +23,4 @@ const MainSectionContainer = ({
   );
 };
 
-export default MainSectionContainer;
+export default MainContainer;

@@ -5,20 +5,42 @@
 @font-face {
   font-family: "dana";
   src: url("/font/dana/regular.ttf") format("truetype");
-  font-display: swap; /* برای افزایش سرعت لود */
+  font-display: swap;
 }
 
 :root {
-  --background: #ffffff;
   --primary: #171717;
-  --light: #edf2fb;
+  --primary-light: #ffffff;
+  --primary-dark: #0f0f0f;
+  --primary-gray: #27272a;
+
+  --darkPrimary: #1e1e1e;
+  --darkPrimary-light: #f8f9fa;
+  --darkPrimary-dark: #131313;
+
+  --light: #f1f1f1;
+  --light-light: #ffffff;
+  --light-dark: #222831;
+
+  --greylight: #121212;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #121212;
-    --primary: #ffffff;
-    --light: #374151;
+    --primary: #0f0f0f;
+    --primary-light: #171717;
+    --primary-dark: #0f0f0f;
+    --primary-gray: #27272a;
+
+    --darkPrimary: #131313;
+    --darkPrimary-light: #f8f9fa;
+    --darkPrimary-dark: #131313;
+
+    --light: #222831;
+    --light-light: #ffffff;
+    --light-dark: #222831;
+
+    --greylight: #121212;
   }
 }
 

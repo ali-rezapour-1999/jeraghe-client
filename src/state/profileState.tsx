@@ -7,7 +7,7 @@ import {
   WorkHistoryResponse,
   ProfileResult,
 } from "../type/profileStateType";
-import api from "@/api/baseApi";
+import api from "@/lib/baseApi";
 
 export const useProfileState = create<ProfileState>((set) => ({
   isLoading: false,

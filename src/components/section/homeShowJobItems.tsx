@@ -1,34 +1,19 @@
 "use client";
 import React from "react";
-import CartItem from "../cart/cartItem";
-import JobDetailDrawer from "../sidebar/jobDetailDrawer";
+import JobCart from "../cart/jobCart";
+import JobDetailDrawer from "../drawer/jobDetailDrawer";
 import { useDisclosure } from "@heroui/react";
-import CartItemsContainer from "../container/cartItemsContainer";
+import CartContainer from "../container/cartContainer";
 
 const HomeShowJobItems: React.FC = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   return (
-    <CartItemsContainer delay={0.5}>
+    <CartContainer delay={0.5}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <JobDetailDrawer onClose={onClose} isOpen={isOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
-        <CartItem onOpen={onOpen} />
+        <JobCart onOpen={onOpen} />
       </div>
-    </CartItemsContainer>
+    </CartContainer>
   );
 };
 

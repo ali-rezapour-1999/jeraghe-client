@@ -1,4 +1,4 @@
-import MainNavBar from "@/components/nav/navbar";
+import MainNavBar from "@/components/navbar";
 import React from "react";
 
 const Writing: React.FC = () => {

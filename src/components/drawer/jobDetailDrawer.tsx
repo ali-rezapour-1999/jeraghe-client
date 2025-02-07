@@ -15,7 +15,7 @@ import logo from "../../../public/logo.png";
 import { Bookmark } from "lucide-react";
 import DescriptionForJob from "../section/descriptionForJob";
 import JobOwnerDetial from "../section/jobOwnerDetail";
-import Btn from "../button/btn";
+import Btn from "../btn";
 
 interface JobDetialDrawerProps {
   isOpen: boolean;

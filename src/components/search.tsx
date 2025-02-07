@@ -2,14 +2,14 @@
 import { useDisclosure } from "@heroui/react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import React from "react";
-import HomeSectionContainer from "../container/homeContainer";
-import FilterDrawer from "../sidebar/filterDrawer";
-import Btn from "../button/btn";
+import HomeContainer from "../components/container/homeContainer";
+import FilterDrawer from "../components/drawer/filterDrawer";
+import Btn from "./btn";
 
 const HomeSectionSearch: React.FC = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   return (
-    <HomeSectionContainer delay={0.2}>
+    <HomeContainer delay={0.2}>
       <div className="flex w-full text-xl pr-6 pl-2 justify-center items-center rounded-2xl ">
         <Search className="text-gray-400 ml-4" />
         <input
@@ -25,7 +25,7 @@ const HomeSectionSearch: React.FC = () => {
         </Btn>
       </div>
       <FilterDrawer isOpen={isOpen} onClose={onClose} />
-    </HomeSectionContainer>
+    </HomeContainer>
   );
 };
 
