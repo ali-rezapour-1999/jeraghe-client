@@ -24,6 +24,17 @@ import Btn from "@/components/btn";
 
 const MotionNav = motion.create(Navbar);
 
+interface navLintType {
+  id: number;
+  href: string;
+  label: string;
+}
+
+const navLinkList: navLintType[] = [
+  { id: 1, href: "/write", label: "نوشتن" },
+  { id: 2, href: "/partner", label: "همکاری" },
+];
+
 const MainNavBar: React.FC = () => {
   const router = usePathname();
   const {
@@ -47,18 +58,15 @@ const MainNavBar: React.FC = () => {
         <Link href="/">
           <Image src={logo} width={70} height={70} alt="website logo" />
         </Link>
-        <Link
-          href="/write"
-          className={router == "/write" ? "underline underline-offset-4" : ""}
-        >
-          نوشتن
-        </Link>
-        <Link
-          href="/partner"
-          className={router == "/partner" ? "underline underline-offset-4" : ""}
-        >
-          همکاری
-        </Link>
+        {navLinkList.map((item) => (
+          <Link
+            className="dark:text-light text-primary"
+            href={item.href}
+            key={item.id}
+          >
+            {item.label}
+          </Link>
+        ))}
       </NavbarBrand>
       <NavbarContent justify="end" className="gap-2">
         <NavbarItem>

@@ -116,7 +116,9 @@ const Register: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="w-full flex flex-col px-10 items-center justify-center"
     >
-      <h1 className="text-2xl font-bold mb-8 border-b-1">ثبت نام در جرقه</h1>
+      <h1 className="text-2xl font-bold mb-8 border-b-1 dark:text-light text-primary">
+        ثبت نام در جرقه
+      </h1>
       <Form
         onSubmit={onSubmitRegisterd}
         className="w-full items-center justify-center flex flex-col gap-8"

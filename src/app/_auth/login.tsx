@@ -77,7 +77,9 @@ const Login: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="w-full flex flex-col px-10 items-center justify-center"
     >
-      <h1 className="text-2xl font-bold mb-8 border-b-1">ورود به جرقه</h1>
+      <h1 className="text-2xl font-bold mb-8 border-b-1 dark:text-light text-primary">
+        ورود به جرقه
+      </h1>
       <Form
         onSubmit={onSubmitLogin}
         className="w-full items-center justify-center flex flex-col gap-8"
