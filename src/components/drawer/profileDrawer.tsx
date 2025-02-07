@@ -13,9 +13,8 @@ import {
 import { useAuthStore } from "@/state/authState";
 import useDrawerState from "@/state/drawerState";
 import Btn from "../btn";
-import ProfileUpdateSection from "../../app/_profile/profileUpdateSection";
+import ProfileUpdateSection from "../../app/_profile/profileUpdate";
 import Image from "next/image";
-// import { useProfileState } from "@/state/profileState";
 import imageplaceholder from "../../../public/userplaceholder.png";
 import DarkModeToggle from "../darkModeToggle";
 import PostSection from "../../app/_profile/postSection";
@@ -30,7 +29,6 @@ interface ProfileDrawerProps {
 
 const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
   const { logout, user } = useAuthStore();
-  // const { personalData } = useProfileState();
   const { isOpenProfileDrawer, setProfileDrawer } = useDrawerState();
   return (
     <Drawer
@@ -89,13 +87,16 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
           </div>
         </DrawerBody>
         <DrawerFooter className="w-full">
-          <Btn onClick={() => setProfileDrawer(false)} className="w-1/2">
+          <Btn
+            onClick={() => setProfileDrawer(false)}
+            className="w-1/4 dark:bg-red-400 bg-red-400"
+          >
             بستن
           </Btn>
 
           <Btn
             onClick={logout}
-            className="bg-red-500 dark:bg-red-500 w-1/2 text-light"
+            className="bg-darkPrimary dark:bg-primary-gray w-3/4 text-light"
           >
             خروج از حساب کاربری
           </Btn>

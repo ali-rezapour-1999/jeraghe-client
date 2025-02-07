@@ -6,11 +6,11 @@ import {
   Select,
   Textarea,
   Spinner,
-  Button,
 } from "@heroui/react";
 import { useProfileState } from "@/state/profileState";
 import { ProfileResponse } from "@/type/profileStateType";
 import toast, { Toaster } from "react-hot-toast";
+import Btn from "@/components/btn";
 
 const genderOptions = [
   { id: 1, label: "مرد" },
@@ -148,6 +148,7 @@ const ProfileUpdateSection: React.FC = () => {
           placeholder={updateData.address ?? ""}
           type="text"
           size="lg"
+          className="font-light"
           value={updateData.address ?? ""}
           onChange={inputChangeHandler}
         />
@@ -159,7 +160,7 @@ const ProfileUpdateSection: React.FC = () => {
           name="description_myself"
           classNames={{
             base: "w-full mt-5",
-            input: "resize-y h-[150px] max-h-[150px]",
+            input: "resize-y h-[150px] max-h-[150px] font-light",
           }}
           placeholder={
             updateData?.description_myself ||
@@ -175,12 +176,9 @@ const ProfileUpdateSection: React.FC = () => {
           }
         />
 
-        <Button
-          type="submit"
-          className="w-full dark:bg-light-light bg-darkPrimary dark:text-darkPrimary text-lg mt-3 text-light-light"
-        >
+        <Btn type="submit" className="w-full text-lg mt-3 ">
           {isLoading ? <Spinner /> : "ثبت تغییرات"}
-        </Button>
+        </Btn>
       </Form>
       <Toaster position="top-right" />
     </Suspense>

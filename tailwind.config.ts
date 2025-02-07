@@ -31,6 +31,11 @@ export default {
         greylight: {
           DEFAULT: "#121212",
         },
+        green: {
+          DEFAULT: "#86EFAC",
+          light: "#22C55E",
+          dark: "#15803D",
+        },
       },
     },
   },

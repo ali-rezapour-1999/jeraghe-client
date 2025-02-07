@@ -173,7 +173,7 @@ const Register: React.FC = () => {
         />
         <Btn
           type="submit"
-          className="w-40 dark:bg-primary-light dark:text-primary-dark"
+          className="w-40 dark:bg-green-dark bg-green-dark text-white dark:text-light"
         >
           {isLoading ? <Spinner /> : "ثبت نام"}
         </Btn>

@@ -9,6 +9,7 @@ interface BtnProps {
   className?: string;
   link?: string;
   type?: "button" | "submit" | "reset" | undefined;
+  style?: React.CSSProperties;
 }
 
 const Btn: React.FC<BtnProps> = ({
@@ -17,11 +18,13 @@ const Btn: React.FC<BtnProps> = ({
   className,
   link,
   type,
+  style,
 }) => {
   return link ? (
     <Link href={link} legacyBehavior passHref>
       <Button
-        className={`focus:outline-none rounded-2xl min-w-0 text-primary dark:text-light dark:bg-darkPrimary ${className}`}
+        className={`focus:outline-none rounded-2xl min-w-0 dark:bg-green-dark bg-green-dark text-white dark:text-light ${className}`}
+        style={style}
       >
         {children}
       </Button>
@@ -30,7 +33,7 @@ const Btn: React.FC<BtnProps> = ({
     <Button
       type={type}
       onPress={onClick}
-      className={`rounded-2xl min-w-0 text-primary dark:text-light dark:bg-darkPrimary ${className}`}
+      className={`focus:outline-none rounded-2xl min-w-0 dark:bg-green-dark bg-green-dark text-white dark:text-light ${className}`}
     >
       {children}
     </Button>

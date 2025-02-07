@@ -74,18 +74,18 @@ const MainNavBar: React.FC = () => {
         <NavbarItem>
           <Btn
             link={router === "/" ? "/explorer" : "/"}
-            className="w-10 h-10 px-0 bg-primary-dark text-light-light dark:bg-light dark:text-primary"
+            className="w-10 h-10 px-0 bg-green-dark text-light-light dark:bg-green-dark dark:text-light"
           >
             {router === "/" ? <Telescope size={20} /> : <Home size={20} />}
           </Btn>
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
-          <Btn className=" w-10 h-10 px-0">
+          <Btn className=" w-10 h-10 px-0 dark:bg-primary-dark bg-primary-light text-dark">
             <Bell size={20} />
           </Btn>
         </NavbarItem>
 
-        <NavbarItem className="hidden md:flex">
+        <NavbarItem className="hidden">
           <DarkModeToggle />
         </NavbarItem>
         <NavbarItem>
@@ -93,7 +93,7 @@ const MainNavBar: React.FC = () => {
             onClick={() =>
               isAuthenticated ? setProfileDrawer(true) : setUserDrawer(true)
             }
-            className="w-10 h-10 px-0"
+            className="w-10 h-10 px-0 dark:bg-primary-dark bg-primary-light text-dark"
           >
             <UserRound size={20} />
           </Btn>

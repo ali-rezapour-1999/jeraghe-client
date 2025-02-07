@@ -45,16 +45,25 @@ const AuthDrawer: React.FC<AuthDrawerProps> = ({ isOpen, onClose }) => {
                   </h3>
                 )}
               </DrawerBody>
-              <DrawerFooter>
+              <DrawerFooter className="flex flex-col">
                 <Btn
-                  className="w-full dark:bg-red-500 text-light"
+                  type="submit"
+                  className="relative w-full text-white font-bold overflow-hidden"
+                >
+                  <span
+                    className="absolute inset-0 bg-gradient-to-r"
+                    style={{
+                      background:
+                        "linear-gradient(90deg, #2C5DA8 25%, #20632E 50%, #B88A03 75%, #A82D24 100%)",
+                    }}
+                  ></span>
+                  <span className="relative z-10">ورود از طریق حساب گوگل</span>
+                </Btn>
+                <Btn
+                  className="w-full bg-red-400 dark:bg-red-400 text-light"
                   onClick={onClose}
                 >
                   بستن
-                </Btn>
-
-                <Btn type="submit" className="w-full dark:bg-light-dark">
-                  ورود از طریق حساب گوگل
                 </Btn>
               </DrawerFooter>
             </>
