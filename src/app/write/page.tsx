@@ -22,7 +22,7 @@ const Writing: React.FC = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [showMyDetail, setShowMyDetail] = useState<boolean>(true);
+  const [showMyDetail, setShowMyDetail] = useState<boolean>(false);
 
   const handleModelChange = (model: any) => {
     setEditorContent(model);
@@ -61,8 +61,8 @@ const Writing: React.FC = () => {
       >
         <Accordion selectionMode="multiple" variant="splitted">
           <AccordionItem key="1" aria-label="setting" title="تنظیمات پست">
-            <div className="flex h-max lg:h-[350px] flex-col-reverse md:flex-row items-center justify-center w-full">
-              <div className="w-full md:w-1/2 h-full flex flex-col items-start justify-start gap-5 md:py-5">
+            <div className="flex h-max lg:h-[400px] flex-col-reverse md:flex-row items-center justify-center w-full">
+              <div className="w-full md:w-1/2 h-full flex flex-col items-start justify-between gap-5 md:py-5">
                 <Textarea
                   label="عنوان"
                   labelPlacement="outside"
@@ -125,21 +125,21 @@ const Writing: React.FC = () => {
                       </span>
                     ))}
                   </div>
+                </div>
 
-                  <div className="flex items-center justify-between w-full px-3">
-                    <p className="text-[.5em] md:text-[.8em]">
-                      نمایش اطاعات شما (شماره همراه و ایمیل)
-                    </p>
-                    <Switch
-                      onChange={() => setShowMyDetail(!showMyDetail)}
-                      defaultSelected
-                      color="success"
-                    />
-                  </div>
+                <div className="flex items-center justify-between w-full px-3">
+                  <p className="text-[.5em] md:text-[.7em]">
+                    آیا مایلید (اطلاعات تماس شماره تماس , ایمیل .....) در پست
+                    نمایش داده شود
+                  </p>
+                  <Switch
+                    onChange={() => setShowMyDetail(!showMyDetail)}
+                    color="success"
+                  />
                 </div>
               </div>
 
-              <div className="w-full md:w-1/2 h-[200px] md:h-full flex flex-col items-center justify-center md:p-5">
+              <div className="w-full md:w-1/2 h-[250px] md:h-full flex flex-col items-center justify-center md:p-5">
                 <label className="cursor-pointer w-full h-full flex items-center justify-center">
                   <input
                     type="file"

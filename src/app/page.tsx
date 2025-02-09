@@ -17,7 +17,7 @@ const Home = () => {
             delay={0.3}
             className="text-7xl text-center font-bold text-primary dark:text-light"
           >
-            <h1 className="text-4xl md:text-6xl lg:text-8xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl">
               سلام به جرقه خوش آومدی
             </h1>
           </MainSectionContainer>
@@ -25,7 +25,7 @@ const Home = () => {
             delay={0.5}
             className="text-center text-xl w-[90%] leading-relaxed text-primary dark:text-gray-400 "
           >
-            <p className="text-[.9em] md:text-[1.5em] text-center">
+            <p className="text-[.9em] md:text-[1.2em] text-center">
               <span className="font-bold">جرقه</span> قراره جایی باشه که بتونی{" "}
               <span className="underline underline-offset-8 mx-1 text-primary dark:text-light">
                 یاد بگیری
@@ -45,7 +45,7 @@ const Home = () => {
               .
             </p>
 
-            <p className="mt-5 md:mt-2 text-gray-500 dark:text-gray-400 text-[.9em] md:text-[1.3em]">
+            <p className="mt-5 md:mt-2 text-gray-500 dark:text-gray-400 text-[.8em] md:text-[1.1em]">
               یه فضای خلاق و مطمئن برای رشد، یادگیری و پیشرفت!
             </p>
           </MainSectionContainer>

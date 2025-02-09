@@ -14,7 +14,7 @@ import React, { useState } from "react";
 import logo from "../../public/logo.png";
 import "@/style/nav-css.css";
 import Link from "next/link";
-import { Bell, Home, Menu, Telescope, UserRound } from "lucide-react";
+import { Bell, Menu, Pencil, Telescope, UserRound } from "lucide-react";
 import { motion } from "framer-motion";
 import ProfileDrawer from "@/components/drawer/profileDrawer";
 import AuthDrawer from "@/components/drawer/authDrawer";
@@ -33,7 +33,7 @@ interface navLintType {
 }
 
 const navLinkList: navLintType[] = [
-  { id: 1, href: "/write", label: "نوشتن" },
+  { id: 1, href: "/explorer", label: "مجموعه" },
   { id: 2, href: "/partner", label: "همکاری" },
   { id: 3, href: "/rule", label: "قوانین" },
   { id: 4, href: "/about-us", label: "چرا ؟؟" },
@@ -106,17 +106,26 @@ const MainNavBar: React.FC = () => {
         <NavbarItem>
           <Btn
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="w-10 h-10 flex md:hidden px-0 dark:bg-primary-dark bg-primary-light text-primary"
+            className="w-10 h-10 md:hidden flex px-0 dark:bg-primary-dark bg-primary-light text-primary"
           >
             <Menu />
           </Btn>
         </NavbarItem>
         <NavbarItem>
           <Btn
-            link={router === "/" ? "/explorer" : "/"}
-            className="w-10 h-10 hidden md:flex px-0 dark:bg-primary-dark bg-primary-light text-primary"
+            link={
+              router === "/explorer" || router === "/" ? "/write" : "/explorer"
+            }
+            className="w-max h-10 md:flex hidden px-5 bg-green-dark text-light-light dark:bg-green-dark dark:text-light"
           >
-            {router === "/" ? <Telescope size={20} /> : <Home size={20} />}
+            {router === "/explorer" || router === "/" ? (
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-[1.2em]">نوشتن</p>
+                <Pencil size={22} />
+              </div>
+            ) : (
+              <Telescope size={20} />
+            )}
           </Btn>
         </NavbarItem>
         <NavbarItem className="hidden md:flex">
@@ -133,7 +142,7 @@ const MainNavBar: React.FC = () => {
             onClick={() =>
               isAuthenticated ? setProfileDrawer(true) : setUserDrawer(true)
             }
-            className="w-10 h-10 px-0 flex bg-green-dark text-light-light dark:bg-green-dark dark:text-light"
+            className="w-10 h-10 px-0 flex dark:bg-primary-dark bg-primary-light text-primary"
           >
             <UserRound size={20} />
           </Btn>
