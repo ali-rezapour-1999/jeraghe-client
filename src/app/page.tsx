@@ -17,13 +17,15 @@ const Home = () => {
             delay={0.3}
             className="text-7xl text-center font-bold text-primary dark:text-light"
           >
-            <h1>سلام به جرقه خوش آومدی</h1>
+            <h1 className="text-4xl md:text-6xl lg:text-8xl">
+              سلام به جرقه خوش آومدی
+            </h1>
           </MainSectionContainer>
           <MainSectionContainer
             delay={0.5}
             className="text-center text-xl w-[90%] leading-relaxed text-primary dark:text-gray-400 "
           >
-            <p>
+            <p className="text-[.9em] md:text-[1.5em] text-center">
               <span className="font-bold">جرقه</span> قراره جایی باشه که بتونی{" "}
               <span className="underline underline-offset-8 mx-1 text-primary dark:text-light">
                 یاد بگیری
@@ -43,14 +45,14 @@ const Home = () => {
               .
             </p>
 
-            <p className="mt-2 text-gray-500 dark:text-gray-400">
+            <p className="mt-5 md:mt-2 text-gray-500 dark:text-gray-400 text-[.9em] md:text-[1.3em]">
               یه فضای خلاق و مطمئن برای رشد، یادگیری و پیشرفت!
             </p>
           </MainSectionContainer>
         </div>
         <MainSectionContainer
           delay={0.7}
-          className="w-full flex justify-center overflow-hidden mt-10 gap-10"
+          className="w-full flex flex-col md:flex-row px-10 md:px-0 justify-center overflow-hidden mt-10 gap-10"
         >
           <Link href="/write">
             <Image

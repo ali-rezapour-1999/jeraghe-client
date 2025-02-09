@@ -75,7 +75,7 @@ const Login: React.FC = () => {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full flex flex-col px-10 items-center justify-center"
+      className="w-full flex flex-col px-3 md:px-10 items-center justify-center"
     >
       <h1 className="text-2xl font-bold mb-8 border-b-1 dark:text-light text-primary">
         ورود به جرقه
