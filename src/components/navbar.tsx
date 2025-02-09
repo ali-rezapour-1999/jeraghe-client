@@ -5,14 +5,16 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
   Spinner,
 } from "@heroui/react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../public/logo.png";
 import "@/style/nav-css.css";
 import Link from "next/link";
-import { Bell, Home, Telescope, UserRound } from "lucide-react";
+import { Bell, Home, Menu, Telescope, UserRound } from "lucide-react";
 import { motion } from "framer-motion";
 import ProfileDrawer from "@/components/drawer/profileDrawer";
 import AuthDrawer from "@/components/drawer/authDrawer";
@@ -39,6 +41,7 @@ const navLinkList: navLintType[] = [
 
 const MainNavBar: React.FC = () => {
   const router = usePathname();
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const {
     isOpenUserDrawer,
     setUserDrawer,
@@ -55,6 +58,8 @@ const MainNavBar: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       isBordered
+      isMenuOpen={isMenuOpen}
+      onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarBrand className="flex gap-7">
         <Link href="/" className="w-[70px] h-[70px]">
@@ -77,10 +82,39 @@ const MainNavBar: React.FC = () => {
         ))}
       </NavbarBrand>
       <NavbarContent justify="end" className="gap-2">
+        <NavbarMenu className="py-10 flex flex-col gap-5 justify-start items-center w-full">
+          {navLinkList.map((item, index) => (
+            <NavbarMenuItem
+              key={`${item.id}-${index}`}
+              className="w-full text-2xl text-center"
+            >
+              <Link
+                color={
+                  index === 2
+                    ? "warning"
+                    : index === navLinkList.length - 1
+                      ? "danger"
+                      : "foreground"
+                }
+                href={item.href}
+              >
+                {item.label}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </NavbarMenu>
+        <NavbarItem>
+          <Btn
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="w-10 h-10 flex md:hidden px-0 dark:bg-primary-dark bg-primary-light text-primary"
+          >
+            <Menu />
+          </Btn>
+        </NavbarItem>
         <NavbarItem>
           <Btn
             link={router === "/" ? "/explorer" : "/"}
-            className="w-10 h-10 px-0 bg-green-dark text-light-light dark:bg-green-dark dark:text-light"
+            className="w-10 h-10 hidden md:flex px-0 dark:bg-primary-dark bg-primary-light text-primary"
           >
             {router === "/" ? <Telescope size={20} /> : <Home size={20} />}
           </Btn>
@@ -99,7 +133,7 @@ const MainNavBar: React.FC = () => {
             onClick={() =>
               isAuthenticated ? setProfileDrawer(true) : setUserDrawer(true)
             }
-            className="w-10 h-10 px-0 dark:bg-primary-dark bg-primary-light text-primary"
+            className="w-10 h-10 px-0 flex bg-green-dark text-light-light dark:bg-green-dark dark:text-light"
           >
             <UserRound size={20} />
           </Btn>
