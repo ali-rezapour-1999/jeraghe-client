@@ -5,7 +5,7 @@ import "froala-editor/css/froala_editor.pkgd.min.css";
 import React, { useState } from "react";
 import dynamic from "next/dynamic";
 import "../../style/editor.css";
-import { Input, Textarea } from "@heroui/react";
+import { Input, Switch, Textarea } from "@heroui/react";
 import Image from "next/image";
 import Btn from "@/components/btn";
 import { Plus, X } from "lucide-react";
@@ -22,6 +22,7 @@ const Writing: React.FC = () => {
   const [tags, setTags] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [showMyDetail, setShowMyDetail] = useState<boolean>(true);
 
   const handleModelChange = (model: any) => {
     setEditorContent(model);
@@ -42,7 +43,7 @@ const Writing: React.FC = () => {
     const file = event.target.files?.[0];
     if (file) {
       setSelectedImage(file);
-      setPreviewImage(URL.createObjectURL(file)); // نمایش پیش‌نمایش
+      setPreviewImage(URL.createObjectURL(file));
     }
   };
 
@@ -56,12 +57,12 @@ const Writing: React.FC = () => {
       <MainNavBar />
       <form
         onSubmit={handleSubmit}
-        className="max-w-[1600px] w-full mx-auto mt-10 px-3 md:px-20 text-2xl"
+        className="max-w-[1600px] w-full mx-auto mt-10 px-2 md:px-20 text-2xl"
       >
         <Accordion selectionMode="multiple" variant="splitted">
           <AccordionItem key="1" aria-label="setting" title="تنظیمات پست">
-            <div className="flex h-max lg:h-[350px] items-center justify-center w-full">
-              <div className="w-1/2 h-full flex flex-col items-start justify-start gap-5 md:py-5">
+            <div className="flex h-max lg:h-[350px] flex-col-reverse md:flex-row items-center justify-center w-full">
+              <div className="w-full md:w-1/2 h-full flex flex-col items-start justify-start gap-5 md:py-5">
                 <Textarea
                   label="عنوان"
                   labelPlacement="outside"
@@ -124,10 +125,21 @@ const Writing: React.FC = () => {
                       </span>
                     ))}
                   </div>
+
+                  <div className="flex items-center justify-between w-full px-3">
+                    <p className="text-[.5em] md:text-[.8em]">
+                      نمایش اطاعات شما (شماره همراه و ایمیل)
+                    </p>
+                    <Switch
+                      onChange={() => setShowMyDetail(!showMyDetail)}
+                      defaultSelected
+                      color="success"
+                    />
+                  </div>
                 </div>
               </div>
 
-              <div className="w-1/2 h-full flex flex-col items-center justify-center p-5">
+              <div className="w-full md:w-1/2 h-[200px] md:h-full flex flex-col items-center justify-center md:p-5">
                 <label className="cursor-pointer w-full h-full flex items-center justify-center">
                   <input
                     type="file"
@@ -144,7 +156,7 @@ const Writing: React.FC = () => {
                       height={200}
                     />
                   ) : (
-                    <p className="text-md text-center w-full bg-primary-dark h-full flex justify-center items-center rounded-2xl text-primary-light">
+                    <p className="text-md text-center w-full bg-primary-dark h-full flex justify-center items-center rounded-2xl text-primary-light px-5">
                       میتونی از این بخش تصویر اضافه کنی برای پستت
                     </p>
                   )}
@@ -154,7 +166,7 @@ const Writing: React.FC = () => {
           </AccordionItem>
         </Accordion>
 
-        <article className="mt-1 py-10">
+        <article className="mt-1 py-10 min-h-[500px]">
           <FroalaEditor
             model={editorContent}
             onModelChange={handleModelChange}
@@ -169,9 +181,9 @@ const Writing: React.FC = () => {
           />
         </article>
 
-        <div className="mt-20 flex justify-end">
+        <div className="mt-20 w-full md:w-max flex justify-end">
           <Btn
-            className="bg-primary text-white px-10 py-5 rounded-md text-lg font-bold"
+            className="bg-primary w-full text-white px-10 py-5 rounded-md text-lg font-bold"
             type="submit"
           >
             ثبت پست

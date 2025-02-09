@@ -41,7 +41,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
     >
       <DrawerContent>
         <DrawerHeader className="flex  items-center justify-between">
-          <div className="flex items-center w-[100px] h-[100px] gap-5">
+          <div className="flex items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] gap-5">
             <Image
               src={user?.profile_image || imageplaceholder}
               alt={user?.email || "user image"}
@@ -51,10 +51,10 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
               objectFit="cover"
             />
             <div>
-              <h3 className="text-primary dark:text-light font-thin text-[1.2em]">
+              <h3 className="text-primary dark:text-light font-thin text-sm md:text-[1.2em]">
                 {user?.email}
               </h3>
-              <h6 className="text-primary dark:text-light font-thin text-md">
+              <h6 className="text-primary dark:text-light font-thin text-sm md:text-md">
                 {user?.first_last_name}
               </h6>
             </div>
