@@ -9,9 +9,7 @@ import {
   NavbarMenuItem,
   Spinner,
 } from "@heroui/react";
-import Image from "next/image";
 import React, { useState } from "react";
-import logo from "../../public/logo.png";
 import "@/style/nav-css.css";
 import Link from "next/link";
 import { Bell, Menu, Pencil, Telescope, UserRound } from "lucide-react";
@@ -23,6 +21,7 @@ import useDrawerState from "@/state/drawerState";
 import { useAuthStore } from "@/state/authState";
 import DarkModeToggle from "./darkModeToggle";
 import Btn from "@/components/btn";
+import Logo from "./logo";
 
 const MotionNav = motion.create(Navbar);
 
@@ -62,15 +61,7 @@ const MainNavBar: React.FC = () => {
       onMenuOpenChange={setIsMenuOpen}
     >
       <NavbarBrand className="flex gap-7">
-        <Link href="/" className="w-[70px] h-[70px]">
-          <Image
-            src={logo}
-            width={70}
-            height={70}
-            alt="website logo"
-            className="w-full h-full object-contain"
-          />
-        </Link>
+        <Logo />
         {navLinkList.map((item) => (
           <Link
             className="dark:text-light text-primary font-bold hidden lg:flex"

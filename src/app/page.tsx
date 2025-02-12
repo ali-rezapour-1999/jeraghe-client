@@ -52,7 +52,7 @@ const Home = () => {
         </div>
         <MainSectionContainer
           delay={0.7}
-          className="w-full flex flex-col md:flex-row px-10 md:px-0 justify-center overflow-hidden mt-10 gap-10"
+          className="w-full flex flex-col md:flex-row px-10 md:px-5 justify-center items-center overflow-hidden mt-10 gap-10"
         >
           <Link href="/write">
             <Image

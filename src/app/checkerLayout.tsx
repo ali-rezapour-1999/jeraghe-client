@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useAuthStore } from "@/state/authState";
 import { useProfileState } from "@/state/profileState";
+import { SessionProvider } from "next-auth/react";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { restoreAuthState, userPersonal, isAuthenticated } = useAuthStore();
@@ -17,10 +18,15 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     if (slugId) {
       userPersonal();
       profileRequest();
+      userPersonal();
     }
   }, [userPersonal, isAuthenticated, profileRequest]);
 
-  return <main>{children}</main>;
+  return (
+    <main>
+      <SessionProvider>{children}</SessionProvider>
+    </main>
+  );
 };
 
 export default MainLayout;
