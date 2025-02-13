@@ -2,7 +2,7 @@ export interface User {
   email: string;
   slug: string;
   profile_image?: string;
-  first_last_name: string;
+  username: string;
   phone_number?: string;
 }
 

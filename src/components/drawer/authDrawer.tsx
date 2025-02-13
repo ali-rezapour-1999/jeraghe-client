@@ -8,6 +8,7 @@ import Btn from "../btn";
 import google from "../../../public/icons/google.svg";
 import github from "../../../public/icons/icons8-github.svg";
 import Image from "next/image";
+import { signIn } from "next-auth/react";
 
 interface AuthDrawerProps {
   isOpen: boolean;
@@ -59,6 +60,7 @@ const AuthDrawer: React.FC<AuthDrawerProps> = ({ isOpen, onClose }) => {
                 <Btn
                   type="submit"
                   className="relative w-full text-white font-bold overflow-hidden"
+                  onClick={() => signIn("google")}
                 >
                   <span
                     className="absolute inset-0 bg-gradient-to-r"

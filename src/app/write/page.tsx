@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import "../../style/editor.css";
-import Btn from "@/components/btn";
 import WriteOptionDrawer from "@/components/drawer/writeOptionDrawer";
 import WriteNav from "./writeNav";
+import Editor from "./_editor/editor";
 
 const Writing: React.FC = () => {
   // const [editorContent, setEditorContent] = useState("");
@@ -66,16 +66,9 @@ const Writing: React.FC = () => {
           removeTag={removeTag}
           handleImageChange={handleImageChange}
         />
-        <article className="py-10 min-h-[500px]"></article>
-
-        <div className="mt-20 w-full md:w-max flex justify-end">
-          <Btn
-            className="bg-primary w-full text-white px-10 py-5 rounded-md text-lg font-bold"
-            type="submit"
-          >
-            ثبت پست
-          </Btn>
-        </div>
+        <article className="py-10 min-h-[500px]">
+          <Editor />
+        </article>
       </form>
     </main>
   );

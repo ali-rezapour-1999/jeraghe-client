@@ -1,7 +1,9 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import type { NextAuthOptions } from "next-auth";
+import { NextResponse } from "next/server";
 import api from "@/lib/baseApi";
+import Cookies from "js-cookie";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -11,18 +13,46 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ account, profile }) {
+    async signIn({ account }) {
       if (account?.provider === "google") {
         try {
           const response = await api.post("auth/google-login/", {
             access_token: account.access_token,
           });
 
-          account.djangoToken = response.data.key;
-          account.accessToken = account.access_token;
-          account.refreshToken = account.refresh_token;
-          account.sub = profile?.sub;
-          return true;
+          const { access_token, refresh_token, user_slug } = response.data;
+
+          const accessTokenCookie = Cookies.set("accessToken", access_token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 60 * 60 * 24,
+            path: "/",
+          });
+
+          const refreshTokenCookie = Cookies.set(
+            "refreshToken",
+            refresh_token,
+            {
+              httpOnly: true,
+              secure: process.env.NODE_ENV === "production",
+              maxAge: 60 * 60 * 24 * 7,
+              path: "/",
+            },
+          );
+
+          const userSlugCookie = Cookies.set("userSlug", user_slug, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 60 * 60 * 24 * 7,
+            path: "/",
+          });
+
+          const responseHeaders = new Headers();
+          responseHeaders.append("Set-Cookie", accessTokenCookie);
+          responseHeaders.append("Set-Cookie", refreshTokenCookie);
+          responseHeaders.append("Set-Cookie", userSlugCookie);
+
+          return NextResponse.redirect("/", { headers: responseHeaders });
         } catch {
           return false;
         }
@@ -30,21 +60,7 @@ export const authOptions: NextAuthOptions = {
       return true;
     },
 
-    async jwt({ token, account }) {
-      if (account) {
-        token.djangoToken = account.djangoToken;
-        token.accessToken = account.accessToken;
-        token.refreshToken = account.refreshToken;
-        token.sub = account.sub as string;
-      }
-      return token;
-    },
-
-    async session({ session, token }) {
-      session.djangoToken = token.djangoToken as string;
-      session.accessToken = token.accessToken as string;
-      session.refreshToken = token.refreshToken as string;
-      session.sub = token.sub as string;
+    async session({ session }) {
       return session;
     },
   },

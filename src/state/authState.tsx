@@ -47,7 +47,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             email: data.email,
             slug: data.slug_id,
             profile_image: data.profile_image,
-            first_last_name: data.first_last_name,
+            username: data.username,
             phone_number: data.phone_number,
           },
           token: data.access,
@@ -104,14 +104,14 @@ export const useAuthStore = create<AuthState>((set) => ({
   register: async (
     email: string,
     password: string,
-    first_last_name: string,
+    username: string,
   ): Promise<AuthResult> => {
     set({ isLoading: true, error: null });
     try {
       const response = await api.post("/auth/register/", {
         email,
         password,
-        first_last_name,
+        username,
       });
 
       if (response.status === 201 || response.status === 200) {
@@ -134,7 +134,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             email: data.email,
             slug: data.slug_id,
             profile_image: data.profile_image,
-            first_last_name: data.first_last_name,
+            username: data.first_last_name,
             phone_number: data.phone_number,
           },
           token: data.access,
@@ -222,7 +222,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             email: userData.email,
             slug: userData.slug_id,
             profile_image: userData.profile_image,
-            first_last_name: userData.first_last_name,
+            username: userData.username,
             phone_number: userData.phone_number,
           },
         });

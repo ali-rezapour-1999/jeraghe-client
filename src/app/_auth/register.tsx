@@ -10,14 +10,14 @@ const Register: React.FC = () => {
   const { isLoading, register, setLoading } = useAuthStore();
   const [formErrors, setFormErrors] = useState({
     email: "",
-    first_last_name: "",
+    username: "",
     password: "",
     repassword: "",
   });
 
   const [formData, setFormData] = useState({
     email: "",
-    first_last_name: "",
+    username: "",
     password: "",
     repassword: "",
   });
@@ -31,7 +31,7 @@ const Register: React.FC = () => {
           error = "ایمیل خود را وارد کنید";
         }
         break;
-      case "first_last_name":
+      case "username":
         if (!value || value.length < 4) {
           error = "نام و نام خانوادگی خود را وارد کنید (حداقل ۴ کاراکتر)";
         }
@@ -75,10 +75,7 @@ const Register: React.FC = () => {
 
     const errors = {
       email: validateField("email", form.email.value),
-      first_last_name: validateField(
-        "first_last_name",
-        form.first_last_name.value,
-      ),
+      username: validateField("username", form.username.value),
       password: validateField("password", form.password.value),
       repassword: validateField("repassword", form.repassword.value),
     };
@@ -90,7 +87,7 @@ const Register: React.FC = () => {
       const result = await register(
         formData.email,
         formData.password,
-        formData.first_last_name,
+        formData.username,
       );
       try {
         if (result.success) {
@@ -139,12 +136,12 @@ const Register: React.FC = () => {
           isRequired
           label="نام و نام خانوادگی (فارسی)"
           labelPlacement="outside"
-          name="first_last_name"
+          name="username"
           placeholder="نام و نام خانوادگی خود را وارد کنید"
           type="text"
           size="lg"
-          validate={() => formErrors.first_last_name || ""}
-          value={formData.first_last_name}
+          validate={() => formErrors.username || ""}
+          value={formData.username}
           onChange={inputChangeHandler}
         />
         <Input

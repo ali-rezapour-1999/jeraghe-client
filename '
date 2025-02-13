@@ -1,0 +1,85 @@
+import { BubbleMenu, FloatingMenu } from "@tiptap/react";
+import React from "react";
+import {
+  Heading1,
+  Heading2,
+  Heading3,
+  Code,
+  Bold,
+  Italic,
+  Strikethrough,
+  AlignCenter,
+  AlignLeft,
+  AlignRight,
+  Highlighter,
+} from "lucide-react";
+import MenuBtn from "./menuBtn";
+
+const EditorMenu = ({ editor }: { editor: any }) => {
+  return (
+    <>
+      {editor && (
+        <BubbleMenu
+          className="dark:bg-primary-light dark:text-primary bg-darkPrimary text-light rounded-md px-3 pt-2"
+          tippyOptions={{ duration: 100 }}
+          editor={editor}
+        >
+          <MenuBtn
+            onClick={() => editor.chain().focus().toggleBold().run()}
+            className={editor.isActive("bold") ? "is-active" : ""}
+          >
+            <Bold />
+          </MenuBtn>
+          <MenuBtn
+            onClick={() => editor.chain().focus().toggleItalic().run()}
+            className={editor.isActive("italic") ? "is-active" : ""}
+          >
+            <Italic />
+          </MenuBtn>
+          <MenuBtn
+            onClick={() => editor.chain().focus().toggleStrike().run()}
+            className={editor.isActive("strike") ? "is-active" : ""}
+          >
+            Strike
+          </MenuBtn>
+        </BubbleMenu>
+      )}
+
+      {editor && (
+        <FloatingMenu
+          className="floating-menu"
+          tippyOptions={{ duration: 100 }}
+          editor={editor}
+        >
+          <MenuBtn
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 1 }).run()
+            }
+            className={
+              editor.isActive("heading", { level: 1 }) ? "is-active" : ""
+            }
+          >
+            H1
+          </MenuBtn>
+          <MenuBtn
+            onClick={() =>
+              editor.chain().focus().toggleHeading({ level: 2 }).run()
+            }
+            className={
+              editor.isActive("heading", { level: 2 }) ? "is-active" : ""
+            }
+          >
+            H2
+          </MenuBtn>
+          <MenuBtn
+            onClick={() => editor.chain().focus().toggleBulletList().run()}
+            className={editor.isActive("bulletList") ? "is-active" : ""}
+          >
+            Bullet list
+          </MenuBtn>
+        </FloatingMenu>
+      )}
+    </>
+  );
+};
+export default EditorMenu;
