@@ -23,7 +23,13 @@ const JobCart: React.FC<CartItemProps> = ({ onOpen }) => {
       className="bg-transparent border border-gray-300 dark:border-primary-gray p-5 rounded-2xl cursor-pointer h-[300px] flex flex-col justify-between shadow-sm"
     >
       <div className="flex items-center gap-3 pb-3 mb-3">
-        <Image src={logo} alt="logo" width={90} height={90} />
+        <Image
+          src={logo}
+          alt="logo"
+          width={200}
+          height={200}
+          className="w-[70] h-[70] object-contain"
+        />
         <div className="flex flex-col text-primary dark:text-light">
           <h1 className="font-bold">ساخت سایت سلام بر جرقه</h1>
           <h4 className="text-sm">برنامه نویسی</h4>
@@ -43,10 +49,10 @@ const JobCart: React.FC<CartItemProps> = ({ onOpen }) => {
         </p>
       </div>
       <div className="mt-3 pt-5 flex justify-between">
-        <h1 className="text-gray-500">حداقل زمان برای مشارکت</h1>
-        <div className="text-gray-500 flex items-center justify-center gap-1">
-          <Hourglass size="16" />
-          <span>1 ساعت</span>
+        <h1 className="text-gray-500 text-sm">حداقل زمان برای مشارکت</h1>
+        <div className="text-gray-500 flex items-center justify-center gap-1 text-sm">
+          <Hourglass size="14" />
+          <span className="mt-1">1 ساعت</span>
         </div>
       </div>
     </motion.div>

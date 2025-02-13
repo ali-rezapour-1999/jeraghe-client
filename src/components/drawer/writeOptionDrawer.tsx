@@ -141,7 +141,7 @@ const WriteOptionDrawer: React.FC<WriteOptionDrawerProps> = ({
                   </div>
                 </div>
 
-                <div className="w-full h-[350px] md:h-[450px] flex flex-col items-center justify-center md:p-5">
+                <div className="w-full h-[400px] md:max-h-[500px] md:min-h-[400px] flex flex-col items-center justify-center md:p-5">
                   <label className="cursor-pointer w-full h-full flex items-center justify-center">
                     <input
                       type="file"

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import React from "react";
-import imageplaceholder from "../../../../public/userplaceholder.png";
 import instagramIcons from "../../../../public/icons/icons8-instagram-logo.svg";
 import telgeramIcons from "../../../../public/icons/icons8-telegram.svg";
 import gitlabIcons from "../../../../public/icons/icons8-gitlab.svg";
@@ -10,6 +9,7 @@ import ProfileSectionContainer from "@/components/container/prfileContainer";
 import useDrawerState from "@/state/drawerState";
 import Btn from "@/components/btn";
 import { useAuthStore } from "@/state/authState";
+import man from "../../../../public/man.jpg";
 // import { useProfileState } from "@/state/profileState";
 
 const iconsSocialMedia = [
@@ -27,7 +27,7 @@ const ProfileSection = () => {
   return (
     <ProfileSectionContainer delay={0.2}>
       <Image
-        src={imageplaceholder}
+        src={man}
         alt="image place holder"
         width={100}
         height={100}

@@ -88,7 +88,7 @@ const ProfileUpdateSection: React.FC = () => {
             size="lg"
             label={"جنسیت"}
             name="gender"
-            placeholder={updateData.gender ?? ""}
+            placeholder={"جنسیت خود را وارد کنید"}
             value={updateData?.gender || ""}
             onSelectionChange={(keys) =>
               selectChangeHandler("gender", Array.from(keys)[0] as string)
@@ -111,9 +111,9 @@ const ProfileUpdateSection: React.FC = () => {
             className="dark:text-light text-primary"
             label={"استان"}
             size="lg"
+            placeholder={"استان خود را وارد کنید"}
             name="state"
             value={updateData.state ?? ""}
-            placeholder={updateData.state ?? ""}
             onSelectionChange={(keys) =>
               selectChangeHandler("state", Array.from(keys)[0] as string)
             }
@@ -129,7 +129,7 @@ const ProfileUpdateSection: React.FC = () => {
             label={"شهر"}
             size="lg"
             name="city"
-            placeholder={updateData.city ?? ""}
+            placeholder={"شهر خود را وارد کنید"}
             value={updateData.city ?? ""}
             onSelectionChange={(keys) =>
               selectChangeHandler("city", Array.from(keys)[0] as string)

@@ -119,11 +119,13 @@ const MainNavBar: React.FC = () => {
             )}
           </Btn>
         </NavbarItem>
-        <NavbarItem className="hidden md:flex">
-          <Btn className=" w-10 h-10 px-0 dark:bg-primary-dark bg-primary-light text-primary">
-            <Bell size={20} />
-          </Btn>
-        </NavbarItem>
+        {isAuthenticated ? (
+          <NavbarItem className="hidden md:flex">
+            <Btn className=" w-10 h-10 px-0 dark:bg-primary-dark bg-primary-light text-primary">
+              <Bell size={20} />
+            </Btn>
+          </NavbarItem>
+        ) : null}
 
         <NavbarItem className="hidden">
           <DarkModeToggle />

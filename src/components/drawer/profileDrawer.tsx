@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -15,12 +15,14 @@ import useDrawerState from "@/state/drawerState";
 import Btn from "../btn";
 import ProfileUpdateSection from "../../app/_profile/profileUpdate";
 import Image from "next/image";
-import imageplaceholder from "../../../public/userplaceholder.png";
 import DarkModeToggle from "../darkModeToggle";
 import PostSection from "../../app/_profile/postSection";
 import ReqeuestSection from "../../app/_profile/requestSection";
 import MassageSection from "../../app/_profile/massageSection";
 import SettingSection from "../../app/_profile/settingSection";
+import man from "../../../public/man.jpg";
+import woman from "../../../public/woman.jpg";
+import { useProfileState } from "@/state/profileState";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -29,7 +31,17 @@ interface ProfileDrawerProps {
 
 const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
   const { logout, user } = useAuthStore();
+  const { personalData } = useProfileState();
   const { isOpenProfileDrawer, setProfileDrawer } = useDrawerState();
+  const [isWoman, setIsWoman] = useState<any>(man);
+  useEffect(() => {
+    const changeGender = async () => {
+      if (personalData?.gender == "مرد") {
+        setIsWoman(man);
+      } else setIsWoman(woman);
+    };
+    changeGender();
+  }, [personalData]);
   return (
     <Drawer
       placement="left"
@@ -43,7 +55,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
         <DrawerHeader className="flex  items-center justify-between">
           <div className="flex items-center w-[50px] h-[50px] md:w-[100px] md:h-[100px] gap-5">
             <Image
-              src={user?.profile_image || imageplaceholder}
+              src={user?.profile_image || isWoman}
               alt={user?.email || "user image"}
               width={100}
               height={100}
@@ -54,8 +66,11 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
               <h3 className="text-primary dark:text-light font-thin text-sm md:text-[1.2em]">
                 {user?.email}
               </h3>
-              <h6 className="text-primary dark:text-light font-thin text-sm md:text-md">
-                {user?.first_last_name}
+              <h6 className="text-primary dark:text-light font-thin text-sm md:text-md mt-2">
+                {user?.username}
+              </h6>
+              <h6 className="text-primary dark:text-light font-thin text-sm md:text-md mt-2">
+                {user?.phone_number}
               </h6>
             </div>
           </div>
@@ -93,7 +108,6 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
           >
             بستن
           </Btn>
-
           <Btn
             onClick={logout}
             className="bg-darkPrimary dark:bg-primary-gray w-3/4 text-light"
