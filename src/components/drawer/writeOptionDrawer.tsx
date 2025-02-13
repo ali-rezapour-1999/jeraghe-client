@@ -28,6 +28,7 @@ interface WriteOptionDrawerProps {
   setShowMyDetail: React.Dispatch<React.SetStateAction<boolean>>;
   removeTag: (tag: string) => void;
   handleImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  addTag: () => void;
 }
 
 const WriteOptionDrawer: React.FC<WriteOptionDrawerProps> = ({
