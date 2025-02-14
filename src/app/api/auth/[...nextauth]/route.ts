@@ -1,11 +1,9 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import type { NextAuthOptions } from "next-auth";
-import { NextResponse } from "next/server";
 import api from "@/lib/baseApi";
 import Cookies from "js-cookie";
 
-export const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -21,7 +19,6 @@ export const authOptions: NextAuthOptions = {
           });
 
           const { access_token, refresh_token, user_slug } = response.data;
-
           const accessTokenCookie = Cookies.set("accessToken", access_token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
@@ -48,11 +45,11 @@ export const authOptions: NextAuthOptions = {
           });
 
           const responseHeaders = new Headers();
-          responseHeaders.append("Set-Cookie", accessTokenCookie);
-          responseHeaders.append("Set-Cookie", refreshTokenCookie);
-          responseHeaders.append("Set-Cookie", userSlugCookie);
+          responseHeaders.append("Set-Cookie", accessTokenCookie || "");
+          responseHeaders.append("Set-Cookie", refreshTokenCookie || "");
+          responseHeaders.append("Set-Cookie", userSlugCookie || "");
 
-          return NextResponse.redirect("/", { headers: responseHeaders });
+          return true;
         } catch {
           return false;
         }
@@ -68,7 +65,7 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   debug: process.env.NODE_ENV === "development",
-};
+});
 
-const handler = NextAuth(authOptions);
-export { handler as GET, handler as POST };
+export const GET = handler;
+export const POST = handler;

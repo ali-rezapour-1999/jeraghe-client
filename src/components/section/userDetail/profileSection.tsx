@@ -34,7 +34,7 @@ const ProfileSection = () => {
         className="rounded-xl mb-3"
       />
       <h3 className="font-bold text-darkPrimary dark:text-light text-[1.1em] mb-2">
-        {user?.first_last_name}
+        {user?.username}
       </h3>
       {
         // <h4 className="text-[.9em] text-primary dark:text-light">

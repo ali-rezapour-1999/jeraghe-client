@@ -30,7 +30,7 @@ export interface AuthState {
   register: (
     email: string,
     password: string,
-    first_last_name: string,
+    username: string,
   ) => Promise<AuthResult>;
   logout: () => void;
   userPersonal: () => Promise<void>;

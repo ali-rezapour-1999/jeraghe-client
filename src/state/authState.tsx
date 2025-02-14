@@ -134,7 +134,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             email: data.email,
             slug: data.slug_id,
             profile_image: data.profile_image,
-            username: data.first_last_name,
+            username: data.username,
             phone_number: data.phone_number,
           },
           token: data.access,
