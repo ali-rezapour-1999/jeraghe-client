@@ -4,9 +4,12 @@ import "../../style/editor.css";
 import WriteOptionDrawer from "@/components/drawer/writeOptionDrawer";
 import WriteNav from "./writeNav";
 import Editor from "./_editor/editor";
+import { useAuthStore } from "@/state/authState";
+import AuthRequired from "@/components/authRequired";
 
 const Writing: React.FC = () => {
   // const [editorContent, setEditorContent] = useState("");
+  const { isAuthenticated } = useAuthStore();
   const [title, setTitle] = useState("");
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>([]);
@@ -43,6 +46,9 @@ const Writing: React.FC = () => {
     return selectedImage;
     setIsSave(true);
   };
+  if (!isAuthenticated) {
+    return <AuthRequired />;
+  }
 
   return (
     <main>
