@@ -62,8 +62,8 @@ const Login: React.FC = () => {
         } else {
           toast.error(result.message);
         }
-      } catch (err) {
-        return err;
+      } catch {
+        return setLoading(false);
       } finally {
         setLoading(false);
       }

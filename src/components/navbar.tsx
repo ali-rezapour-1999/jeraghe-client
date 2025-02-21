@@ -7,7 +7,6 @@ import {
   NavbarItem,
   NavbarMenu,
   NavbarMenuItem,
-  Spinner,
 } from "@heroui/react";
 import React, { useState } from "react";
 import "@/style/nav-css.css";
@@ -47,7 +46,7 @@ const MainNavBar: React.FC = () => {
     isOpenProfileDrawer,
     setProfileDrawer,
   } = useDrawerState();
-  const { isAuthenticated, isLoading } = useAuthStore();
+  const { isAuthenticated } = useAuthStore();
 
   return (
     <MotionNav
@@ -141,9 +140,7 @@ const MainNavBar: React.FC = () => {
           </Btn>
         </NavbarItem>
       </NavbarContent>
-      {isLoading ? (
-        <Spinner />
-      ) : isAuthenticated ? (
+      {isAuthenticated ? (
         <ProfileDrawer
           onClose={() => setProfileDrawer(false)}
           isOpen={isOpenProfileDrawer}

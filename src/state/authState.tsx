@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import Cookies from "js-cookie";
 import api from "@/lib/baseApi";
-import { AuthResult, AuthState } from "@/type/authStateType";
+import { AuthResult, AuthState, User } from "@/type/authStateType";
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
@@ -78,6 +78,7 @@ export const useAuthStore = create<AuthState>((set) => ({
             "حساب کابری با این ایمیل پیدا نکردم.میتونی بخش ثبت نام و امتحان کنی.";
           break;
         case 400:
+          message = "در خواست نا معتبر";
         case 401:
           message = "رمز عبور نادرست است";
           break;
@@ -205,9 +206,6 @@ export const useAuthStore = create<AuthState>((set) => ({
     try {
       const token = Cookies.get("access_token");
       const slug_id = Cookies.get("user_slug");
-      if (!token) {
-        throw new Error("No access token found");
-      }
 
       const response = await api.get(`auth/get/${slug_id}`, {
         headers: {
@@ -230,23 +228,86 @@ export const useAuthStore = create<AuthState>((set) => ({
     } catch (error: unknown) {
       const status =
         (error as { response: { status: number } })?.response?.status || 500;
-      let message = "Failed to fetch user data";
+      let message = "در برقراری ارتباط مشکلی صورت گرفته";
 
       switch (status) {
         case 401:
-          message = "Unauthorized. Please log in again.";
+          message = "کد احراض هویت شما منقضی شده از بخش ورود دوباره تلاش کنید";
           break;
         case 404:
-          message = "User data not found.";
+          message = "کاربر مورد نظر یافت نشد";
           break;
         case 500:
-          message = "Server error. Please try again later.";
+          message = "مشکل در برقراری ارتباط به سرور";
           break;
         default:
-          message = "An unknown error occurred.";
+          message = "خطای ناشناخته دوباره سعی در تلاش دوباره";
           break;
       }
       set({ error: message });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  userUpdate: async (data: User): Promise<AuthResult> => {
+    set({ isLoading: true, error: null });
+
+    try {
+      const userId = Cookies.get("user_slug");
+      if (!userId) {
+        return {
+          success: false,
+          status: 400,
+          message: "شناسه کاربری یافت نشد.",
+        };
+      }
+
+      const response = await api.patch<AuthResult>(`auth/get/${userId}/`, data);
+
+      if (response.status === 200) {
+        return {
+          success: true,
+          status: response.status,
+          message: "تغییرات با موفقیت اعمال شد",
+        };
+      }
+
+      return {
+        success: false,
+        status: response.status,
+        message: "تلاش برای تغییرات با خطا مواجه شده، دوباره تلاش کنید",
+      };
+    } catch (error: unknown) {
+      const status =
+        (error as { response?: { status: number } })?.response?.status || 500;
+
+      let message = "تلاش برای تغییرات با خطا مواجه شده، دوباره تلاش کنید";
+
+      switch (status) {
+        case 404:
+          message = "حساب کاربری پیدا نشد. لطفاً ثبت‌نام کنید.";
+          break;
+        case 400:
+        case 401:
+          message =
+            "در هنگام اعمال تغییرات با خطا مواجه شدیم لطفا دقایقی دیگر دوباره تلاش کنید";
+          break;
+        case 500:
+          message = "خطای سرور. لطفاً مجدد تلاش کنید.";
+          break;
+        default:
+          message = "خطای ناشناخته";
+          break;
+      }
+
+      set({ error: message });
+
+      return {
+        success: false,
+        status,
+        message,
+      };
     } finally {
       set({ isLoading: false });
     }

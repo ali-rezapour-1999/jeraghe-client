@@ -4,15 +4,11 @@ import man from "../../../public/man.jpg";
 import woman from "../../../public/woman.jpg";
 import { useProfileState } from "@/state/profileState";
 import { useAuthStore } from "@/state/authState";
-import { Input } from "@heroui/react";
+import { Input, Spinner } from "@heroui/react";
 import Btn from "@/components/btn";
+import { User } from "@/type/authStateType";
+import toast, { Toaster } from "react-hot-toast";
 
-interface userInputType {
-  email: string;
-  username: string;
-  profile_image: File | string | null;
-  phone_number: string;
-}
 interface passInputType {
   password: string;
   newPassword: string;
@@ -21,15 +17,16 @@ interface passInputType {
 
 const SettingSection: React.FC = () => {
   const { personalData } = useProfileState();
-  const { user } = useAuthStore();
+  const { user, userUpdate, setLoading, isLoading } = useAuthStore();
   const [genderImage, setGenderImage] = useState(man);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [userData, setUserData] = useState<userInputType>({
+  const [userData, setUserData] = useState<User>({
     email: user?.email || "",
     username: user?.username || "",
-    profile_image: user?.profile_image || null,
+    profile_image: null,
     phone_number: user?.phone_number || "",
   });
+
   const [pass, setPass] = useState<passInputType>({
     password: "",
     newPassword: "",
@@ -73,22 +70,40 @@ const SettingSection: React.FC = () => {
 
   const isValidIranianPhoneNumber = (): boolean => {
     const iranPhoneRegex = /^09[0-9]{10}$/;
-    return iranPhoneRegex.test(userData.phone_number);
+    return iranPhoneRegex.test(userData.phone_number || "");
   };
 
-  const submitUserHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitUserHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const result = await userUpdate(userData);
+
+    try {
+      if (result.success) {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
+        toast.success(result.message);
+      } else {
+        toast.error(result.message);
+      }
+    } catch {
+      return setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const submitChangePasswordHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const submitChangePasswordHandler = async (
+    e: React.FormEvent<HTMLFormElement>,
+  ) => {
     e.preventDefault();
   };
 
   return (
     <div>
       <form onSubmit={submitUserHandler} className="w-full flex flex-col gap-5">
-        <div className="flex justify-between gap-10 w-full">
-          <div className="w-1/4">
+        <div className="flex flex-col lg:flex-row justify-between items-center gap-10 w-full">
+          <div className="w-full lg:w-1/4 flex items-center justify-center">
             <label className="cursor-pointer w-[250px] h-[300px] flex items-center justify-center">
               <input
                 type="file"
@@ -115,7 +130,7 @@ const SettingSection: React.FC = () => {
               )}
             </label>
           </div>
-          <div className="w-3/4 flex flex-col gap-7">
+          <div className="w-full lg:w-3/4 flex flex-col gap-7">
             <Input
               label="ایمیل"
               labelPlacement="outside"
@@ -152,7 +167,7 @@ const SettingSection: React.FC = () => {
           </div>
         </div>
         <Btn className="bg-orange-400 dark:bg-orange-400" type="submit">
-          ثبت تغییرات
+          {isLoading ? <Spinner /> : " ثبت تغییرات "}
         </Btn>
       </form>
       <form
@@ -196,6 +211,7 @@ const SettingSection: React.FC = () => {
           تغییر رمز عبور
         </Btn>
       </form>
+      <Toaster position="top-right" />
     </div>
   );
 };

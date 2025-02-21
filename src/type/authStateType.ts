@@ -1,7 +1,7 @@
 export interface User {
   email: string;
-  slug: string;
-  profile_image?: string;
+  slug?: string;
+  profile_image?: any;
   username: string;
   phone_number?: string;
 }
@@ -34,4 +34,5 @@ export interface AuthState {
   ) => Promise<AuthResult>;
   logout: () => void;
   userPersonal: () => Promise<void>;
+  userUpdate: (data: User) => Promise<AuthResult>;
 }
