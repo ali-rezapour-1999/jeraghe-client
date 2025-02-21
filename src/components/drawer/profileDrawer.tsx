@@ -17,12 +17,13 @@ import ProfileUpdateSection from "../../app/_profile/profileUpdate";
 import Image from "next/image";
 import DarkModeToggle from "../darkModeToggle";
 import PostSection from "../../app/_profile/postSection";
-import ReqeuestSection from "../../app/_profile/requestSection";
 import MassageSection from "../../app/_profile/massageSection";
+import ReqeuestSection from "../../app/_profile/requestSection";
 import SettingSection from "../../app/_profile/settingSection";
 import man from "../../../public/man.jpg";
 import woman from "../../../public/woman.jpg";
 import { useProfileState } from "@/state/profileState";
+import { IsLoading } from "../isLoading";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -37,11 +38,28 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
   useEffect(() => {
     const changeGender = async () => {
       if (personalData?.gender == "مرد") {
-        setIsWoman(man);
-      } else setIsWoman(woman);
+        setIsWoman(woman);
+      } else setIsWoman(man);
     };
     changeGender();
   }, [personalData]);
+  if (personalData == null) {
+    return (
+      <Drawer
+        placement="left"
+        isOpen={isOpenProfileDrawer}
+        size="5xl"
+        backdrop="blur"
+        onClose={() => setProfileDrawer(false)}
+        hideCloseButton
+        className="w-full h-full justify-center items-center"
+      >
+        <DrawerContent>
+          <IsLoading />
+        </DrawerContent>
+      </Drawer>
+    );
+  }
   return (
     <Drawer
       placement="left"
