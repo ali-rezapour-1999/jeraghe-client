@@ -8,7 +8,13 @@ import useDrawerState from "@/state/drawerState";
 
 const MotionNav = motion.create(Navbar);
 
-const WriteNav = ({ isSave }: { isSave: boolean }) => {
+const WriteNav = ({
+  isSave,
+  contentLength,
+}: {
+  isSave: boolean;
+  contentLength: number;
+}) => {
   const { setWriteOptionDrawer, isOpenWriteDrawer } = useDrawerState();
   return (
     <MotionNav
@@ -32,7 +38,7 @@ const WriteNav = ({ isSave }: { isSave: boolean }) => {
         {isSave ? (
           <div className="text-xl w-26 px-3 bg-transparent dark:bg-transparent text-green-dark dark:text-green-dark flex gap-1">
             <Spinner size="md" color="success" />
-            <p className="text-2xl">ذخیره...</p>
+            <p className="text-xl">ذخیره {contentLength} کاراکتر</p>
           </div>
         ) : (
           <Btn

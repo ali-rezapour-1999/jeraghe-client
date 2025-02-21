@@ -8,7 +8,8 @@ import { useAuthStore } from "@/state/authState";
 import AuthRequired from "@/components/authRequired";
 
 const Writing: React.FC = () => {
-  // const [editorContent, setEditorContent] = useState("");
+  const [contentLength, setContentLength] = useState(0);
+  const [content, setContent] = useState("");
   const { isAuthenticated } = useAuthStore();
   const [title, setTitle] = useState("");
   const [tagInput, setTagInput] = useState("");
@@ -17,10 +18,6 @@ const Writing: React.FC = () => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [showMyDetail, setShowMyDetail] = useState<boolean>(false);
   const [isSave, setIsSave] = useState<boolean>(false);
-
-  // const handleModelChange = (model: any) => {
-  //   setEditorContent(model);
-  // };
 
   const addTag = () => {
     if (tagInput.trim() !== "" && !tags.includes(tagInput)) {
@@ -43,16 +40,16 @@ const Writing: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    return selectedImage;
-    setIsSave(true);
+    return selectedImage && content;
   };
+
   if (!isAuthenticated) {
     return <AuthRequired />;
   }
 
   return (
     <main>
-      <WriteNav isSave={isSave} />
+      <WriteNav isSave={isSave} contentLength={contentLength} />
       <form
         onSubmit={handleSubmit}
         className="max-w-[1600px] w-full mx-auto px-2 md:px-20 text-2xl"
@@ -72,8 +69,12 @@ const Writing: React.FC = () => {
           removeTag={removeTag}
           handleImageChange={handleImageChange}
         />
-        <article className="py-10 min-h-[500px]">
-          <Editor />
+        <article className="py-10 min-h-[300px]">
+          <Editor
+            setContentLength={setContentLength}
+            setIsSave={setIsSave}
+            setContent={setContent}
+          />
         </article>
       </form>
     </main>
