@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import JobCart from "../cart/jobCart";
-import JobDetailDrawer from "../drawer/jobDetailDrawer";
+import JobCart from "../ui/cart/jobCart";
+import JobDetailDrawer from "@/components/ui/drawer/jobDetailDrawer";
 import { useDisclosure } from "@heroui/react";
 import CartContainer from "../container/cartContainer";
 

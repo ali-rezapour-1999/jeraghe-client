@@ -1,5 +1,5 @@
-import Btn from "@/components/btn";
-import MainNavBar from "@/components/navbar";
+import Btn from "@/components/ui/btn";
+import MainNavBar from "@/components/common/navbar";
 import useDrawerState from "@/state/drawerState";
 import React from "react";
 

@@ -12,18 +12,18 @@ import {
 } from "@heroui/react";
 import { useAuthStore } from "@/state/authState";
 import useDrawerState from "@/state/drawerState";
-import Btn from "../btn";
-import ProfileUpdateSection from "../../app/_profile/profileUpdate";
+import Btn from "@/components/ui/btn";
+import ProfileUpdateSection from "@/app/_profile/profile";
 import Image from "next/image";
-import DarkModeToggle from "../darkModeToggle";
-import PostSection from "../../app/_profile/postSection";
-import MassageSection from "../../app/_profile/massageSection";
-import ReqeuestSection from "../../app/_profile/requestSection";
-import SettingSection from "../../app/_profile/settingSection";
-import man from "../../../public/man.jpg";
-import woman from "../../../public/woman.jpg";
+import DarkModeToggle from "@/components/common/darkModeToggle";
+import PostSection from "@/app/_profile/posts";
+import MassageSection from "@/app/_profile/message";
+import ReqeuestSection from "@/app/_profile/requests";
+import SettingSection from "@/app/_profile/setting";
+import man from "../../../../public/man.jpg";
+import woman from "../../../../public/woman.jpg";
 import { useProfileState } from "@/state/profileState";
-import { IsLoading } from "../isLoading";
+import { IsLoading } from "@/components/common/isLoading";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -32,18 +32,19 @@ interface ProfileDrawerProps {
 
 const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
   const { logout, user } = useAuthStore();
-  const { personalData } = useProfileState();
+  const { profileData } = useProfileState();
   const { isOpenProfileDrawer, setProfileDrawer } = useDrawerState();
   const [isWoman, setIsWoman] = useState<any>(man);
   useEffect(() => {
     const changeGender = async () => {
-      if (personalData?.gender == "مرد") {
+      if (profileData?.gender == "مرد") {
         setIsWoman(woman);
       } else setIsWoman(man);
     };
     changeGender();
-  }, [personalData]);
-  if (personalData == null) {
+  }, [profileData]);
+  
+  if (user == null) {
     return (
       <Drawer
         placement="left"
@@ -102,7 +103,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
               radius="lg"
             >
               <Tab key="profile" title="اطلاعات شخصی" className="w-full">
-                <ProfileUpdateSection />
+                {profileData ? <ProfileUpdateSection /> : <IsLoading />}
               </Tab>
               <Tab key="post" title="پست ها" className="w-full">
                 <PostSection />
@@ -114,7 +115,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
                 <MassageSection />
               </Tab>
               <Tab key="setting" title="تنظیمات" className="w-full">
-                <SettingSection />
+                {user ? <SettingSection /> : <IsLoading />}
               </Tab>
             </Tabs>
           </div>

@@ -10,7 +10,7 @@ import {
 import { useProfileState } from "@/state/profileState";
 import { ProfileResponse } from "@/type/profileStateType";
 import toast, { Toaster } from "react-hot-toast";
-import Btn from "@/components/btn";
+import Btn from "@/components/ui/btn";
 
 const genderOptions = [
   { id: 1, label: "مرد" },

@@ -2,9 +2,9 @@
 import { useDisclosure } from "@heroui/react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import React from "react";
-import HomeContainer from "../components/container/homeContainer";
+import HomeContainer from "../container/homeContainer";
 import FilterDrawer from "../components/drawer/filterDrawer";
-import Btn from "./btn";
+import Btn from "../ui/btn";
 
 const HomeSectionSearch: React.FC = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();

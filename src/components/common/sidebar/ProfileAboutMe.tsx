@@ -1,4 +1,4 @@
-import ProfileSectionContainer from "@/components/container/prfileContainer";
+import ProfileSectionContainer from "@/components/container/profileContainer";
 import { useProfileState } from "@/state/profileState";
 import React from "react";
 

@@ -10,7 +10,7 @@ import {
   Input,
   Switch,
 } from "@heroui/react";
-import Btn from "../btn";
+import Btn from "@/components/ui/btn";
 import useDrawerState from "@/state/drawerState";
 import Image from "next/image";
 import { Plus, X } from "lucide-react";

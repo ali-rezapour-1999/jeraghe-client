@@ -1,5 +1,5 @@
 "use client";
-import MainNavBar from "@/components/navbar";
+import MainNavBar from "@/components/common/navbar";
 import React from "react";
 
 const CreateJobRequest = () => {

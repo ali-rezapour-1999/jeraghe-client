@@ -6,7 +6,7 @@ import { useProfileState } from "@/state/profileState";
 import { SessionProvider } from "next-auth/react";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const { restoreAuthState, userPersonal, isAuthenticated } = useAuthStore();
+  const { restoreAuthState, userInfo, isAuthenticated } = useAuthStore();
   const { profileRequest } = useProfileState();
 
   useEffect(() => {
@@ -16,11 +16,11 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const slugId = Cookies.get("user_slug");
     if (slugId) {
-      userPersonal();
+      userInfo();
       profileRequest();
-      userPersonal();
+      userInfo();
     }
-  }, [userPersonal, isAuthenticated, profileRequest]);
+  }, [userInfo, isAuthenticated, profileRequest]);
 
   return (
     <main>

@@ -1,6 +1,6 @@
-import Btn from "@/components/btn";
-import DarkModeToggle from "@/components/darkModeToggle";
-import Logo from "@/components/logo";
+import Btn from "@/components/ui/btn";
+import DarkModeToggle from "@/components/common/darkModeToggle";
+import Logo from "@/components/common/logo";
 import { Navbar, NavbarBrand, NavbarContent, Spinner } from "@heroui/react";
 import { motion } from "framer-motion";
 import React from "react";

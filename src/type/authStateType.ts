@@ -6,15 +6,16 @@ export interface User {
   phone_number?: string;
 }
 
-export interface AuthResult {
-  success: boolean;
-  status: number;
-  message: string;
+export type AuthResult =  {
+  success?: boolean;
+  status?: number;
+  message?: string;
   data?: {
-    access: string;
-    refresh: string;
-    user: User;
-  };
+    email?: string;
+    slug?: string;
+    profile_image?: any;
+    username?: string;
+    phone_number?: string;  };
 }
 
 export interface AuthState {
@@ -22,9 +23,7 @@ export interface AuthState {
   user: User | null;
   token: string | null;
   isLoading: boolean;
-  error: string | null;
   setLoading: (isLoading: boolean) => void;
-  setError: (error: string | null) => void;
   restoreAuthState: () => void;
   login: (email: string, password: string) => Promise<AuthResult>;
   register: (
@@ -33,6 +32,6 @@ export interface AuthState {
     username: string,
   ) => Promise<AuthResult>;
   logout: () => void;
-  userPersonal: () => Promise<void>;
+  userInfo: () => Promise<void>;
   userUpdate: (data: User) => Promise<AuthResult>;
 }

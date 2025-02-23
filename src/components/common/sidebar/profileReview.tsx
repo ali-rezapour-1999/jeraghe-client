@@ -1,5 +1,5 @@
 "use client";
-import ProfileSectionContainer from "@/components/container/prfileContainer";
+import ProfileSectionContainer from "@/components/container/profileContainer";
 import React from "react";
 
 interface PropsItemSection {

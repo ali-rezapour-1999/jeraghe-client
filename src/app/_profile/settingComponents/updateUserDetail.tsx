@@ -4,7 +4,7 @@ import man from "../../../../public/man.jpg";
 import woman from "../../../../public/woman.jpg";
 import { useAuthStore } from "@/state/authState";
 import { Input, Spinner } from "@heroui/react";
-import Btn from "@/components/btn";
+import Btn from "@/components/ui/btn";
 import { User } from "@/type/authStateType";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";

@@ -1,4 +1,4 @@
-import Btn from "@/components/btn";
+import Btn from "@/components/ui/btn";
 import React, { useState } from "react";
 import { Input } from "@heroui/react";
 import { Toaster } from "react-hot-toast";

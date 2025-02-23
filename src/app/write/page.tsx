@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import "../../style/editor.css";
-import WriteOptionDrawer from "@/components/drawer/writeOptionDrawer";
+import WriteOptionDrawer from "@/components/ui/drawer/writeOptionDrawer";
 import WriteNav from "./writeNav";
 import Editor from "./_editor/editor";
 import { useAuthStore } from "@/state/authState";

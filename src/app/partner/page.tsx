@@ -1,4 +1,4 @@
-import MainNavBar from "@/components/navbar";
+import MainNavBar from "@/components/common/navbar";
 import Link from "next/link";
 import React from "react";
 

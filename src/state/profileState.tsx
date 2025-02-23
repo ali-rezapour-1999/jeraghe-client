@@ -12,7 +12,7 @@ import api from "@/lib/baseApi";
 export const useProfileState = create<ProfileState>((set) => ({
   isLoading: false,
   error: null,
-  personalData: null,
+  profileData: null,
   workHistoryData: null,
   setLoading: (isLoading) => set({ isLoading }),
   setError: (error) => set({ error }),
@@ -26,7 +26,7 @@ export const useProfileState = create<ProfileState>((set) => ({
           `/profile/profiles/${userId}/`,
         );
         set({
-          personalData: personalRes.data,
+          profileData: personalRes.data,
         });
       }
     } catch (error: unknown) {

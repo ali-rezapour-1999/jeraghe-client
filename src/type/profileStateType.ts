@@ -25,7 +25,7 @@ export interface WorkHistoryResponse {
 export interface ProfileState {
   isLoading: boolean;
   error: string | null;
-  personalData: ProfileResponse | null;
+  profileData: ProfileResponse | null;
   workHistoryData: WorkHistoryResponse | null;
   profileRequest: () => Promise<void>;
   profileUpdate: (data: ProfileResponse) => Promise<ProfileResult>;

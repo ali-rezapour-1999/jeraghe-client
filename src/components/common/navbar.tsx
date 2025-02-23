@@ -13,18 +13,18 @@ import "@/style/nav-css.css";
 import Link from "next/link";
 import { Bell, Menu, Pencil, Telescope, UserRound } from "lucide-react";
 import { motion } from "framer-motion";
+import ProfileDrawer from "@/components/ui/drawer/profileDrawer";
+import AuthDrawer from "@/components/ui/drawer/authDrawer";
 import { usePathname } from "next/navigation";
 import useDrawerState from "@/state/drawerState";
 import { useAuthStore } from "@/state/authState";
+import DarkModeToggle from "./darkModeToggle";
 import Btn from "@/components/ui/btn";
-import Logo from "./common/logo";
-import DarkModeToggle from "./common/darkModeToggle";
-import ProfileDrawer from "./ui/drawer/profileDrawer";
-import AuthDrawer from "./ui/drawer/authDrawer";
+import Logo from "./logo";
 
 const MotionNav = motion.create(Navbar);
 
-interface navLintType {
+type navLintType =  {
   id: number;
   href: string;
   label: string;

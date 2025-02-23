@@ -1,6 +1,6 @@
 "use client";
 
-import MainNavBar from "@/components/navbar";
+import MainNavBar from "@/components/common/navbar";
 import Image from "next/image";
 import ideaImage from "../../public/idea_picture.jpg";
 import partnerShipImage from "../../public/partnership_pictrue.jpg";

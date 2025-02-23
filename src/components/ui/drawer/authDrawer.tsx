@@ -4,9 +4,9 @@ import React, { useState } from "react";
 import { Drawer, DrawerContent, DrawerBody, DrawerFooter } from "@heroui/react";
 import Login from "@/app/_auth/login";
 import Register from "@/app/_auth/register";
-import Btn from "../btn";
-import google from "../../../public/icons/google.svg";
-import github from "../../../public/icons/icons8-github.svg";
+import Btn from "@/components/ui/btn";
+import google from "../../../../public/icons/google.svg";
+import github from "../../../../public/icons/icons8-github.svg";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 
