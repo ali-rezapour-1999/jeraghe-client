@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
-import JobCart from "../ui/cart/jobCart";
-import JobDetailDrawer from "@/components/ui/drawer/jobDetailDrawer";
-import { useDisclosure } from "@heroui/react";
+import JobCart from "@/components/ui/cart/jobCart";
+import JobDetailDrawer from "../ui/drawer/jobDetailDrawer";
 import CartContainer from "../container/cartContainer";
+import { useDisclosure } from "@heroui/react";
 
-const HomeShowJobItems: React.FC = () => {
+const HomeShowJobItems = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   return (
     <CartContainer delay={0.5}>

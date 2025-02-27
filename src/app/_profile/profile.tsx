@@ -18,15 +18,15 @@ const genderOptions = [
 ];
 
 const ProfileUpdateSection: React.FC = () => {
-  const { personalData, profileRequest, profileUpdate, isLoading } =
+  const { profileData, profileRequest, profileUpdate, isLoading } =
     useProfileState();
   const [updateData, setUpdateData] = useState<ProfileResponse>({
-    age: personalData?.age || null,
-    gender: personalData?.gender || "",
-    state: personalData?.state || "",
-    city: personalData?.city || "",
-    address: personalData?.address || "",
-    description_myself: personalData?.description_myself || "",
+    age: profileData?.age || null,
+    gender: profileData?.gender || "",
+    state: profileData?.state || "",
+    city: profileData?.city || "",
+    address: profileData?.address || "",
+    description_myself: profileData?.description_myself || "",
   });
 
   const inputChangeHandler = (
@@ -49,9 +49,9 @@ const ProfileUpdateSection: React.FC = () => {
     e: React.FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
-    const updateResult = await profileUpdate(updateData);
-    if (updateResult.status === 200) {
-      toast.success(updateResult.message);
+    const response = await profileUpdate(updateData);
+    if (response.success) {
+      toast.success(response.message as string);
       profileRequest();
     }
   };

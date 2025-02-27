@@ -10,7 +10,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
 
 const UpdateUserDetail = () => {
-  const { personalData } = useProfileState();
+  const { profileData } = useProfileState();
   const { user, userUpdate, setLoading, isLoading } = useAuthStore();
   const [genderImage, setGenderImage] = useState(man);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -22,12 +22,12 @@ const UpdateUserDetail = () => {
   });
 
   useEffect(() => {
-    if (personalData?.gender === "مرد") {
+    if (profileData?.gender === "مرد") {
       setGenderImage(woman);
     } else {
       setGenderImage(man);
     }
-  }, [personalData]);
+  }, [profileData]);
 
   const inputChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -55,15 +55,11 @@ const UpdateUserDetail = () => {
   const submitUserHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const result = await userUpdate(userData);
-
     try {
       if (result.success) {
-        setTimeout(() => {
-          setLoading(false);
-        }, 1000);
-        toast.success(result.message);
+        toast.success(result.message as string);
       } else {
-        toast.error(result.message);
+        toast.error(result.message as string);
       }
     } catch {
       return setLoading(false);

@@ -55,12 +55,9 @@ const Login: React.FC = () => {
       const result = await login(formData.email, formData.password);
       try {
         if (result.success) {
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
-          toast.success(result.message);
+          toast.success(result.message as string);
         } else {
-          toast.error(result.message);
+          toast.error(result.message as string);
         }
       } catch {
         return setLoading(false);

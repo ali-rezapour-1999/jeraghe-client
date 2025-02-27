@@ -5,10 +5,15 @@ import { cookies } from "next/headers";
 
 export async function updateAction(data: User): Promise<AuthResult> {
     let message = '';
-    const slug = (await cookies()).get("user_slug");
+    const slug = (await cookies()).get("user_slug")?.value;
+    const token = (await cookies()).get("access_token")?.value;
 
     try {
-        const response = await api.patch(`auth/get/${slug}`, data);
+        const response = await api.patch(`auth/get/${slug}/`, data, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });;
         return {
             success: true,
             status: response.status,

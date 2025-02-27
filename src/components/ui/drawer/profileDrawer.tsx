@@ -32,9 +32,14 @@ interface ProfileDrawerProps {
 
 const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
   const { logout, user } = useAuthStore();
-  const { profileData } = useProfileState();
+  const { profileData, profileRequest } = useProfileState();
   const { isOpenProfileDrawer, setProfileDrawer } = useDrawerState();
   const [isWoman, setIsWoman] = useState<any>(man);
+
+  useEffect(() => {
+    profileRequest();
+  }, [profileRequest]);
+
   useEffect(() => {
     const changeGender = async () => {
       if (profileData?.gender == "مرد") {
@@ -43,7 +48,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
     };
     changeGender();
   }, [profileData]);
-  
+
   if (user == null) {
     return (
       <Drawer

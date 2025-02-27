@@ -11,11 +11,11 @@ import {
   DrawerFooter,
 } from "@heroui/react";
 import Image from "next/image";
-import logo from "../../../public/logo.png";
+import logo from "../../../../public/logo.png";
 import { Bookmark } from "lucide-react";
-import DescriptionForJob from "../section/descriptionForJob";
-import JobOwnerDetial from "../section/jobOwnerDetail";
-import Btn from "../ui/btn";
+import DescriptionForJob from "@/components/section/descriptionForJob";
+import JobOwnerDetial from "@/components/section/ownerDetail";
+import Btn from "../btn";
 
 interface JobDetialDrawerProps {
   isOpen: boolean;

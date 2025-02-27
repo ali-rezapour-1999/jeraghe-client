@@ -94,9 +94,9 @@ const Register: React.FC = () => {
           setTimeout(() => {
             setLoading(false);
           }, 1000);
-          toast.success(result.message);
+          toast.success(result.message as string);
         } else {
-          toast.error(result.message);
+          toast.error(result.message as string);
         }
       } catch (err) {
         return err;

@@ -1,7 +1,7 @@
-export interface ProfileResult {
-  success: boolean;
-  status: number;
-  message: string;
+export interface RequestResult {
+  success?: boolean;
+  status?: number;
+  message?: string;
 }
 
 export interface ProfileResponse {
@@ -24,12 +24,10 @@ export interface WorkHistoryResponse {
 
 export interface ProfileState {
   isLoading: boolean;
-  error: string | null;
   profileData: ProfileResponse | null;
   workHistoryData: WorkHistoryResponse | null;
   profileRequest: () => Promise<void>;
-  profileUpdate: (data: ProfileResponse) => Promise<ProfileResult>;
-  workHistoryUpdate: (data: WorkHistoryResponse) => Promise<void>;
+  profileUpdate: (data: ProfileResponse) => Promise<RequestResult>;
+  workHistoryUpdate: (data: WorkHistoryResponse) => Promise<RequestResult>;
   setLoading: (isLoading: boolean) => void;
-  setError: (error: string | null) => void;
 }

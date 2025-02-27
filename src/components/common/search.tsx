@@ -3,7 +3,7 @@ import { useDisclosure } from "@heroui/react";
 import { Search, SlidersHorizontal } from "lucide-react";
 import React from "react";
 import HomeContainer from "../container/homeContainer";
-import FilterDrawer from "../components/drawer/filterDrawer";
+import FilterDrawer from "../ui/drawer/searchFilterDrawer";
 import Btn from "../ui/btn";
 
 const HomeSectionSearch: React.FC = () => {

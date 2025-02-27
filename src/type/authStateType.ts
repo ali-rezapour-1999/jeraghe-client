@@ -32,6 +32,5 @@ export interface AuthState {
     username: string,
   ) => Promise<AuthResult>;
   logout: () => void;
-  userInfo: () => Promise<void>;
   userUpdate: (data: User) => Promise<AuthResult>;
 }

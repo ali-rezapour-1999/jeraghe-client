@@ -2,7 +2,7 @@
 
 import MainNavBar from "@/components/common/navbar";
 import HomeSectionSearch from "@/components/common/search";
-import HomeShowJobItems from "@/components/section/JobItems";
+import HomeShowJobItems from "../../components/section/JobItems";
 import ProfileAboutMeSection from "@/components/common/sidebar/ProfileAboutMe";
 import ProfileSection from "@/components/common/sidebar/profileSection";
 import ProfileViewSection from "@/components/common/sidebar/profileReview";

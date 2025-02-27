@@ -7,14 +7,12 @@ export async function userInfoAction(): Promise<AuthResult> {
     let message = "";
     const accessToken = (await cookies()).get("access_token")?.value;
     const slug = (await cookies()).get("user_slug")?.value;
-
     try {
         const response = await api.get(`auth/get/${slug}`, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },
         });
-
         const data = await response.data
         return {
             data: {
