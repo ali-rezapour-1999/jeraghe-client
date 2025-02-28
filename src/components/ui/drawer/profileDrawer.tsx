@@ -32,13 +32,9 @@ interface ProfileDrawerProps {
 
 const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
   const { logout, user } = useAuthStore();
-  const { profileData, profileRequest } = useProfileState();
+  const { profileData } = useProfileState();
   const { isOpenProfileDrawer, setProfileDrawer } = useDrawerState();
   const [isWoman, setIsWoman] = useState<any>(man);
-
-  useEffect(() => {
-    profileRequest();
-  }, [profileRequest]);
 
   useEffect(() => {
     const changeGender = async () => {
@@ -107,7 +103,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
               aria-label="drawer-job-content-select"
               radius="lg"
             >
-              <Tab key="profile" title="اطلاعات شخصی" className="w-full">
+              <Tab key="profile" title="درباره من" className="w-full">
                 {profileData ? <ProfileUpdateSection /> : <IsLoading />}
               </Tab>
               <Tab key="post" title="پست ها" className="w-full">

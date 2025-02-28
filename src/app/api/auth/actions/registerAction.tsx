@@ -16,10 +16,7 @@ export async function registerAction(email: string, password: string, username: 
         return {
             success: true,
             status: response.status,
-            data: {
-                email: response.data.email,
-                slug: response.data.slug,
-            },
+            data: response.data,
         };
     } catch (error) {
         const status =

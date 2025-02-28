@@ -17,10 +17,7 @@ export async function loginAction(email: string, password: string): Promise<Auth
       success: true,
       status: response.status,
       message: 'خوش آمدید',
-      data: {
-        email: response.data.email,
-        slug: response.data.slug,
-      },
+      data: response.data,
     };
   } catch (error) {
     const status =

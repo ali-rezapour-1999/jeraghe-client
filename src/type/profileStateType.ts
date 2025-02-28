@@ -1,8 +1,4 @@
-export interface RequestResult {
-  success?: boolean;
-  status?: number;
-  message?: string;
-}
+import { RequestResult } from "./mainType";
 
 export interface ProfileResponse {
   age: string | null;
@@ -22,12 +18,23 @@ export interface WorkHistoryResponse {
   is_working: boolean;
 }
 
+export interface SocialMediaResponse {
+  user?: string | null;
+  title: string | null;
+  address: string | null;
+  slug_id?: string | null;
+}
+
 export interface ProfileState {
   isLoading: boolean;
   profileData: ProfileResponse | null;
   workHistoryData: WorkHistoryResponse | null;
+  socialMediaData: SocialMediaResponse[] | null;
   profileRequest: () => Promise<void>;
+  socialMediaRequest: () => Promise<void>;
   profileUpdate: (data: ProfileResponse) => Promise<RequestResult>;
   workHistoryUpdate: (data: WorkHistoryResponse) => Promise<RequestResult>;
+  socialMedia: (data: SocialMediaResponse) => Promise<RequestResult>;
+  socialMediaDelete: (slug: string) => Promise<RequestResult>;
   setLoading: (isLoading: boolean) => void;
 }

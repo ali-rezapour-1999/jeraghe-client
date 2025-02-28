@@ -15,7 +15,6 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   restoreAuthState: async () => {
     const user = await isAuthCheckAction();
-
     if (user) {
       set({ isAuthenticated: true, user });
     }

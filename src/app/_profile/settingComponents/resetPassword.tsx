@@ -1,6 +1,6 @@
 import Btn from "@/components/ui/btn";
 import React, { useState } from "react";
-import { Input } from "@heroui/react";
+import { Form, Input } from "@heroui/react";
 import { Toaster } from "react-hot-toast";
 
 interface passInputType {
@@ -31,7 +31,7 @@ const ResetPassword = () => {
     e.preventDefault();
   };
   return (
-    <form
+    <Form
       className="py-10 mt-16 border-t-1 flex relative flex-col gap-7 items-center justify-center"
       onSubmit={submitChangePasswordHandler}
     >
@@ -72,7 +72,7 @@ const ResetPassword = () => {
         تغییر رمز عبور
       </Btn>
       <Toaster position="top-right" />
-    </form>
+    </Form>
   );
 };
 

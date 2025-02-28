@@ -1,12 +1,10 @@
 "use server";
 import api from "@/lib/baseApi";
+import { RequestResult } from "@/type/mainType";
 import { ProfileResponse } from "@/type/profileStateType";
 import { cookies } from "next/headers";
 
-export const profileRequestAction = async (): Promise<{
-  success: boolean;
-  data: ProfileResponse;
-}> => {
+export const profileRequestAction = async (): Promise<RequestResult> => {
   const slug = (await cookies()).get("user_slug")?.value;
   try {
     if (!slug) {
