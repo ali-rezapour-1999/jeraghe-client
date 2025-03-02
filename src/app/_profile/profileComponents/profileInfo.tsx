@@ -7,10 +7,10 @@ import {
   Textarea,
   Spinner,
 } from "@heroui/react";
-import { useProfileState } from "@/state/profileState";
 import { ProfileResponse } from "@/type/profileStateType";
 import toast from "react-hot-toast";
 import Btn from "@/components/ui/btn";
+import { useProfileState } from "@/state/userInformationStore";
 
 const genderOptions = [
   { id: 1, label: "مرد" },
@@ -18,8 +18,7 @@ const genderOptions = [
 ];
 
 const ProfileInfo: React.FC = () => {
-  const { profileData, profileRequest, profileUpdate, isLoading } =
-    useProfileState();
+  const { profileData, profileRequest, profileUpdate, isLoading } = useProfileState();
   const [updateData, setUpdateData] = useState<ProfileResponse>({
     age: profileData?.age || null,
     gender: profileData?.gender || "",

@@ -10,6 +10,7 @@ interface BtnProps {
   link?: string;
   type?: "button" | "submit" | "reset" | undefined;
   style?: React.CSSProperties;
+  isDisable?: boolean
 }
 
 const Btn: React.FC<BtnProps> = ({
@@ -19,10 +20,12 @@ const Btn: React.FC<BtnProps> = ({
   link,
   type,
   style,
+  isDisable = false
 }) => {
   return link ? (
     <Link href={link} legacyBehavior passHref>
       <Button
+        isDisabled={isDisable}
         className={`focus:outline-none rounded-2xl min-w-0 dark:bg-green-dark bg-green-dark text-white dark:text-light ${className}`}
         style={style}
       >
@@ -31,6 +34,7 @@ const Btn: React.FC<BtnProps> = ({
     </Link>
   ) : (
     <Button
+      isDisabled={isDisable}
       type={type}
       onPress={onClick}
       className={`focus:outline-none rounded-2xl min-w-0 dark:bg-green-dark bg-green-dark text-white dark:text-light ${className}`}

@@ -1,4 +1,3 @@
-import { useProfileState } from "@/state/profileState";
 import React, { useEffect, useState } from "react";
 import man from "../../../../public/man.jpg";
 import woman from "../../../../public/woman.jpg";
@@ -8,10 +7,11 @@ import Btn from "@/components/ui/btn";
 import { User } from "@/type/authStateType";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
+import { useProfileState } from "@/state/userInformationStore";
 
 const UpdateUserDetail = () => {
   const { profileData } = useProfileState();
-  const { user, userUpdate, setLoading, isLoading } = useAuthStore();
+  const { user, userUpdate, isLoading } = useAuthStore();
   const [genderImage, setGenderImage] = useState(man);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [userData, setUserData] = useState<User>({
@@ -54,19 +54,15 @@ const UpdateUserDetail = () => {
 
   const submitUserHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const result = await userUpdate(userData);
-    try {
-      if (result.success) {
-        toast.success(result.message as string);
+    await userUpdate(userData).then((response: any) => {
+      if (response.success) {
+        toast.success(response.message as string);
       } else {
-        toast.error(result.message as string);
+        toast.error(response.message as string);
       }
-    } catch {
-      return setLoading(false);
-    } finally {
-      setLoading(false);
-    }
+    });
   };
+
   return (
     <form onSubmit={submitUserHandler} className="w-full flex flex-col gap-5">
       <div className="flex flex-col lg:flex-row justify-between items-center gap-10 w-full">

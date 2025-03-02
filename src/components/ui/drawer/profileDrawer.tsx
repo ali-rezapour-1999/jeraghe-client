@@ -22,8 +22,8 @@ import ReqeuestSection from "@/app/_profile/requests";
 import SettingSection from "@/app/_profile/setting";
 import man from "../../../../public/man.jpg";
 import woman from "../../../../public/woman.jpg";
-import { useProfileState } from "@/state/profileState";
 import { IsLoading } from "@/components/common/isLoading";
+import { useProfileState } from "@/state/userInformationStore";
 
 interface ProfileDrawerProps {
   isOpen: boolean;

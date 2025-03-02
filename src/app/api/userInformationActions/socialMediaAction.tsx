@@ -1,7 +1,7 @@
 "use server";
 
 import api from "@/lib/baseApi";
-import { RequestResult } from "@/type/mainType";
+import { RequestResult } from "@/type/baseType";
 import { SocialMediaResponse } from "@/type/profileStateType";
 import { cookies } from "next/headers";
 

@@ -2,20 +2,23 @@
 import React, { useEffect } from "react";
 import { useAuthStore } from "@/state/authState";
 import { SessionProvider } from "next-auth/react";
-import { useProfileState } from "@/state/profileState";
+import { useProfileState, useSocialMediaState } from "@/state/userInformationStore";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const { restoreAuthState } = useAuthStore();
-  const { profileRequest, socialMediaRequest } = useProfileState();
+  const { restoreAuthState, isAuthenticated } = useAuthStore();
+  const { profileRequest } = useProfileState();
+  const { socialMediaRequest } = useSocialMediaState();
 
   useEffect(() => {
     restoreAuthState();
   }, [restoreAuthState]);
 
   useEffect(() => {
-    profileRequest();
-    socialMediaRequest();
-  }, [profileRequest, socialMediaRequest]);
+    if (isAuthenticated) {
+      profileRequest();
+      socialMediaRequest();
+    }
+  }, [profileRequest, socialMediaRequest, isAuthenticated]);
 
   return <SessionProvider>{children}</SessionProvider>;
 };

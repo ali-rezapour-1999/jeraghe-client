@@ -1,12 +1,13 @@
-export interface User {
+import { baseType } from "./baseType";
+
+export interface User extends baseType {
   email: string;
-  slug?: string;
   profile_image?: any;
   username: string;
   phone_number?: string;
 }
 
-export type AuthResult =  {
+export type AuthResult = {
   success?: boolean;
   status?: number;
   message?: string;
@@ -15,8 +16,9 @@ export type AuthResult =  {
     slug?: string;
     profile_image?: any;
     username?: string;
-    phone_number?: string;  };
-}
+    phone_number?: string;
+  };
+};
 
 export interface AuthState {
   isAuthenticated: boolean;

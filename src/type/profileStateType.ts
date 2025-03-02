@@ -1,4 +1,4 @@
-import { RequestResult } from "./mainType";
+import { IsLoadingType, RequestResult } from "./baseType";
 
 export interface ProfileResponse {
   age: string | null;
@@ -25,16 +25,20 @@ export interface SocialMediaResponse {
   slug_id?: string | null;
 }
 
-export interface ProfileState {
-  isLoading: boolean;
+export interface ProfileState extends IsLoadingType {
   profileData: ProfileResponse | null;
-  workHistoryData: WorkHistoryResponse | null;
-  socialMediaData: SocialMediaResponse[] | null;
   profileRequest: () => Promise<void>;
-  socialMediaRequest: () => Promise<void>;
   profileUpdate: (data: ProfileResponse) => Promise<RequestResult>;
-  workHistoryUpdate: (data: WorkHistoryResponse) => Promise<RequestResult>;
+}
+
+export interface SocialMediaState extends IsLoadingType {
+  socialMediaData: SocialMediaResponse[] | null;
+  socialMediaRequest: () => Promise<void>;
   socialMedia: (data: SocialMediaResponse) => Promise<RequestResult>;
   socialMediaDelete: (slug: string) => Promise<RequestResult>;
-  setLoading: (isLoading: boolean) => void;
+}
+
+export interface WorkHistoryState extends IsLoadingType {
+  workHistoryData: WorkHistoryResponse | null;
+  workHistoryUpdate: (data: WorkHistoryResponse) => Promise<RequestResult>;
 }

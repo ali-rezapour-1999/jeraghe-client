@@ -3,14 +3,14 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Btn from "@/components/ui/btn";
 import { MediaItems } from "@/state/socialMediaItems";
-import { useProfileState } from "@/state/profileState";
 import toast from "react-hot-toast";
 import SocialMediaContent from "./socialMediaContent";
 import { IsLoading } from "@/components/common/isLoading";
+import { useSocialMediaState } from "@/state/userInformationStore";
 
 const SocialMedia = () => {
   const { socialMedia, socialMediaData, isLoading, socialMediaRequest } =
-    useProfileState();
+    useSocialMediaState();
 
   const [links, setLink] = useState("");
   const [updateData, setUpdateData] = useState({
@@ -48,12 +48,17 @@ const SocialMedia = () => {
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await socialMedia(updateData).then((response) => {
-      socialMediaRequest();
+    await socialMedia(updateData).then((response: any) => {
       if (response.success) {
-        if (response.success) {
-          toast.success(response.message as string);
-        }
+        toast.success(response.message as string);
+        socialMediaRequest();
+        setUpdateData({
+          title: "",
+          address: "",
+        })
+      }
+      else {
+        toast.error(response.message as string);
       }
     });
   };
@@ -72,7 +77,7 @@ const SocialMedia = () => {
             label="آیدی"
             labelPlacement="outside"
             className="w-full md:w-3/4"
-            placeholder="فقط آیدی خود را وارد کنید"
+            placeholder="لینک مربوطه را وارد نمایید"
             name="address"
             type="text"
             size="lg"
@@ -112,7 +117,7 @@ const SocialMedia = () => {
             🔗 لینک نهایی: {links}
           </p>
         )}
-        <Btn type="submit" className="w-full text-lg mt-3">
+        <Btn isDisable={updateData.address != "" && updateData.title != "" ? false : true} type="submit" className="w-full text-lg mt-3">
           دنبال کنی
         </Btn>
       </Form>

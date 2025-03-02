@@ -1,13 +1,13 @@
 import Btn from "@/components/ui/btn";
-import { useProfileState } from "@/state/profileState";
 import { MediaItems } from "@/state/socialMediaItems";
+import { useSocialMediaState } from "@/state/userInformationStore";
 import { Trash } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 const SocialMediaContent = () => {
   const { socialMediaDelete, socialMediaRequest, socialMediaData } =
-    useProfileState();
+    useSocialMediaState();
   const mediaIconsFuntion = (title: string) => {
     return MediaItems.find((i) => i.title === title)?.icons;
   };
@@ -16,7 +16,7 @@ const SocialMediaContent = () => {
   };
   return (
     <div className="w-full  flex flex-col gap-2">
-      {socialMediaData?.map((item, index) => (
+      {socialMediaData?.map((item: any, index: any) => (
         <div
           key={index}
           className="dark:bg-darkPrimary bg-light text-darkPrimary dark:text-light w-full p-2 rounded-lg flex items-center justify-between"
@@ -30,7 +30,7 @@ const SocialMediaContent = () => {
               width={30}
             />
           </div>
-          <p className="text-start w-9/12">{item.address}</p>
+          <a href={item.address} className="text-start w-9/12" target="_blank">{item.address}</a>
           <Btn
             onClick={() => {
               removeItem(item.slug_id as string);

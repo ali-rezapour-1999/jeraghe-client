@@ -1,5 +1,5 @@
 import ProfileSectionContainer from "@/components/container/profileContainer";
-import { useProfileState } from "@/state/profileState";
+import { useProfileState } from "@/state/userInformationStore";
 import React from "react";
 
 const ProfileAboutMeSection: React.FC = () => {
