@@ -1,12 +1,12 @@
-import { IsLoading } from "@/components/common/isLoading";
+import UserPostCart from "@/components/ui/cart/userPostCart";
 import { useViewPostState } from "@/state/blogStore/viewPostState";
-import React from "react";
+import React, { useEffect } from "react";
 
 const PostSection: React.FC = () => {
-  const { postData, isLoading } = useViewPostState()
-  if (isLoading) <IsLoading />
-
-  return <div>{postData?.map((i, index) => <div key={index}>{i.title}</div>)}</div>;
-};
-
+  const { requestPostView, postData } = useViewPostState()
+  useEffect(() => { requestPostView() }, [requestPostView])
+  return <div className="px-3 md:px-10">
+    {postData?.map((item, index) => <UserPostCart key={index} image={item?.image} content={item?.content} viewCount={item?.viewCount} title={item?.title} category={item?.category} status={item?.status} />)}
+  </div>
+}
 export default PostSection;

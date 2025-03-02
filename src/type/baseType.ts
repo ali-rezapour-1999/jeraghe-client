@@ -15,8 +15,8 @@ export interface Tags {
 }
 
 export interface baseType {
-  slug: number
-  created_at: string
-  updated_at: string
-  is_active: boolean
+  slug?: number
+  created_at?: string
+  updated_at?: string
+  is_active?: boolean
 }
