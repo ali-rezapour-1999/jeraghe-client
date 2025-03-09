@@ -50,35 +50,37 @@ const AuthDrawer: React.FC<AuthDrawerProps> = ({ isOpen, onClose }) => {
                 )}
               </DrawerBody>
               <DrawerFooter className="flex flex-col px-10">
-                <Btn
-                  type="submit"
-                  className="relative w-full font-bold overflow-hidden bg-light dark:bg-primary-light text-primary dark:text-primary"
-                >
-                  ورود از طریق حساب گیت هاب
-                  <Image src={github} alt="google" width={25} height={25} />
-                </Btn>
-                <Btn
-                  type="submit"
-                  className="relative w-full text-white font-bold overflow-hidden"
-                  onClick={() => signIn("google")}
-                >
-                  <span
-                    className="absolute inset-0 bg-gradient-to-r"
-                    style={{
-                      background:
-                        "linear-gradient(90deg, #2C5DA8 25%, #20632E 50%, #B88A03 75%, #A82D24 100%)",
-                    }}
-                  ></span>
-                  <div className="relative z-10 flex items-center justify-center gap-2">
-                    ورود از طریق حساب گوگل
-                    <Image src={google} alt="google" width={25} height={25} />
-                  </div>
-                </Btn>
+                <div className="flex gap-2">
+                  <Btn
+                    type="submit"
+                    className="relative w-full font-bold overflow-hidden bg-light dark:bg-primary-light text-primary dark:text-primary"
+                  >
+                    ورود از طریق حساب گیت هاب
+                    <Image src={github} alt="google" width={25} height={25} />
+                  </Btn>
+                  <Btn
+                    type="submit"
+                    className="relative w-full text-white font-bold overflow-hidden"
+                    onClick={() => signIn("google")}
+                  >
+                    <span
+                      className="absolute inset-0 bg-gradient-to-r"
+                      style={{
+                        background:
+                          "linear-gradient(90deg, #2C5DA8 25%, #20632E 50%, #B88A03 75%, #A82D24 100%)",
+                      }}
+                    ></span>
+                    <div className="relative z-10 flex items-center justify-center gap-2">
+                      ورود از طریق حساب گوگل
+                      <Image src={google} alt="google" width={25} height={25} />
+                    </div>
+                  </Btn>
+                </div>
                 <Btn
                   className="w-full bg-red-400 dark:bg-red-400 text-light"
                   onClick={onClose}
                 >
-                  بستن
+                  بیخیال
                 </Btn>
               </DrawerFooter>
             </>

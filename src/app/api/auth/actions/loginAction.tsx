@@ -1,5 +1,5 @@
 "use server";
-import api from "@/lib/baseApi";
+import apiDjango from "@/lib/apiDjango";
 import { AuthResult } from "@/type/authStateType";
 import { cookies } from "next/headers";
 
@@ -7,8 +7,7 @@ export async function loginAction(email: string, password: string): Promise<Auth
   let message = '';
 
   try {
-    const response = await api.post("/auth/login/", { email, password });
-
+    const response = await apiDjango.post("auth/login/", { email, password });
     (await cookies()).set("access_token", response.data.access, { httpOnly: true, secure: true, path: "/" });
     (await cookies()).set("refresh_token", response.data.refresh, { httpOnly: true, secure: true, path: "/" });
     (await cookies()).set("user_slug", response.data.user.slug, { httpOnly: true, secure: true, path: "/" });

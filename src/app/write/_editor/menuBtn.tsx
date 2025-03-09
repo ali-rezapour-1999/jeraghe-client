@@ -92,7 +92,7 @@ const MenuBtn: React.FC<MenuBtnProps> = ({ editor, command, icons }) => {
       case "heading2":
         return editor.isActive("heading", { level: 2 });
       case "heading3":
-        return editor.isActive("heading", { level: 2 });
+        return editor.isActive("heading", { level: 3 });
       case "alignRight":
         return editor.isActive("right");
       case "alignCenter":
@@ -107,7 +107,7 @@ const MenuBtn: React.FC<MenuBtnProps> = ({ editor, command, icons }) => {
   return (
     <Button
       onPress={handleCommand}
-      className={`${isActive ? "dark:bg-primary-dark bg-light" : ""} bg-transparent dark:bg-transparent text-light dark:text-primary min-w-10 text-lg px-0`}
+      className={`${isActive ? "dark:bg-primary-dark bg-light" : ""} bg-transparent dark:bg-transparent text-light dark:text-primary md:min-w-10 min-w-4 text-sm md:text-lg px-0`}
     >
       {icons}
     </Button>

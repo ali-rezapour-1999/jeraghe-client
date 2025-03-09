@@ -24,6 +24,8 @@ import man from "../../../../public/man.jpg";
 import woman from "../../../../public/woman.jpg";
 import { IsLoading } from "@/components/common/isLoading";
 import { useProfileState } from "@/state/userInformationStore";
+import { useViewPostState } from "@/state/blogStore/viewPostState";
+import RedirectPage from "@/components/common/redirectPage";
 
 interface ProfileDrawerProps {
   isOpen: boolean;
@@ -34,6 +36,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
   const { logout, user } = useAuthStore();
   const { profileData } = useProfileState();
   const { isOpenProfileDrawer, setProfileDrawer } = useDrawerState();
+  const { postData } = useViewPostState();
   const [isWoman, setIsWoman] = useState<any>(man);
 
   useEffect(() => {
@@ -107,7 +110,7 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = () => {
                 {profileData ? <ProfileUpdateSection /> : <IsLoading />}
               </Tab>
               <Tab key="post" title="پست ها" className="w-full">
-                <PostSection />
+                {postData?.length != 0 ? <PostSection /> : <RedirectPage content='بیا یه پست جدید بسازیم' link='/write' btnTitle="نوشتن" />}
               </Tab>
               <Tab key="request" title="درخواست ها" className="w-full">
                 <ReqeuestSection />

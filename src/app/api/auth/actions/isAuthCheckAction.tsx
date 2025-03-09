@@ -1,14 +1,13 @@
 "use server";
-import api from "@/lib/baseApi";
+import apiDjango from "@/lib/apiDjango";
 import { cookies } from "next/headers";
 
-export async function isAuthCheckAction() {
+export const isAuthCheckAction = async () => {
   const accessToken = (await cookies()).get("access_token")?.value;
   const slug = (await cookies()).get("user_slug")?.value;
 
-  if (!accessToken) return null;
-
-  const response = await api.get(`auth/get/${slug}`, {
+  if (!slug) return null;
+  const response = await apiDjango.get(`auth/get/${slug}`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

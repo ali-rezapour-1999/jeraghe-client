@@ -1,5 +1,5 @@
 "use server";
-import api from "@/lib/baseApi";
+import apiDjango from "@/lib/apiDjango";
 import { AuthResult, User } from "@/type/authStateType";
 import { cookies } from "next/headers";
 
@@ -9,7 +9,7 @@ export async function updateAction(data: User): Promise<AuthResult> {
   const token = (await cookies()).get("access_token")?.value;
 
   try {
-    const response = await api.patch(`auth/get/${slug}/`, data, {
+    const response = await apiDjango.patch(`auth/update/${slug}/`, data, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

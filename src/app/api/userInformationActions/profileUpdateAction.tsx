@@ -1,6 +1,7 @@
 "use server";
-import api from "@/lib/baseApi";
-import { ProfileResponse, RequestResult } from "@/type/profileStateType";
+import apiDjango from "@/lib/apiDjango";
+import { RequestResult } from "@/type/baseType";
+import { ProfileResponse } from "@/type/profileStateType";
 import { cookies } from "next/headers";
 
 export const profileUpdateAction = async (
@@ -16,7 +17,7 @@ export const profileUpdateAction = async (
     };
   }
   try {
-    const response = await api.patch<ProfileResponse>(
+    const response = await apiDjango.patch<ProfileResponse>(
       `/profile/profiles/${slug}/`,
       data,
     );

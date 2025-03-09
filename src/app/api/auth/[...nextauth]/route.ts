@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import api from "@/lib/baseApi";
 import Cookies from "js-cookie";
+import apiDjango from "@/lib/apiDjango";
 
 const handler = NextAuth({
   providers: [
@@ -14,7 +14,7 @@ const handler = NextAuth({
     async signIn({ account }) {
       if (account?.provider === "google") {
         try {
-          const response = await api.post("auth/google-login/", {
+          const response = await apiDjango.post("auth/google-login/", {
             access_token: account.access_token,
           });
 

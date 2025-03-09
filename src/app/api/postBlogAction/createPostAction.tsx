@@ -1,6 +1,6 @@
 'use server'
 
-import api from "@/lib/baseApi"
+import apiDjango from "@/lib/apiDjango"
 import { RequestResult } from "@/type/baseType"
 import { PostType } from "@/type/postStateType"
 import { cookies } from "next/headers"
@@ -17,7 +17,7 @@ export const createPostAction = async (data: PostType): Promise<RequestResult> =
     };
   }
   try {
-    const response = await api.post('/post/', data,
+    const response = await apiDjango.post('/post/', data,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

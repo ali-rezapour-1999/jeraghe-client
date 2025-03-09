@@ -14,7 +14,7 @@ import { Spinner } from "@heroui/react";
 
 const LOCAL_STORAGE_KEY = "editor_content";
 const EXPIRATION_TIME = 24 * 60 * 60 * 1000;
-const SAVE_THRESHOLD = 30;
+const SAVE_THRESHOLD = 50;
 
 interface editorProps {
   setContentLength: (num: number) => void;
@@ -84,7 +84,7 @@ const Editor: React.FC<editorProps> = ({
         setIsSave(true);
         setTimeout(() => {
           setIsSave(false);
-        }, 400);
+        }, 500);
       }
     },
   });

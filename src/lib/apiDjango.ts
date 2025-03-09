@@ -4,24 +4,13 @@ import Cookies from "js-cookie";
 
 const API_BASE_URL = "http://localhost:8000/api/";
 
-const api = axios.create({
+const apiDjango = axios.create({
   baseURL: API_BASE_URL,
-  headers: { "Content-Type": "multipart/form-data" },
+  headers: { "Content-Type": "application/json" },
   withCredentials: true,
 });
 
-api.interceptors.request.use(
-  async (config) => {
-    const accessToken = Cookies.get("access_token");
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-    }
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
-
-api.interceptors.response.use(
+apiDjango.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
@@ -40,7 +29,7 @@ api.interceptors.response.use(
         });
 
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
-        return api(originalRequest);
+        return (originalRequest);
       } catch (refreshError) {
         useAuthStore.getState().logout();
         return Promise.reject(refreshError);
@@ -50,4 +39,4 @@ api.interceptors.response.use(
   },
 );
 
-export default api;
+export default apiDjango;

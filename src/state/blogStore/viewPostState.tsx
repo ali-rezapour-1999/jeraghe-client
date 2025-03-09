@@ -1,6 +1,6 @@
 import { create } from "zustand"
 import { ViewPostType } from "@/type/postStateType"
-import { viewPostAction } from "@/app/api/postBlogAction/viewPostAction";
+import { listPostAction } from "@/app/api/postBlogAction/listPostAction";
 
 
 //todo this not for one user this is all data for all user
@@ -12,7 +12,7 @@ export const useViewPostState = create<ViewPostType>((set) => ({
   requestPostView: async () => {
     set({ isLoading: true });
 
-    const response = await viewPostAction();
+    const response = await listPostAction();
     if (response.success)
       set({
         postData: response.data,

@@ -1,6 +1,6 @@
 "use server";
 
-import api from "@/lib/baseApi";
+import apiDjango from "@/lib/apiDjango";
 import { RequestResult } from "@/type/baseType";
 import { SocialMediaResponse } from "@/type/profileStateType";
 import { cookies } from "next/headers";
@@ -16,7 +16,7 @@ export const socialMediaAction = async (): Promise<RequestResult> => {
       message: "شناسه کاربر یافت نشد.",
     };
   }
-  const response = await api.get(`/profile/social-media`, {
+  const response = await apiDjango.get(`/profile/social-media`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

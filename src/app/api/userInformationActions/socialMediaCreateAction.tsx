@@ -1,6 +1,6 @@
 "use server";
 
-import api from "@/lib/baseApi";
+import apiDjango from "@/lib/apiDjango";
 import { RequestResult } from "@/type/baseType";
 import { SocialMediaResponse } from "@/type/profileStateType";
 import { cookies } from "next/headers";
@@ -18,7 +18,7 @@ export const socialMediaCreateAction = async (data: SocialMediaResponse): Promis
   }
 
   try {
-    const response = await api.post<SocialMediaResponse>(
+    const response = await apiDjango.post<SocialMediaResponse>(
       `/profile/social-media/`,
       { ...data, user: slug },
       {
