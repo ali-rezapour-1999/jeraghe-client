@@ -13,6 +13,7 @@ const SocialMedia = () => {
     useSocialMediaState();
 
   const [links, setLink] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [updateData, setUpdateData] = useState({
     title: "",
     address: "",
@@ -31,19 +32,22 @@ const SocialMedia = () => {
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const idValue = e.target.value.trim();
     const selectedItem = MediaItems.find(
-      (item) => item.title === updateData.title,
+      (item) => item.title === updateData.title
     );
+
     if (!selectedItem) return;
+
     const startLink = selectedItem.startLink;
+
     const newAddress = idValue.startsWith(startLink)
       ? idValue
       : startLink + idValue;
 
+    setInputValue(idValue)
     setUpdateData((prev) => ({
       ...prev,
       address: newAddress,
     }));
-    setLink(idValue);
   };
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -62,6 +66,7 @@ const SocialMedia = () => {
       }
     });
   };
+  // console.log(updateData.address)
 
   return (
     <div className="py-10 mt-16 border-t-1 flex relative flex-col gap-7 items-center justify-center">
@@ -81,10 +86,7 @@ const SocialMedia = () => {
             name="address"
             type="text"
             size="lg"
-            value={links.slice(
-              MediaItems.find((item) => item.title === updateData.title)
-                ?.startLink.length || 0,
-            )}
+            value={inputValue}
             onChange={onInputChange}
           />
           <Select

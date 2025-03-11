@@ -6,14 +6,14 @@ import Image from "next/image";
 import React from "react";
 
 const SocialMediaContent = () => {
-  const { socialMediaDelete, socialMediaRequest, socialMediaData } =
-    useSocialMediaState();
+  const { socialMediaDelete, socialMediaRequest, socialMediaData } = useSocialMediaState();
   const mediaIconsFuntion = (title: string) => {
     return MediaItems.find((i) => i.title === title)?.icons;
   };
   const removeItem = async (slug: string) => {
     await socialMediaDelete(slug).then(() => socialMediaRequest());
   };
+
   return (
     <div className="w-full  flex flex-col gap-2">
       {socialMediaData?.map((item: any, index: any) => (
@@ -25,7 +25,7 @@ const SocialMediaContent = () => {
             {item.title}
             <Image
               src={mediaIconsFuntion(item.title as string)}
-              alt="icons image"
+              alt={mediaIconsFuntion(item.title as string)}
               height={30}
               width={30}
             />

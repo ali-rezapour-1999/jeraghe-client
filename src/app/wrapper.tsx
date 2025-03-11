@@ -17,7 +17,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (isAuthenticated) {
       profileRequest();
-      //socialMediaRequest();
+      socialMediaRequest();
     }
   }, [profileRequest, socialMediaRequest, isAuthenticated]);
 

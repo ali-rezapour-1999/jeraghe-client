@@ -18,15 +18,11 @@ export const socialMediaCreateAction = async (data: SocialMediaResponse): Promis
   }
 
   try {
-    const response = await apiDjango.post<SocialMediaResponse>(
-      `/profile/social-media/`,
-      { ...data, user: slug },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
+    const response = await apiDjango.post<SocialMediaResponse>(`/profile/social-media/`, { ...data, user: slug }, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      }
+    });
 
     if (response.status === 200 || response.status === 201) {
       return {
@@ -42,8 +38,7 @@ export const socialMediaCreateAction = async (data: SocialMediaResponse): Promis
       };
     }
   } catch (error) {
-    const status =
-      (error as { response?: { status?: number } })?.response?.status || 500;
+    const status = (error as { response?: { status?: number } })?.response?.status || 500;
 
     let message = "";
     switch (status) {

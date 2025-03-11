@@ -1,13 +1,12 @@
-"use server";
+'use server'
 import apiGo from "@/lib/apiGo";
 import { RequestResult } from "@/type/baseType";
 import { WorkHistoryResponse } from "@/type/profileStateType";
 import { cookies } from "next/headers";
 
-export const workHistoryAction = async (): Promise<RequestResult> => {
-  const slug = (await cookies()).get("user_slug")?.value;
-  const accessToken = (await cookies()).get("access_token")?.value;
-
+export const UserSkillsAction = async (): Promise<RequestResult> => {
+  const accessToken = (await cookies()).get("access_token");
+  const slug = (await cookies()).get("slug");
   if (!slug || !accessToken) {
     return {
       success: false,
@@ -17,7 +16,7 @@ export const workHistoryAction = async (): Promise<RequestResult> => {
   }
 
   try {
-    const response = await apiGo.get(`/profile/work-history/`, {
+    const response = await apiGo.get(`/profile/user-skills`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

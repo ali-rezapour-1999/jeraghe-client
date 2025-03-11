@@ -28,7 +28,6 @@ export const socialMediaDeleteAction = async (
       message: "درخواست شما ثبت شده",
     };
   }
-
   return {
     success: false,
     status: response.status,

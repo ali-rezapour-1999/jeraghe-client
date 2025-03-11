@@ -8,8 +8,9 @@ export const profileUpdateAction = async (
   data: ProfileResponse,
 ): Promise<RequestResult> => {
   const slug = (await cookies()).get("user_slug")?.value;
+  const accessToken = (await cookies()).get("access_token")?.value;
 
-  if (!slug) {
+  if (!slug && !accessToken) {
     return {
       success: false,
       status: 400,
@@ -18,8 +19,12 @@ export const profileUpdateAction = async (
   }
   try {
     const response = await apiDjango.patch<ProfileResponse>(
-      `/profile/profiles/${slug}/`,
-      data,
+      `/profile/profile-info/${slug}/`,
+      data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      }
+    }
     );
 
     if (response.status === 200) {
