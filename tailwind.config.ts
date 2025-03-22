@@ -13,28 +13,35 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#171717",
-          light: "#ffffff",
+          DEFAULT: "#201D47",
+          light: "#37346F",
           dark: "#0f0f0f",
           gray: "#27272A",
         },
-        darkPrimary: {
-          DEFAULT: "#1E1E1E",
-          light: "#F8F9FA",
-          dark: "#131313",
+        secondary: {
+          DEFAULT: "#37346F",
+          light: "#D5F7E8",
+          dark: "#201D47",
+        },
+        accent: {
+          DEFAULT: "#E3507A",
+          light: "#F28A9D",
+          dark: "#B12A55",
+        },
+        green: {
+          DEFAULT: "#D5F7E8",
+          light: "#86EFAC",
+          dark: "#22C55E",
+        },
+        dark: {
+          DEFAULT: "#131313",
+          light: "#1E1E1E",
+          gray: "#27272A",
         },
         light: {
           DEFAULT: "#F1F1F1",
-          light: "#ffffff",
-          dark: "#222831",
-        },
-        greylight: {
-          DEFAULT: "#121212",
-        },
-        green: {
-          DEFAULT: "#86EFAC",
-          light: "#22C55E",
-          dark: "#15803D",
+          light: "#FFFFFF",
+          dark: "#CED4DA",
         },
       },
     },

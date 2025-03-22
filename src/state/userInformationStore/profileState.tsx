@@ -1,10 +1,8 @@
-import { create } from 'zustand'
-import {
-  profileRequestAction,
-  profileUpdateAction,
-} from "@/app/api/userInformationActions";
+import { create } from "zustand";
+
 import { ProfileResponse, ProfileState } from "@/type/profileStateType";
-import { RequestResult } from '@/type/baseType';
+import { RequestResult } from "@/type/baseType";
+import { profileRequestAction, profileUpdateAction } from "@/utils/actions/userInformationActions";
 
 export const useProfileState = create<ProfileState>((set) => ({
   isLoading: false,

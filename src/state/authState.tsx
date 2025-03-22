@@ -1,10 +1,13 @@
 import { create } from "zustand";
 import { AuthResult, AuthState, User } from "@/type/authStateType";
-import { loginAction } from "@/app/api/auth/actions/loginAction";
-import { registerAction } from "@/app/api/auth/actions/registerAction";
-import { logoutAction } from "@/app/api/auth/actions/logoutAction";
-import { updateAction } from "@/app/api/auth/actions/updateAction";
-import { isAuthCheckAction } from "@/app/api/auth/actions/isAuthCheckAction";
+import {
+  loginAction,
+  logoutAction,
+  registerAction,
+  isAuthCheckAction,
+  updateAction,
+  userInfoAction,
+} from "@/utils/actions/authActions";
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
@@ -25,37 +28,39 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     const response = await loginAction(email, password);
     if (response != null) {
-      set({ isLoading: false })
+      set({ isLoading: false });
     }
-    return { message: response.message, success: response.success }
+    return { message: response.message, success: response.success };
   },
 
-
-  register: async (email: string, password: string, username: string): Promise<AuthResult> => {
+  register: async (
+    email: string,
+    password: string,
+    username: string
+  ): Promise<AuthResult> => {
     set({ isLoading: true });
 
     const response = await registerAction(email, password, username);
     if (response != null) {
-      set({ isLoading: false })
+      set({ isLoading: false });
     }
-    return { message: response.message, success: response.success }
+    return { message: response.message, success: response.success };
   },
 
   userUpdate: async (data: User): Promise<AuthResult> => {
     set({ isLoading: true });
     const response = await updateAction(data);
     if (response != null) {
-      set({ isLoading: false })
+      set({ isLoading: false });
     }
-    return { message: response.message, success: response.success }
+    return { message: response.message, success: response.success };
   },
 
   logout: () => {
-    logoutAction()
+    logoutAction();
     set({
       isAuthenticated: false,
       user: null,
     });
   },
 }));
-

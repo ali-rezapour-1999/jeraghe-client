@@ -1,9 +1,11 @@
 "use client";
 import React, { useEffect } from "react";
 import { useAuthStore } from "@/state/authState";
-import { SessionProvider } from "next-auth/react";
-import { useProfileState, useSocialMediaState } from "@/state/userInformationStore";
-import DarkModeToggle from "@/components/common/darkModeToggle";
+import {
+  useProfileState,
+  useSocialMediaState,
+} from "@/state/userInformationStore";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { restoreAuthState, isAuthenticated } = useAuthStore();
@@ -21,9 +23,16 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     }
   }, [profileRequest, socialMediaRequest, isAuthenticated]);
 
-  return <SessionProvider>
-    <DarkModeToggle className="hidden" />
-    {children}</SessionProvider>;
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      {children}
+    </NextThemesProvider>
+  );
 };
 
 export default MainLayout;

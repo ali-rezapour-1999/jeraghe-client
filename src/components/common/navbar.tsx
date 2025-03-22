@@ -13,10 +13,7 @@ import "@/style/nav-css.css";
 import Link from "next/link";
 import { Bell, Menu, Pencil, Telescope, UserRound } from "lucide-react";
 import { motion } from "framer-motion";
-import ProfileDrawer from "@/components/ui/drawer/profileDrawer";
-import AuthDrawer from "@/components/ui/drawer/authDrawer";
 import { usePathname } from "next/navigation";
-import useDrawerState from "@/state/drawerState";
 import { useAuthStore } from "@/state/authState";
 import DarkModeToggle from "./darkModeToggle";
 import Btn from "@/components/ui/btn";
@@ -24,11 +21,11 @@ import Logo from "./logo";
 
 const MotionNav = motion.create(Navbar);
 
-type navLintType =  {
+type navLintType = {
   id: number;
   href: string;
   label: string;
-}
+};
 
 const navLinkList: navLintType[] = [
   { id: 1, href: "/explorer", label: "مجموعه" },
@@ -40,22 +37,15 @@ const navLinkList: navLintType[] = [
 const MainNavBar: React.FC = () => {
   const router = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const {
-    isOpenUserDrawer,
-    setUserDrawer,
-    isOpenProfileDrawer,
-    setProfileDrawer,
-  } = useDrawerState();
   const { isAuthenticated } = useAuthStore();
 
   return (
     <MotionNav
       shouldHideOnScroll
-      className="w-full px-1 md:px-10 py-1 main-nav-bar bg-light dark:bg-darkPrimary"
+      className="w-full px-1 md:px-10 py-1 main-nav-bar bg-transparent dark:bg-transparent"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      isBordered
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
     >
@@ -106,7 +96,7 @@ const MainNavBar: React.FC = () => {
             link={
               router === "/explorer" || router === "/" ? "/write" : "/explorer"
             }
-            className="w-max h-10 md:flex hidden px-5 bg-green-dark text-light-light dark:bg-green-dark dark:text-light"
+            className="w-max h-10 md:flex hidden px-5 bg-green-dark text-light-light dark:bg-green-900 dark:text-light"
           >
             {router === "/explorer" || router === "/" ? (
               <div className="flex items-center justify-center gap-2">
@@ -126,31 +116,18 @@ const MainNavBar: React.FC = () => {
           </NavbarItem>
         ) : null}
 
-        <NavbarItem className="hidden">
-          <DarkModeToggle />
-        </NavbarItem>
         <NavbarItem>
           <Btn
-            onClick={() =>
-              isAuthenticated ? setProfileDrawer(true) : setUserDrawer(true)
-            }
-            className="w-10 h-10 px-0 flex dark:bg-primary-dark bg-primary-light text-primary"
+            link={isAuthenticated ? "/login" : "/dashbords"}
+            className="w-10 h-10 px-0 flex bg-green-dark text-light-light dark:bg-green-900 dark:text-light"
           >
             <UserRound size={20} />
           </Btn>
         </NavbarItem>
+        <NavbarItem>
+          <DarkModeToggle />
+        </NavbarItem>
       </NavbarContent>
-      {isAuthenticated ? (
-        <ProfileDrawer
-          onClose={() => setProfileDrawer(false)}
-          isOpen={isOpenProfileDrawer}
-        />
-      ) : (
-        <AuthDrawer
-          isOpen={isOpenUserDrawer}
-          onClose={() => setUserDrawer(false)}
-        />
-      )}
     </MotionNav>
   );
 };

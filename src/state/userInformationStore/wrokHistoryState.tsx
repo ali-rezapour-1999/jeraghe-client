@@ -2,7 +2,7 @@
 import { create } from 'zustand'
 import { WorkHistoryResponse, WorkHistoryState } from "@/type/profileStateType";
 import { RequestResult } from '@/type/baseType';
-import { workHistoryAction, workHistoryUpdateAction } from '@/app/api/userInformationActions';
+import { workHistoryAction, workHistoryUpdateAction } from '@/utils/actions/userInformationActions';
 
 export const useWorkHistoryState = create<WorkHistoryState>((set) => ({
   isLoading: false,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { RefObject, useEffect, useState } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -9,11 +9,16 @@ import {
   Textarea,
   Input,
   Switch,
+  Select,
+  SelectItem,
 } from "@heroui/react";
 import Btn from "@/components/ui/btn";
 import useDrawerState from "@/state/drawerState";
+import { useCategroryState } from "@/state/categoryState";
 import Image from "next/image";
 import { Plus, X } from "lucide-react";
+import { CategoryType } from "@/type/baseType";
+import { IsLoading } from "@/components/common/isLoading";
 
 interface WriteOptionDrawerProps {
   tags: string[];
@@ -29,6 +34,9 @@ interface WriteOptionDrawerProps {
   removeTag: (tag: string) => void;
   handleImageChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   addTag: () => void;
+  category: string | null;
+  formRef: RefObject<HTMLFormElement>;
+  setCategory: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const WriteOptionDrawer: React.FC<WriteOptionDrawerProps> = ({
@@ -41,8 +49,12 @@ const WriteOptionDrawer: React.FC<WriteOptionDrawerProps> = ({
   setShowMyDetail,
   removeTag,
   handleImageChange,
+  category,
+  formRef,
+  setCategory,
 }) => {
   const { isOpenWriteDrawer, setWriteOptionDrawer } = useDrawerState();
+  const { categoryData, categoryList } = useCategroryState();
   const [tagInput, setTagInput] = useState("");
   const addTag = () => {
     if (tagInput.trim() !== "" && !tags.includes(tagInput)) {
@@ -50,6 +62,13 @@ const WriteOptionDrawer: React.FC<WriteOptionDrawerProps> = ({
       setTagInput("");
     }
   };
+  const handleClick = () => {
+    formRef.current?.requestSubmit();
+  };
+
+  useEffect(() => {
+    categoryList();
+  }, [categoryList]);
 
   return (
     <Drawer
@@ -73,6 +92,7 @@ const WriteOptionDrawer: React.FC<WriteOptionDrawerProps> = ({
                     type="text"
                     size="lg"
                     variant="faded"
+                    className="mb-4"
                     classNames={{
                       input: "text-xl",
                       inputWrapper: "py-2",
@@ -81,6 +101,30 @@ const WriteOptionDrawer: React.FC<WriteOptionDrawerProps> = ({
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />
+
+                  <Select
+                    labelPlacement="outside"
+                    className="dark:text-light text-primary"
+                    size="lg"
+                    label={"دسته بندی"}
+                    name="category"
+                    placeholder={"دسته‌بندی را انتخاب کنید"}
+                    value={category || ""}
+                    onChange={(e) => setCategory(e.target.value)}
+                  >
+                    {categoryData == null || categoryData.length == 0 ? (
+                      <IsLoading />
+                    ) : (
+                      categoryData.map((item: CategoryType) => (
+                        <SelectItem
+                          key={item.id}
+                          className="dark:text-light text-primary"
+                        >
+                          {item.title}
+                        </SelectItem>
+                      ))
+                    )}
+                  </Select>
 
                   <div className="flex flex-col items-center justify-center w-full">
                     <Input
@@ -170,6 +214,7 @@ const WriteOptionDrawer: React.FC<WriteOptionDrawerProps> = ({
               <Btn
                 className=" w-full text-white px-10 py-5 rounded-2xl text-lg font-bold"
                 type="submit"
+                onClick={handleClick}
               >
                 ثبت پست
               </Btn>

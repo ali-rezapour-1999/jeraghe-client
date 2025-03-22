@@ -1,18 +1,20 @@
-import { baseType, IsLoadingType, Tags } from "./baseType"
+import { baseType, IsLoadingType, RequestResult } from "./baseType";
 
 export interface PostType extends baseType {
-  title?: string
-  image?: any
-  content?: string
-  category?: string
-  tag?: Tags[]
-  viewCount?: number
-  publish?: string
-  is_approve?: boolean
-  status?: string
+  id?: number;
+  title?: string;
+  content?: string;
+  status?: string;
+  tags: { title: string }[];
+  categories?: string | undefined | null;
+  image?: File | null;
+  views?: number;
+  showDetail?: boolean;
+  is_approve?: boolean;
 }
 
 export interface ViewPostType extends IsLoadingType {
-  postData: PostType[] | null
-  requestPostView: () => void
+  postData: PostType[] | null;
+  requestPostView?: () => void;
+  createUserPost?: (data: PostType) => Promise<RequestResult>;
 }

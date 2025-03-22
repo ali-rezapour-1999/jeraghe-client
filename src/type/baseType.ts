@@ -11,12 +11,22 @@ export interface IsLoadingType {
 }
 
 export interface Tags {
-  title: string
+  title: string;
+}
+
+export interface CategoryType {
+  id: number;
+  title: string;
 }
 
 export interface baseType {
-  slug?: number
-  created_at?: string
-  updated_at?: string
-  is_active?: boolean
+  slug?: number;
+  created_at?: string;
+  updated_at?: string;
+  is_active?: boolean;
+}
+
+export interface categoryListType extends IsLoadingType {
+  categoryData: CategoryType[] | [];
+  categoryList: () => Promise<void>;
 }

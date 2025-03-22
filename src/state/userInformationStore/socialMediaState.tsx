@@ -1,8 +1,11 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 import { SocialMediaResponse, SocialMediaState } from "@/type/profileStateType";
-import { RequestResult } from '@/type/baseType';
-import { socialMediaAction, socialMediaCreateAction, socialMediaDeleteAction } from '@/app/api/userInformationActions';
-
+import { RequestResult } from "@/type/baseType";
+import {
+  socialMediaAction,
+  socialMediaCreateAction,
+  socialMediaDeleteAction,
+} from "@/utils/actions/userInformationActions";
 export const useSocialMediaState = create<SocialMediaState>((set) => ({
   isLoading: false,
   socialMediaData: null,
