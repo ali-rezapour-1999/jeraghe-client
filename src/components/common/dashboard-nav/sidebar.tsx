@@ -12,22 +12,22 @@ import {
 import { usePathname } from "next/navigation";
 import { useAuthStore } from "@/state/authState";
 import { useRouter } from "next/navigation";
-const dashbordLink = [
-  { id: 1, link: "/dashbords", title: "نگاه کلی", icon: <TrendingUpDown /> },
-  { id: 2, link: "/dashbords/profile", title: "پروفایل", icon: <User /> },
-  { id: 3, link: "/dashbords/posts", title: "پست", icon: <Pen /> },
+const dashboardItem = [
+  { id: 1, link: "/dashboard", title: "نگاه کلی", icon: <TrendingUpDown /> },
+  { id: 2, link: "/dashboard/profile", title: "پروفایل", icon: <User /> },
+  { id: 3, link: "/dashboard/posts", title: "پست", icon: <Pen /> },
   {
     id: 4,
-    link: "/dashbords/request",
+    link: "/dashboard/request",
     title: "درخواست",
     icon: <BriefcaseIcon />,
   },
-  { id: 5, link: "/dashbords/message", title: "پیام ها", icon: <Bell /> },
-  { id: 6, link: "/dashbords/tiket", title: "تیکت ها", icon: <ShieldAlert /> },
-  { id: 7, link: "/dashbords/setting", title: "تنظیمات", icon: <Settings /> },
+  { id: 5, link: "/dashboard/message", title: "پیام ها", icon: <Bell /> },
+  { id: 6, link: "/dashboard/tiket", title: "تیکت ها", icon: <ShieldAlert /> },
+  { id: 7, link: "/dashboard/setting", title: "تنظیمات", icon: <Settings /> },
 ];
 
-const DashbordSidebar: React.FC = () => {
+const DashboardSidebar: React.FC = () => {
   const router = useRouter();
   const { logout } = useAuthStore();
   const path = usePathname();
@@ -39,7 +39,7 @@ const DashbordSidebar: React.FC = () => {
     <div className="w-[450px] pr-5 max-h-[750px] h-[750px] flex flex-col justify-between">
       <div className="dark:bg-primary-dark/30 py-10 rounded-2xl">
         <div className="h-full flex flex-col items-start pl-10 pr-3 gap-5">
-          {dashbordLink.map((item) => (
+          {dashboardItem.map((item) => (
             <Btn
               link={item.link}
               key={item.id}
@@ -60,4 +60,4 @@ const DashbordSidebar: React.FC = () => {
     </div>
   );
 };
-export default DashbordSidebar;
+export default DashboardSidebar;

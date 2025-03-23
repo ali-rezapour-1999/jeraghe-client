@@ -1,15 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { Form, Input, Spinner } from "@heroui/react";
+import { addToast, Form, Input, Spinner } from "@heroui/react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "@/state/authState";
 import Btn from "@/components/ui/btn";
 import SocialMediaLogin from "../socialMediaLogin";
 import Link from "next/link";
+import { useBackToLastPath } from "@/lib/savePath";
 
 const Login: React.FC = () => {
   const { login, isLoading, setLoading } = useAuthStore();
+  const navigateBack = useBackToLastPath();
+
   const [formErrors, setFormErrors] = useState({
     email: "",
     password: "",
@@ -39,7 +42,7 @@ const Login: React.FC = () => {
   };
 
   const inputChangeHandler = async (
-    input: React.ChangeEvent<HTMLInputElement>,
+    input: React.ChangeEvent<HTMLInputElement>
   ) => {
     setFormData({ ...formData, [input.target.name]: input.target.value });
   };
@@ -56,7 +59,16 @@ const Login: React.FC = () => {
       const result = await login(formData.email, formData.password);
       try {
         if (result.success) {
+          addToast({
+            title: result.message,
+            color: "success",
+          });
+          navigateBack();
         } else {
+          addToast({
+            title: result.message,
+            color: "danger",
+          });
         }
       } catch {
         return setLoading(false);

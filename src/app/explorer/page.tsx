@@ -7,12 +7,10 @@ import ProfileAboutMeSection from "@/components/common/sidebar/ProfileAboutMe";
 import ProfileSection from "@/components/common/sidebar/profileSection";
 import ProfileViewSection from "@/components/common/sidebar/profileReview";
 import { useAuthStore } from "@/state/authState";
-import useDrawerState from "@/state/drawerState";
 import { motion } from "framer-motion";
 
 const Explorer = () => {
   const { isAuthenticated } = useAuthStore();
-  const { setUserDrawer } = useDrawerState();
   return (
     <main>
       <MainNavBar />
@@ -29,7 +27,6 @@ const Explorer = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.2 }}
               className="absolute flex justify-center items-center z-50 w-full h-full backdrop-blur-xl rounded-2xl text-2xl text-darkPrimary dark:text-light font-bold"
-              onClick={() => setUserDrawer(true)}
             >
               ورود یا ثبت نام
             </motion.button>

@@ -19,7 +19,7 @@ export interface CategoryType {
   title: string;
 }
 
-export interface baseType {
+export interface baseApiType {
   slug?: number;
   created_at?: string;
   updated_at?: string;

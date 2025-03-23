@@ -4,7 +4,7 @@ import Logo from "@/components/common/logo";
 import { Navbar, NavbarBrand, NavbarContent, Spinner } from "@heroui/react";
 import { motion } from "framer-motion";
 import React from "react";
-import useDrawerState from "@/state/drawerState";
+import useBaseState from "@/state/baseState";
 
 const MotionNav = motion.create(Navbar);
 
@@ -15,7 +15,7 @@ const WriteNav = ({
   isSave: boolean;
   contentLength: number;
 }) => {
-  const { setWriteOptionDrawer, isOpenWriteDrawer } = useDrawerState();
+  const { setWriteOptionDrawer, isOpenWriteDrawer } = useBaseState();
   return (
     <MotionNav
       shouldHideOnScroll

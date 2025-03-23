@@ -118,7 +118,7 @@ const MainNavBar: React.FC = () => {
 
         <NavbarItem>
           <Btn
-            link={isAuthenticated ? "/login" : "/dashbords"}
+            link={isAuthenticated ? "/login" : "/dashboard"}
             className="w-10 h-10 px-0 flex bg-green-dark text-light-light dark:bg-green-900 dark:text-light"
           >
             <UserRound size={20} />

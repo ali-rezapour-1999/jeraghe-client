@@ -4,10 +4,9 @@ import { cookies } from "next/headers";
 
 export const isAuthCheckAction = async () => {
   const accessToken = (await cookies()).get("access_token")?.value;
-  const slug = (await cookies()).get("user_slug")?.value;
 
-  if (!slug) return null;
-  const response = await apiDjango.get(`auth/get/${slug}`, {
+  if (!accessToken) return null;
+  const response = await apiDjango.get(`auth/get`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
@@ -23,5 +22,4 @@ export const isAuthCheckAction = async () => {
     slug: data.slug_id,
     profile_image: data.profile_image,
   };
-}
-
+};

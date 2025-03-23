@@ -1,20 +1,15 @@
 "use client";
-import { Form, Input, Spinner } from "@heroui/react";
+import { addToast, Button, Form, Input, Spinner } from "@heroui/react";
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useAuthStore } from "@/state/authState";
-import Btn from "@/components/ui/btn";
 import SocialMediaLogin from "../socialMediaLogin";
 import Link from "next/link";
+import { useBackToLastPath } from "@/lib/savePath";
 
-const Register: React.FC = () => {
+const Register = () => {
   const { isLoading, register, setLoading } = useAuthStore();
-  const [formErrors, setFormErrors] = useState({
-    email: "",
-    username: "",
-    password: "",
-    repassword: "",
-  });
+  const navigateBack = useBackToLastPath();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -23,85 +18,108 @@ const Register: React.FC = () => {
     repassword: "",
   });
 
-  const validateField = (name: string, value: string) => {
-    let error = "";
+  const [formErrors, setFormErrors] = useState({
+    email: "",
+    username: "",
+    password: "",
+    repassword: "",
+  });
 
-    switch (name) {
-      case "email":
-        if (!value) {
-          error = "ایمیل خود را وارد کنید";
-        }
-        break;
-      case "username":
-        if (!value || value.length < 4) {
-          error = "نام و نام خانوادگی خود را وارد کنید (حداقل ۴ کاراکتر)";
-        }
-        break;
-      case "password":
-        const strongPasswordRegex =
-          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
-        if (!value) {
-          error = "رمز عبور خود را وارد کنید";
-        } else if (!strongPasswordRegex.test(value)) {
-          error =
-            "رمز عبور باید حداقل ۶ کاراکتر و شامل حرف بزرگ، حرف کوچک و عدد باشد";
-        }
-        break;
-      case "repassword":
-        if (!value) {
-          error = "تکرار رمز عبور الزامیس";
-        } else if (value !== formData.password) {
-          error = "رمز عبور با تکرارش برابر نیست";
-        }
-        break;
-      default:
-        break;
-    }
+  const validateField = useCallback(
+    (name: string, value: string, allValues = formData) => {
+      switch (name) {
+        case "email":
+          if (!value) return "ایمیل خود را وارد کنید";
+          if (!/^\S+@\S+\.\S+$/.test(value)) return "ایمیل معتبر نیست";
+          return "";
 
-    return error;
-  };
+        case "username":
+          if (!value) return "نام و نام خانوادگی خود را وارد کنید";
+          if (value.length < 4)
+            return "نام و نام خانوادگی باید حداقل ۴ کاراکتر باشد";
+          return "";
 
-  const inputChangeHandler = (input: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = input.target;
+        case "password":
+          if (!value) return "رمز عبور خود را وارد کنید";
 
-    setFormData({ ...formData, [name]: value });
+          const strongPasswordRegex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{6,}$/;
+          if (!strongPasswordRegex.test(value)) {
+            return "رمز عبور باید حداقل ۶ کاراکتر و شامل حرف بزرگ، حرف کوچک و عدد باشد";
+          }
+          return "";
 
-    const error = validateField(name, value);
-    setFormErrors({ ...formErrors, [name]: error });
-  };
+        case "repassword":
+          if (!value) return "تکرار رمز عبور الزامیست";
+          if (value !== allValues.password)
+            return "رمز عبور با تکرارش برابر نیست";
+          return "";
 
-  const onSubmitRegisterd = async (e: React.FormEvent<HTMLFormElement>) => {
+        default:
+          return "";
+      }
+    },
+    [formData]
+  );
+
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+
+      setFormData((prev) => {
+        const newData = { ...prev, [name]: value };
+        const error = validateField(name, value, newData);
+        setFormErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+
+        return newData;
+      });
+    },
+    [validateField]
+  );
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
 
-    const errors = {
-      email: validateField("email", form.email.value),
-      username: validateField("username", form.username.value),
-      password: validateField("password", form.password.value),
-      repassword: validateField("repassword", form.repassword.value),
+    const newErrors = {
+      email: validateField("email", formData.email),
+      username: validateField("username", formData.username),
+      password: validateField("password", formData.password),
+      repassword: validateField("repassword", formData.repassword),
     };
 
-    if (Object.values(errors).some((error) => error !== "")) {
-      setFormErrors(errors);
-    } else {
+    setFormErrors(newErrors);
+
+    if (Object.values(newErrors).some((error) => error !== "")) {
+      return;
+    }
+
+    try {
       setLoading(true);
       const result = await register(
         formData.email,
         formData.password,
-        formData.username,
+        formData.username
       );
-      try {
-        if (result.success) {
-          setTimeout(() => {
-            setLoading(false);
-          }, 1000);
-        } else {
-        }
-      } catch (err) {
-        return err;
-      } finally {
-        setLoading(false);
+
+      if (result.success) {
+        addToast({
+          title: result.message,
+          color: "success",
+        });
+        navigateBack();
+      } else {
+        addToast({
+          title: result.message,
+          color: "danger",
+        });
       }
+    } catch {
+      addToast({
+        title: "خطا در ارتباط با سرور",
+        color: "danger",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -110,14 +128,15 @@ const Register: React.FC = () => {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-screen flex px-3 md:px-10 items-center justify-center  max-w-[800px] mx-auto h-screen"
+      className="w-screen flex px-3 md:px-10 items-center justify-center max-w-[800px] mx-auto h-screen"
     >
       <div className="w-full h-max flex flex-col items-center justify-center dark:bg-primary-dark/20 p-10 rounded-xl">
         <h1 className="text-2xl font-bold mb-8 border-b-1 dark:text-light text-primary">
           ثبت نام در جرقه
         </h1>
+
         <Form
-          onSubmit={onSubmitRegisterd}
+          onSubmit={handleSubmit}
           className="w-full items-center justify-center flex flex-col gap-8"
         >
           <Input
@@ -128,10 +147,12 @@ const Register: React.FC = () => {
             placeholder="ایمیل خود را وارد کنید"
             type="email"
             size="lg"
-            validate={() => formErrors.email || ""}
+            validate={() => formErrors.email}
             value={formData.email}
-            onChange={inputChangeHandler}
+            onChange={handleInputChange}
+            errorMessage={formErrors.email}
           />
+
           <Input
             isRequired
             label="نام و نام خانوادگی (فارسی)"
@@ -140,10 +161,12 @@ const Register: React.FC = () => {
             placeholder="نام و نام خانوادگی خود را وارد کنید"
             type="text"
             size="lg"
-            validate={() => formErrors.username || ""}
+            validate={() => formErrors.username}
             value={formData.username}
-            onChange={inputChangeHandler}
+            onChange={handleInputChange}
+            errorMessage={formErrors.username}
           />
+
           <Input
             isRequired
             label="رمز عبور"
@@ -152,32 +175,42 @@ const Register: React.FC = () => {
             placeholder="رمز عبور خود را وارد کنید"
             type="password"
             size="lg"
-            validate={() => formErrors.password || ""}
+            validate={() => formErrors.password}
             value={formData.password}
-            onChange={inputChangeHandler}
+            onChange={handleInputChange}
+            errorMessage={formErrors.password}
           />
+
           <Input
             isRequired
-            label="رمز عبور تکرار"
+            label="تکرار رمز عبور"
             labelPlacement="outside"
             name="repassword"
             placeholder="رمز عبور خود را تکرار کنید"
             type="password"
             size="lg"
-            validate={() => formErrors.repassword || ""}
+            validate={() => formErrors.repassword}
             value={formData.repassword}
-            onChange={inputChangeHandler}
+            onChange={handleInputChange}
+            errorMessage={formErrors.repassword}
           />
-          <Link href="/login" className="w-full">
-            حساب داری اینجا چیکار میکنی بیا بریم ورود!!!
+
+          <Link
+            href="/login"
+            className="w-full text-blue-600 dark:text-blue-400 hover:underline"
+          >
+            حساب داری؟ برای ورود کلیک کنید
           </Link>
-          <Btn
+
+          <Button
             type="submit"
             className="dark:bg-green-900 bg-green-dark text-white dark:text-light w-full"
+            disabled={isLoading}
           >
             {isLoading ? <Spinner /> : "ثبت نام"}
-          </Btn>
+          </Button>
         </Form>
+
         <SocialMediaLogin />
       </div>
     </motion.div>

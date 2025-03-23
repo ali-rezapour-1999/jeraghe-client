@@ -1,6 +1,6 @@
-import { baseType } from "./baseType";
+import { baseApiType } from "./baseType";
 
-export interface User extends baseType {
+export interface User extends baseApiType {
   email: string;
   profile_image?: any;
   username: string;
@@ -31,7 +31,7 @@ export interface AuthState {
   register: (
     email: string,
     password: string,
-    username: string,
+    username: string
   ) => Promise<AuthResult>;
   logout: () => void;
   userUpdate: (data: User) => Promise<AuthResult>;

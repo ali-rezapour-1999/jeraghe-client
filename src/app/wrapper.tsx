@@ -1,27 +1,20 @@
 "use client";
 import React, { useEffect } from "react";
 import { useAuthStore } from "@/state/authState";
-import {
-  useProfileState,
-  useSocialMediaState,
-} from "@/state/userInformationStore";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import dynamic from "next/dynamic";
+import { ToastProvider } from "@heroui/toast";
+
+const AuthProvider = dynamic(() => import("@/lib/authGuard"), {
+  ssr: false,
+});
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const { restoreAuthState, isAuthenticated } = useAuthStore();
-  const { profileRequest } = useProfileState();
-  const { socialMediaRequest } = useSocialMediaState();
+  const { restoreAuthState } = useAuthStore();
 
   useEffect(() => {
     restoreAuthState();
   }, [restoreAuthState]);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      profileRequest();
-      socialMediaRequest();
-    }
-  }, [profileRequest, socialMediaRequest, isAuthenticated]);
 
   return (
     <NextThemesProvider
@@ -30,7 +23,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       enableSystem={true}
       disableTransitionOnChange={true}
     >
-      {children}
+      <ToastProvider />
+      <AuthProvider>{children}</AuthProvider>
     </NextThemesProvider>
   );
 };

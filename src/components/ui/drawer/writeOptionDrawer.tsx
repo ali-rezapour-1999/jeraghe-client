@@ -13,12 +13,12 @@ import {
   SelectItem,
 } from "@heroui/react";
 import Btn from "@/components/ui/btn";
-import useDrawerState from "@/state/drawerState";
 import { useCategroryState } from "@/state/categoryState";
 import Image from "next/image";
 import { Plus, X } from "lucide-react";
 import { CategoryType } from "@/type/baseType";
 import { IsLoading } from "@/components/common/isLoading";
+import useBaseState from "@/state/baseState";
 
 interface WriteOptionDrawerProps {
   tags: string[];
@@ -53,7 +53,7 @@ const WriteOptionDrawer: React.FC<WriteOptionDrawerProps> = ({
   formRef,
   setCategory,
 }) => {
-  const { isOpenWriteDrawer, setWriteOptionDrawer } = useDrawerState();
+  const { isOpenWriteDrawer, setWriteOptionDrawer } = useBaseState();
   const { categoryData, categoryList } = useCategroryState();
   const [tagInput, setTagInput] = useState("");
   const addTag = () => {

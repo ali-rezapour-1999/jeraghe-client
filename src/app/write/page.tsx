@@ -65,10 +65,6 @@ const Writing: React.FC = () => {
     formData.append("image", selectedImage);
   };
 
-  if (!isAuthenticated) {
-    return <AuthRequired />;
-  }
-
   return (
     <main>
       <WriteNav isSave={isSave} contentLength={contentLength} />

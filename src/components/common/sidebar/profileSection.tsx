@@ -6,7 +6,6 @@ import gitlabIcons from "../../../../public/icons/icons8-gitlab.svg";
 import linkedinIcons from "../../../../public/icons/icons8-linkedin.svg";
 import githubIcons from "../../../../public/icons/icons8-github.svg";
 import ProfileSectionContainer from "@/components/container/profileContainer";
-import useDrawerState from "@/state/drawerState";
 import Btn from "@/components/ui/btn";
 import { useAuthStore } from "@/state/authState";
 import man from "../../../../public/man.jpg";
@@ -21,7 +20,6 @@ const iconsSocialMedia = [
 ];
 
 const ProfileSection = () => {
-  const { setProfileDrawer } = useDrawerState();
   const { user } = useAuthStore();
   // const { personalData } = useProfileState();
   return (
@@ -60,10 +58,7 @@ const ProfileSection = () => {
         ))}
       </div>
 
-      <Btn
-        className="drop-shadow mt-5 w-32 dark:bg-primary-light bg-darkPrimary text-light dark:text-primary"
-        onClick={() => setProfileDrawer(true)}
-      >
+      <Btn className="drop-shadow mt-5 w-32 dark:bg-primary-light bg-darkPrimary text-light dark:text-primary">
         ویرایش
       </Btn>
     </ProfileSectionContainer>

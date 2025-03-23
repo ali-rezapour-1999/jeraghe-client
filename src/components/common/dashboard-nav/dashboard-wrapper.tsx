@@ -1,18 +1,18 @@
 "use client";
 import React from "react";
-import DashbordNavbar from "./navbar";
-import DashbordSidebar from "./sidebar";
+import DashboardNavbar from "./navbar";
+import DashboardSidebar from "./sidebar";
 
 interface Props {
   children: React.ReactNode;
 }
 
-const DashbordWrapper: React.FC<Props> = ({ children }) => {
+const DashboardWrapper: React.FC<Props> = ({ children }) => {
   return (
     <div>
-      <DashbordNavbar />
+      <DashboardNavbar />
       <div className="flex gap-3">
-        <DashbordSidebar />
+        <DashboardSidebar />
         <main className="flex px-20 items-center h-full w-full rounded-tr-[50px] mx-auto overflow-y-auto">
           <div className="max-w-[1100px] w-full">{children}</div>
         </main>
@@ -21,4 +21,4 @@ const DashbordWrapper: React.FC<Props> = ({ children }) => {
   );
 };
 
-export default DashbordWrapper;
+export default DashboardWrapper;

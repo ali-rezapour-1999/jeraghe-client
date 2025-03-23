@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import man from "../../../../public/man.jpg";
-import woman from "../../../../public/woman.jpg";
 import { useAuthStore } from "@/state/authState";
 import { Input, Spinner } from "@heroui/react";
 import Btn from "@/components/ui/btn";
 import { User } from "@/type/authStateType";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
-import { useProfileState } from "@/state/userInformationStore";
 
 const UpdateUserDetail = () => {
-  const { profileData } = useProfileState();
   const { user, userUpdate, isLoading } = useAuthStore();
-  const [genderImage, setGenderImage] = useState(man);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [userData, setUserData] = useState<User>({
     email: user?.email || "",
@@ -20,14 +16,6 @@ const UpdateUserDetail = () => {
     profile_image: null,
     phone_number: user?.phone_number || "",
   });
-
-  useEffect(() => {
-    if (profileData?.gender === "مرد") {
-      setGenderImage(woman);
-    } else {
-      setGenderImage(man);
-    }
-  }, [profileData]);
 
   const inputChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -84,7 +72,7 @@ const UpdateUserDetail = () => {
               />
             ) : (
               <Image
-                src={user?.profile_image || genderImage}
+                src={user?.profile_image || man}
                 alt={user?.email || "user image"}
                 width={500}
                 height={500}
