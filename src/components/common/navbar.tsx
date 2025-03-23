@@ -96,7 +96,7 @@ const MainNavBar: React.FC = () => {
             link={
               router === "/explorer" || router === "/" ? "/write" : "/explorer"
             }
-            className="w-max h-10 md:flex hidden px-5 bg-green-dark text-light-light dark:bg-green-900 dark:text-light"
+            className="w-max h-10 md:flex hidden px-5 dark:bg-accent-dark bg-accent-dark text-light-light dark:text-light"
           >
             {router === "/explorer" || router === "/" ? (
               <div className="flex items-center justify-center gap-2">
@@ -110,7 +110,10 @@ const MainNavBar: React.FC = () => {
         </NavbarItem>
         {isAuthenticated ? (
           <NavbarItem className="hidden md:flex">
-            <Btn className=" w-10 h-10 px-0 dark:bg-primary-dark bg-primary-light text-primary">
+            <Btn
+              link={"/dashboard/message"}
+              className="w-10 h-10 px-0 flex bg-green-dark text-light-light dark:bg-green-900 dark:text-light"
+            >
               <Bell size={20} />
             </Btn>
           </NavbarItem>
