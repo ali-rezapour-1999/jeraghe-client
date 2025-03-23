@@ -36,7 +36,7 @@ const RedirectAuthModal = () => {
       onOpenChange={hadlerBacktoHome}
     >
       <ModalContent className="dark:bg-light">
-        {(onClose) => (
+        {() => (
           <>
             <ModalHeader className="flex flex-col gap-1">
               <p className="text-primary bg-text-light">احراز هویت لازم است</p>

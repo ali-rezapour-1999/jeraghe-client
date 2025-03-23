@@ -4,12 +4,9 @@ import "../../style/editor.css";
 import WriteOptionDrawer from "@/components/ui/drawer/writeOptionDrawer";
 import WriteNav from "./writeNav";
 import Editor from "./_editor/editor";
-import { useAuthStore } from "@/state/authState";
-import AuthRequired from "@/components/common/authRequired";
 
 const Writing: React.FC = () => {
   const formRef = useRef<HTMLFormElement | null>(null);
-  const { isAuthenticated } = useAuthStore();
 
   const [contentLength, setContentLength] = useState(0);
   const [content, setContent] = useState("");

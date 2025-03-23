@@ -1,4 +1,3 @@
-import { baseApiType } from "@/type/baseType";
 import { create } from "zustand";
 
 interface baseType {
