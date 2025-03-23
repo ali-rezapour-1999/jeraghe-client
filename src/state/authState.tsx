@@ -6,7 +6,6 @@ import {
   registerAction,
   isAuthCheckAction,
   updateAction,
-  userInfoAction,
 } from "@/utils/actions/authActions";
 
 export const useAuthStore = create<AuthState>((set) => ({

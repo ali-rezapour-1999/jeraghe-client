@@ -27,8 +27,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
     <NextThemesProvider
       attribute="class"
       defaultTheme="system"
-      enableSystem
-      disableTransitionOnChange
+      enableSystem={true}
+      disableTransitionOnChange={true}
     >
       {children}
     </NextThemesProvider>

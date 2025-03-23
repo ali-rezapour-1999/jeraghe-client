@@ -88,7 +88,7 @@ const Register: React.FC = () => {
       const result = await register(
         formData.email,
         formData.password,
-        formData.username
+        formData.username,
       );
       try {
         if (result.success) {
