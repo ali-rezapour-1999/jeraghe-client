@@ -1,21 +1,16 @@
 "use client";
-import React, { useEffect } from "react";
-import { useAuthStore } from "@/state/authState";
+import React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import dynamic from "next/dynamic";
 import { ToastProvider } from "@heroui/toast";
+import { useCheckAuth } from "@/hook/useCheckAuth";
 
-const AuthProvider = dynamic(() => import("@/lib/authGuard"), {
+const AuthProvider = dynamic(() => import("@/utils/lib/authGuard"), {
   ssr: false,
 });
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const { restoreAuthState } = useAuthStore();
-
-  useEffect(() => {
-    restoreAuthState();
-  }, [restoreAuthState]);
-
+  useCheckAuth();
   return (
     <NextThemesProvider
       attribute="class"

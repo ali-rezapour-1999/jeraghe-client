@@ -7,7 +7,7 @@ import { useAuthStore } from "@/state/authState";
 import Btn from "@/components/ui/btn";
 import SocialMediaLogin from "../socialMediaLogin";
 import Link from "next/link";
-import { useBackToLastPath } from "@/lib/savePath";
+import { useBackToLastPath } from "@/hook/savePath";
 import { Eye, EyeClosed } from "lucide-react";
 
 const Login: React.FC = () => {
@@ -75,8 +75,30 @@ const Login: React.FC = () => {
             color: "danger",
           });
         }
-      } catch {
-        return setLoading(false);
+      } catch (err: any) {
+        if (err.response && err.response.data) {
+          const errors = err.response.data;
+
+          if (errors.email) {
+            setFormErrors((prev) => ({ ...prev, email: errors.email[0] }));
+          }
+          if (errors.password) {
+            setFormErrors((prev) => ({
+              ...prev,
+              password: errors.password[0],
+            }));
+          }
+
+          addToast({
+            title: errors.message || "ورود با خطا مواجه شد",
+            color: "danger",
+          });
+        } else {
+          addToast({
+            title: "خطا در ارتباط با سرور",
+            color: "danger",
+          });
+        }
       } finally {
         setLoading(false);
       }

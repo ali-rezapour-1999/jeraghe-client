@@ -1,10 +1,17 @@
 "use server";
 import { cookies } from "next/headers";
+import redis from "@/utils/lib/redis";
 
 export async function logoutAction() {
-    (await cookies()).delete("access_token");
-    (await cookies()).delete("refresh_token");
-    (await cookies()).delete("user_slug");
-    return { success: true , message:'از حساب کاربری خود خارج شدید' };
+  const accessToken = (await cookies()).get("access_token")?.value;
+  try {
+    if (accessToken) {
+      await redis.del(`user:${accessToken}`);
+      (await cookies()).delete("access_token");
+      (await cookies()).delete("refresh_token");
+      return { success: true, message: "از حساب کاربری خود خارج شدید" };
+    }
+  } catch (error) {
+    return { success: false, message: error };
   }
-  
+}

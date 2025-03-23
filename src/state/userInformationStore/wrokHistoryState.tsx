@@ -1,8 +1,13 @@
-
-import { create } from 'zustand'
-import { WorkHistoryResponse, WorkHistoryState } from "@/type/profileStateType";
-import { RequestResult } from '@/type/baseType';
-import { workHistoryAction, workHistoryUpdateAction } from '@/utils/actions/userInformationActions';
+import { create } from "zustand";
+import {
+  WorkHistoryResponse,
+  WorkHistoryState,
+} from "@/utils/type/profileStateType";
+import { RequestResult } from "@/utils/type/baseType";
+import {
+  workHistoryAction,
+  workHistoryUpdateAction,
+} from "@/utils/actions/userInformationActions";
 
 export const useWorkHistoryState = create<WorkHistoryState>((set) => ({
   isLoading: false,
@@ -18,7 +23,7 @@ export const useWorkHistoryState = create<WorkHistoryState>((set) => ({
   },
 
   workHistoryUpdate: async (
-    data: WorkHistoryResponse,
+    data: WorkHistoryResponse
   ): Promise<RequestResult> => {
     set({ isLoading: true });
     const response = await workHistoryUpdateAction(data);
@@ -27,5 +32,4 @@ export const useWorkHistoryState = create<WorkHistoryState>((set) => ({
     }
     return { message: response.message, success: response.success };
   },
-
 }));

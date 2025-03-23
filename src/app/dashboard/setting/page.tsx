@@ -18,7 +18,7 @@ const SettingSection: React.FC = () => {
       <Tab key="update-user" title="اطلاعات کاربری">
         <UpdateUserDetail />
       </Tab>
-      <Tab key="reset-password" title="تغییر ررمز عبور">
+      <Tab key="reset-password" title="تغییر رمز عبور">
         <ResetPassword />
       </Tab>
     </Tabs>

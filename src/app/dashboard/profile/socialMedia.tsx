@@ -3,7 +3,7 @@ import { Form, Input, Select, SelectItem } from "@heroui/react";
 import React, { useState } from "react";
 import Image from "next/image";
 import Btn from "@/components/ui/btn";
-import { MediaItems } from "@/static/socialMediaItems";
+import { MediaItems } from "@/utils/static/socialMediaItems";
 import toast from "react-hot-toast";
 import SocialMediaContent from "./socialMediaContent";
 import { IsLoading } from "@/components/common/isLoading";
@@ -33,7 +33,7 @@ const SocialMedia = () => {
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const idValue = e.target.value.trim();
     const selectedItem = MediaItems.find(
-      (item) => item.title === updateData.title,
+      (item) => item.title === updateData.title
     );
 
     if (!selectedItem) return;

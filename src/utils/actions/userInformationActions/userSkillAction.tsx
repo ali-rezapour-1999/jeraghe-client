@@ -1,7 +1,7 @@
-'use server'
-import apiGo from "@/lib/apiGo";
-import { RequestResult } from "@/type/baseType";
-import { WorkHistoryResponse } from "@/type/profileStateType";
+"use server";
+import apiGo from "@/utils/lib/apiGo";
+import { RequestResult } from "@/utils/type/baseType";
+import { WorkHistoryResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
 
 export const UserSkillsAction = async (): Promise<RequestResult> => {

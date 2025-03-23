@@ -1,4 +1,4 @@
-import { PostType } from "@/type/postStateType";
+import { PostType } from "@/utils/type/postStateType";
 import React from "react";
 import Btn from "../btn";
 import { Edit, Eye, Trash } from "lucide-react";

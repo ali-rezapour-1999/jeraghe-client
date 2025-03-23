@@ -5,7 +5,7 @@ import React, { useState, useCallback } from "react";
 import { useAuthStore } from "@/state/authState";
 import SocialMediaLogin from "../socialMediaLogin";
 import Link from "next/link";
-import { useBackToLastPath } from "@/lib/savePath";
+import { useBackToLastPath } from "@/hook/savePath";
 import Btn from "@/components/ui/btn";
 import { Eye, EyeClosed } from "lucide-react";
 

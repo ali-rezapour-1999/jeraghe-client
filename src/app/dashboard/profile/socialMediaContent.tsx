@@ -1,5 +1,5 @@
 import Btn from "@/components/ui/btn";
-import { MediaItems } from "@/static/socialMediaItems";
+import { MediaItems } from "@/utils/static/socialMediaItems";
 import { useSocialMediaState } from "@/state/userInformationStore";
 import { Trash } from "lucide-react";
 import Image from "next/image";

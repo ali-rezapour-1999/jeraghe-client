@@ -1,11 +1,11 @@
 "use server";
 
-import apiDjango from "@/lib/apiDjango";
-import { RequestResult } from "@/type/baseType";
+import apiDjango from "@/utils/lib/apiDjango";
+import { RequestResult } from "@/utils/type/baseType";
 import { cookies } from "next/headers";
 
 export const socialMediaDeleteAction = async (
-  slug: string,
+  slug: string
 ): Promise<RequestResult> => {
   const accessToken = (await cookies()).get("access_token")?.value;
 

@@ -8,7 +8,7 @@ import {
   Textarea,
   Spinner,
 } from "@heroui/react";
-import { ProfileResponse } from "@/type/profileStateType";
+import { ProfileResponse } from "@/utils/type/profileStateType";
 import toast from "react-hot-toast";
 import Btn from "@/components/ui/btn";
 import { useProfileState } from "@/state/userInformationStore";
@@ -31,7 +31,7 @@ const ProfileInfo: React.FC = () => {
   });
 
   const inputChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setUpdateData((prev) => ({
       ...prev,
@@ -47,7 +47,7 @@ const ProfileInfo: React.FC = () => {
   };
 
   const onSubmitProfileHandler = async (
-    e: React.FormEvent<HTMLFormElement>,
+    e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
     const response = await profileUpdate(updateData);
@@ -58,7 +58,7 @@ const ProfileInfo: React.FC = () => {
   };
 
   return (
-    <div className="rounded-xl p-5 pt-1">
+    <div>
       <Form
         className="w-full max-w-full flex flex-col"
         validationBehavior="native"

@@ -1,8 +1,8 @@
 "use server";
 
-import apiGo from "@/lib/apiGo";
-import { RequestResult } from "@/type/baseType";
-import { PostType } from "@/type/postStateType";
+import apiGo from "@/utils/lib/apiGo";
+import { RequestResult } from "@/utils/type/baseType";
+import { PostType } from "@/utils/type/postStateType";
 
 export const categoryListAction = async (): Promise<RequestResult> => {
   const response = await apiGo.get("/base/category-list");

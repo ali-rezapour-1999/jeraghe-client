@@ -1,6 +1,6 @@
 "use server";
-import apiDjango from "@/lib/apiDjango";
-import { AuthResult } from "@/type/authStateType";
+import apiDjango from "@/utils/lib/apiDjango";
+import { AuthResult } from "@/utils/type/authStateType";
 import { cookies } from "next/headers";
 
 export async function registerAction(
@@ -15,33 +15,31 @@ export async function registerAction(
       username,
     });
 
-    if (response.status === 201) {
-      (await cookies()).set("access_token", response.data.access, {
-        httpOnly: true,
-        secure: true,
-        path: "/",
-      });
+    (await cookies()).set("access_token", response.data.access, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+    });
+    (await cookies()).set("refresh_token", response.data.refresh, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+    });
 
-      (await cookies()).set("refresh_token", response.data.refresh, {
-        httpOnly: true,
-        secure: true,
-        path: "/",
-      });
-
+    if (response.status == 200) {
       return {
         success: true,
         status: response.status,
-        data: response.data,
         message: response.data.message,
-      };
-    } else {
-      return {
-        success: false,
-        status: response.status,
         data: response.data,
-        message: response.data.error || "مشکلی پیش آمده است",
       };
     }
+    return {
+      success: false,
+      status: response.status,
+      message: response.data.error,
+      data: response.data,
+    };
   } catch (error: any) {
     if (error.response && error.response.data) {
       const errorData = error.response.data;

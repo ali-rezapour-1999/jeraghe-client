@@ -1,8 +1,8 @@
 "use server";
 
-import apiGo from "@/lib/apiGo";
-import { RequestResult } from "@/type/baseType";
-import { SocialMediaResponse } from "@/type/profileStateType";
+import apiGo from "@/utils/lib/apiGo";
+import { RequestResult } from "@/utils/type/baseType";
+import { SocialMediaResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
 
 export const socialMediaAction = async (): Promise<RequestResult> => {

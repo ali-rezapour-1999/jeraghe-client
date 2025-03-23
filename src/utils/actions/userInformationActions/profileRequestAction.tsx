@@ -1,7 +1,7 @@
 "use server";
-import apiGo from "@/lib/apiGo";
-import { RequestResult } from "@/type/baseType";
-import { ProfileResponse } from "@/type/profileStateType";
+import apiGo from "@/utils/lib/apiGo";
+import { RequestResult } from "@/utils/type/baseType";
+import { ProfileResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
 
 export const profileRequestAction = async (): Promise<RequestResult> => {

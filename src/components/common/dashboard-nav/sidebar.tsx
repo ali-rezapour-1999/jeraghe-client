@@ -12,6 +12,8 @@ import {
 import { usePathname } from "next/navigation";
 import { useAuthStore } from "@/state/authState";
 import { useRouter } from "next/navigation";
+import { ImExit } from "react-icons/im";
+
 const dashboardItem = [
   { id: 1, link: "/dashboard", title: "نگاه کلی", icon: <TrendingUpDown /> },
   { id: 2, link: "/dashboard/profile", title: "پروفایل", icon: <User /> },
@@ -37,26 +39,30 @@ const DashboardSidebar: React.FC = () => {
   };
   return (
     <div className="w-[450px] pr-5 max-h-[750px] h-[750px] flex flex-col justify-between">
-      <div className="dark:bg-primary-dark/30 py-10 rounded-2xl">
-        <div className="h-full flex flex-col items-start pl-10 pr-3 gap-5">
-          {dashboardItem.map((item) => (
-            <Btn
-              link={item.link}
-              key={item.id}
-              className={`w-full flex items-center py-6 justify-start text-xl bg-transparent hover:bg-light/10 ${path === item.link ? "bg-primary/20 dark:bg-light/20" : "bg-transparent"}`}
-            >
-              <span>{item.icon}</span>
-              {item.title}
-            </Btn>
-          ))}
+      <div className="dark:bg-primary-dark/30 bg-primary-dark/10 py-10 rounded-2xl min-h-[700px]">
+        <div className="h-full flex flex-col items- justify-between px-8 gap-5">
+          <div className="h-full flex flex-col items- justify-start gap-5">
+            {dashboardItem.map((item) => (
+              <Btn
+                link={item.link}
+                key={item.id}
+                className={`w-full flex items-center py-6 justify-start text-xl bg-transparent dark:hover:bg-light/10 hover:bg-primary/10 ${path === item.link ? "bg-primary/30 dark:bg-light/20" : "bg-transparent"}`}
+              >
+                <span>{item.icon}</span>
+                {item.title}
+              </Btn>
+            ))}
+          </div>
+
+          <Btn
+            onClick={logoutHandler}
+            className=" bg-red-600 w-full mt-10 py-5 text-lg text-light"
+          >
+            <ImExit />
+            خروج از حساب کاربری
+          </Btn>
         </div>
       </div>
-      <Btn
-        onClick={logoutHandler}
-        className=" bg-accent w-full mt-10 py-5 text-lg"
-      >
-        خروج از حساب کاربری
-      </Btn>
     </div>
   );
 };

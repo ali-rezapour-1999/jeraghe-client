@@ -1,11 +1,11 @@
 "use server";
-import apiDjango from "@/lib/apiDjango";
-import { RequestResult } from "@/type/baseType";
-import { ProfileResponse } from "@/type/profileStateType";
+import apiDjango from "@/utils/lib/apiDjango";
+import { RequestResult } from "@/utils/type/baseType";
+import { ProfileResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
 
 export const profileUpdateAction = async (
-  data: ProfileResponse,
+  data: ProfileResponse
 ): Promise<RequestResult> => {
   const slug = (await cookies()).get("user_slug")?.value;
   const accessToken = (await cookies()).get("access_token")?.value;
@@ -20,11 +20,12 @@ export const profileUpdateAction = async (
   try {
     const response = await apiDjango.patch<ProfileResponse>(
       `/profile/profile-info/${slug}/`,
-      data, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       }
-    }
     );
 
     if (response.status === 200) {

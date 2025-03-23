@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ViewPostType } from "@/type/postStateType";
+import { ViewPostType } from "@/utils/type/postStateType";
 import { listPostAction } from "@/app/api/postBlogAction/listPostAction";
 
 export const useListPostState = create<ViewPostType>((set) => ({

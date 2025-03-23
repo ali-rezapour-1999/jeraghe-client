@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { categoryListType } from "@/type/baseType";
+import { categoryListType } from "@/utils/type/baseType";
 import { categoryListAction } from "@/utils/actions/baseActions/categoryAction";
 
 export const useCategroryState = create<categoryListType>((set) => ({

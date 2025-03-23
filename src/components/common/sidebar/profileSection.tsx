@@ -8,7 +8,7 @@ import githubIcons from "../../../../public/icons/icons8-github.svg";
 import ProfileSectionContainer from "@/components/container/profileContainer";
 import Btn from "@/components/ui/btn";
 import { useAuthStore } from "@/state/authState";
-import man from "../../../../public/man.jpg";
+import man from "../../../../public/man.png";
 // import { useProfileState } from "@/state/profileState";
 
 const iconsSocialMedia = [

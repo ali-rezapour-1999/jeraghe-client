@@ -16,7 +16,7 @@ import Btn from "@/components/ui/btn";
 import { useCategroryState } from "@/state/categoryState";
 import Image from "next/image";
 import { Plus, X } from "lucide-react";
-import { CategoryType } from "@/type/baseType";
+import { CategoryType } from "@/utils/type/baseType";
 import { IsLoading } from "@/components/common/isLoading";
 import useBaseState from "@/state/baseState";
 

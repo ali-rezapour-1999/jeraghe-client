@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { AuthResult, AuthState, User } from "@/type/authStateType";
+import { AuthResult, AuthState, User } from "@/utils/type/authStateType";
 import {
   loginAction,
   logoutAction,
@@ -29,6 +29,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     if (response != null) {
       set({ isLoading: false });
     }
+    set({ isAuthenticated: true });
     return { message: response.message, success: response.success };
   },
 

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import man from "../../../../public/man.jpg";
+import man from "../../../../public/man.png";
 import { useAuthStore } from "@/state/authState";
 import { Input, Spinner } from "@heroui/react";
 import Btn from "@/components/ui/btn";
-import { User } from "@/type/authStateType";
+import { User } from "@/utils/type/authStateType";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
 
@@ -18,7 +18,7 @@ const UpdateUserDetail = () => {
   });
 
   const inputChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setUserData((prev) => ({
       ...prev,

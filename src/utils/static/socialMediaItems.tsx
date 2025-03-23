@@ -1,14 +1,14 @@
-import instagramIcons from "../../public/icons/icons8-instagram-logo.svg";
-import telgeramIcons from "../../public/icons/icons8-telegram.svg";
-import gitlabIcons from "../../public/icons/icons8-gitlab.svg";
-import linkedinIcons from "../../public/icons/icons8-linkedin.svg";
-import githubIcons from "../../public/icons/icons8-github.svg";
-import twitter from "../../public/icons/icons8-twitter.svg";
-import stack_over_flow from "../../public/icons/icons8-stack-overflow.svg";
-import dev_to from "../../public/icons/icons8-dev.svg";
-import behance from "../../public/icons/icons8-behance.svg";
-import dribbble from "../../public/icons/icons8-dribbble.svg";
-import reddit from "../../public/icons/icons8-reddit.svg";
+import instagramIcons from "../../../public/icons/icons8-instagram-logo.svg";
+import telgeramIcons from "../../../public/icons/icons8-telegram.svg";
+import gitlabIcons from "../../../public/icons/icons8-gitlab.svg";
+import linkedinIcons from "../../../public/icons/icons8-linkedin.svg";
+import githubIcons from "../../../public/icons/icons8-github.svg";
+import twitter from "../../../public/icons/icons8-twitter.svg";
+import stack_over_flow from "../../../public/icons/icons8-stack-overflow.svg";
+import dev_to from "../../../public/icons/icons8-dev.svg";
+import behance from "../../../public/icons/icons8-behance.svg";
+import dribbble from "../../../public/icons/icons8-dribbble.svg";
+import reddit from "../../../public/icons/icons8-reddit.svg";
 
 export const MediaItems = [
   { id: 1, title: "تلگرام", icons: telgeramIcons, startLink: "https://t.me/" },

@@ -38,7 +38,6 @@ const MainNavBar: React.FC = () => {
   const router = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const { isAuthenticated } = useAuthStore();
-
   return (
     <MotionNav
       shouldHideOnScroll

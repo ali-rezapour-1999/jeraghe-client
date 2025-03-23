@@ -1,6 +1,9 @@
 import { create } from "zustand";
-import { SocialMediaResponse, SocialMediaState } from "@/type/profileStateType";
-import { RequestResult } from "@/type/baseType";
+import {
+  SocialMediaResponse,
+  SocialMediaState,
+} from "@/utils/type/profileStateType";
+import { RequestResult } from "@/utils/type/baseType";
 import {
   socialMediaAction,
   socialMediaCreateAction,

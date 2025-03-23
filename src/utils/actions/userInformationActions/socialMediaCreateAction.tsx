@@ -1,11 +1,13 @@
 "use server";
 
-import apiDjango from "@/lib/apiDjango";
-import { RequestResult } from "@/type/baseType";
-import { SocialMediaResponse } from "@/type/profileStateType";
+import apiDjango from "@/utils/lib/apiDjango";
+import { RequestResult } from "@/utils/type/baseType";
+import { SocialMediaResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
 
-export const socialMediaCreateAction = async (data: SocialMediaResponse): Promise<RequestResult> => {
+export const socialMediaCreateAction = async (
+  data: SocialMediaResponse
+): Promise<RequestResult> => {
   const slug = (await cookies()).get("user_slug")?.value;
   const accessToken = (await cookies()).get("access_token")?.value;
 
@@ -18,11 +20,15 @@ export const socialMediaCreateAction = async (data: SocialMediaResponse): Promis
   }
 
   try {
-    const response = await apiDjango.post<SocialMediaResponse>(`/profile/social-media/`, { ...data, user: slug }, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
+    const response = await apiDjango.post<SocialMediaResponse>(
+      `/profile/social-media/`,
+      { ...data, user: slug },
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
       }
-    });
+    );
 
     if (response.status === 200 || response.status === 201) {
       return {
@@ -38,7 +44,8 @@ export const socialMediaCreateAction = async (data: SocialMediaResponse): Promis
       };
     }
   } catch (error) {
-    const status = (error as { response?: { status?: number } })?.response?.status || 500;
+    const status =
+      (error as { response?: { status?: number } })?.response?.status || 500;
 
     let message = "";
     switch (status) {

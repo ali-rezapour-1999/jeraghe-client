@@ -1,6 +1,6 @@
 "use server";
-import apiDjango from "@/lib/apiDjango";
-import { AuthResult, User } from "@/type/authStateType";
+import apiDjango from "@/utils/lib/apiDjango";
+import { AuthResult, User } from "@/utils/type/authStateType";
 import { cookies } from "next/headers";
 
 export async function updateAction(data: User): Promise<AuthResult> {
