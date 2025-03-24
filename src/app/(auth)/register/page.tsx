@@ -5,7 +5,7 @@ import React, { useState, useCallback } from "react";
 import { useAuthStore } from "@/state/authState";
 import SocialMediaLogin from "../socialMediaLogin";
 import Link from "next/link";
-import { useBackToLastPath } from "@/hook/savePath";
+import { useBackToLastPath } from "@/hook/useSavePath";
 import Btn from "@/components/ui/btn";
 import { Eye, EyeClosed } from "lucide-react";
 
@@ -152,7 +152,7 @@ const Register = () => {
       transition={{ duration: 0.5 }}
       className="flex items-center justify-center h-screen w-screen px-4"
     >
-      <div className="w-full max-w-[750px] bg-white dark:bg-primary-dark/30 shadow-lg rounded-xl overflow-hidden p-8 space-y-6">
+      <div className="w-full max-w-[750px] bg-white dark:bg-primary-dark/30 shadow-lg rounded-xl overflow-hidden p-8 space-y-2 2xl:space-y-6">
         <h1 className="text-3xl font-bold text-center text-primary dark:text-light mb-4">
           ثبت نام در جرقه 🚀
         </h1>
@@ -243,13 +243,14 @@ const Register = () => {
               }
             />
 
-            <div>
+            <div className="flex items-center gap-1">
               {" "}
+              ✅
               <h2 className="text-sm text-gray-700 dark:text-gray-300">
-                ورود شما به منزله پذیرش{" "}
+                ثبت‌نام شما به منزله پذیرش{" "}
                 <Link
                   href="/ruls"
-                  className="text-blue-600 dark:text-blue-400 underline"
+                  className="text-blue-600 dark:text-blue-400 underline mx-2"
                 >
                   قوانین و مقررات
                 </Link>{" "}
@@ -260,14 +261,14 @@ const Register = () => {
 
           <Button
             type="submit"
-            className="dark:bg-green-900 bg-green-dark text-white dark:text-light w-full py-2 rounded-md mt-4"
+            className="dark:bg-green-900 bg-green-dark text-white dark:text-light w-full py-2 rounded-md"
             disabled={isLoading}
           >
             {isLoading ? <Spinner /> : "ثبت نام"}
           </Button>
         </Form>
 
-        <div className="text-center mt-4">
+        <div className="text-center">
           <Btn
             link="/login"
             className="w-full bg-transparent text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md py-2"
@@ -276,7 +277,6 @@ const Register = () => {
           </Btn>
         </div>
 
-        {/* Divider */}
         <div className="flex items-center my-4">
           <hr className="flex-grow border-t border-gray-300 dark:border-gray-600" />
           <span className="mx-3 text-gray-500 dark:text-gray-400">یا</span>

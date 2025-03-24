@@ -7,8 +7,8 @@ import { useAuthStore } from "@/state/authState";
 import Btn from "@/components/ui/btn";
 import SocialMediaLogin from "../socialMediaLogin";
 import Link from "next/link";
-import { useBackToLastPath } from "@/hook/savePath";
-import { Eye, EyeClosed } from "lucide-react";
+import { useBackToLastPath } from "@/hook/useSavePath";
+import { Eye, EyeClosed, RefreshCw } from "lucide-react";
 
 const Login: React.FC = () => {
   const { login, isLoading, setLoading } = useAuthStore();
@@ -112,9 +112,9 @@ const Login: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="flex items-center justify-center h-screen w-screen px-4"
     >
-      <div className="w-full max-w-[750px] bg-white dark:bg-primary-dark/30 shadow-lg rounded-xl overflow-hidden p-8 space-y-6">
+      <div className="w-full max-w-[750px] bg-white dark:bg-primary-dark/30 shadow-lg rounded-xl overflow-hidden p-8 space-y-3 2xl:space-y-6">
         <h1 className="text-3xl font-bold text-center text-primary dark:text-light mb-4">
-          اوه اوه ببین کی برگشته! 👋
+          اوه اوه ببین کی برگشته!
         </h1>
 
         <Form onSubmit={onSubmitLogin} className="flex flex-col space-y-4">
@@ -163,13 +163,28 @@ const Login: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex justify-between items-center mt-2">
+          <div className="flex flex-col justify-between items-start gap-3">
             <Link
               href="/reset-password"
-              className="text-sm text-blue-600 dark:text-blue-400"
+              className="text-md text-accent dark:text-accent flex items-center justify-center gap-1"
             >
-              فراموشی رمز ؟؟
+              <RefreshCw size={15} />
+              بازیابی رمز عبور ؟؟
             </Link>
+            <div className="flex items-center gap-1">
+              {" "}
+              ✅
+              <h2 className="text-sm text-gray-700 dark:text-gray-300">
+                ورود شما به منزله پذیرش{" "}
+                <Link
+                  href="/ruls"
+                  className="text-blue-600 dark:text-blue-400 underline mx-2"
+                >
+                  قوانین و مقررات
+                </Link>{" "}
+                میباشد{" "}
+              </h2>
+            </div>
           </div>
 
           <div className="flex flex-col w-full mt-4 space-y-2">

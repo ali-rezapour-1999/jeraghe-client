@@ -5,7 +5,7 @@ import logoImage from "../../../public/logo.png";
 
 const Logo = () => {
   return (
-    <Link href="/" className="w-[70px] h-[70px]">
+    <Link href="/" className="w-[60px] 2xl:w-[70px] h-[70px]">
       <Image
         src={logoImage}
         width={70}

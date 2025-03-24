@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import useBaseState from "@/state/baseState";
 import RedirectAuthModal from "@/components/common/redirectAuthModal";
+import { useAuthStore } from "@/state/authState";
+import { isAuthCheckAction } from "../actions/authActions";
 
 export default function AuthProvider({
   children,
@@ -12,12 +14,13 @@ export default function AuthProvider({
   const pathname = usePathname();
   const { setOpenAuthRequireModel } = useBaseState();
   const [loading, setLoading] = useState(true);
+  const { restoreAuthState } = useAuthStore();
 
   useEffect(() => {
     const checkAuth = async () => {
+      const res = await isAuthCheckAction();
       try {
         const response = await fetch(pathname, { method: "HEAD" });
-
         if (response.headers.get("x-require-login") === "true") {
           setOpenAuthRequireModel(true);
         }
@@ -26,10 +29,11 @@ export default function AuthProvider({
       } finally {
         setLoading(false);
       }
+      restoreAuthState(res.success);
     };
 
     checkAuth();
-  }, [pathname, setOpenAuthRequireModel]);
+  }, [pathname, setOpenAuthRequireModel, restoreAuthState]);
 
   if (loading) return null;
 

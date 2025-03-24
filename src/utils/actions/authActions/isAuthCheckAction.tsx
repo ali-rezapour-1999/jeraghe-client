@@ -1,49 +1,45 @@
 "use server";
 import apiDjango from "@/utils/lib/apiDjango";
 import { cookies } from "next/headers";
-import Redis from "ioredis";
+import { AuthResult } from "@/utils/type/authStateType";
+import redis from "@/utils/lib/redis";
 
-const redis = new Redis(process.env.REDIS_URL!);
-
-export const isAuthCheckAction = async () => {
+export const isAuthCheckAction = async (): Promise<AuthResult> => {
   const accessToken = (await cookies()).get("access_token")?.value;
   const refreshToken = (await cookies()).get("refresh_token")?.value;
 
-  if (!accessToken) return null;
+  if (!accessToken) return { message: "توکن پیدا نشد", success: false };
 
-  const cachedUser = await redis.get(`user:${accessToken}`);
+  const cachedUser = await redis.get(`token:${accessToken}`);
   if (cachedUser) {
-    return JSON.parse(cachedUser);
+    return { data: JSON.parse(cachedUser), success: true };
   }
 
   try {
-    const response = await apiDjango.get(`auth/get`, {
+    const response = await apiDjango.get(`auth/token-verify`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
-    if (response.status !== 200) return null;
+    if (response.status === 200) {
+      await redis.set(
+        `token:${accessToken}`,
+        JSON.stringify(response.data),
+        "EX",
+        1800
+      );
 
-    const data = response.data;
-    const userData = {
-      email: data.email,
-      username: data.username,
-      phone_number: data.phone_number,
-      slug: data.slug_id,
-      profile_image: data.profile_image,
+      return { success: true, status: response.status, data: response.data };
+    }
+
+    return {
+      message: "در دریافت اطلاعات با خطا مواجه شدیم",
+      success: false,
+      status: response.status,
     };
-
-    await redis.set(
-      `user:${accessToken}`,
-      JSON.stringify(userData),
-      "EX",
-      3600
-    );
-
-    return userData;
   } catch (error: any) {
-    if (error.response?.status == 401 && refreshToken) {
+    if (error.response?.status === 401 && refreshToken) {
       try {
-        const refreshResponse = await apiDjango.post("auth/token/refresh/", {
+        const refreshResponse = await apiDjango.post("auth/token-refresh/", {
           refresh: refreshToken,
         });
 
@@ -56,25 +52,39 @@ export const isAuthCheckAction = async () => {
             path: "/",
           });
 
-          const response = await apiDjango.get("auth/get", {
+          const userResponse = await apiDjango.get("auth/token-verify/", {
             headers: { Authorization: `Bearer ${newAccessToken}` },
           });
 
-          if (response.status === 200) {
-            const userData = response.data;
+          if (userResponse.status === 200) {
             await redis.set(
-              `user:${newAccessToken}`,
-              JSON.stringify(userData),
+              `token:${newAccessToken}`,
+              JSON.stringify(userResponse.data),
               "EX",
-              3600
+              1800
             );
-            return userData;
+
+            return {
+              success: true,
+              status: userResponse.status,
+              data: userResponse.data,
+            };
           }
         }
-      } catch {
+      } catch (error) {
         (await cookies()).delete("access_token");
         (await cookies()).delete("refresh_token");
+        return {
+          message: "انجام عملیات بازیابی توکن با خطا مواجه شد",
+          success: false,
+        };
       }
     }
   }
+  (await cookies()).delete("access_token");
+  (await cookies()).delete("refresh_token");
+  return {
+    message: "توکن نامعتبر است یا عملیات با خطا مواجه شد",
+    success: false,
+  };
 };

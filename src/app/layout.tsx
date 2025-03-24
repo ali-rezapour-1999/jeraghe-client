@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "جرقه - فضای خلاق و آموزشی",
   description: "جرقه جایی برای یادگیری، حل مشکلات و همکاری در ایده‌ها",
   keywords: ["یادگیری", "حل مشکلات", "ایده پردازی", "همکاری", "جرقه"],
+  metadataBase: new URL("http://localhost:3000"),
   icons: {
     icon: "/logo.png",
   },

@@ -6,13 +6,13 @@ export default function DarkModeToggle() {
   const { setTheme, theme } = useTheme();
   return (
     <Btn
-      className="bg-transparent min-w-0 p-3"
+      className="bg-transparent min-w-0 p-1 md:p-3"
       onClick={() => setTheme(theme == "light" ? "dark" : "light")}
     >
       {theme == "light" ? (
-        <BsMoonStarsFill size={28} className="text-primary-light" />
+        <BsMoonStarsFill className="text-gray-700 size-5 lg:size-8" />
       ) : (
-        <BsSunFill size={30} className="text-warning-400" />
+        <BsSunFill className="text-warning-400 size-6 lg:size-8 " />
       )}
     </Btn>
   );

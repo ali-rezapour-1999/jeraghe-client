@@ -7,26 +7,21 @@ export interface User extends baseApiType {
   phone_number?: string;
 }
 
-export type AuthResult = {
+export type AuthResult<T = any> = {
   success?: boolean;
   status?: number;
   message?: string;
-  data?: {
-    email?: string;
-    slug?: string;
-    profile_image?: any;
-    username?: string;
-    phone_number?: string;
-  };
+  data?: T;
 };
 
 export interface AuthState {
   isAuthenticated: boolean;
-  user: User | null;
+  user: User | any | null;
   token: string | null;
   isLoading: boolean;
   setLoading: (isLoading: boolean) => void;
-  restoreAuthState: () => void;
+  restoreAuthState: (isConnect?: boolean) => void;
+  getUserInformation: () => void;
   login: (email: string, password: string) => Promise<AuthResult>;
   register: (
     email: string,

@@ -4,8 +4,8 @@ import {
   loginAction,
   logoutAction,
   registerAction,
-  isAuthCheckAction,
   updateAction,
+  getUserInformationAction,
 } from "@/utils/actions/authActions";
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -15,10 +15,15 @@ export const useAuthStore = create<AuthState>((set) => ({
   isLoading: false,
   setLoading: (isLoading: boolean) => set({ isLoading }),
 
-  restoreAuthState: async () => {
-    const response = await isAuthCheckAction();
-    if (response) {
-      set({ isAuthenticated: true, user: response });
+  restoreAuthState: async (isConnect?: boolean) => {
+    if (isConnect) set({ isAuthenticated: true });
+    else set({ isAuthenticated: false });
+  },
+
+  getUserInformation: async () => {
+    const response = await getUserInformationAction();
+    if (response.success) {
+      set({ user: response.data });
     }
   },
 
