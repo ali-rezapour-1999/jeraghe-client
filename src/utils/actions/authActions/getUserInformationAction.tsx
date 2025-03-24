@@ -1,7 +1,6 @@
 "use server";
 import apiDjango from "@/utils/lib/apiDjango";
 import { cookies } from "next/headers";
-import Redis from "ioredis";
 import redis from "@/utils/lib/redis";
 import { AuthResult } from "@/utils/type/authStateType";
 

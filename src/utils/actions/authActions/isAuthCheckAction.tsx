@@ -75,7 +75,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
         (await cookies()).delete("access_token");
         (await cookies()).delete("refresh_token");
         return {
-          message: "انجام عملیات بازیابی توکن با خطا مواجه شد",
+          message: ": انجام عملیات بازیابی توکن با خطا مواجه شد" + error,
           success: false,
         };
       }
