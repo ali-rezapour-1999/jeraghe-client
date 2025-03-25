@@ -7,8 +7,6 @@ import {
   DropdownItem,
   Button,
 } from "@heroui/react";
-import { MoonIcon, SettingsIcon, SunIcon } from "lucide-react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 
 type navLintType = {
@@ -51,9 +49,7 @@ const navLinkList: navLintType[] = [
   },
 ];
 
-export const CustomDropdownMenu = () => {
-  const { setTheme, theme } = useTheme();
-
+export const PageDropdownMenu = () => {
   return (
     <Dropdown
       backdrop="blur"
@@ -70,7 +66,23 @@ export const CustomDropdownMenu = () => {
           <span className="text-[16px]"> کشف محتواها 📜</span>
         </Button>
       </DropdownTrigger>
-      <DropdownMenu aria-label="Dropdown menu with description" variant="faded">
+      <DropdownMenu
+        aria-label="Dropdown menu with description"
+        variant="faded"
+        itemClasses={{
+          base: [
+            "rounded-md",
+            "text-primary",
+            "dark:text-light",
+            "transition-opacity",
+            "data-[hover=true]:text-primary",
+            "data-[hover=true]:bg-primary/20",
+            "dark:data-[hover=true]:bg-black/30",
+            "data-[pressed=true]:opacity-70",
+            "data-[focus-visible=true]:ring-primary-500",
+          ],
+        }}
+      >
         <DropdownSection showDivider title="🌐 صفحات اصلی">
           {navLinkList.map((item) => (
             <DropdownItem
@@ -85,7 +97,7 @@ export const CustomDropdownMenu = () => {
           ))}
         </DropdownSection>
 
-        <DropdownSection title="🔥 صفحات ویژه" showDivider>
+        <DropdownSection title="🔥 صفحات ویژه" >
           <DropdownItem
             key="write"
             className="text-danger"
@@ -103,38 +115,6 @@ export const CustomDropdownMenu = () => {
             <Link href={"/post/create"}>
               <p className="text-lg"> 💡 اشتراک‌گذاری ایده</p>
             </Link>
-          </DropdownItem>
-        </DropdownSection>
-
-        <DropdownSection title="ظاهر جرقه">
-          <DropdownItem key="light-mode">
-            <Button
-              onPress={() => setTheme("light")}
-              className={`w-full justify-between  ${theme === "light" ? "bg-primary/20 dark:bg-light/30" : "bg-transparent"}`}
-            >
-              <p>روشن</p>
-              <SunIcon />
-            </Button>
-          </DropdownItem>
-
-          <DropdownItem key="dark-mode">
-            <Button
-              onPress={() => setTheme("dark")}
-              className={`w-full justify-between  ${theme === "dark" ? "bg-primary/20 dark:bg-light/30" : "bg-transparent"}`}
-            >
-              <p>تاریک</p>
-              <MoonIcon />
-            </Button>
-          </DropdownItem>
-
-          <DropdownItem key="system-mode">
-            <Button
-              onPress={() => setTheme("system")}
-              className={`w-full justify-between  ${theme === "system" ? "bg-primary/20 dark:bg-light/30" : "bg-transparent"}`}
-            >
-              <p>سیستم</p>
-              <SettingsIcon />
-            </Button>
           </DropdownItem>
         </DropdownSection>
       </DropdownMenu>

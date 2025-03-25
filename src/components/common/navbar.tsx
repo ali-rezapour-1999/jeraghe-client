@@ -14,18 +14,17 @@ import { motion } from "framer-motion";
 import { useAuthStore } from "@/state/authState";
 import Btn from "@/components/ui/btn";
 import Logo from "./logo";
-import { CustomDropdownMenu } from "../ui/dropdown";
-import { useRouter } from "next/navigation";
+import { PageDropdownMenu } from "../ui/dropdown/pageDropdown";
 import useBaseState from "@/state/baseState";
+import { UserDropdownMenu } from "../ui/dropdown/userDropdown";
 
 const MotionNav = motion.create(Navbar);
 
 const MainNavBar: React.FC = () => {
   const { isAuthenticated, user, isLoading } = useAuthStore();
-  const { setOpenAuthRequireModel } = useBaseState();
-  const router = useRouter();
+  const { setOpenAuthRequireModel, setOpenUserProfile } = useBaseState();
   const userStatusHanlder = async () => {
-    if (isAuthenticated) router.push("/dashboard");
+    if (isAuthenticated) setOpenUserProfile(true);
     else setOpenAuthRequireModel(true);
   };
   return (
@@ -44,23 +43,29 @@ const MainNavBar: React.FC = () => {
       </NavbarBrand>
       <NavbarContent justify="end" className="gap-2">
         <NavbarItem className="border-l-1">
-          <CustomDropdownMenu />
+          <PageDropdownMenu />
         </NavbarItem>
 
         <NavbarItem>
-          <Btn
-            className="h-8 md:h-10 flex  bg-transparent rounded-lg px-3"
-            onClick={userStatusHanlder}
-          >
-            {isAuthenticated ? (
-              <p className="hidden md:block">
-                {isLoading ? <Spinner /> : user?.username}
-              </p>
+          {isAuthenticated ? (
+            isLoading ? (
+              <Spinner />
             ) : (
+              <UserDropdownMenu
+                username={user.username}
+                email={user.email}
+                image={user.image}
+              />
+            )
+          ) : (
+            <Btn
+              className="h-8 md:h-10 flex  bg-transparent rounded-lg px-3"
+              onClick={userStatusHanlder}
+            >
               <p className="hidden md:block">ورود / ثبت نام</p>
-            )}
-            <UserRound size={20} />
-          </Btn>
+              <UserRound size={20} />
+            </Btn>
+          )}
         </NavbarItem>
       </NavbarContent>
     </MotionNav>

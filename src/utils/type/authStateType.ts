@@ -2,7 +2,7 @@ import { baseApiType } from "./baseType";
 
 export interface User extends baseApiType {
   email: string;
-  profile_image?: any;
+  image?: any;
   username: string;
   phone_number?: string;
 }

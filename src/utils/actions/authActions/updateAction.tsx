@@ -19,7 +19,7 @@ export async function updateAction(data: User): Promise<AuthResult> {
       data: {
         email: response.data.email,
         slug: response.data.slug,
-        profile_image: response.data.profile_image,
+        image: response.data.image,
         username: response.data.username,
         phone_number: response.data.phone_number,
       },

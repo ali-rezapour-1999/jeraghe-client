@@ -18,7 +18,7 @@ export async function userInfoAction(): Promise<AuthResult> {
         username: response.data.username,
         phone_number: response.data.phone_number,
         slug: response.data.slug,
-        profile_image: response.data.profile_image,
+        image: response.data.image,
       },
     };
   }

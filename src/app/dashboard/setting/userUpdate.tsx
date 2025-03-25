@@ -13,7 +13,7 @@ const UpdateUserDetail = () => {
   const [userData, setUserData] = useState<User>({
     email: user?.email || "",
     username: user?.username || "",
-    profile_image: null,
+    image: null,
     phone_number: user?.phone_number || "",
   });
 
@@ -31,7 +31,7 @@ const UpdateUserDetail = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setPreviewImage(imageUrl);
-      setUserData({ ...userData, profile_image: file });
+      setUserData({ ...userData, image: file });
     }
   };
 
@@ -72,7 +72,7 @@ const UpdateUserDetail = () => {
               />
             ) : (
               <Image
-                src={user?.profile_image || man}
+                src={user?.image || man}
                 alt={user?.email || "user image"}
                 width={500}
                 height={500}
