@@ -5,36 +5,48 @@ import { AuthResult } from "@/utils/type/authStateType";
 import redis from "@/utils/lib/redis";
 
 export const isAuthCheckAction = async (): Promise<AuthResult> => {
-  const accessToken = (await cookies()).get("access_token")?.value;
-  const refreshToken = (await cookies()).get("refresh_token")?.value;
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("access_token")?.value;
+  const refreshToken = cookieStore.get("refresh_token")?.value;
 
-  if (!accessToken) return { message: "توکن پیدا نشد", success: false };
+  if (!accessToken) {
+    return { message: "توکن پیدا نشد", success: false };
+  }
 
   const cachedUser = await redis.get(`token:${accessToken}`);
   if (cachedUser) {
-    return { data: JSON.parse(cachedUser), success: true };
+    return JSON.parse(cachedUser);
   }
 
   try {
-    const response = await apiDjango.get(`auth/token-verify`, {
+    const response = await apiDjango.get("auth/get", {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
     if (response.status === 200) {
+      const userData = response.data.data;
+
+      const authResult: AuthResult = {
+        success: true,
+        status: response.status,
+        data: userData,
+        message: response.data.message,
+      };
+
       await redis.set(
         `token:${accessToken}`,
-        JSON.stringify(response.data),
+        JSON.stringify(authResult),
         "EX",
-        1800
+        3600
       );
 
-      return { success: true, status: response.status, data: response.data };
+      return authResult;
     }
 
     return {
-      message: "در دریافت اطلاعات با خطا مواجه شدیم",
       success: false,
       status: response.status,
+      message: response.data?.error || "خطا در دریافت اطلاعات",
     };
   } catch (error: any) {
     if (error.response?.status === 401 && refreshToken) {
@@ -46,45 +58,57 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
         if (refreshResponse.status === 200) {
           const newAccessToken = refreshResponse.data.access;
 
-          (await cookies()).set("access_token", newAccessToken, {
+          cookieStore.set("access_token", newAccessToken, {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === "production",
             path: "/",
+            sameSite: "strict",
+            maxAge: 3600,
           });
 
-          const userResponse = await apiDjango.get("auth/token-verify/", {
+          const retryResponse = await apiDjango.get("auth/get", {
             headers: { Authorization: `Bearer ${newAccessToken}` },
           });
 
-          if (userResponse.status === 200) {
+          if (retryResponse.status === 200) {
+            const userData = retryResponse.data.data;
+
+            const authResult: AuthResult = {
+              success: true,
+              status: retryResponse.status,
+              data: userData,
+              message: retryResponse.data.message,
+            };
+
             await redis.set(
               `token:${newAccessToken}`,
-              JSON.stringify(userResponse.data),
+              JSON.stringify(authResult),
               "EX",
-              1800
+              3600
             );
 
-            return {
-              success: true,
-              status: userResponse.status,
-              data: userResponse.data,
-            };
+            return authResult;
           }
         }
-      } catch (error) {
-        (await cookies()).delete("access_token");
-        (await cookies()).delete("refresh_token");
         return {
-          message: ": انجام عملیات بازیابی توکن با خطا مواجه شد" + error,
           success: false,
+          message: "خطا در دریافت اطلاعات پس از بازیابی توکن",
+        };
+      } catch {
+        cookieStore.delete("access_token");
+        cookieStore.delete("refresh_token");
+        return {
+          success: false,
+          message: "انجام عملیات بازیابی توکن با خطا مواجه شد",
         };
       }
     }
+
+    cookieStore.delete("access_token");
+    cookieStore.delete("refresh_token");
+    return {
+      success: false,
+      message: error.response?.data?.error || "خطا در احراز هویت",
+    };
   }
-  (await cookies()).delete("access_token");
-  (await cookies()).delete("refresh_token");
-  return {
-    message: "توکن نامعتبر است یا عملیات با خطا مواجه شد",
-    success: false,
-  };
 };

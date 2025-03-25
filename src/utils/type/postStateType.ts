@@ -16,5 +16,5 @@ export interface PostType extends baseApiType {
 export interface ViewPostType extends IsLoadingType {
   postData: PostType[] | null;
   requestPostView?: () => void;
-  createUserPost?: (data: PostType) => Promise<RequestResult>;
+  createUserPost?: (data: FormData) => Promise<RequestResult>;
 }

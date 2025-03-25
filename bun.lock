@@ -5,6 +5,7 @@
       "name": "jeraghe",
       "dependencies": {
         "@heroui/react": "^2.7.5",
+        "@hugeicons/react": "^1.0.5",
         "@tiptap/extension-color": "^2.11.5",
         "@tiptap/extension-highlight": "^2.11.5",
         "@tiptap/extension-list-item": "^2.11.5",
@@ -270,6 +271,8 @@
     "@heroui/use-update-effect": ["@heroui/use-update-effect@2.1.6", "", { "peerDependencies": { "react": ">=18 || >=19.0.0-rc.0" } }, "sha512-nGSaIngKPuutmQcfZgnMHGYXJDqo6sPjdIIFjb5vutEnc827Xyh5f4q8hXfo7huYYYzA1CqLaThNVFCf3qIwHg=="],
 
     "@heroui/user": ["@heroui/user@2.2.12", "", { "dependencies": { "@heroui/avatar": "2.2.12", "@heroui/react-utils": "2.1.8", "@heroui/shared-utils": "2.1.7", "@react-aria/focus": "3.20.0", "@react-aria/utils": "3.28.0" }, "peerDependencies": { "@heroui/system": ">=2.4.7", "@heroui/theme": ">=2.4.6", "react": ">=18 || >=19.0.0-rc.0", "react-dom": ">=18 || >=19.0.0-rc.0" } }, "sha512-64E9tAI5Nm4L+Em953fYD5u5OXfLh8U2/ZlT48iKgWe8PMQ2X1qAu/1WmWXSPDDC8RyW0O1nWr44JbtX75v/5g=="],
+
+    "@hugeicons/react": ["@hugeicons/react@1.0.5", "", { "peerDependencies": { "react": ">=16.0.0" } }, "sha512-mhcJF83hF4s0yu3eS6owDDzGSlSOGOFZ78eFbw7RqhNK/xYBLrffaBnqrtWWaUyr0F4o+RG2G1SYdyy9oyS1lQ=="],
 
     "@humanfs/core": ["@humanfs/core@0.19.1", "", {}, "sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA=="],
 

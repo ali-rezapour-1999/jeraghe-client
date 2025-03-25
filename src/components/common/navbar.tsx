@@ -1,6 +1,12 @@
 "use client";
 
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@heroui/react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Spinner,
+} from "@heroui/react";
 import React from "react";
 import "@/style/nav-css.css";
 import { UserRound } from "lucide-react";
@@ -9,11 +15,19 @@ import { useAuthStore } from "@/state/authState";
 import Btn from "@/components/ui/btn";
 import Logo from "./logo";
 import { CustomDropdownMenu } from "../ui/dropdown";
+import { useRouter } from "next/navigation";
+import useBaseState from "@/state/baseState";
 
 const MotionNav = motion.create(Navbar);
 
 const MainNavBar: React.FC = () => {
-  const { isAuthenticated, user } = useAuthStore();
+  const { isAuthenticated, user, isLoading } = useAuthStore();
+  const { setOpenAuthRequireModel } = useBaseState();
+  const router = useRouter();
+  const userStatusHanlder = async () => {
+    if (isAuthenticated) router.push("/dashboard");
+    else setOpenAuthRequireModel(true);
+  };
   return (
     <MotionNav
       shouldHideOnScroll
@@ -35,11 +49,13 @@ const MainNavBar: React.FC = () => {
 
         <NavbarItem>
           <Btn
-            link={isAuthenticated ? "/login" : "/dashboard"}
             className="h-8 md:h-10 flex  bg-transparent rounded-lg px-3"
+            onClick={userStatusHanlder}
           >
             {isAuthenticated ? (
-              <p className="hidden md:block">{user.username}</p>
+              <p className="hidden md:block">
+                {isLoading ? <Spinner /> : user?.username}
+              </p>
             ) : (
               <p className="hidden md:block">ورود / ثبت نام</p>
             )}

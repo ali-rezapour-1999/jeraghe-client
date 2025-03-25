@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { ViewPostType, PostType } from "@/utils/type/postStateType";
+import { ViewPostType } from "@/utils/type/postStateType";
 import { RequestResult } from "@/utils/type/baseType";
 import { createPostAction } from "@/utils/actions/postBlogActions/createPostAction";
 
@@ -8,7 +8,7 @@ export const useUserPostState = create<ViewPostType>((set) => ({
   isLoading: false,
   setLoading: (isLoading) => set({ isLoading }),
 
-  createUserPost: async (data: PostType): Promise<RequestResult> => {
+  createUserPost: async (data: FormData): Promise<RequestResult> => {
     set({ isLoading: true });
 
     const response = await createPostAction(data);

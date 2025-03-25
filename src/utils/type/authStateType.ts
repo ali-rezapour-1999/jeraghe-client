@@ -20,8 +20,7 @@ export interface AuthState {
   token: string | null;
   isLoading: boolean;
   setLoading: (isLoading: boolean) => void;
-  restoreAuthState: (isConnect?: boolean) => void;
-  getUserInformation: () => void;
+  restoreAuthState: () => void;
   login: (email: string, password: string) => Promise<AuthResult>;
   register: (
     email: string,

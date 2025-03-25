@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { AuthResult, AuthState, User } from "@/utils/type/authStateType";
 import {
+  isAuthCheckAction,
   loginAction,
   logoutAction,
   registerAction,
   updateAction,
-  getUserInformationAction,
 } from "@/utils/actions/authActions";
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -15,15 +15,10 @@ export const useAuthStore = create<AuthState>((set) => ({
   isLoading: false,
   setLoading: (isLoading: boolean) => set({ isLoading }),
 
-  restoreAuthState: async (isConnect?: boolean) => {
-    if (isConnect) set({ isAuthenticated: true });
-    else set({ isAuthenticated: false });
-  },
-
-  getUserInformation: async () => {
-    const response = await getUserInformationAction();
-    if (response.success) {
-      set({ user: response.data });
+  restoreAuthState: async () => {
+    const response = await isAuthCheckAction();
+    if (response != null) {
+      if (response.success) set({ isAuthenticated: true, user: response.data });
     }
   },
 
@@ -33,8 +28,8 @@ export const useAuthStore = create<AuthState>((set) => ({
     const response = await loginAction(email, password);
     if (response != null) {
       set({ isLoading: false });
+      if (response.success) set({ isAuthenticated: true, user: response.data });
     }
-    set({ isAuthenticated: true });
     return { message: response.message, success: response.success };
   },
 
@@ -48,6 +43,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     const response = await registerAction(email, password, username);
     if (response != null) {
       set({ isLoading: false });
+      if (response.success) set({ isAuthenticated: true, user: response.data });
     }
     return { message: response.message, success: response.success };
   },

@@ -2,9 +2,8 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import useBaseState from "@/state/baseState";
-import RedirectAuthModal from "@/components/common/redirectAuthModal";
-import { useAuthStore } from "@/state/authState";
-import { isAuthCheckAction } from "../actions/authActions";
+import Loading from "@/app/loading";
+import AuthenticatedModal from "@/components/common/AuthenticatedModal";
 
 export default function AuthProvider({
   children,
@@ -12,13 +11,11 @@ export default function AuthProvider({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const { setOpenAuthRequireModel } = useBaseState();
+  const { setOpenAuthRequireModel, isOpenAuthRequireModal } = useBaseState();
   const [loading, setLoading] = useState(true);
-  const { restoreAuthState } = useAuthStore();
 
   useEffect(() => {
     const checkAuth = async () => {
-      const res = await isAuthCheckAction();
       try {
         const response = await fetch(pathname, { method: "HEAD" });
         if (response.headers.get("x-require-login") === "true") {
@@ -29,18 +26,12 @@ export default function AuthProvider({
       } finally {
         setLoading(false);
       }
-      restoreAuthState(res.success);
     };
 
     checkAuth();
-  }, [pathname, setOpenAuthRequireModel, restoreAuthState]);
+  }, [pathname, setOpenAuthRequireModel]);
 
-  if (loading) return null;
-
-  return (
-    <>
-      <RedirectAuthModal />
-      {children}
-    </>
-  );
+  if (loading) return <Loading />;
+  if (isOpenAuthRequireModal) return <AuthenticatedModal />;
+  return <main>{children}</main>;
 }

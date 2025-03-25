@@ -1,17 +1,11 @@
-"use client";
-import { addToast, Button, Form, Input, Spinner } from "@heroui/react";
-import { motion } from "framer-motion";
-import React, { useState, useCallback } from "react";
+import { Button, addToast, Input, Form, Link, Spinner } from "@heroui/react";
 import { useAuthStore } from "@/state/authState";
-import SocialMediaLogin from "../socialMediaLogin";
-import Link from "next/link";
-import { useBackToLastPath } from "@/hook/useSavePath";
-import Btn from "@/components/ui/btn";
+import React, { useCallback, useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
+import Btn from "@/components/ui/btn";
 
-const Register = () => {
+const Register = ({ changePage }: { changePage: any }) => {
   const { isLoading, register, setLoading } = useAuthStore();
-  const navigateBack = useBackToLastPath();
   const [isVisible, setIsVisible] = React.useState(false);
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -110,7 +104,6 @@ const Register = () => {
           title: result.message,
           color: "success",
         });
-        navigateBack();
       } else {
         addToast({
           title: result.message,
@@ -145,18 +138,10 @@ const Register = () => {
       setLoading(false);
     }
   };
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="flex items-center justify-center h-screen w-screen px-4"
-    >
-      <div className="w-full max-w-[750px] bg-white dark:bg-primary-dark/30 shadow-lg rounded-xl overflow-hidden p-8 space-y-2 2xl:space-y-6">
-        <h1 className="text-3xl font-bold text-center text-primary dark:text-light mb-4">
-          ثبت نام در جرقه 🚀
-        </h1>
 
+  return (
+    <div>
+      <div className="w-full min-w-[300px] rounded-xl space-y-2 2xl:space-y-6">
         <Form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <div className="flex flex-col w-full justify-center gap-4">
             <Input
@@ -270,24 +255,20 @@ const Register = () => {
 
         <div className="text-center">
           <Btn
-            link="/login"
-            className="w-full bg-transparent text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 rounded-md py-2"
+            onClick={changePage}
+            className="bg-transparent dark:text-white text-primary w-full rounded-md py-2"
           >
-            حساب داری؟ بیا بریم ورود
+            حساب داری اینجا چیکار میکنی پس بیا بریم ورود!!!{" "}
           </Btn>
         </div>
 
-        <div className="flex items-center my-4">
+        <div className="flex items-center mt-3">
           <hr className="flex-grow border-t border-gray-300 dark:border-gray-600" />
           <span className="mx-3 text-gray-500 dark:text-gray-400">یا</span>
           <hr className="flex-grow border-t border-gray-300 dark:border-gray-600" />
         </div>
-
-        <div className="w-full">
-          <SocialMediaLogin />
-        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -25,14 +25,13 @@ export async function loginAction(
         success: true,
         status: response.status,
         message: response.data.message,
-        data: response.data,
+        data: response.data.user,
       };
     }
     return {
       success: false,
       status: response.status,
       message: response.data.error,
-      data: response.data,
     };
   } catch (error: any) {
     if (error.response && error.response.data) {

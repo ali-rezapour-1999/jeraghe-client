@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { categoryListType } from "@/utils/type/baseType";
-import { categoryListAction } from "@/utils/actions/baseActions/categoryAction";
+// import { categoryListAction } from "@/utils/actions/baseActions/categoryAction";
 
 export const useCategroryState = create<categoryListType>((set) => ({
   categoryData: [],
@@ -8,12 +8,12 @@ export const useCategroryState = create<categoryListType>((set) => ({
   setLoading: (isLoading) => set({ isLoading }),
 
   categoryList: async () => {
-    set({ isLoading: true });
-    const response = await categoryListAction();
-    if (response.success)
-      set({
-        categoryData: response.data,
-        isLoading: false,
-      });
+    // set({ isLoading: true });
+    // const response = await categoryListAction();
+    // if (response.success)
+    //   set({
+    //     categoryData: response.data,
+    //     isLoading: false,
+    //   });
   },
 }));
