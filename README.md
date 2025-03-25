@@ -1,7 +1,7 @@
 # 🔥 Jeraghe
 
-![Jeraghe Screenshot 1](./public/screenshots/screenshot1.png)  
-![Jeraghe Screenshot 2](./public/screenshots/screenshot2.png)
+![Jeraghe Screenshot 1](./public/banner/screenshots/screenshot1.png)  
+![Jeraghe Screenshot 2](./public/banner/screenshots/screenshot2.png)
 
 ## 🚀 تکنولوژی‌های استفاده شده در فرانت‌اند
 
