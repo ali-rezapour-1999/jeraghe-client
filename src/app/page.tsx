@@ -1,7 +1,7 @@
 import MainNavBar from "@/components/common/navbar";
 import Image from "next/image";
-import ideaImage from "../../public/idea_picture.jpg";
-import partnerShipImage from "../../public/partnership_pictrue.jpg";
+import ideaImage from "../../public/main-image/idea_picture.png";
+import partnerShipImage from "../../public/main-image/page_partner.png";
 import MainSectionContainer from "@/components/container/mainContainer";
 import Link from "next/link";
 

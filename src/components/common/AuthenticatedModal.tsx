@@ -46,9 +46,11 @@ const AuthenticatedModal = () => {
 
   return (
     <Modal
-      backdrop="opaque"
+      backdrop="blur"
       hideCloseButton={true}
       classNames={{
+        wrapper: "h-screen top-0 overflow-hidden",
+        base: "h-[550px] py-5 md:py-1 overflow-scroll md:overflow-auto md:h-max",
         backdrop:
           "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20 ",
       }}
@@ -61,14 +63,14 @@ const AuthenticatedModal = () => {
           <>
             <ModalHeader className="flex flex-col gap-1">
               {isAuthNeedSection ? (
-                <div className="text-warning-400 flex flex-col md:flex-row items-center justify-center mb-5 gap-3">
+                <div className="text-warning-400 flex flex-col md:flex-row items-center justify-center gap-3">
                   <TiWarning size={25} />{" "}
                   <p className="text-sm md:text-[15px] text-center">
                     برای استفاده از این بخش نیاز به احراز هویت داری
                   </p>
                 </div>
               ) : null}
-              <h1 className="text-3xl font-bold text-center text-primary dark:text-light mb-4">
+              <h1 className="text-3xl font-bold text-center text-primary dark:text-light">
                 {isLogin ? "ورود به جرقه" : "ثبت نام در جرقه 🚀"}
               </h1>
             </ModalHeader>

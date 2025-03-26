@@ -99,7 +99,7 @@ const Login = ({ changePage }: { changePage: any }) => {
 
   return (
     <div>
-      <Form onSubmit={onSubmitLogin} className="flex flex-col space-y-4">
+      <Form onSubmit={onSubmitLogin} className="flex flex-col space-y-1 px-3">
         <div className="flex flex-col items-center w-full justify-center gap-4">
           <Input
             isRequired
@@ -108,7 +108,8 @@ const Login = ({ changePage }: { changePage: any }) => {
             name="email"
             placeholder="ایمیل خود را وارد کنید"
             type="email"
-            size="lg"
+            classNames={{ label: "text-[12px]" }}
+            size="md"
             validate={() => formErrors.email || ""}
             value={formData.email}
             onChange={inputChangeHandler}
@@ -122,7 +123,8 @@ const Login = ({ changePage }: { changePage: any }) => {
               name="password"
               placeholder="رمز عبور خود را وارد کنید"
               type={isVisible ? "text" : "password"}
-              size="lg"
+              classNames={{ label: "text-[12px]" }}
+              size="md"
               validate={() => formErrors.password || ""}
               value={formData.password}
               onChange={inputChangeHandler}

@@ -1,0 +1,197 @@
+%!Adobe-FontList 1.24
+%Locale:0x409
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:dana-bold
+FamilyName:dana
+StyleName:bold
+FullName:dana bold
+MenuName:dana
+StyleBits:2
+FamilyNameNative:dana
+StyleNameNative:bold
+FullNameNative:dana bold
+WritingScript:Arabic
+OutlineFileName:C:\Users\alirg1999\Documents\WorkSpace\jeraghe-client\public\Font\dana\bold.ttf
+DataFormat:sfntData
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:79364
+FileModTime:1742983284
+WeightClass:700
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,dana bold
+NameArray:0,Win,1,dana
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:dana-extrabold
+FamilyName:dana
+StyleName:extrabold
+FullName:dana extrabold
+MenuName:dana extrabold
+StyleBits:2
+FamilyNameNative:dana
+StyleNameNative:extrabold
+FullNameNative:dana extrabold
+WritingScript:Arabic
+OutlineFileName:C:\Users\alirg1999\Documents\WorkSpace\jeraghe-client\public\Font\dana\extrabold.ttf
+DataFormat:sfntData
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:80204
+FileModTime:1742983284
+WeightClass:800
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,dana extrabold
+NameArray:0,Win,1,dana extrabold
+NameArray:0,Win,16,dana
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:dana-extralight
+FamilyName:dana
+StyleName:extralight
+FullName:dana extralight
+MenuName:dana extralight
+StyleBits:0
+FamilyNameNative:dana
+StyleNameNative:extralight
+FullNameNative:dana extralight
+WritingScript:Arabic
+OutlineFileName:C:\Users\alirg1999\Documents\WorkSpace\jeraghe-client\public\Font\dana\extralight.ttf
+DataFormat:sfntData
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:78072
+FileModTime:1742983284
+WeightClass:200
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,dana extralight
+NameArray:0,Win,1,dana extralight
+NameArray:0,Win,16,dana
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:dana-light
+FamilyName:dana
+StyleName:light
+FullName:dana light
+MenuName:dana light
+StyleBits:0
+FamilyNameNative:dana
+StyleNameNative:light
+FullNameNative:dana light
+WritingScript:Arabic
+OutlineFileName:C:\Users\alirg1999\Documents\WorkSpace\jeraghe-client\public\Font\dana\light.ttf
+DataFormat:sfntData
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:78076
+FileModTime:1742983284
+WeightClass:300
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,dana light
+NameArray:0,Win,1,dana light
+NameArray:0,Win,16,dana
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:dana-medium
+FamilyName:dana
+StyleName:medium
+FullName:dana medium
+MenuName:dana medium
+StyleBits:0
+FamilyNameNative:dana
+StyleNameNative:medium
+FullNameNative:dana medium
+WritingScript:Arabic
+OutlineFileName:C:\Users\alirg1999\Documents\WorkSpace\jeraghe-client\public\Font\dana\medium.ttf
+DataFormat:sfntData
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:77988
+FileModTime:1742983284
+WeightClass:500
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,dana medium
+NameArray:0,Win,1,dana medium
+NameArray:0,Win,16,dana
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:dana-regular
+FamilyName:dana
+StyleName:regular
+FullName:dana regular
+MenuName:dana
+StyleBits:0
+FamilyNameNative:dana
+StyleNameNative:regular
+FullNameNative:dana regular
+WritingScript:Arabic
+OutlineFileName:C:\Users\alirg1999\Documents\WorkSpace\jeraghe-client\public\Font\dana\regular.ttf
+DataFormat:sfntData
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:77556
+FileModTime:1742983284
+WeightClass:400
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,dana regular
+NameArray:0,Win,1,dana
+%EndFont
+
+%BeginFont
+Handler:DirectoryHandler
+FontType:TrueType
+FontName:dana-thin
+FamilyName:dana
+StyleName:thin
+FullName:dana thin
+MenuName:dana thin
+StyleBits:0
+FamilyNameNative:dana
+StyleNameNative:thin
+FullNameNative:dana thin
+WritingScript:Arabic
+OutlineFileName:C:\Users\alirg1999\Documents\WorkSpace\jeraghe-client\public\Font\dana\thin.ttf
+DataFormat:sfntData
+hasSVG:no
+hasCOLR:no
+VariableFontType:NonVariableFont
+FileLength:73536
+FileModTime:1742983284
+WeightClass:100
+WidthClass:5
+AngleClass:0
+NameArray:0,Mac,4,dana thin
+NameArray:0,Win,1,dana thin
+NameArray:0,Win,16,dana
+%EndFont
+

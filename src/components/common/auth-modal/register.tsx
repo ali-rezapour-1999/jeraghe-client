@@ -141,8 +141,8 @@ const Register = ({ changePage }: { changePage: any }) => {
 
   return (
     <div>
-      <div className="w-full min-w-[300px] rounded-xl space-y-2 2xl:space-y-6">
-        <Form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+      <div className="w-full min-w-[300px] rounded-xl 2xl:space-y-1 px-4">
+        <Form onSubmit={handleSubmit} className="flex flex-col">
           <div className="flex flex-col w-full justify-center gap-4">
             <Input
               isRequired
@@ -151,10 +151,10 @@ const Register = ({ changePage }: { changePage: any }) => {
               name="email"
               placeholder="ایمیل خود را وارد کنید"
               type="email"
-              size="lg"
               validate={() => formErrors.email}
               value={formData.email}
               onChange={handleInputChange}
+              classNames={{ label: "text-[12px]" }}
               errorMessage={formErrors.email}
             />
 
@@ -165,10 +165,10 @@ const Register = ({ changePage }: { changePage: any }) => {
               name="username"
               placeholder="نام و نام خانوادگی خود را وارد کنید"
               type="text"
-              size="lg"
               validate={() => formErrors.username}
               value={formData.username}
               onChange={handleInputChange}
+              classNames={{ label: "text-[12px]" }}
               errorMessage={formErrors.username}
             />
 
@@ -179,11 +179,11 @@ const Register = ({ changePage }: { changePage: any }) => {
               name="password"
               placeholder="رمز عبور خود را وارد کنید"
               type={isVisible ? "text" : "password"}
-              size="lg"
               validate={() => formErrors.password}
               value={formData.password}
               onChange={handleInputChange}
               errorMessage={formErrors.password}
+              classNames={{ label: "text-[12px]" }}
               endContent={
                 <Button
                   aria-label="toggle password visibility"
@@ -207,11 +207,11 @@ const Register = ({ changePage }: { changePage: any }) => {
               name="repassword"
               placeholder="رمز عبور خود را تکرار کنید"
               type={isVisible ? "text" : "password"}
-              size="lg"
               validate={() => formErrors.repassword}
               value={formData.repassword}
               onChange={handleInputChange}
               errorMessage={formErrors.repassword}
+              classNames={{ label: "text-[12px]" }}
               endContent={
                 <Button
                   aria-label="toggle password visibility"
@@ -246,7 +246,7 @@ const Register = ({ changePage }: { changePage: any }) => {
 
           <Button
             type="submit"
-            className="dark:bg-green-900 bg-green-dark text-white dark:text-light w-full py-2 rounded-md"
+            className="dark:bg-green-900 bg-green-dark mt-0 text-white dark:text-light w-full rounded-md"
             disabled={isLoading}
           >
             {isLoading ? <Spinner /> : "ثبت نام"}
@@ -256,13 +256,13 @@ const Register = ({ changePage }: { changePage: any }) => {
         <div className="text-center">
           <Btn
             onClick={changePage}
-            className="bg-transparent dark:text-white text-primary w-full rounded-md py-2"
+            className="bg-transparent dark:text-white text-primary w-full rounded-md "
           >
             حساب داری اینجا چیکار میکنی پس بیا بریم ورود!!!{" "}
           </Btn>
         </div>
 
-        <div className="flex items-center mt-3">
+        <div className="flex items-center ">
           <hr className="flex-grow border-t border-gray-300 dark:border-gray-600" />
           <span className="mx-3 text-gray-500 dark:text-gray-400">یا</span>
           <hr className="flex-grow border-t border-gray-300 dark:border-gray-600" />
