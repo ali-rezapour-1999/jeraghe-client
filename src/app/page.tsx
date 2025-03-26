@@ -52,13 +52,13 @@ const Home = () => {
           delay={0.7}
           className="w-full flex flex-col md:flex-row px-10 md:px-5 justify-center items-center overflow-hidden mt-5 2xl:mt-10 gap-10"
         >
-          <Link href="/write">
+          <Link href="/write" className="md:border-l-1 border-light md:pl-10">
             <Image
               src={ideaImage}
-              alt="idea image"
+              alt="blog image"
               width={400}
               height={400}
-              className="rounded-2xl w-[250px] lg:w-[300px] 2xl:w-[400px]"
+              className="rounded-2xl w-[250px] lg:w-[350px] 2xl:w-[450px]"
               property="true"
             />
           </Link>
@@ -66,8 +66,8 @@ const Home = () => {
             <Image
               src={partnerShipImage}
               alt="partnership image"
-              width={400}
-              height={400}
+              width={500}
+              height={500}
               className="rounded-2xl w-[250px] lg:w-[300px] 2xl:w-[400px]"
               property="true"
             />

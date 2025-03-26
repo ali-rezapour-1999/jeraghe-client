@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import useBaseState from "@/state/baseState";
 import Loading from "@/app/loading";
-import AuthenticatedModal from "@/components/common/AuthenticatedModal";
+import AuthenticatedModal from "@/components/common/auth-modal/AuthenticatedModal";
 
 export default function AuthProvider({
   children,

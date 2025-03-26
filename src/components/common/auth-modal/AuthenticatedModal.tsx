@@ -10,11 +10,11 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 import { useAuthStore } from "@/state/authState";
 import React, { useEffect, useState } from "react";
-import Register from "./auth-modal/register";
-import Login from "./auth-modal/login";
-import SocialMediaLogin from "./auth-modal/socialMediaLogin";
+import Register from "./register";
+import Login from "./login";
+import SocialMediaLogin from "./socialMediaLogin";
 import { TiWarning } from "react-icons/ti";
-import Btn from "../ui/btn";
+import Btn from "../../ui/btn";
 
 const AuthenticatedModal = () => {
   const { isOpenAuthRequireModal, setOpenAuthRequireModel } = useBaseState();
@@ -46,13 +46,13 @@ const AuthenticatedModal = () => {
 
   return (
     <Modal
-      backdrop="blur"
+      backdrop="opaque"
       hideCloseButton={true}
       classNames={{
         wrapper: "h-screen top-0 overflow-hidden",
         base: "h-[550px] py-5 md:py-1 overflow-scroll md:overflow-auto md:h-max",
         backdrop:
-          "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20 ",
+          "bg-gradient-to-t from-zinc-900 to-zinc-900/10 backdrop-opacity-20",
       }}
       size="xl"
       isOpen={isOpenAuthRequireModal}

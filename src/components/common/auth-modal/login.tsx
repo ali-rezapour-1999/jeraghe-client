@@ -175,7 +175,7 @@ const Login = ({ changePage }: { changePage: any }) => {
             type="submit"
             className="dark:bg-green-900 bg-green-dark text-white dark:text-light w-full rounded-md py-2"
           >
-            {isLoading ? <Spinner /> : "ورود"}
+            {isLoading ? <Spinner color={"success"} /> : "ورود"}
           </Btn>
           <Btn
             onClick={changePage}
