@@ -7,7 +7,7 @@ import {
   DropdownItem,
   Button,
 } from "@heroui/react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type navLintType = {
   id: number;
@@ -50,6 +50,7 @@ const navLinkList: navLintType[] = [
 ];
 
 export const PageDropdownMenu = () => {
+  const router = useRouter();
   return (
     <Dropdown
       backdrop="blur"
@@ -58,7 +59,7 @@ export const PageDropdownMenu = () => {
       classNames={{
         base: "before:bg-default-400 w-[300px]",
         content:
-          "py-1 px-1 bg-gradient-to-br from-default-300 to-default-60 dark:from-[#00171E] dark:to-[#004551] w-[350px]",
+          "py-1 px-1 bg-gradient-to-br from-default-300 to-default-60 dark:from-[#00171E] dark:to-[#004551] w-[300px]",
       }}
     >
       <DropdownTrigger>
@@ -89,32 +90,29 @@ export const PageDropdownMenu = () => {
               key={item.id}
               description={item.description}
               className="text-primary dark:text-light"
+              onPress={() => router.push(item.href)}
             >
-              <Link href={item.href} passHref>
-                <p className="text-lg">{item.label}</p>
-              </Link>
+              <p className="text-lg">{item.label}</p>
             </DropdownItem>
           ))}
         </DropdownSection>
 
-        <DropdownSection title="🔥 صفحات ویژه" >
+        <DropdownSection title="🔥 صفحات ویژه">
           <DropdownItem
             key="write"
             className="text-danger"
             description="یه داستان یا تجربه هیجان‌انگیز رو با ما به اشتراک بذار!"
+            onPress={() => router.push("/write/create")}
           >
-            <Link href={"/write"}>
-              <p className="text-lg">✍️ اشتراک‌گذاری تجربیات</p>
-            </Link>
+            <p className="text-lg">✍️ اشتراک‌گذاری تجربیات</p>
           </DropdownItem>
           <DropdownItem
             key="post"
             className="text-green-dark"
             description="یه ایده ناب داری؟ بگو تا بترکونیم!"
+            onPress={() => router.push("/ideas/create")}
           >
-            <Link href={"/post/create"}>
-              <p className="text-lg"> 💡 اشتراک‌گذاری ایده</p>
-            </Link>
+            <p className="text-lg"> 💡 اشتراک‌گذاری ایده</p>
           </DropdownItem>
         </DropdownSection>
       </DropdownMenu>

@@ -77,7 +77,12 @@ body {
 }
 
 html.light body {
-  background: #fff;
+  background: linear-gradient(
+    to bottom,
+    rgb(226, 255, 243) 20%,
+    rgb(255, 255, 255) 70%,
+    rgb(255, 255, 255) 100%
+  );
 }
 
 html.dark body {

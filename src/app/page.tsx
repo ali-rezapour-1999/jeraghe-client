@@ -16,7 +16,7 @@ const Home = () => {
             className="text-center font-bold text-primary dark:text-light"
           >
             <h1 className="text-3xl lg:text-5xl 2xl:text-6xl">
-              مسیرت برای شغل و ساخت ایده‌ها شروع شده 🚀
+              مسیرت برای شغل و ساخت ایده‌ها هموار شده 🚀
             </h1>
           </MainSectionContainer>
           <MainSectionContainer
@@ -62,7 +62,7 @@ const Home = () => {
               property="true"
             />
           </Link>
-          <Link href="/partner">
+          <Link href="/ideas">
             <Image
               src={partnerShipImage}
               alt="partnership image"

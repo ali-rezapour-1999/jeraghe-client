@@ -23,9 +23,9 @@ const AuthenticatedModal = () => {
   const { isAuthenticated } = useAuthStore();
   const [isAuthNeedSection, setAuthText] = useState<boolean>(false);
   const pathname = usePathname();
-  const privatePaths = ["/dashboard", "/write", "/post/create"];
 
   useEffect(() => {
+    const privatePaths = ["/dashboard", "/write", "/post/create"];
     if (isAuthenticated) {
       setOpenAuthRequireModel(false);
     }
@@ -33,7 +33,7 @@ const AuthenticatedModal = () => {
       pathname.startsWith(path)
     );
     if (isPrivatePath) setAuthText(true);
-  }, [isAuthenticated, pathname, privatePaths, setOpenAuthRequireModel]);
+  }, [isAuthenticated, pathname, setOpenAuthRequireModel]);
 
   const hadlerBacktoHome = () => {
     if (isAuthNeedSection) {
