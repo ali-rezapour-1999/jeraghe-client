@@ -1,19 +1,26 @@
 "use server";
 
 import apiGo from "@/utils/lib/apiGo";
+import redis from "@/utils/lib/redis";
 import { RequestResult } from "@/utils/type/baseType";
-import { PostType } from "@/utils/type/postStateType";
 
 export const categoryListAction = async (): Promise<RequestResult> => {
-  const response = await apiGo.get("/base/category-list");
+  const category = await redis.get(`category`);
+  if (category) {
+    return { data: JSON.parse(category), success: true };
+  }
+  const response = await apiGo.get("/base/category");
+
   if (response.status == 200) {
+    await redis.set(`category`, JSON.stringify(response.data), "EX", 10000);
     return {
+      status: response.status,
       success: true,
-      data: response.data as PostType,
+      data: response.data,
     };
   }
   return {
     success: false,
-    data: {} as PostType,
+    data: {},
   };
 };

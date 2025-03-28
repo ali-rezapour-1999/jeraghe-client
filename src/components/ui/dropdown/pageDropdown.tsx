@@ -99,10 +99,10 @@ export const PageDropdownMenu = () => {
 
         <DropdownSection title="🔥 صفحات ویژه">
           <DropdownItem
-            key="write"
+            key="post"
             className="text-danger"
             description="یه داستان یا تجربه هیجان‌انگیز رو با ما به اشتراک بذار!"
-            onPress={() => router.push("/write/create")}
+            onPress={() => router.push("/post/create")}
           >
             <p className="text-lg">✍️ اشتراک‌گذاری تجربیات</p>
           </DropdownItem>

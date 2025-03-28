@@ -37,7 +37,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
         `token:${accessToken}`,
         JSON.stringify(authResult),
         "EX",
-        3600
+        3600,
       );
 
       return authResult;
@@ -60,9 +60,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
 
           cookieStore.set("access_token", newAccessToken, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
             path: "/",
-            sameSite: "strict",
             maxAge: 3600,
           });
 
@@ -84,7 +82,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
               `token:${newAccessToken}`,
               JSON.stringify(authResult),
               "EX",
-              3600
+              3600,
             );
 
             return authResult;

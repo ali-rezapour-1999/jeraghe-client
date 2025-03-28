@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 const privatePaths = ["/dashboard"];
-const dashPrivatePaths = ["/write", "/ideas/create"];
+const dashPrivatePaths = ["/post/create", "/ideas/create"];
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
 
   const isPrivatePath = privatePaths.some((path) => pathname.startsWith(path));
   const isDashPrivatePath = dashPrivatePaths.some((path) =>
-    pathname.startsWith(path)
+    pathname.startsWith(path),
   );
 
   if (isPrivatePath && !token) {
@@ -29,5 +29,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/write/:path*", "/ideas/create"],
+  matcher: ["/dashboard/:path*", "/post/create", "/ideas/create"],
 };

@@ -25,12 +25,12 @@ const AuthenticatedModal = () => {
   const pathname = usePathname();
 
   useEffect(() => {
-    const privatePaths = ["/dashboard", "/write", "/post/create"];
+    const privatePaths = ["/dashboard", "/post/create", "/ideas/create"];
     if (isAuthenticated) {
       setOpenAuthRequireModel(false);
     }
     const isPrivatePath = privatePaths.some((path) =>
-      pathname.startsWith(path)
+      pathname.startsWith(path),
     );
     if (isPrivatePath) setAuthText(true);
   }, [isAuthenticated, pathname, setOpenAuthRequireModel]);

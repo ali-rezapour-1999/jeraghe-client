@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @font-face {
   font-family: "dana";
@@ -71,7 +71,6 @@ html {
 body {
   min-height: 100vh;
   font-family: "Dana", sans-serif;
-  color: var(--primary);
   line-height: 1.75;
   overflow-x: hidden;
 }
@@ -83,6 +82,7 @@ html.light body {
     rgb(255, 255, 255) 70%,
     rgb(255, 255, 255) 100%
   );
+  color: var(--primary);
 }
 
 html.dark body {
@@ -94,6 +94,7 @@ html.dark body {
     oklab(32.7% -0.049 -0.029),
     oklab(37.2% -0.055 -0.034)
   );
+  color: var(--primary);
 }
 
 ::-webkit-scrollbar {

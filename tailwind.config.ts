@@ -49,9 +49,20 @@ export default {
           light: "#FFFFFF",
           dark: "#CED4DA",
         },
+        "primary-gray": "var(--primary-gray)",
+        background: "var(--background)",
       },
       fontFamily: {
-        dana: ["dana", "sans-serif"],
+        dana: ["Dana", "sans-serif"],
+      },
+      lineHeight: {
+        normal: "1.75",
+      },
+      backgroundImage: {
+        "light-gradient":
+          "linear-gradient(to bottom, rgb(226, 255, 243) 20%, rgb(255, 255, 255) 70%, rgb(255, 255, 255) 100%)",
+        "dark-gradient":
+          "linear-gradient(180deg, oklab(16.8% -0.024 -0.017), oklab(22.4% -0.032 -0.023), oklab(27.7% -0.041 -0.026), oklab(32.7% -0.049 -0.029), oklab(37.2% -0.055 -0.034))",
       },
     },
   },

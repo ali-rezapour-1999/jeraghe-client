@@ -52,7 +52,10 @@ const Home = () => {
           delay={0.7}
           className="w-full flex flex-col md:flex-row px-10 md:px-5 justify-center items-center overflow-hidden mt-5 2xl:mt-10 gap-10"
         >
-          <Link href="/write" className="md:border-l-1 border-light md:pl-10">
+          <Link
+            href="/post/create"
+            className="md:border-l-1 border-light md:pl-10"
+          >
             <Image
               src={ideaImage}
               alt="blog image"
@@ -62,7 +65,7 @@ const Home = () => {
               property="true"
             />
           </Link>
-          <Link href="/ideas">
+          <Link href="/ideas/create">
             <Image
               src={partnerShipImage}
               alt="partnership image"

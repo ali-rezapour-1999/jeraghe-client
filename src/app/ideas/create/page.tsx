@@ -14,14 +14,14 @@ const CrateIdea = () => {
           <FormIdeaCreate />
         </div>
 
-        <div className="w-full md:w-1/2 flex flex-col items-center justify-center gap-4">
+        <div className="w-full md:w-1/2 flex flex-col items-center justify-center gap-4 text-primary dark:text-light">
           <Image
             src={whyCreateIdea.src}
             alt="why create image"
             width={400}
             height={400}
           />
-          <h1 className="text-3xl font-bold">چرا ایدتو اینجا بنویسی؟</h1>
+          <h1 className="text-3xl font-bold ">چرا ایدتو اینجا بنویسی؟</h1>
           <p className="text-center w-2/3">
             با اشتراک‌گذاری ایده‌ات می‌تونی به راحتی همکارهای کاردرستی پیدا کنی
             که آماده‌ان با تو همکاری کنن و با هم پروژه‌ی یک استارتاپ موفق
