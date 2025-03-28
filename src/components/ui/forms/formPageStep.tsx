@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Button, Input, Select, SelectItem, Textarea } from "@heroui/react";
+import { Button, Input, Select, SelectItem } from "@heroui/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCategroryState } from "@/state/categoryState";
 import { IsLoading } from "@/components/common/isLoading";
@@ -153,15 +153,18 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
               روشنی از ایده‌ی تو داشته باشه
             </p>
           </div>
-          <Textarea
-            variant="bordered"
-            classNames={{ input: "text-xl", base: "mt-7" }}
-            placeholder="محتوای خود را وارد کنید(حداقل باید ۱۰۰ حرف باشد)"
-            value={formValue.content}
-            name="content"
-            onChange={inputChangeHandler}
-            minRows={5}
-          />
+          {
+            // <Textarea
+            //   variant="bordered"
+            //   classNames={{ input: "text-xl", base: "mt-7" }}
+            //   placeholder="محتوای خود را وارد کنید(حداقل باید ۱۰۰ حرف باشد)"
+            //   value={formValue.content}
+            //   name="content"
+            //   onChange={inputChangeHandler}
+            //   minRows={5}
+            // />
+            //
+          }
         </InputSectionWrapper>
       );
     case 3:

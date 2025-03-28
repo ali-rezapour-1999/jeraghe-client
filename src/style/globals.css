@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @config "../../tailwind.config.ts";
-@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 
 @font-face {
   font-family: "dana";
@@ -112,4 +111,9 @@ html.dark body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #999;
+}
+
+.ql-editor {
+  direction: rtl;
+  text-align: right;
 }

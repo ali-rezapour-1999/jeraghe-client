@@ -107,7 +107,7 @@ export const PageDropdownMenu = () => {
             <p className="text-lg">✍️ اشتراک‌گذاری تجربیات</p>
           </DropdownItem>
           <DropdownItem
-            key="post"
+            key="idea"
             className="text-green-dark"
             description="یه ایده ناب داری؟ بگو تا بترکونیم!"
             onPress={() => router.push("/ideas/create")}
