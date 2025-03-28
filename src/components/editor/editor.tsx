@@ -12,10 +12,11 @@ import Paragraph from "@tiptap/extension-paragraph";
 import Text from "@tiptap/extension-text";
 import { createLowlight } from "lowlight";
 import Heading from "@tiptap/extension-heading";
-
-import "../../style/editor.css";
 import EditorHeaderModule from "./editorModule";
+import TextStyle from "@tiptap/extension-text-style";
 import EditorBubbleModule from "./editorBubbleModule";
+import TextAlign from "@tiptap/extension-text-align";
+import "../../style/editor.css";
 
 const lowlight = createLowlight();
 
@@ -34,6 +35,7 @@ const Editor = ({
 }: EditorType) => {
   const editor = useEditor({
     extensions: [
+      TextStyle,
       StarterKit.configure(),
       Document,
       Paragraph,
@@ -51,6 +53,9 @@ const Editor = ({
       TableRow,
       TableCell,
       TableHeader,
+      TextAlign.configure({
+        types: ["heading", "paragraph"],
+      }),
       CodeBlockLowlight.configure({
         lowlight,
       }),
