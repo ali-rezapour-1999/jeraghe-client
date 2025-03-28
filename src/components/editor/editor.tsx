@@ -16,6 +16,7 @@ import EditorHeaderModule from "./editorModule";
 import TextStyle from "@tiptap/extension-text-style";
 import EditorBubbleModule from "./editorBubbleModule";
 import TextAlign from "@tiptap/extension-text-align";
+import Placeholder from "@tiptap/extension-placeholder";
 import "../../style/editor.css";
 
 const lowlight = createLowlight();
@@ -25,6 +26,7 @@ interface EditorType {
   onChange: (content: string) => void;
   bubbleMode?: boolean;
   headerMode?: boolean;
+  placeholder?: string;
 }
 
 const Editor = ({
@@ -32,6 +34,7 @@ const Editor = ({
   onChange,
   bubbleMode = false,
   headerMode = true,
+  placeholder,
 }: EditorType) => {
   const editor = useEditor({
     extensions: [
@@ -59,6 +62,9 @@ const Editor = ({
       CodeBlockLowlight.configure({
         lowlight,
       }),
+      Placeholder.configure({
+        placeholder: placeholder || "شروع به نوشتن کنید...",
+      }),
     ],
     autofocus: true,
     editable: true,
@@ -66,7 +72,7 @@ const Editor = ({
     parseOptions: {
       preserveWhitespace: "full",
     },
-    content: content,
+    content: content || "",
     onUpdate: ({ editor }) => {
       const markdownContent = editor.storage.markdown.getMarkdown();
       onChange(markdownContent);
@@ -77,8 +83,8 @@ const Editor = ({
 
   return (
     <div className="p-4">
-      {bubbleMode ? <EditorBubbleModule editor={editor} /> : null}
-      {headerMode ? <EditorHeaderModule editor={editor} /> : null}
+      {bubbleMode && <EditorBubbleModule editor={editor} />}
+      {headerMode && <EditorHeaderModule editor={editor} />}
       <EditorContent editor={editor} className="prose p-4 text-xl" />
     </div>
   );

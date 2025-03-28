@@ -81,27 +81,25 @@
   }
 }
 
-/* .bubble-menu {
-  background-color: var(--primary-gray);
-  border: 1px solid var(--gray-1);
-  border-radius: 0.7rem;
-  box-shadow: var(--shadow);
+.tiptap p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  direction: rtl;
+  text-align: center;
+}
+
+.tiptap p.is-empty::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  text-align: center;
+}
+.tiptap p.is-empty {
+  direction: rtl;
   display: flex;
-  padding: 0.2rem;
-
-  button {
-    background-color: black;
-
-    &:hover {
-      background-color: var(--gray-3);
-    }
-
-    &.is-active {
-      background-color: var(--light);
-
-      &:hover {
-        background-color: var(--purple-contrast);
-      }
-    }
-  }
-} */
+}

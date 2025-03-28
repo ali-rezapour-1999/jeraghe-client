@@ -3,11 +3,11 @@ import React from "react";
 
 export const IsLoading = () => {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex gap-2 py-3 items-center">
+      <Spinner color="success" size="sm" />
       <h1 className="text-primary-dark dark:text-light">
         در حال بارگذاری اطلاعات...
       </h1>
-      <Spinner color="success" />
     </div>
   );
 };

@@ -4,14 +4,12 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Btn from "@/components/ui/btn";
 import { MediaItems } from "@/utils/static/socialMediaItems";
-import toast from "react-hot-toast";
 import SocialMediaContent from "./socialMediaContent";
 import { IsLoading } from "@/components/common/isLoading";
 import { useSocialMediaState } from "@/state/userInformationStore";
 
 const SocialMedia = () => {
-  const { socialMedia, socialMediaData, isLoading, socialMediaRequest } =
-    useSocialMediaState();
+  const { socialMedia, socialMediaData, isLoading } = useSocialMediaState();
 
   const [links, setLink] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -53,18 +51,7 @@ const SocialMedia = () => {
 
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await socialMedia(updateData).then((response: any) => {
-      if (response.success) {
-        toast.success(response.message as string);
-        socialMediaRequest();
-        setUpdateData({
-          title: "",
-          address: "",
-        });
-      } else {
-        toast.error(response.message as string);
-      }
-    });
+    await socialMedia(updateData);
   };
 
   return (

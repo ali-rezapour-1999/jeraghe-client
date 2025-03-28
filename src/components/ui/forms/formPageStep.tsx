@@ -4,17 +4,19 @@ import { Button, Input, Select, SelectItem } from "@heroui/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCategroryState } from "@/state/categoryState";
 import { IsLoading } from "@/components/common/isLoading";
+import Editor from "@/components/editor/editor";
+import { useAuthStore } from "@/state/authState";
 
 const InputSectionWrapper = ({
   children,
   prevStepHandler,
-  nextStepHanlder,
+  nextStepHandler,
   isPrevDesable = false,
   isNextDesable = false,
 }: {
   children: React.ReactNode;
   prevStepHandler: () => void;
-  nextStepHanlder: () => void;
+  nextStepHandler: () => void;
   isPrevDesable?: boolean;
   isNextDesable?: boolean;
 }) => {
@@ -36,7 +38,7 @@ const InputSectionWrapper = ({
         </Button>
         <Button
           className={`bg-transparent ${isNextDesable ? "hidden" : "flex"}`}
-          onPress={nextStepHanlder}
+          onPress={nextStepHandler}
         >
           <p className="text-lg">بعدی</p> <ArrowLeft />
         </Button>
@@ -51,25 +53,61 @@ interface Props {
 }
 
 const PageStep: React.FC<Props> = ({ step, setStep }) => {
+  const { isAuthenticated } = useAuthStore();
   const { categoryData, categoryList, isLoading } = useCategroryState();
+  const [content, setContent] = useState<string>("");
   const [formValue, setValue] = useState({
     title: "",
     content: "",
     category: "",
   });
+
+  useEffect(() => {
+    setValue((prev) => ({ ...prev, content }));
+  }, [content]);
+
+  const saveTitle = () => {
+    const title = localStorage.getItem("idea_title");
+    if (title !== formValue.title) {
+      localStorage.setItem("idea_title", formValue.title);
+    }
+    setStep(2);
+  };
+
+  const saveContent = () => {
+    localStorage.setItem("idea_title", formValue.title);
+    localStorage.setItem(formValue.title, formValue.content);
+    setStep(3);
+  };
+
   const inputChangeHandler = (
     input: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    >
   ) => {
     setValue({ ...formValue, [input.target.name]: input.target.value });
   };
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      localStorage.removeItem("idea_title");
+    }
+    const localTitle = localStorage.getItem("idea_title");
+    if (localTitle) {
+      const localContent = localStorage.getItem(localTitle) || "";
+      setContent(localContent);
+      setValue((prev) => ({
+        ...prev,
+        title: localTitle,
+        content: localContent,
+      }));
+    }
+  }, [isAuthenticated]);
+
+  useEffect(() => {
     const fetchCategories = async () => {
       await categoryList();
     };
-
     fetchCategories();
   }, [categoryList]);
 
@@ -83,19 +121,16 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
               ? false
               : true
           }
-          nextStepHanlder={() => {
-            setStep(2);
-          }}
+          nextStepHandler={saveTitle}
           prevStepHandler={() => setStep(1)}
         >
           <div>
             <h1 className="text-2xl font-bold mb-2">عنوان ایده</h1>
-            <p className="text-sm ">
+            <p className="text-sm">
               اولین قدم برای ایده‌ات انتخاب یک عنوان کوتاه و پرمعناست. سعی کن
               عنوانی پیدا کنی که هم جلب توجه کند و هم پیام اصلی ایده‌ات را به
               خوبی منتقل کرده و نشان‌دهنده هدف مشخص پشت آن باشد.
             </p>
-
             <Input
               label
               type="text"
@@ -109,8 +144,8 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
             />
           </div>
           <div className="flex flex-col mt-10">
-            <p className="font-bold text-xl">دسته بندی</p>
-            <p className="text-sm mt-2">ایدت جزو کدوم دسته بندی قراره میگیره</p>
+            <p className="font-bold text-xl">دسته‌بندی</p>
+            <p className="text-sm mt-2">ایدت جزو کدوم دسته‌بندی قراره میگیره</p>
             {!isLoading ? (
               <Select
                 labelPlacement="outside"
@@ -140,12 +175,12 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
     case 2:
       return (
         <InputSectionWrapper
-          nextStepHanlder={() => setStep(3)}
+          nextStepHandler={saveContent}
           prevStepHandler={() => setStep(1)}
           isNextDesable={formValue.content.trim().length > 100 ? false : true}
         >
           <div>
-            <h1 className="text-2xl font-bold mb-2 ">محتوای ایدت</h1>
+            <h1 className="text-2xl font-bold mb-2">محتوای ایده‌ات</h1>
             <p className="text-[14px]">
               ایده‌ی تو چطور قراره یک مشکل رو حل کنه یا یک تجربه جدید ایجاد کنه؟
               اینجا جاییه که می‌تونی جزئیات ایده‌ات رو توضیح بدی. سعی کن توضیحت
@@ -153,32 +188,28 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
               روشنی از ایده‌ی تو داشته باشه
             </p>
           </div>
-          {
-            // <Textarea
-            //   variant="bordered"
-            //   classNames={{ input: "text-xl", base: "mt-7" }}
-            //   placeholder="محتوای خود را وارد کنید(حداقل باید ۱۰۰ حرف باشد)"
-            //   value={formValue.content}
-            //   name="content"
-            //   onChange={inputChangeHandler}
-            //   minRows={5}
-            // />
-            //
-          }
+          <div className="mt-7 border-b-1 dark:border-light bg-black/20 rounded-t-lg overflow-x-scroll">
+            <Editor
+              headerMode={false}
+              bubbleMode={true}
+              content={content}
+              onChange={setContent}
+              placeholder="محتوای ایده خود را به صورت کامل توضیح دهید"
+            />
+          </div>
         </InputSectionWrapper>
       );
     case 3:
       return (
         <InputSectionWrapper
           isNextDesable={true}
-          nextStepHanlder={() => setStep(3)}
+          nextStepHandler={() => setStep(3)}
           prevStepHandler={() => setStep(2)}
         >
-          {" "}
           <div>
             <h1 className="text-2xl font-bold mb-2">تنظیمات ایده</h1>
             <p className="text-sm">
-              در این بخش میتوی تنظیمات خودتو برای محتوای مورد نظر نشون بدی
+              در این بخش می‌تونی تنظیمات خودتو برای محتوای مورد نظر نشون بدی
             </p>
           </div>
           <Input
@@ -192,6 +223,9 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
           />
         </InputSectionWrapper>
       );
+    default:
+      return null;
   }
 };
+
 export default PageStep;

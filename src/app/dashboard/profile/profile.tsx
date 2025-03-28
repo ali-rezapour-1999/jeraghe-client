@@ -9,7 +9,6 @@ import {
   Spinner,
 } from "@heroui/react";
 import { ProfileResponse } from "@/utils/type/profileStateType";
-import toast from "react-hot-toast";
 import Btn from "@/components/ui/btn";
 import { useProfileState } from "@/state/userInformationStore";
 
@@ -52,7 +51,6 @@ const ProfileInfo: React.FC = () => {
     e.preventDefault();
     const response = await profileUpdate(updateData);
     if (response.success) {
-      toast.success(response.message as string);
       profileRequest();
     }
   };
