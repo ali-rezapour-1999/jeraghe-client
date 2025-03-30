@@ -11,7 +11,7 @@ export default function AuthProvider({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const { setOpenAuthRequireModel, isOpenAuthRequireModal } = useBaseState();
+  const { setOpenAuthRequireModel } = useBaseState();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -32,6 +32,10 @@ export default function AuthProvider({
   }, [pathname, setOpenAuthRequireModel]);
 
   if (loading) return <Loading />;
-  if (isOpenAuthRequireModal) return <AuthenticatedModal />;
-  return <main>{children}</main>;
+  return (
+    <main>
+      <AuthenticatedModal />
+      {children}
+    </main>
+  );
 }

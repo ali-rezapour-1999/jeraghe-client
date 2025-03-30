@@ -1,6 +1,6 @@
 "use server";
 
-import apiDjango from "@/utils/lib/apiDjango";
+import api from "@/utils/lib/api";
 import { RequestResult } from "@/utils/type/baseType";
 import { cookies } from "next/headers";
 
@@ -19,7 +19,7 @@ export const createPostAction = async (
   }
 
   try {
-    const response = await apiDjango.post("/blog/create-post/", data, {
+    const response = await api.post("/blog/create-post/", data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         "Content-Type": "multipart/form-data",

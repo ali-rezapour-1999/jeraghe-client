@@ -1,6 +1,6 @@
 "use server";
 
-import apiDjango from "@/utils/lib/apiDjango";
+import api from "@/utils/lib/api";
 import { RequestResult } from "@/utils/type/baseType";
 import { PostType } from "@/utils/type/postStateType";
 import { cookies } from "next/headers";
@@ -16,7 +16,7 @@ export const listPostAction = async (): Promise<RequestResult> => {
       message: "شناسه کاربر یافت نشد.",
     };
   }
-  const response = await apiDjango.get("/blog/view-post");
+  const response = await api.get("/blog/view-post");
   if (response.status == 200) {
     return {
       success: true,

@@ -1,12 +1,12 @@
 "use server";
-import apiDjango from "@/utils/lib/apiDjango";
+import api from "@/utils/lib/api";
 import { AuthResult, User } from "@/utils/type/authStateType";
 import { cookies } from "next/headers";
 
 export async function updateAction(data: User): Promise<AuthResult> {
   const token = (await cookies()).get("access_token")?.value;
 
-  const response = await apiDjango.patch(`auth/update/`, data, {
+  const response = await api.patch(`auth/update/`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

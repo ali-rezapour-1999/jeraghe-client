@@ -1,5 +1,5 @@
 "use server";
-import apiGo from "@/utils/lib/apiGo";
+import api from "@/utils/lib/api";
 import { RequestResult } from "@/utils/type/baseType";
 import { WorkHistoryResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
@@ -16,7 +16,7 @@ export const UserSkillsAction = async (): Promise<RequestResult> => {
   }
 
   try {
-    const response = await apiGo.get(`/profile/user-skills`, {
+    const response = await api.get(`/profile/user-skills`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

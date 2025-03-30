@@ -1,6 +1,6 @@
 "use server";
 
-import apiGo from "@/utils/lib/apiGo";
+import api from "@/utils/lib/api";
 import { RequestResult } from "@/utils/type/baseType";
 import { SocialMediaResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
@@ -16,7 +16,7 @@ export const socialMediaAction = async (): Promise<RequestResult> => {
       message: "شناسه کاربر یافت نشد.",
     };
   }
-  const response = await apiGo.get(`/profile/social-media`, {
+  const response = await api.get(`/profile/social-media`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

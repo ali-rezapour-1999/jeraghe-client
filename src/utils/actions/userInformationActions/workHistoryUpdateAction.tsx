@@ -1,6 +1,6 @@
 "use server";
 
-import apiDjango from "@/utils/lib/apiDjango";
+import api from "@/utils/lib/api";
 import { WorkHistoryResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
 
@@ -15,7 +15,7 @@ export const workHistoryUpdateAction = async (data: WorkHistoryResponse) => {
     };
   }
   try {
-    const response = await apiDjango.patch<WorkHistoryResponse>(
+    const response = await api.patch<WorkHistoryResponse>(
       `/profile/work-history/${slug}/`,
       data
     );

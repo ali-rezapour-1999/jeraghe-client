@@ -1,5 +1,5 @@
 "use server";
-import apiDjango from "@/utils/lib/apiDjango";
+import api from "@/utils/lib/api";
 import { cookies } from "next/headers";
 import { AuthResult } from "@/utils/type/authStateType";
 import redis from "@/utils/lib/redis";
@@ -19,7 +19,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
   }
 
   try {
-    const response = await apiDjango.get("auth/get", {
+    const response = await api.get("auth/get", {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
@@ -37,7 +37,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
         `token:${accessToken}`,
         JSON.stringify(authResult),
         "EX",
-        3600,
+        3600
       );
 
       return authResult;
@@ -51,7 +51,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
   } catch (error: any) {
     if (error.response?.status === 401 && refreshToken) {
       try {
-        const refreshResponse = await apiDjango.post("auth/token-refresh/", {
+        const refreshResponse = await api.post("auth/token-refresh/", {
           refresh: refreshToken,
         });
 
@@ -64,7 +64,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
             maxAge: 3600,
           });
 
-          const retryResponse = await apiDjango.get("auth/get", {
+          const retryResponse = await api.get("auth/get", {
             headers: { Authorization: `Bearer ${newAccessToken}` },
           });
 
@@ -82,7 +82,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
               `token:${newAccessToken}`,
               JSON.stringify(authResult),
               "EX",
-              3600,
+              3600
             );
 
             return authResult;

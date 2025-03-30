@@ -1,5 +1,5 @@
 "use server";
-import apiDjango from "@/utils/lib/apiDjango";
+import api from "@/utils/lib/api";
 import { AuthResult } from "@/utils/type/authStateType";
 import { cookies } from "next/headers";
 
@@ -9,7 +9,7 @@ export async function registerAction(
   username: string
 ): Promise<AuthResult> {
   try {
-    const response = await apiDjango.post("auth/register/", {
+    const response = await api.post("auth/register/", {
       email,
       password,
       username,

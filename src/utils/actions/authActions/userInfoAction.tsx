@@ -1,12 +1,12 @@
 "use server";
-import apiDjango from "@/utils/lib/apiDjango";
+import api from "@/utils/lib/api";
 import { AuthResult } from "@/utils/type/authStateType";
 import { cookies } from "next/headers";
 
 export async function userInfoAction(): Promise<AuthResult> {
   const accessToken = (await cookies()).get("access_token")?.value;
 
-  const response = await apiDjango.get(`auth/get`, {
+  const response = await api.get(`auth/get`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

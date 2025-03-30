@@ -1,5 +1,5 @@
 "use server";
-import apiGo from "@/utils/lib/apiGo";
+import api from "@/utils/lib/api";
 import { RequestResult } from "@/utils/type/baseType";
 import { WorkHistoryResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
@@ -17,7 +17,7 @@ export const workHistoryAction = async (): Promise<RequestResult> => {
   }
 
   try {
-    const response = await apiGo.get(`/profile/work-history/`, {
+    const response = await api.get(`/profile/work-history/`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

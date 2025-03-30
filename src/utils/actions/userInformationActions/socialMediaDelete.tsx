@@ -1,6 +1,6 @@
 "use server";
 
-import apiDjango from "@/utils/lib/apiDjango";
+import api from "@/utils/lib/api";
 import { RequestResult } from "@/utils/type/baseType";
 import { cookies } from "next/headers";
 
@@ -16,7 +16,7 @@ export const socialMediaDeleteAction = async (
       message: "شناسه کاربر یافت نشد.",
     };
   }
-  const response = await apiDjango.delete(`/profile/social-media/${slug}/`, {
+  const response = await api.delete(`/profile/social-media/${slug}/`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
