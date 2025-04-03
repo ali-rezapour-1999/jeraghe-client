@@ -16,7 +16,7 @@ export const UserSkillsAction = async (): Promise<RequestResult> => {
   }
 
   try {
-    const response = await api.get(`/profile/user-skills`, {
+    const response = await api.get(`/private/profile/user-skills`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

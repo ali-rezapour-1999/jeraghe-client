@@ -5,10 +5,10 @@ import { cookies } from "next/headers";
 
 export async function loginAction(
   email: string,
-  password: string,
+  password: string
 ): Promise<AuthResult> {
   try {
-    const response = await api.post("auth/login/", { email, password });
+    const response = await api.post("private/auth/login/", { email, password });
     (await cookies()).set("access_token", response.data.access, {
       httpOnly: true,
       secure: true,

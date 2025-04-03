@@ -13,6 +13,9 @@ import { usePathname } from "next/navigation";
 import { useAuthStore } from "@/state/authState";
 import { useRouter } from "next/navigation";
 import { ImExit } from "react-icons/im";
+import { User as UserType } from "@/utils/type/authStateType";
+import Image from "next/image";
+import { FaUserLarge } from "react-icons/fa6";
 
 const dashboardItem = [
   { id: 1, link: "/dashboard", title: "نگاه کلی", icon: <TrendingUpDown /> },
@@ -29,7 +32,7 @@ const dashboardItem = [
   { id: 7, link: "/dashboard/setting", title: "تنظیمات", icon: <Settings /> },
 ];
 
-const DashboardSidebar: React.FC = () => {
+const DashboardSidebar = ({ user }: { user: UserType }) => {
   const router = useRouter();
   const { logout } = useAuthStore();
   const path = usePathname();
@@ -38,9 +41,20 @@ const DashboardSidebar: React.FC = () => {
     router.push("/");
   };
   return (
-    <div className="w-[450px] pr-5 max-h-[750px] h-[750px] flex flex-col justify-between">
-      <div className="dark:bg-primary-dark/30 bg-primary-dark/10 py-10 rounded-2xl min-h-[700px]">
+    <div className="hidden md:w-[450px] pr-5 max-h-[650px] h-[650px] xl:flex flex-col justify-between">
+      <div className="py-10 rounded-2xl min-h-[700px]">
         <div className="h-full flex flex-col items- justify-between px-8 gap-5">
+          <div className="flex gap-3 items-center border-b-1 pb-2">
+            {user.image ? (
+              <Image src={user.image} alt={user.email} layout="full" />
+            ) : (
+              <FaUserLarge className="size-12" />
+            )}
+            <div className="flex flex-col">
+              <span className="text-sm">{user.email}</span>
+              <span className="text-sm">{user.username}</span>
+            </div>
+          </div>
           <div className="h-full flex flex-col items- justify-start gap-5">
             {dashboardItem.map((item) => (
               <Btn

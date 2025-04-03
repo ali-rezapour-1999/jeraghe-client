@@ -8,7 +8,7 @@ import githubIcons from "../../../../public/icons/icons8-github.svg";
 import ProfileSectionContainer from "@/components/container/profileContainer";
 import Btn from "@/components/ui/btn";
 import { useAuthStore } from "@/state/authState";
-import man from "../../../../public/man.png";
+import { FaUserLarge } from "react-icons/fa6";
 // import { useProfileState } from "@/state/profileState";
 
 const iconsSocialMedia = [
@@ -24,13 +24,7 @@ const ProfileSection = () => {
   // const { personalData } = useProfileState();
   return (
     <ProfileSectionContainer delay={0.2}>
-      <Image
-        src={man}
-        alt="image place holder"
-        width={100}
-        height={100}
-        className="rounded-xl mb-3"
-      />
+      <FaUserLarge />
       <h3 className="font-bold text-darkPrimary dark:text-light text-[1.1em] mb-2">
         {user?.username}
       </h3>

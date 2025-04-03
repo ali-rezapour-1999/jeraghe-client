@@ -9,7 +9,7 @@ export const profileRequestAction = async (): Promise<RequestResult> => {
   const accessToken = (await cookies()).get("access_token")?.value;
   try {
     if (slug) {
-      const response = await api.get(`profile/info/${slug}`, {
+      const response = await api.get(`private/profile/info/${slug}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import man from "../../../../public/man.png";
 import { useAuthStore } from "@/state/authState";
-import { Input, Spinner } from "@heroui/react";
+import { addToast, Input, Spinner } from "@heroui/react";
 import Btn from "@/components/ui/btn";
 import { User } from "@/utils/type/authStateType";
-import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
+import { FaUserLarge } from "react-icons/fa6";
 
 const UpdateUserDetail = () => {
   const { user, userUpdate, isLoading } = useAuthStore();
@@ -18,7 +17,7 @@ const UpdateUserDetail = () => {
   });
 
   const inputChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     setUserData((prev) => ({
       ...prev,
@@ -44,9 +43,9 @@ const UpdateUserDetail = () => {
     e.preventDefault();
     await userUpdate(userData).then((response: any) => {
       if (response.success) {
-        toast.success(response.message as string);
+        addToast({ title: response.message, color: "success" });
       } else {
-        toast.error(response.message as string);
+        addToast({ title: response.message, color: "danger" });
       }
     });
   };
@@ -72,7 +71,7 @@ const UpdateUserDetail = () => {
               />
             ) : (
               <Image
-                src={user?.image || man}
+                src={user?.image || <FaUserLarge className="size-7" />}
                 alt={user?.email || "user image"}
                 width={500}
                 height={500}
@@ -120,7 +119,6 @@ const UpdateUserDetail = () => {
       <Btn className="bg-orange-400 dark:bg-orange-400" type="submit">
         {isLoading ? <Spinner /> : " ثبت تغییرات "}
       </Btn>
-      <Toaster position="top-right" />
     </form>
   );
 };

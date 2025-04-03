@@ -21,7 +21,7 @@ export const socialMediaCreateAction = async (
 
   try {
     const response = await api.post<SocialMediaResponse>(
-      `/profile/social-media/`,
+      `/private/profile/social-media/`,
       { ...data, user: slug },
       {
         headers: {

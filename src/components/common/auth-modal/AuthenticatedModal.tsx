@@ -52,7 +52,7 @@ const AuthenticatedModal = () => {
         wrapper: "h-screen top-0 overflow-hidden",
         base: "h-[550px] py-5 md:py-1 overflow-scroll md:overflow-auto md:h-max",
         backdrop:
-          "bg-gradient-to-t from-primary to-primary/20 dark:from-light/60 dark:to-light/5 backdrop-opacity-10",
+          "bg-gradient-to-t from-primary-gray to-primary-gray/30 dark:from-light dark:to-light/5 backdrop-opacity-80",
       }}
       size="xl"
       isOpen={isOpenAuthRequireModal}

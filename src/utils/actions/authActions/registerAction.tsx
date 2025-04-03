@@ -9,7 +9,7 @@ export async function registerAction(
   username: string
 ): Promise<AuthResult> {
   try {
-    const response = await api.post("auth/register/", {
+    const response = await api.post("private/auth/register/", {
       email,
       password,
       username,

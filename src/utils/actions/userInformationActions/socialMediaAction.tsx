@@ -16,7 +16,7 @@ export const socialMediaAction = async (): Promise<RequestResult> => {
       message: "شناسه کاربر یافت نشد.",
     };
   }
-  const response = await api.get(`/profile/social-media`, {
+  const response = await api.get(`/private/profile/social-media`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

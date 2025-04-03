@@ -15,7 +15,6 @@
 | [NextAuth.js](https://next-auth.js.org/)        | احراز هویت ساده و امن برای Next.js                              |
 | [Axios](https://axios-http.com/)                | کتابخانه HTTP برای ارسال درخواست‌های API                        |
 | [Framer Motion](https://www.framer.com/motion/) | کتابخانه انیمیشن برای React                                     |
-| [React Hot Toast](https://react-hot-toast.com/) | نمایش نوتیفیکیشن‌های زیبا در اپلیکیشن                           |
 | [Lucide React](https://lucide.dev/)             | مجموعه‌ای از آیکون‌های زیبا و مدرن برای React                   |
 | [Tiptap](https://tiptap.dev/)                   | ویرایشگر متن غنی با قابلیت شخصی‌سازی بالا                       |
 

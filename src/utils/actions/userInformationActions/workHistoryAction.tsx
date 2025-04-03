@@ -17,7 +17,7 @@ export const workHistoryAction = async (): Promise<RequestResult> => {
   }
 
   try {
-    const response = await api.get(`/profile/work-history/`, {
+    const response = await api.get(`/private/profile/work-history/`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

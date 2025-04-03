@@ -1,7 +1,6 @@
 import Btn from "@/components/ui/btn";
 import React, { useState } from "react";
 import { Form, Input } from "@heroui/react";
-import { Toaster } from "react-hot-toast";
 
 interface passInputType {
   password: string;
@@ -68,7 +67,6 @@ const ResetPassword = () => {
       <Btn className="bg-orange-400 dark:bg-orange-400 w-full" type="submit">
         تغییر رمز عبور
       </Btn>
-      <Toaster position="top-right" />
     </Form>
   );
 };

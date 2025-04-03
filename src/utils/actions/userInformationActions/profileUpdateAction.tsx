@@ -19,7 +19,7 @@ export const profileUpdateAction = async (
   }
   try {
     const response = await api.patch<ProfileResponse>(
-      `/profile/profile-info/${slug}/`,
+      `/private/profile/profile-info/${slug}/`,
       data,
       {
         headers: {

@@ -11,9 +11,10 @@ import {
 import { useTheme } from "next-themes";
 import { Bell, MoonIcon, SettingsIcon, SunIcon, UserRound } from "lucide-react";
 import { ImExit } from "react-icons/im";
-import userImage from "../../../../public/man.png";
+import { FaUserLarge } from "react-icons/fa6";
 import NextImage from "next/image";
 import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/state/authState";
 
 export const UserDropdownMenu = ({
   username,
@@ -25,6 +26,7 @@ export const UserDropdownMenu = ({
   image: string;
 }) => {
   const { setTheme, theme } = useTheme();
+  const { logout } = useAuthStore();
   const router = useRouter();
 
   return (
@@ -72,17 +74,20 @@ export const UserDropdownMenu = ({
             isReadOnly
             className="h-14 gap-2 opacity-100"
             startContent={
-              <Image
-                as={NextImage}
-                width={50}
-                height={50}
-                fallbackSrc={userImage.src}
-                src={image || userImage.src}
-                isBlurred
-                className="w-12 h-8 object-contain"
-                alt={username}
-                priority
-              />
+              image ? (
+                <Image
+                  as={NextImage}
+                  width={50}
+                  height={50}
+                  src={image}
+                  isBlurred
+                  className="w-12 h-8 object-contain"
+                  alt={username}
+                  priority
+                />
+              ) : (
+                <FaUserLarge className="size-7 ml-3" />
+              )
             }
           >
             <p>{username}</p>
@@ -145,7 +150,11 @@ export const UserDropdownMenu = ({
         </DropdownSection>
 
         <DropdownSection aria-label="Help & Feedback">
-          <DropdownItem key="logout" className="text-light bg-accent-dark">
+          <DropdownItem
+            key="logout"
+            onPress={logout}
+            className="text-light bg-accent-dark"
+          >
             <div className="flex items-center justify-center gap-3 ">
               <ImExit /> خروج از حساب کاربری
             </div>

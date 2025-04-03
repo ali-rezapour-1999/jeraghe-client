@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 export async function userInfoAction(): Promise<AuthResult> {
   const accessToken = (await cookies()).get("access_token")?.value;
 
-  const response = await api.get(`auth/get`, {
+  const response = await api.get(`private/auth/get`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

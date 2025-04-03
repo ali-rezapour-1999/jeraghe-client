@@ -16,7 +16,7 @@ export const socialMediaDeleteAction = async (
       message: "شناسه کاربر یافت نشد.",
     };
   }
-  const response = await api.delete(`/profile/social-media/${slug}/`, {
+  const response = await api.delete(`/private/profile/social-media/${slug}/`, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

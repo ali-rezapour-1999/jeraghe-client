@@ -9,68 +9,66 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
   const accessToken = cookieStore.get("access_token")?.value;
   const refreshToken = cookieStore.get("refresh_token")?.value;
 
-  if (!accessToken) {
+  if (!accessToken && !refreshToken) {
     return { message: "توکن پیدا نشد", success: false };
   }
 
-  const cachedUser = await redis.get(`token:${accessToken}`);
-  if (cachedUser) {
-    return JSON.parse(cachedUser);
-  }
-
-  try {
-    const response = await api.get("auth/get", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-
-    if (response.status === 200) {
-      const userData = response.data.data;
-
-      const authResult: AuthResult = {
-        success: true,
-        status: response.status,
-        data: userData,
-        message: response.data.message,
-      };
-
-      await redis.set(
-        `token:${accessToken}`,
-        JSON.stringify(authResult),
-        "EX",
-        3600
-      );
-
-      return authResult;
+  if (accessToken) {
+    const cachedUser = await redis.get(`token:${accessToken}`);
+    if (cachedUser) {
+      return JSON.parse(cachedUser);
     }
 
-    return {
-      success: false,
-      status: response.status,
-      message: response.data?.error || "خطا در دریافت اطلاعات",
-    };
-  } catch (error: any) {
-    if (error.response?.status === 401 && refreshToken) {
-      try {
-        const refreshResponse = await api.post("auth/token-refresh/", {
-          refresh: refreshToken,
+    try {
+      const response = await api.get("private/auth/get", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      if (response.status === 200) {
+        const userData = response.data.data;
+        const authResult: AuthResult = {
+          success: true,
+          status: response.status,
+          data: userData,
+          message: response.data.message,
+        };
+
+        await redis.set(
+          `token:${accessToken}`,
+          JSON.stringify(authResult),
+          "EX",
+          3600,
+        );
+
+        return authResult;
+      }
+    } catch (error: any) {
+      return { message: error, success: false };
+    }
+  }
+
+  if (refreshToken) {
+    try {
+      const refreshResponse = await api.post("private/auth/token-refresh/", {
+        refresh: refreshToken,
+      });
+
+      if (refreshResponse.status === 200) {
+        const newAccessToken = refreshResponse.data.access;
+
+        cookieStore.set("access_token", newAccessToken, {
+          httpOnly: true,
+          path: "/",
+          maxAge: 3600,
         });
 
-        if (refreshResponse.status === 200) {
-          const newAccessToken = refreshResponse.data.access;
-
-          cookieStore.set("access_token", newAccessToken, {
-            httpOnly: true,
-            path: "/",
-            maxAge: 3600,
-          });
-
-          const retryResponse = await api.get("auth/get", {
+        try {
+          const retryResponse = await api.get("private/auth/get", {
             headers: { Authorization: `Bearer ${newAccessToken}` },
           });
 
           if (retryResponse.status === 200) {
             const userData = retryResponse.data.data;
-
             const authResult: AuthResult = {
               success: true,
               status: retryResponse.status,
@@ -82,31 +80,31 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
               `token:${newAccessToken}`,
               JSON.stringify(authResult),
               "EX",
-              3600
+              3600,
             );
 
             return authResult;
           }
+        } catch {
+          return {
+            success: false,
+            message: "انجام عملیات بازیابی توکن با خطا مواجه شد",
+          };
         }
-        return {
-          success: false,
-          message: "خطا در دریافت اطلاعات پس از بازیابی توکن",
-        };
-      } catch {
-        cookieStore.delete("access_token");
-        cookieStore.delete("refresh_token");
-        return {
-          success: false,
-          message: "انجام عملیات بازیابی توکن با خطا مواجه شد",
-        };
       }
-    }
+    } catch {
+      cookieStore.delete("access_token");
+      cookieStore.delete("refresh_token");
 
-    cookieStore.delete("access_token");
-    cookieStore.delete("refresh_token");
-    return {
-      success: false,
-      message: error.response?.data?.error || "خطا در احراز هویت",
-    };
+      return {
+        success: false,
+        message: "انجام عملیات بازیابی توکن با خطا مواجه شد",
+      };
+    }
   }
+
+  return {
+    success: false,
+    message: "احراز هویت با خطا مواجه شد، لطفا دوباره وارد شوید",
+  };
 };

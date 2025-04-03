@@ -16,7 +16,7 @@ export const workHistoryUpdateAction = async (data: WorkHistoryResponse) => {
   }
   try {
     const response = await api.patch<WorkHistoryResponse>(
-      `/profile/work-history/${slug}/`,
+      `/private/profile/work-history/${slug}/`,
       data
     );
 
