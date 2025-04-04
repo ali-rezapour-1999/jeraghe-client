@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 export async function userInfoAction(): Promise<AuthResult> {
   const accessToken = (await cookies()).get("access_token")?.value;
+  const slug = (await cookies()).get("user_id")?.value;
   if (!accessToken) {
     return { message: "توکن پیدا نشد", success: false };
   }
@@ -16,6 +17,13 @@ export async function userInfoAction(): Promise<AuthResult> {
       },
     });
     if (response.status == 200) {
+      if (!slug) {
+        (await cookies()).set("user_id", response.data.data.slug_id, {
+          httpOnly: true,
+          secure: true,
+          path: "/",
+        });
+      }
       return {
         success: true,
         data: response.data.data,

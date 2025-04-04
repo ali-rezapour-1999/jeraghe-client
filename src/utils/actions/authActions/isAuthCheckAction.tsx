@@ -57,6 +57,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
 
       if (refreshResponse.status === 200) {
         const newAccessToken = refreshResponse.data.access;
+        const newRefreshToken = refreshResponse.data.refresh;
         try {
           const retryResponse = await api.post(
             "private/auth/token-verify/",
@@ -69,6 +70,16 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
           );
 
           if (retryResponse.status === 200) {
+            cookieStore.set("refresh_token", newRefreshToken, {
+              httpOnly: true,
+              secure: true,
+              path: "/",
+            });
+            cookieStore.set("access_token", newAccessToken, {
+              httpOnly: true,
+              secure: true,
+              path: "/",
+            });
             await redis.set(
               `token:${newAccessToken}`,
               JSON.stringify(retryResponse.data),
@@ -80,6 +91,8 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
             };
           }
         } catch {
+          cookieStore.delete("access_token");
+          cookieStore.delete("refresh_token");
           return {
             success: false,
             message: "بازیابی توکن با خطا مواجه شد",
@@ -87,6 +100,8 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
         }
       }
     } catch {
+      cookieStore.delete("access_token");
+      cookieStore.delete("refresh_token");
       return {
         success: false,
         message: "بازیابی توکن با خطا مواجه شد",
