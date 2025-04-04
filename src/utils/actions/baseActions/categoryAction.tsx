@@ -10,7 +10,7 @@ export const categoryListAction = async (): Promise<RequestResult> => {
     return { success: true, data: JSON.parse(data) };
   }
 
-  const response = await api.get("pubilc/category/");
+  const response = await api.get("public/category/");
 
   if (response.status == 200) {
     return {

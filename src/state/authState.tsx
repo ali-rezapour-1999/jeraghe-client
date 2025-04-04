@@ -1,11 +1,12 @@
 import { create } from "zustand";
-import { AuthResult, AuthState, User } from "@/utils/type/authStateType";
+import { AuthResult, AuthState } from "@/utils/type/authStateType";
 import {
   isAuthCheckAction,
   loginAction,
   logoutAction,
   registerAction,
   updateAction,
+  userInfoAction,
 } from "@/utils/actions/authActions";
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -17,9 +18,14 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   restoreAuthState: async () => {
     const response = await isAuthCheckAction();
-    if (response != null) {
-      if (response.success) set({ isAuthenticated: true, user: response.data });
-    }
+    if (response.success) set({ isAuthenticated: true });
+    return { message: response.message, success: response.success };
+  },
+
+  userInformation: async () => {
+    set({ isLoading: true });
+    const response = await userInfoAction();
+    if (response.success) set({ user: response.data, isLoading: false });
   },
 
   login: async (email: string, password: string): Promise<AuthResult> => {
@@ -48,12 +54,10 @@ export const useAuthStore = create<AuthState>((set) => ({
     return { message: response.message, success: response.success };
   },
 
-  userUpdate: async (data: User): Promise<AuthResult> => {
+  userUpdate: async (data: FormData): Promise<AuthResult> => {
     set({ isLoading: true });
     const response = await updateAction(data);
-    if (response != null) {
-      set({ isLoading: false });
-    }
+    if (response != null) set({ isLoading: false });
     return { message: response.message, success: response.success };
   },
 

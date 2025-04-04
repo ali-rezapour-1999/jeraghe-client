@@ -83,7 +83,7 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
   const inputChangeHandler = (
     input: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
+    >,
   ) => {
     setValue({ ...formValue, [input.target.name]: input.target.value });
   };

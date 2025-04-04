@@ -5,11 +5,10 @@ import { ProfileResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
 
 export const profileRequestAction = async (): Promise<RequestResult> => {
-  const slug = (await cookies()).get("user_slug")?.value;
   const accessToken = (await cookies()).get("access_token")?.value;
   try {
-    if (slug) {
-      const response = await api.get(`private/profile/info/${slug}`, {
+    if (accessToken) {
+      const response = await api.get(`private/profile/info`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import dynamic from "next/dynamic";
 import { ToastProvider } from "@heroui/toast";
@@ -10,22 +10,26 @@ const AuthProvider = dynamic(() => import("@/utils/lib/authGuard"), {
 });
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
-  const { restoreAuthState } = useAuthStore();
+  const { restoreAuthState, userInformation } = useAuthStore();
+
+  const initializeAuth = useCallback(async () => {
+    const res = await restoreAuthState();
+    if (res.success) userInformation();
+  }, [restoreAuthState, userInformation]);
+
   useEffect(() => {
-    restoreAuthState();
-  }, [restoreAuthState]);
+    initializeAuth();
+  }, [initializeAuth]);
 
   return (
     <NextThemesProvider
       attribute="class"
       defaultTheme="system"
-      enableSystem={true}
-      disableTransitionOnChange={true}
+      enableSystem
+      disableTransitionOnChange
     >
       <ToastProvider />
-      <AuthProvider>
-        <main className="px-1">{children}</main>
-      </AuthProvider>
+      <AuthProvider>{children}</AuthProvider>
     </NextThemesProvider>
   );
 };

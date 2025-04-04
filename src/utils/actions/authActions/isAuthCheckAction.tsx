@@ -16,95 +16,85 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
   if (accessToken) {
     const cachedUser = await redis.get(`token:${accessToken}`);
     if (cachedUser) {
-      return JSON.parse(cachedUser);
+      return { success: true };
     }
 
     try {
-      const response = await api.get("private/auth/get", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-
+      const response = await api.post(
+        "private/auth/token-verify/",
+        JSON.stringify({ token: accessToken }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
       if (response.status === 200) {
-        const userData = response.data.data;
-        const authResult: AuthResult = {
-          success: true,
-          status: response.status,
-          data: userData,
-          message: response.data.message,
-        };
-
         await redis.set(
           `token:${accessToken}`,
-          JSON.stringify(authResult),
+          JSON.stringify(response.data),
           "EX",
           3600,
         );
-
-        return authResult;
+        return { success: true };
       }
-    } catch (error: any) {
-      return { message: error, success: false };
+    } catch {
+      return { message: "توکن نامعتبر است", success: false };
     }
   }
 
   if (refreshToken) {
     try {
-      const refreshResponse = await api.post("private/auth/token-refresh/", {
-        refresh: refreshToken,
-      });
+      const refreshResponse = await api.post(
+        "private/auth/token-refresh/",
+        JSON.stringify({ refresh: refreshToken }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
 
       if (refreshResponse.status === 200) {
         const newAccessToken = refreshResponse.data.access;
-
-        cookieStore.set("access_token", newAccessToken, {
-          httpOnly: true,
-          path: "/",
-          maxAge: 3600,
-        });
-
         try {
-          const retryResponse = await api.get("private/auth/get", {
-            headers: { Authorization: `Bearer ${newAccessToken}` },
-          });
+          const retryResponse = await api.post(
+            "private/auth/token-verify/",
+            JSON.stringify({ token: newAccessToken }),
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            },
+          );
 
           if (retryResponse.status === 200) {
-            const userData = retryResponse.data.data;
-            const authResult: AuthResult = {
-              success: true,
-              status: retryResponse.status,
-              data: userData,
-              message: retryResponse.data.message,
-            };
-
             await redis.set(
               `token:${newAccessToken}`,
-              JSON.stringify(authResult),
+              JSON.stringify(retryResponse.data),
               "EX",
               3600,
             );
-
-            return authResult;
+            return {
+              success: true,
+            };
           }
         } catch {
           return {
             success: false,
-            message: "انجام عملیات بازیابی توکن با خطا مواجه شد",
+            message: "بازیابی توکن با خطا مواجه شد",
           };
         }
       }
     } catch {
-      cookieStore.delete("access_token");
-      cookieStore.delete("refresh_token");
-
       return {
         success: false,
-        message: "انجام عملیات بازیابی توکن با خطا مواجه شد",
+        message: "بازیابی توکن با خطا مواجه شد",
       };
     }
   }
-
   return {
     success: false,
-    message: "احراز هویت با خطا مواجه شد، لطفا دوباره وارد شوید",
+    message: "احراز هویت انجام نشد، لطفا دوباره وارد شوید",
   };
 };

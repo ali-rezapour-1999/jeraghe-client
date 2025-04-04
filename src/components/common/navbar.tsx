@@ -47,7 +47,7 @@ const MainNavBar: React.FC = () => {
         </NavbarItem>
 
         <NavbarItem>
-          {isAuthenticated ? (
+          {isAuthenticated && user?.username ? (
             isLoading ? (
               <Spinner />
             ) : (

@@ -30,7 +30,7 @@ const ProfileInfo: React.FC = () => {
   });
 
   const inputChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     setUpdateData((prev) => ({
       ...prev,
@@ -46,7 +46,7 @@ const ProfileInfo: React.FC = () => {
   };
 
   const onSubmitProfileHandler = async (
-    e: React.FormEvent<HTMLFormElement>
+    e: React.FormEvent<HTMLFormElement>,
   ) => {
     e.preventDefault();
     const response = await profileUpdate(updateData);

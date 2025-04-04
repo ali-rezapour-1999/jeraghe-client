@@ -7,7 +7,7 @@ import {
   ModalFooter,
 } from "@heroui/react";
 
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useAuthStore } from "@/state/authState";
 import React, { useEffect, useState } from "react";
 import Register from "./register";
@@ -18,7 +18,6 @@ import Btn from "../../ui/btn";
 
 const AuthenticatedModal = () => {
   const { isOpenAuthRequireModal, setOpenAuthRequireModel } = useBaseState();
-  const router = useRouter();
   const [isLogin, setChangeLogin] = useState<boolean>(true);
   const { isAuthenticated } = useAuthStore();
   const [isAuthNeedSection, setAuthText] = useState<boolean>(false);
@@ -37,7 +36,6 @@ const AuthenticatedModal = () => {
 
   const hadlerBacktoHome = () => {
     if (isAuthNeedSection) {
-      router.back();
       setOpenAuthRequireModel(false);
     } else {
       setOpenAuthRequireModel(false);

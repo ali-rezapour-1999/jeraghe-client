@@ -20,13 +20,14 @@ export interface AuthState {
   token: string | null;
   isLoading: boolean;
   setLoading: (isLoading: boolean) => void;
-  restoreAuthState: () => void;
+  restoreAuthState: () => Promise<AuthResult>;
   login: (email: string, password: string) => Promise<AuthResult>;
   register: (
     email: string,
     password: string,
-    username: string
+    username: string,
   ) => Promise<AuthResult>;
   logout: () => void;
-  userUpdate: (data: User) => Promise<AuthResult>;
+  userUpdate: (data: FormData) => Promise<AuthResult>;
+  userInformation: () => void;
 }
