@@ -31,9 +31,8 @@ export const UserDropdownMenu = ({
 
   return (
     <Dropdown
-      showArrow
       size="lg"
-      backdrop="blur"
+      backdrop="opaque"
       classNames={{
         base: "before:bg-default-400",
         content:

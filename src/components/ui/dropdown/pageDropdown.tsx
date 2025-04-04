@@ -53,9 +53,8 @@ export const PageDropdownMenu = () => {
   const router = useRouter();
   return (
     <Dropdown
-      backdrop="blur"
+      backdrop="opaque"
       size="lg"
-      showArrow
       classNames={{
         base: "before:bg-default-400 w-[300px]",
         content:
