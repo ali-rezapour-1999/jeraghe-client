@@ -9,7 +9,7 @@ const CrateIdea = () => {
   return (
     <div>
       <MainNavBar />
-      <main className="flex flex-col-reverse gap-10 lg:gap-0 lg:flex-row mt-10">
+      <main className="flex flex-col-reverse items-start gap-10 lg:gap-0 lg:flex-row mt-10">
         <div className="w-full lg:w-2/3 flex items-start px-10 justify-center border-t-1 lg:border-t-0 pt-5 lg:pt-0">
           <FormIdeaCreate />
         </div>

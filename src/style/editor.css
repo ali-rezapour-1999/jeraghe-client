@@ -82,7 +82,7 @@
 }
 
 .tiptap p.is-editor-empty:first-child::before {
-  color: #adb5bd;
+  color: white;
   content: attr(data-placeholder);
   float: left;
   height: 0;
@@ -102,4 +102,89 @@
 .tiptap p.is-empty {
   direction: rtl;
   display: flex;
+}
+
+.editor-container {
+  margin: 0 auto;
+  padding: 1rem 0.3rem;
+  border-radius: 8px;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.markdown-body {
+  line-height: 1.6;
+  color: white;
+}
+
+.editor-content {
+  min-height: 300px;
+  font-size: 1rem;
+}
+
+.markdown-link {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.markdown-link:hover {
+  text-decoration: underline;
+}
+
+.tiptap.ProseMirror .is-empty::before {
+  color: #6b7280;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.markdown-body table {
+  border-collapse: collapse;
+  width: 100%;
+  color: white;
+}
+
+.markdown-body th,
+.markdown-body td {
+  border: 1px solid #dfe2e5;
+  padding: 0.5rem;
+}
+
+.markdown-body th {
+  background-color: #f6f8fa;
+  color: black;
+}
+
+.markdown-body pre {
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  color: white;
+}
+
+.markdown-body code {
+  font-family:
+    "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+@media (max-width: 640px) {
+  .editor-container {
+    padding: 0.5rem;
+  }
+
+  .markdown-body {
+    padding: 1rem;
+    color: white;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .editor-container {
+    background: transparent;
+    color: white;
+  }
+  .markdown-body {
+    background: #0d1117;
+    color: white;
+  }
 }

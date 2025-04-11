@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { Button, Input, Select, SelectItem } from "@heroui/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -8,252 +8,270 @@ import Editor from "@/components/editor/editor";
 import IdeaContentFileModal from "../modals/ideaContentFileModal";
 import Btn from "../btn";
 
-const InputSectionWrapper = ({
-  children,
-  prevStepHandler,
-  nextStepHandler,
-  isPrevDesable = false,
-  isNextDesable = false,
-}: {
+interface Category {
+  id: string;
+  title: string;
+}
+
+interface CategoryState {
+  categoryData: Category[];
+  categoryList: () => void;
+  isLoading: boolean;
+}
+
+interface InputSectionWrapperProps {
   children: React.ReactNode;
   prevStepHandler: () => void;
   nextStepHandler: () => void;
-  isPrevDesable?: boolean;
-  isNextDesable?: boolean;
-}) => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
-      className="w-full mb-10 lg:mb-0 p-2 text-primary dark:text-light"
-    >
-      {children}
-      <div className="w-full flex justify-between mt-10">
-        <Button
-          className={`bg-transparent ${isPrevDesable ? "hidden" : "flex"}`}
-          onPress={prevStepHandler}
-        >
-          <ArrowRight />
-          <p className="text-lg">قبلی</p>
-        </Button>
-        <Button
-          className={`bg-transparent ${isNextDesable ? "hidden" : "flex"}`}
-          onPress={nextStepHandler}
-        >
-          <p className="text-lg">بعدی</p> <ArrowLeft />
-        </Button>
-      </div>
-    </motion.div>
-  );
-};
+  isPrevDisabled?: boolean;
+  isNextDisabled?: boolean;
+}
 
-interface Props {
+interface PageStepProps {
   step: number;
   setStep: (step: number) => void;
 }
 
-const PageStep: React.FC<Props> = ({ step, setStep }) => {
-  const [isOpenContent, setOpenContent] = useState<boolean>(false);
-  const { categoryData, categoryList, isLoading } = useCategroryState();
-  const [content, setContent] = useState<string>("");
-  const [contentFile, setContentFile] = useState<string>("");
+interface FormValue {
+  title: string;
+  category: string;
+}
 
-  const [formValue, setValue] = useState({
+const InputSectionWrapper: React.FC<InputSectionWrapperProps> = ({
+  children,
+  prevStepHandler,
+  nextStepHandler,
+  isPrevDisabled = false,
+  isNextDisabled = false,
+}) => (
+  <motion.div
+    initial={{ opacity: 0, x: 20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ duration: 0.5 }}
+    className="w-full mb-10 lg:mb-0 p-2 text-primary dark:text-light"
+  >
+    {children}
+    <div className="flex justify-between mt-10">
+      {!isPrevDisabled && (
+        <Button
+          className="bg-transparent flex items-center gap-2"
+          onPress={prevStepHandler}
+        >
+          <ArrowRight />
+          <span className="text-lg">قبلی</span>
+        </Button>
+      )}
+      {!isNextDisabled && (
+        <Button
+          className="bg-transparent flex items-center gap-2"
+          onPress={nextStepHandler}
+        >
+          <span className="text-lg">بعدی</span>
+          <ArrowLeft />
+        </Button>
+      )}
+    </div>
+  </motion.div>
+);
+
+const PageStep: React.FC<PageStepProps> = ({ step, setStep }) => {
+  const editorRef = useRef<HTMLDivElement>(null);
+  const { categoryData, categoryList, isLoading } =
+    useCategroryState() as CategoryState;
+
+  const [formValue, setFormValue] = useState<FormValue>({
     title: "",
-    content: "",
     category: "",
   });
+  const [content, setContent] = useState<string>("");
+  const [editorContent, setEditorContent] = useState<string>("");
+  const [contentFile, setContentFile] = useState<File | null>(null);
+  const [isOpenContent, setOpenContent] = useState<boolean>(false);
+  const [contentLoading, setContentLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    setValue((prev) => ({ ...prev, content }));
-  }, [content]);
-
-  const saveContentFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const text = event.target?.result as string;
-        setContentFile(text);
-      };
-      reader.readAsText(file);
-    }
-  };
-
-  const saveTitle = () => {
-    setStep(2);
-  };
-
-  const saveContent = () => {
-    setStep(3);
-  };
-
-  const inputChangeHandler = (
-    input: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => {
-    setValue({ ...formValue, [input.target.name]: input.target.value });
-  };
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      await categoryList();
-    };
-    fetchCategories();
+    categoryList();
   }, [categoryList]);
 
-  switch (step) {
-    case 1:
-      return (
-        <InputSectionWrapper
-          isPrevDesable={true}
-          isNextDesable={
-            formValue.title.trim().length > 5 && formValue.category
-              ? false
-              : true
-          }
-          nextStepHandler={saveTitle}
-          prevStepHandler={() => setStep(1)}
-        >
-          <div>
-            <h1 className="text-2xl font-bold mb-2">عنوان ایده</h1>
-            <p className="text-sm">
-              اولین قدم برای ایده‌ات انتخاب یک عنوان کوتاه و پرمعناست. سعی کن
-              عنوانی پیدا کنی که هم جلب توجه کند و هم پیام اصلی ایده‌ات را به
-              خوبی منتقل کرده و نشان‌دهنده هدف مشخص پشت آن باشد.
-            </p>
-            <Input
-              label
-              type="text"
-              name="title"
-              placeholder="عنوان محتوای خود را وارد کنید (حداقل باید ۵ حرف باشه)"
+  useEffect(() => {
+    if (content && editorRef.current) {
+      editorRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [content]);
+
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      const { name, value } = e.target;
+      setFormValue((prev) => ({ ...prev, [name]: value }));
+    },
+    [],
+  );
+
+  const handleEditContentFile = useCallback(() => {
+    if (!content) {
+      return;
+    }
+    setContentLoading(true);
+    setTimeout(() => {
+      setEditorContent(content);
+      setContentLoading(false);
+    }, 500);
+  }, [content]);
+
+  const handleFileUpload = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file && file.type === "text/markdown") {
+        setContentFile(file);
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const text = event.target?.result as string;
+          setContent(text);
+        };
+        reader.onerror = () => {
+          setContent("");
+        };
+        reader.readAsText(file);
+      }
+    },
+    [],
+  );
+
+  const isStep1NextDisabled =
+    formValue.title.trim().length <= 5 || !formValue.category;
+  const isStep2NextDisabled = content.trim().length <= 100 && !contentFile;
+
+  if (step === 1) {
+    return (
+      <InputSectionWrapper
+        isPrevDisabled
+        isNextDisabled={isStep1NextDisabled}
+        nextStepHandler={() => setStep(2)}
+        prevStepHandler={() => setStep(1)}
+      >
+        <div>
+          <h1 className="text-2xl font-bold mb-4">عنوان ایده</h1>
+          <p className="text-sm">
+            اولین قدم برای ایده‌ات انتخاب یک عنوان کوتاه و پرمعناست. سعی کن
+            عنوانی پیدا کنی که هم جلب توجه کند و هم پیام اصلی ایده‌ات را به خوبی
+            منتقل کرده و نشان‌دهنده هدف مشخص پشت آن باشد.
+          </p>
+          <Input
+            name="title"
+            type="text"
+            size="lg"
+            value={formValue.title}
+            onChange={handleInputChange}
+            variant="underlined"
+            placeholder="مثلاً ساختن پلتفرم کاریابی"
+            classNames={{ base: "w-full my-5", input: "text-xl" }}
+          />
+        </div>
+        <div className="mt-10">
+          <p className="font-bold text-xl">دسته‌بندی</p>
+          {isLoading ? (
+            <IsLoading />
+          ) : (
+            <Select
               size="lg"
-              value={formValue.title}
-              onChange={inputChangeHandler}
+              name="category"
+              value={formValue.category}
+              onChange={handleInputChange}
               variant="underlined"
-              classNames={{ base: "w-full", input: "text-xl" }}
+              placeholder="دسته‌بندی موردنظر را انتخاب کنید"
+            >
+              {categoryData.map((item) => (
+                <SelectItem key={item.id}>{item.title}</SelectItem>
+              ))}
+            </Select>
+          )}
+        </div>
+      </InputSectionWrapper>
+    );
+  }
+
+  if (step === 2) {
+    return (
+      <InputSectionWrapper
+        nextStepHandler={() => setStep(3)}
+        prevStepHandler={() => setStep(1)}
+        isNextDisabled={isStep2NextDisabled}
+      >
+        <div>
+          <h1 className="text-2xl font-bold mb-2">محتوای ایده‌ات</h1>
+          <p className="text-sm">
+            جزئیات ایده‌ات رو اینجا بنویس یا فایل مارک‌داون آپلود کن
+          </p>
+        </div>
+        <div className="mt-7">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+            <span className="whitespace-nowrap">اضافه کردن فایل Readme.md</span>
+            <Input
+              type="file"
+              accept=".md"
+              variant="bordered"
+              onChange={handleFileUpload}
+            />
+            {contentFile && (
+              <div className="flex gap-2">
+                <Btn onClick={() => setOpenContent(true)}>خواندن محتوا</Btn>
+                <Btn onClick={handleEditContentFile}>نیاز به تغییرات داره</Btn>
+              </div>
+            )}
+            <IdeaContentFileModal
+              setOpen={() => setOpenContent(false)}
+              isOpen={isOpenContent}
+              content={content}
             />
           </div>
-          <div className="flex flex-col mt-10">
-            <p className="font-bold text-xl">دسته‌بندی</p>
-            <p className="text-sm mt-2">ایدت جزو کدوم دسته‌بندی قراره میگیره</p>
-            {!isLoading ? (
-              <Select
-                labelPlacement="outside"
-                className="text-lg mt-4"
-                size="lg"
-                name="category"
-                placeholder="دسته‌بندی را انتخاب کنید"
-                value={formValue.category}
-                onChange={inputChangeHandler}
-                variant="underlined"
-              >
-                {categoryData.map((item) => (
-                  <SelectItem
-                    className="text-primary dark:text-light"
-                    key={item.id}
-                  >
-                    {item.title}
-                  </SelectItem>
-                ))}
-              </Select>
-            ) : (
+
+          <div className="flex items-center gap-5 my-5">
+            <span className="flex-grow h-px bg-gray-300" />
+            <span className="text-lg">یا</span>
+            <span className="flex-grow h-px bg-gray-300" />
+          </div>
+
+          <div ref={editorRef}>
+            {contentLoading ? (
               <IsLoading />
+            ) : (
+              <Editor
+                headerMode={false}
+                bubbleMode={true}
+                content={editorContent}
+                onChange={setEditorContent}
+                placeholder="ایده خود را با جزئیات توضیح دهید..."
+              />
             )}
           </div>
-        </InputSectionWrapper>
-      );
-    case 2:
-      return (
-        <InputSectionWrapper
-          nextStepHandler={saveContent}
-          prevStepHandler={() => setStep(1)}
-          isNextDesable={
-            formValue.content.trim().length > 100 || contentFile != ""
-              ? false
-              : true
-          }
-        >
-          <div>
-            <h1 className="text-2xl font-bold mb-2">محتوای ایده‌ات</h1>
-            <p className="text-[14px]">
-              ایده‌ی تو چطور قراره یک مشکل رو حل کنه یا یک تجربه جدید ایجاد کنه؟
-              اینجا جاییه که می‌تونی جزئیات ایده‌ات رو توضیح بدی. سعی کن توضیحت
-              روان، واضح و جذاب باشه، طوری که هر کسی با خواندنش بتونه تصویر
-              روشنی از ایده‌ی تو داشته باشه
-            </p>
-          </div>
-          <div className="mt-7">
-            <div className="flex items-center justify-center gap-5">
-              <span className="whitespace-nowrap w-full">
-                اضافه کردن فایل Readme.md
-              </span>
-              <Input
-                type="file"
-                accept=".md"
-                variant="bordered"
-                className="contentFile"
-                onChange={saveContentFile}
-                value={contentFile}
-              />
-              <Btn
-                onClick={() => setOpenContent(!isOpenContent)}
-                className={contentFile === "" ? "hidden" : "block min-w-40"}
-              >
-                خواندن محتوا
-              </Btn>
-              <IdeaContentFileModal
-                setOpen={() => setOpenContent(!isOpenContent)}
-                isOpen={isOpenContent}
-                content={contentFile}
-              />
-            </div>
-
-            <div className="flex items-center gap-5 mt-5">
-              <span className="flex-grow h-px bg-gray-300"></span>
-              <span className="text-lg">یا</span>
-              <span className="flex-grow h-px bg-gray-300"></span>
-            </div>
-
-            <Editor
-              headerMode={false}
-              bubbleMode={true}
-              content={content}
-              onChange={setContent}
-              placeholder="ایده خود را با جزئیات توضیح دهید..."
-            />
-          </div>
-        </InputSectionWrapper>
-      );
-    case 3:
-      return (
-        <InputSectionWrapper
-          isNextDesable={true}
-          nextStepHandler={() => setStep(3)}
-          prevStepHandler={() => setStep(2)}
-        >
-          <div>
-            <h1 className="text-2xl font-bold mb-2">تنظیمات ایده</h1>
-            <p className="text-sm">
-              در این بخش می‌تونی تنظیمات خودتو برای محتوای مورد نظر نشون بدی
-            </p>
-          </div>
-          <Input
-            label
-            type="file"
-            name="alirg"
-            placeholder="عنوان محتوای خود را وارد کنید"
-            size="lg"
-            variant="underlined"
-            className="w-full"
-          />
-        </InputSectionWrapper>
-      );
-    default:
-      return null;
+        </div>
+      </InputSectionWrapper>
+    );
   }
+
+  if (step === 3) {
+    return (
+      <InputSectionWrapper
+        isNextDisabled
+        nextStepHandler={() => setStep(3)}
+        prevStepHandler={() => setStep(2)}
+      >
+        <div>
+          <h1 className="text-2xl font-bold mb-2">تنظیمات ایده</h1>
+          <p className="text-sm">تنظیمات دلخواهت رو مشخص کن</p>
+        </div>
+        <Input
+          type="file"
+          name="config"
+          size="lg"
+          variant="underlined"
+          className="w-full"
+        />
+      </InputSectionWrapper>
+    );
+  }
+
+  return null;
 };
 
 export default PageStep;

@@ -17,9 +17,14 @@ import TextStyle from "@tiptap/extension-text-style";
 import EditorBubbleModule from "./editorBubbleModule";
 import TextAlign from "@tiptap/extension-text-align";
 import Placeholder from "@tiptap/extension-placeholder";
+import "github-markdown-css/github-markdown.css";
+import "highlight.js/styles/github.css";
 import "../../style/editor.css";
 
 const lowlight = createLowlight();
+import js from "highlight.js/lib/languages/javascript";
+import python from "highlight.js/lib/languages/python";
+lowlight.register({ javascript: js, python });
 
 interface EditorType {
   content: any;
@@ -49,6 +54,9 @@ const Editor = ({
       Markdown,
       Link.configure({
         openOnClick: true,
+        HTMLAttributes: {
+          class: "markdown-link",
+        },
       }),
       Table.configure({
         resizable: true,
@@ -61,9 +69,10 @@ const Editor = ({
       }),
       CodeBlockLowlight.configure({
         lowlight,
+        defaultLanguage: "plaintext",
       }),
       Placeholder.configure({
-        placeholder: placeholder || "شروع به نوشتن کنید...",
+        placeholder: placeholder || "Start writing in Markdown...",
       }),
     ],
     autofocus: true,
@@ -82,10 +91,12 @@ const Editor = ({
   if (!editor) return null;
 
   return (
-    <div className="p-4">
+    <div className="editor-container">
       {bubbleMode && <EditorBubbleModule editor={editor} />}
       {headerMode && <EditorHeaderModule editor={editor} />}
-      <EditorContent editor={editor} className="prose p-4 text-xl" />
+      <div className="markdown-body">
+        <EditorContent editor={editor} className="prose editor-content" />
+      </div>
     </div>
   );
 };

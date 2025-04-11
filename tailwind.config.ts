@@ -18,6 +18,9 @@ export default {
         "2xl": "1736px",
       },
       colors: {
+        code: {
+          DEFAULT: "#0D1117",
+        },
         primary: {
           DEFAULT: "#201D47",
           light: "#37346F",
