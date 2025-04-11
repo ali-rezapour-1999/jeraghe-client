@@ -4,6 +4,8 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import dynamic from "next/dynamic";
 import { ToastProvider } from "@heroui/toast";
 import { useAuthStore } from "@/state/authState";
+import "highlight.js/styles/github.css";
+import "github-markdown-css/github-markdown.css";
 
 const AuthProvider = dynamic(() => import("@/utils/lib/authGuard"), {
   ssr: false,

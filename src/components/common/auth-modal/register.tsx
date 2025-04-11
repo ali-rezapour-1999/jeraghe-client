@@ -56,7 +56,7 @@ const Register = ({ changePage }: { changePage: any }) => {
           return "";
       }
     },
-    [formData]
+    [formData],
   );
 
   const handleInputChange = useCallback(
@@ -71,7 +71,7 @@ const Register = ({ changePage }: { changePage: any }) => {
         return newData;
       });
     },
-    [validateField]
+    [validateField],
   );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -96,7 +96,7 @@ const Register = ({ changePage }: { changePage: any }) => {
       const result = await register(
         formData.email,
         formData.password,
-        formData.username
+        formData.username,
       );
 
       if (result.success) {
@@ -146,6 +146,7 @@ const Register = ({ changePage }: { changePage: any }) => {
           <div className="flex flex-col w-full justify-center gap-4">
             <Input
               isRequired
+              variant="underlined"
               label="ایمیل"
               labelPlacement="outside"
               name="email"
@@ -160,6 +161,7 @@ const Register = ({ changePage }: { changePage: any }) => {
 
             <Input
               isRequired
+              variant="underlined"
               label="نام و نام خانوادگی (فارسی)"
               labelPlacement="outside"
               name="username"
@@ -174,6 +176,7 @@ const Register = ({ changePage }: { changePage: any }) => {
 
             <Input
               isRequired
+              variant="underlined"
               label="رمز عبور"
               labelPlacement="outside"
               name="password"
@@ -202,6 +205,7 @@ const Register = ({ changePage }: { changePage: any }) => {
 
             <Input
               isRequired
+              variant="bordered"
               label="تکرار رمز عبور"
               labelPlacement="outside"
               name="repassword"

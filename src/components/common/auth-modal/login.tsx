@@ -39,7 +39,7 @@ const Login = ({ changePage }: { changePage: any }) => {
   };
 
   const inputChangeHandler = async (
-    input: React.ChangeEvent<HTMLInputElement>
+    input: React.ChangeEvent<HTMLInputElement>,
   ) => {
     setFormData({ ...formData, [input.target.name]: input.target.value });
   };
@@ -102,6 +102,7 @@ const Login = ({ changePage }: { changePage: any }) => {
       <Form onSubmit={onSubmitLogin} className="flex flex-col space-y-1 px-3">
         <div className="flex flex-col items-center w-full justify-center gap-4">
           <Input
+            variant="underlined"
             isRequired
             label="ایمیل"
             labelPlacement="outside"
@@ -117,6 +118,7 @@ const Login = ({ changePage }: { changePage: any }) => {
 
           <div className="relative w-full">
             <Input
+              variant="underlined"
               isRequired
               label="رمز عبور"
               labelPlacement="outside"

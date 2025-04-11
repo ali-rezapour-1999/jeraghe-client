@@ -10,10 +10,12 @@ export const useCategroryState = create<categoryListType>((set) => ({
   categoryList: async () => {
     set({ isLoading: true });
     const response = await categoryListAction();
-    if (response.success)
-      set({
-        categoryData: response.data,
-        isLoading: false,
-      });
+    if (response != null) {
+      if (response.success)
+        set({
+          categoryData: response.data,
+          isLoading: false,
+        });
+    }
   },
 }));

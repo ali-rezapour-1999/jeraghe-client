@@ -5,7 +5,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useCategroryState } from "@/state/categoryState";
 import { IsLoading } from "@/components/common/isLoading";
 import Editor from "@/components/editor/editor";
-import { useAuthStore } from "@/state/authState";
+import IdeaContentFileModal from "../modals/ideaContentFileModal";
+import Btn from "../btn";
 
 const InputSectionWrapper = ({
   children,
@@ -25,7 +26,7 @@ const InputSectionWrapper = ({
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
-      className="w-full p-2 text-primary dark:text-light"
+      className="w-full mb-10 lg:mb-0 p-2 text-primary dark:text-light"
     >
       {children}
       <div className="w-full flex justify-between mt-10">
@@ -53,9 +54,11 @@ interface Props {
 }
 
 const PageStep: React.FC<Props> = ({ step, setStep }) => {
-  const { isAuthenticated } = useAuthStore();
+  const [isOpenContent, setOpenContent] = useState<boolean>(false);
   const { categoryData, categoryList, isLoading } = useCategroryState();
   const [content, setContent] = useState<string>("");
+  const [contentFile, setContentFile] = useState<string>("");
+
   const [formValue, setValue] = useState({
     title: "",
     content: "",
@@ -66,17 +69,23 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
     setValue((prev) => ({ ...prev, content }));
   }, [content]);
 
-  const saveTitle = () => {
-    const title = localStorage.getItem("idea_title");
-    if (title !== formValue.title) {
-      localStorage.setItem("idea_title", formValue.title);
+  const saveContentFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const text = event.target?.result as string;
+        setContentFile(text);
+      };
+      reader.readAsText(file);
     }
+  };
+
+  const saveTitle = () => {
     setStep(2);
   };
 
   const saveContent = () => {
-    localStorage.setItem("idea_title", formValue.title);
-    localStorage.setItem(formValue.title, formValue.content);
     setStep(3);
   };
 
@@ -87,22 +96,6 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
   ) => {
     setValue({ ...formValue, [input.target.name]: input.target.value });
   };
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      localStorage.removeItem("idea_title");
-    }
-    const localTitle = localStorage.getItem("idea_title");
-    if (localTitle) {
-      const localContent = localStorage.getItem(localTitle) || "";
-      setContent(localContent);
-      setValue((prev) => ({
-        ...prev,
-        title: localTitle,
-        content: localContent,
-      }));
-    }
-  }, [isAuthenticated]);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -177,7 +170,11 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
         <InputSectionWrapper
           nextStepHandler={saveContent}
           prevStepHandler={() => setStep(1)}
-          isNextDesable={formValue.content.trim().length > 100 ? false : true}
+          isNextDesable={
+            formValue.content.trim().length > 100 || contentFile != ""
+              ? false
+              : true
+          }
         >
           <div>
             <h1 className="text-2xl font-bold mb-2">محتوای ایده‌ات</h1>
@@ -188,13 +185,44 @@ const PageStep: React.FC<Props> = ({ step, setStep }) => {
               روشنی از ایده‌ی تو داشته باشه
             </p>
           </div>
-          <div className="mt-7 border-b-1 dark:border-light bg-black/20 rounded-t-lg overflow-x-scroll">
+          <div className="mt-7">
+            <div className="flex items-center justify-center gap-5">
+              <span className="whitespace-nowrap w-full">
+                اضافه کردن فایل Readme.md
+              </span>
+              <Input
+                type="file"
+                accept=".md"
+                variant="bordered"
+                className="contentFile"
+                onChange={saveContentFile}
+                value={contentFile}
+              />
+              <Btn
+                onClick={() => setOpenContent(!isOpenContent)}
+                className={contentFile === "" ? "hidden" : "block min-w-40"}
+              >
+                خواندن محتوا
+              </Btn>
+              <IdeaContentFileModal
+                setOpen={() => setOpenContent(!isOpenContent)}
+                isOpen={isOpenContent}
+                content={contentFile}
+              />
+            </div>
+
+            <div className="flex items-center gap-5 mt-5">
+              <span className="flex-grow h-px bg-gray-300"></span>
+              <span className="text-lg">یا</span>
+              <span className="flex-grow h-px bg-gray-300"></span>
+            </div>
+
             <Editor
               headerMode={false}
               bubbleMode={true}
               content={content}
               onChange={setContent}
-              placeholder="محتوای ایده خود را به صورت کامل توضیح دهید"
+              placeholder="ایده خود را با جزئیات توضیح دهید..."
             />
           </div>
         </InputSectionWrapper>

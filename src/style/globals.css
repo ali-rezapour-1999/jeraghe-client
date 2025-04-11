@@ -117,3 +117,6 @@ html.dark body {
   direction: rtl;
   text-align: right;
 }
+.markdown-body {
+  background: transparent !important;
+}
