@@ -30,7 +30,6 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   login: async (email: string, password: string): Promise<AuthResult> => {
     set({ isLoading: true });
-
     const response = await loginAction(email, password);
     if (response != null) {
       set({ isLoading: false });

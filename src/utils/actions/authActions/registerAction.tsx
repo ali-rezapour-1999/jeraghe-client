@@ -15,12 +15,17 @@ export async function registerAction(
       username,
     });
 
-    (await cookies()).set("access_token", response.data.access, {
+    (await cookies()).set("access_token", response.data.data.access, {
       httpOnly: true,
       secure: true,
       path: "/",
     });
-    (await cookies()).set("refresh_token", response.data.refresh, {
+    (await cookies()).set("refresh_token", response.data.data.refresh, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+    });
+    (await cookies()).set("user_id", response.data.data.user.slug_id, {
       httpOnly: true,
       secure: true,
       path: "/",
@@ -31,7 +36,7 @@ export async function registerAction(
         success: true,
         status: response.status,
         message: response.data.message,
-        data: response.data,
+        data: response.data.data.user,
       };
     }
     return {

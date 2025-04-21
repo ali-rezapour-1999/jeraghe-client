@@ -9,12 +9,18 @@ export async function loginAction(
 ): Promise<AuthResult> {
   try {
     const response = await api.post("private/auth/login/", { email, password });
-    (await cookies()).set("access_token", response.data.access, {
+    (await cookies()).set("access_token", response.data.data.access, {
       httpOnly: true,
       secure: true,
       path: "/",
     });
-    (await cookies()).set("refresh_token", response.data.refresh, {
+    (await cookies()).set("refresh_token", response.data.data.refresh, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+    });
+
+    (await cookies()).set("slug_id", response.data.data.user.slug_id, {
       httpOnly: true,
       secure: true,
       path: "/",
@@ -23,9 +29,9 @@ export async function loginAction(
     if (response.status == 200) {
       return {
         success: true,
-        status: response.status,
+        status: response.data.status,
         message: response.data.message,
-        data: response.data.user,
+        data: response.data.data.user,
       };
     }
     return {

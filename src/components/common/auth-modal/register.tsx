@@ -205,7 +205,7 @@ const Register = ({ changePage }: { changePage: any }) => {
 
             <Input
               isRequired
-              variant="bordered"
+              variant="underlined"
               label="تکرار رمز عبور"
               labelPlacement="outside"
               name="repassword"

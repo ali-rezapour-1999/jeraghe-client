@@ -22,7 +22,7 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
 
     try {
       const response = await api.post(
-        "private/auth/token-verify/",
+        "/private/auth/token-verify/",
         JSON.stringify({ token: accessToken }),
         {
           headers: {
@@ -60,8 +60,8 @@ export const isAuthCheckAction = async (): Promise<AuthResult> => {
       );
 
       if (refreshResponse.status === 200) {
-        const newAccessToken = refreshResponse.data.access;
-        const newRefreshToken = refreshResponse.data.refresh;
+        const newAccessToken = refreshResponse.data.data.access;
+        const newRefreshToken = refreshResponse.data.data.refresh;
         try {
           const retryResponse = await api.post(
             "private/auth/token-verify/",
