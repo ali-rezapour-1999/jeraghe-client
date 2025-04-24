@@ -14,7 +14,8 @@ import Register from "./register";
 import Login from "./login";
 import SocialMediaLogin from "./socialMediaLogin";
 import { TiWarning } from "react-icons/ti";
-import Btn from "../../ui/btn";
+import Btn from "../../ui/button";
+import { Heading } from "@/components/ui/text";
 
 const AuthenticatedModal = () => {
   const { isOpenAuthRequireModal, setOpenAuthRequireModel } = useBaseState();
@@ -30,7 +31,7 @@ const AuthenticatedModal = () => {
       setOpenAuthRequireModel(false);
     }
     const isPrivatePath = privatePaths.some((path) =>
-      pathname.startsWith(path),
+      pathname.startsWith(path)
     );
     if (isPrivatePath) setAuthText(true);
   }, [isAuthenticated, pathname, setOpenAuthRequireModel]);
@@ -70,9 +71,12 @@ const AuthenticatedModal = () => {
                   </p>
                 </div>
               ) : null}
-              <h1 className="text-3xl font-bold text-center text-primary dark:text-light">
+              <Heading
+                as="h1"
+                className="text-3xl font-bold text-center text-primary dark:text-light"
+              >
                 {isLogin ? "ورود به جرقه" : "ثبت نام در جرقه 🚀"}
-              </h1>
+              </Heading>
             </ModalHeader>
             <ModalBody>
               {isLogin ? (

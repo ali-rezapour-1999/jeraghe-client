@@ -4,6 +4,7 @@ import ideaImage from "../../public/main-image/idea_picture.png";
 import partnerShipImage from "../../public/main-image/page_partner.png";
 import MainSectionContainer from "@/components/container/mainContainer";
 import Link from "next/link";
+import { Heading, Paragraph } from "@/components/ui/text";
 
 const Home = () => {
   return (
@@ -15,15 +16,15 @@ const Home = () => {
             delay={0.3}
             className="text-center font-bold text-primary dark:text-light"
           >
-            <h1 className="text-3xl lg:text-5xl 2xl:text-6xl">
+            <Heading as="h1" className="text-3xl lg:text-5xl 2xl:text-6xl">
               مسیرت برای شغل و ساخت ایده‌ها هموار شده 🚀
-            </h1>
+            </Heading>
           </MainSectionContainer>
           <MainSectionContainer
             delay={0.5}
             className="text-center text-xl w-[90%] leading-relaxed text-primary dark:text-gray-400 "
           >
-            <p className="text-[.6em] md:text-[.9em] lg:text-[1.1em] 2xl:text-[1.2em] text-center">
+            <Paragraph className="text-[.6em] md:text-[.9em] lg:text-[1.1em] 2xl:text-[1.2em] text-center">
               <span className="font-bold">جرقه</span> قراره جایی باشه که بتونی{" "}
               <span className="underline underline-offset-4 mx-1 text-primary dark:text-light">
                 یاد بگیری
@@ -41,7 +42,7 @@ const Home = () => {
                 ایده‌ها همکاری{" "}
               </span>{" "}
               کنی .
-            </p>
+            </Paragraph>
 
             <p className="mt-2 text-gray-500 dark:text-gray-400 text-[.7em] md:text-[1em] 2xl:text-[1.1em]">
               یه فضای خلاق و مطمئن برای رشد، یادگیری و پیشرفت!
@@ -50,17 +51,17 @@ const Home = () => {
         </div>
         <MainSectionContainer
           delay={0.7}
-          className="w-full flex flex-col md:flex-row px-10 md:px-5 justify-center items-center overflow-hidden mt-5 2xl:mt-10 gap-10"
+          className="w-full flex flex-col md:flex-row px-10 md:px-5 justify-center items-center overflow-hidden mt-5 2xl:mt-10 gap-16"
         >
           <Link
             href="/post/create"
-            className="md:border-l-1 border-light md:pl-10"
+            className="md:pl-10"
           >
             <Image
               src={ideaImage}
               alt="blog image"
-              width={400}
-              height={400}
+              width={800}
+              height={800}
               className="rounded-2xl w-[250px] lg:w-[350px] 2xl:w-[450px]"
               property="true"
             />

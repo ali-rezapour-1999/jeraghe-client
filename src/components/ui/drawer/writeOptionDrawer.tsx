@@ -12,11 +12,11 @@ import {
   Select,
   SelectItem,
 } from "@heroui/react";
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
 import { useCategroryState } from "@/state/categoryState";
 import Image from "next/image";
 import { Plus, X } from "lucide-react";
-import { CategoryType } from "@/utils/type/baseType";
+import { Category } from "@/utils/type/baseType";
 import { IsLoading } from "@/components/common/isLoading";
 import useBaseState from "@/state/baseState";
 
@@ -115,7 +115,7 @@ const WriteOptionDrawer: React.FC<WriteOptionDrawerProps> = ({
                     {categoryData == null || categoryData.length == 0 ? (
                       <IsLoading />
                     ) : (
-                      categoryData.map((item: CategoryType) => (
+                      categoryData.map((item: Category) => (
                         <SelectItem
                           key={item.id}
                           className="dark:text-light text-primary"

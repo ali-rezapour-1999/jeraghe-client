@@ -5,6 +5,7 @@ import logo from "../../../../public/logo.png";
 import { Hourglass } from "lucide-react";
 import { motion } from "framer-motion";
 import { useThemeState } from "@/state/themeState";
+import { Heading } from "../text";
 
 interface CartItemProps {
   onOpen: () => void;
@@ -31,14 +32,21 @@ const JobCart: React.FC<CartItemProps> = ({ onOpen }) => {
           className="w-[70] h-[70] object-contain"
         />
         <div className="flex flex-col text-primary dark:text-light">
-          <h1 className="font-bold">ساخت سایت سلام بر جرقه</h1>
-          <h4 className="text-sm">برنامه نویسی</h4>
+          <Heading as="h1" className="font-bold">
+            ساخت سایت سلام بر جرقه
+          </Heading>
+          <Heading as="h4" className="text-sm">
+            برنامه نویسی
+          </Heading>
         </div>
       </div>
       <div>
-        <h4 className="dark:bg-light bg-darkPrimary dark:text-darkPrimary text-light w-max px-5 py-1 rounded-2xl text-xs">
+        <Heading
+          as="h4"
+          className="dark:bg-light bg-darkPrimary dark:text-darkPrimary text-light w-max px-5 py-1 rounded-2xl text-xs"
+        >
           برنامه نویسی
-        </h4>
+        </Heading>
       </div>
 
       <div className="mt-5">
@@ -49,7 +57,9 @@ const JobCart: React.FC<CartItemProps> = ({ onOpen }) => {
         </p>
       </div>
       <div className="mt-3 pt-5 flex justify-between">
-        <h1 className="text-gray-500 text-sm">حداقل زمان برای مشارکت</h1>
+        <Heading as="h1" className="text-gray-500 text-sm">
+          حداقل زمان برای مشارکت
+        </Heading>
         <div className="text-gray-500 flex items-center justify-center gap-1 text-sm">
           <Hourglass size="14" />
           <span className="mt-1">1 ساعت</span>

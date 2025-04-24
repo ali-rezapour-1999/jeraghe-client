@@ -3,7 +3,6 @@ import {
   ModalContent,
   ModalBody,
   ModalFooter,
-  Button,
   ScrollShadow,
 } from "@heroui/react";
 import { useEffect, useState } from "react";
@@ -13,6 +12,7 @@ import rehypeHighlight from "rehype-highlight";
 import rehypeSanitize from "rehype-sanitize";
 import remarkEmoji from "remark-emoji";
 import rehypeRaw from "rehype-raw";
+import Btn from "../button";
 
 interface Props {
   content: string;
@@ -69,14 +69,9 @@ const IdeaContentFileModal: React.FC<Props> = ({
           </ScrollShadow>
         </ModalBody>
         <ModalFooter>
-          <Button
-            color="danger"
-            variant="light"
-            className="w-full"
-            onPress={setOpen}
-          >
+          <Btn className="w-full" onClick={setOpen}>
             بستن
-          </Button>
+          </Btn>
         </ModalFooter>
       </ModalContent>
     </Modal>

@@ -8,7 +8,7 @@ import {
   DrawerBody,
   DrawerFooter,
 } from "@heroui/react";
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
 
 interface ProfileDrawerProps {
   isOpen: boolean;

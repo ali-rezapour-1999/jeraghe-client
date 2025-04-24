@@ -1,4 +1,4 @@
-import Btn from "../ui/btn";
+import Btn from "../ui/button";
 import { useTheme } from "next-themes";
 import { BsSunFill, BsMoonStarsFill } from "react-icons/bs";
 

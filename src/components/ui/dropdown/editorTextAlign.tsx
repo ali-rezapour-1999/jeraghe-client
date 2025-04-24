@@ -1,7 +1,6 @@
 import {
   Dropdown,
   DropdownItem,
-  Button,
   DropdownTrigger,
   DropdownMenu,
 } from "@heroui/react";
@@ -13,6 +12,7 @@ import {
   PiTextAlignCenterBold,
 } from "react-icons/pi";
 import { Editor } from "@tiptap/react";
+import Btn from "../button";
 
 interface EditorTextAlignProps {
   editor: Editor;
@@ -76,9 +76,9 @@ const EditorTextAlign = ({ editor }: EditorTextAlignProps) => {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button className="rounded cursor-pointer min-w-0 bg-transparent text-md md:text-xl px-2">
+        <Btn className="rounded cursor-pointer min-w-0 bg-transparent text-md md:text-xl px-2">
           <ShowIconTextAlign />
-        </Button>
+        </Btn>
       </DropdownTrigger>
       <DropdownMenu
         disallowEmptySelection

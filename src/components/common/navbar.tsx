@@ -12,7 +12,7 @@ import "@/style/nav-css.css";
 import { UserRound } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAuthStore } from "@/state/authState";
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
 import Logo from "./logo";
 import { PageDropdownMenu } from "../ui/dropdown/pageDropdown";
 import useBaseState from "@/state/baseState";

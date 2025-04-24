@@ -1,4 +1,4 @@
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
 import React, { useState } from "react";
 import { Form, Input } from "@heroui/react";
 
@@ -16,7 +16,7 @@ const ResetPassword = () => {
   });
 
   const passInputChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setPass((prev: any) => ({
       ...prev,
@@ -25,7 +25,7 @@ const ResetPassword = () => {
   };
 
   const submitChangePasswordHandler = async (
-    e: React.FormEvent<HTMLFormElement>,
+    e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
   };

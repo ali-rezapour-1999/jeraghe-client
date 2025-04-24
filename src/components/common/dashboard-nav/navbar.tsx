@@ -3,6 +3,7 @@ import Logo from "../logo";
 import { User } from "@/utils/type/authStateType";
 import { Avatar, AvatarIcon } from "@heroui/react";
 import DarkModeToggle from "../darkModeToggle";
+import { Heading } from "@/components/ui/text";
 
 const DashboardNavbar = ({ user }: { user: User }) => {
   return (
@@ -13,7 +14,9 @@ const DashboardNavbar = ({ user }: { user: User }) => {
             <Logo />
           </div>
           <div className="flex flex-col">
-            <h1 className="text-lg font-bold">خوش‌آمدی به جرقه!</h1>
+            <Heading as="h1" className="text-lg font-bold">
+              خوش‌آمدی به جرقه!
+            </Heading>
             <p className="text-sm hidden lg:block">
               مسیرت برای شغل و ساخت ایده‌ها شروع شده. 🚀
             </p>

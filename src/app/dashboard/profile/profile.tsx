@@ -9,7 +9,7 @@ import {
   Spinner,
 } from "@heroui/react";
 import { ProfileResponse } from "@/utils/type/profileStateType";
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
 import { useProfileState } from "@/state/userInformationStore";
 
 const genderOptions = [
@@ -30,7 +30,7 @@ const ProfileInfo: React.FC = () => {
   });
 
   const inputChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setUpdateData((prev) => ({
       ...prev,
@@ -46,7 +46,7 @@ const ProfileInfo: React.FC = () => {
   };
 
   const onSubmitProfileHandler = async (
-    e: React.FormEvent<HTMLFormElement>,
+    e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
     const response = await profileUpdate(updateData);

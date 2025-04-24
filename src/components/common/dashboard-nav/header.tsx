@@ -1,4 +1,4 @@
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
 import React from "react";
 import {
   Settings,

@@ -1,4 +1,3 @@
-import { Button } from "@heroui/react";
 import { BubbleMenu, Editor } from "@tiptap/react";
 import {
   FaBold,
@@ -10,6 +9,7 @@ import {
 } from "react-icons/fa";
 import { ReactNode } from "react";
 import { LuHeading1, LuHeading2, LuHeading3 } from "react-icons/lu";
+import Btn from "../ui/button";
 
 interface EditorBubbleModuleProps {
   editor: Editor;
@@ -81,13 +81,13 @@ const EditorBubbleModule = ({ editor }: EditorBubbleModuleProps) => {
     <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }}>
       <div className="mb-1 flex justify-between gap-2 border-b-1 py-2 px-3 rounded-2xl shadow-2xl bg-dark w-max">
         {buttons.map((btn, index) => (
-          <Button
+          <Btn
             key={index}
-            onPress={btn.action}
+            onClick={btn.action}
             className={getButtonClass(btn.isActive())}
           >
             {btn.content}
-          </Button>
+          </Btn>
         ))}
       </div>
     </BubbleMenu>

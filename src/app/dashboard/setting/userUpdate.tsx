@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuthStore } from "@/state/authState";
 import { addToast, Avatar, AvatarIcon, Input, Spinner } from "@heroui/react";
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
 import { User } from "@/utils/type/authStateType";
 import Image from "next/image";
 import { IsLoading } from "@/components/common/isLoading";
@@ -34,7 +34,7 @@ const UpdateUserDetail = () => {
       userData.email !== user?.email ||
         userData.username !== user?.username ||
         userData.phone_number !== user?.phone_number ||
-        userData.image !== null,
+        userData.image !== null
     );
   }, [userData, user]);
 

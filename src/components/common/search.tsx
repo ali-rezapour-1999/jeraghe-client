@@ -4,7 +4,7 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import React from "react";
 import HomeContainer from "../container/homeContainer";
 import FilterDrawer from "../ui/drawer/searchFilterDrawer";
-import Btn from "../ui/btn";
+import Btn from "../ui/button";
 
 const HomeSectionSearch: React.FC = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();

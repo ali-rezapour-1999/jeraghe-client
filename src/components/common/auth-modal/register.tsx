@@ -2,7 +2,8 @@ import { Button, addToast, Input, Form, Link, Spinner } from "@heroui/react";
 import { useAuthStore } from "@/state/authState";
 import React, { useCallback, useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
+import { Heading } from "@/components/ui/text";
 
 const Register = ({ changePage }: { changePage: any }) => {
   const { isLoading, register, setLoading } = useAuthStore();
@@ -56,7 +57,7 @@ const Register = ({ changePage }: { changePage: any }) => {
           return "";
       }
     },
-    [formData],
+    [formData]
   );
 
   const handleInputChange = useCallback(
@@ -71,7 +72,7 @@ const Register = ({ changePage }: { changePage: any }) => {
         return newData;
       });
     },
-    [validateField],
+    [validateField]
   );
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -96,7 +97,7 @@ const Register = ({ changePage }: { changePage: any }) => {
       const result = await register(
         formData.email,
         formData.password,
-        formData.username,
+        formData.username
       );
 
       if (result.success) {
@@ -235,7 +236,10 @@ const Register = ({ changePage }: { changePage: any }) => {
             <div className="flex items-center gap-1">
               {" "}
               ✅
-              <h2 className="text-sm text-gray-700 dark:text-gray-300">
+              <Heading
+                as="h2"
+                className="text-sm text-gray-700 dark:text-gray-300"
+              >
                 ثبت‌نام شما به منزله پذیرش{" "}
                 <Link
                   href="/ruls"
@@ -244,7 +248,7 @@ const Register = ({ changePage }: { changePage: any }) => {
                   قوانین و مقررات
                 </Link>{" "}
                 میباشد{" "}
-              </h2>
+              </Heading>
             </div>
           </div>
 

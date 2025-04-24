@@ -6,7 +6,7 @@ import gitlabIcons from "../../../../public/icons/icons8-gitlab.svg";
 import linkedinIcons from "../../../../public/icons/icons8-linkedin.svg";
 import githubIcons from "../../../../public/icons/icons8-github.svg";
 import ProfileSectionContainer from "@/components/container/profileContainer";
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
 import { useAuthStore } from "@/state/authState";
 import { FaUserLarge } from "react-icons/fa6";
 // import { useProfileState } from "@/state/profileState";
@@ -29,7 +29,7 @@ const ProfileSection = () => {
         {user?.username}
       </h3>
       {
-        // <h4 className="text-[.9em] text-primary dark:text-light">
+        // <Heading as="h4" className="text-[.9em] text-primary dark:text-light">
         //   {personalData?.my_skill && personalData.my_skill.length > 0
         //     ? personalData.my_skill.map((skill, index) => (
         //         <span key={skill.id}>
@@ -38,7 +38,7 @@ const ProfileSection = () => {
         //         </span>
         //       ))
         //     : "هنوز علایقت و ثبت نکردی"}
-        // </h4>
+        // </Heading>
       }
       <div className="flex gap-3 my-2">
         {iconsSocialMedia.map((i) => (

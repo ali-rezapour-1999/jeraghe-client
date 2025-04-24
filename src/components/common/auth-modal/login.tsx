@@ -2,7 +2,8 @@ import { Button, addToast, Input, Form, Link, Spinner } from "@heroui/react";
 import { useAuthStore } from "@/state/authState";
 import React, { useState } from "react";
 import { Eye, EyeClosed, RefreshCw } from "lucide-react";
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
+import { Heading } from "@/components/ui/text";
 
 const Login = ({ changePage }: { changePage: any }) => {
   const { login, isLoading, setLoading } = useAuthStore();
@@ -39,7 +40,7 @@ const Login = ({ changePage }: { changePage: any }) => {
   };
 
   const inputChangeHandler = async (
-    input: React.ChangeEvent<HTMLInputElement>,
+    input: React.ChangeEvent<HTMLInputElement>
   ) => {
     setFormData({ ...formData, [input.target.name]: input.target.value });
   };
@@ -159,7 +160,10 @@ const Login = ({ changePage }: { changePage: any }) => {
           <div className="flex items-center gap-1">
             {" "}
             ✅
-            <h2 className="text-sm text-gray-700 dark:text-gray-300">
+            <Heading
+              as="h2"
+              className="text-sm text-gray-700 dark:text-gray-300"
+            >
               ورود شما به منزله پذیرش{" "}
               <Link
                 href="/ruls"
@@ -168,7 +172,7 @@ const Login = ({ changePage }: { changePage: any }) => {
                 قوانین و مقررات
               </Link>{" "}
               میباشد{" "}
-            </h2>
+            </Heading>
           </div>
         </div>
 

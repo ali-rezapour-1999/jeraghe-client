@@ -14,8 +14,8 @@ export interface Tags {
   title: string;
 }
 
-export interface CategoryType {
-  id: number;
+export interface Category {
+  id: string;
   title: string;
 }
 
@@ -27,6 +27,6 @@ export interface baseApiType {
 }
 
 export interface categoryListType extends IsLoadingType {
-  categoryData: CategoryType[] | [];
+  categoryData: Category[] | [];
   categoryList: () => Promise<void>;
 }

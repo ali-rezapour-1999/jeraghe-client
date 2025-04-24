@@ -1,9 +1,10 @@
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
 import { MediaItems } from "@/utils/static/socialMediaItems";
 import { useSocialMediaState } from "@/state/userInformationStore";
 import { Trash } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
 
 const SocialMediaContent = () => {
   const { socialMediaDelete, socialMediaRequest, socialMediaData } =
@@ -31,9 +32,13 @@ const SocialMediaContent = () => {
               width={30}
             />
           </div>
-          <a href={item.address} className="text-start w-9/12" target="_blank">
+          <Link
+            href={item.address}
+            className="text-start w-9/12"
+            target="_blank"
+          >
             {item.address}
-          </a>
+          </Link>
           <Btn
             onClick={() => {
               removeItem(item.slug_id as string);

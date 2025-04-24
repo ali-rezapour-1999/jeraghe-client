@@ -2,11 +2,12 @@
 import { Form, Input, Select, SelectItem } from "@heroui/react";
 import React, { useState } from "react";
 import Image from "next/image";
-import Btn from "@/components/ui/btn";
+import Btn from "@/components/ui/button";
 import { MediaItems } from "@/utils/static/socialMediaItems";
 import SocialMediaContent from "./socialMediaContent";
 import { IsLoading } from "@/components/common/isLoading";
 import { useSocialMediaState } from "@/state/userInformationStore";
+import { Paragraph } from "@/components/ui/text";
 
 const SocialMedia = () => {
   const { socialMedia, socialMediaData, isLoading } = useSocialMediaState();
@@ -90,19 +91,19 @@ const SocialMedia = () => {
                     width={30}
                     height={30}
                   />
-                  <p>{items.title}</p>
+                  <Paragraph>{items.title}</Paragraph>
                 </div>
               </SelectItem>
             ))}
           </Select>
         </div>
         {updateData.address && (
-          <p className="text-sm text-gray-500 mt-2" dir="lrt">
+          <Paragraph className="text-sm text-gray-500 mt-2" dir="lrt">
             🔗 لینک نهایی: {links}
-          </p>
+          </Paragraph>
         )}
         <Btn
-          isDisable={
+          isDisabled={
             updateData.address != "" && updateData.title != "" ? false : true
           }
           type="submit"

@@ -15,7 +15,8 @@ import logo from "../../../../public/logo.png";
 import { Bookmark } from "lucide-react";
 import DescriptionForJob from "@/components/section/descriptionForJob";
 import JobOwnerDetial from "@/components/section/ownerDetail";
-import Btn from "../btn";
+import Btn from "../button";
+import { Heading } from "../text";
 
 interface JobDetialDrawerProps {
   isOpen: boolean;
@@ -67,10 +68,12 @@ const JobDetailDrawer: React.FC<JobDetialDrawerProps> = ({
                     className="w-[60px] h-[60px] md:w-[100px] md:h-[100px] object-contain"
                   />
                   <div className="flex flex-col gap-2 mx-2">
-                    <h4 className="text-md md:text-xl font-bold">
+                    <Heading as="h4" className="text-md md:text-xl font-bold">
                       طراحی سایت جرقه
-                    </h4>
-                    <h6 className="text-sm">برنامه نویسی و حوضه های وابسته</h6>
+                    </Heading>
+                    <Heading as="h6" className="text-sm">
+                      برنامه نویسی و حوضه های وابسته
+                    </Heading>
                   </div>
                 </div>
                 <Btn className="rounded-2xl dark:bg-dark-dark">
