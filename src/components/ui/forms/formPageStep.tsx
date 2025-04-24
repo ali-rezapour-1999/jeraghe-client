@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import StepOne from "@/app/ideas/create/stepForm/stepOne";
 import { FormState, PageStepProps } from "@/utils/type/ideaStateType";
 import StepTwo from "@/app/ideas/create/stepForm/stepTwo";
-import { useForm } from "@/hook/useFormIdea";
+import { useForm } from "@/hook/useFormData";
 import StepThree from "@/app/ideas/create/stepForm/setThree";
 
 const PageStep: React.FC<PageStepProps> = ({ step, setStep }) => {
@@ -17,16 +17,16 @@ const PageStep: React.FC<PageStepProps> = ({ step, setStep }) => {
     isOpenContent: false,
     needColabration: false,
     imageLogo: null,
+    imageBanner: null,
   };
 
-  const { formState, updateForm } = useForm(initialFormState);
+  const { formState, updateForm } = useForm<FormState>(initialFormState);
 
   useEffect(() => {
     if (formState.content && editorRef.current) {
       editorRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [formState.content]);
-
 
   if (step === 1) {
     return (
@@ -51,7 +51,14 @@ const PageStep: React.FC<PageStepProps> = ({ step, setStep }) => {
   }
 
   if (step === 3) {
-    return <StepThree initialFormState={initialFormState} updateForm={updateForm} setStep={setStep} formState={formState} />;
+    return (
+      <StepThree
+        initialFormState={initialFormState}
+        updateForm={updateForm}
+        setStep={setStep}
+        formState={formState}
+      />
+    );
   }
 
   return null;

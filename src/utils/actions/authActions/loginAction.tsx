@@ -20,7 +20,7 @@ export async function loginAction(
       path: "/",
     });
 
-    (await cookies()).set("slug_id", response.data.data.user.slug_id, {
+    (await cookies()).set("user_id", response.data.data.user.slug_id, {
       httpOnly: true,
       secure: true,
       path: "/",

@@ -25,11 +25,6 @@ export async function registerAction(
       secure: true,
       path: "/",
     });
-    (await cookies()).set("user_id", response.data.data.user.slug_id, {
-      httpOnly: true,
-      secure: true,
-      path: "/",
-    });
 
     if (response.status == 200) {
       return {

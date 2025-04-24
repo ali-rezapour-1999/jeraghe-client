@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   Form,
   Input,
@@ -11,6 +11,7 @@ import {
 import { ProfileResponse } from "@/utils/type/profileStateType";
 import Btn from "@/components/ui/button";
 import { useProfileState } from "@/state/userInformationStore";
+import { useForm } from "@/hook/useFormData";
 
 const genderOptions = [
   { id: 1, label: "مرد" },
@@ -18,38 +19,36 @@ const genderOptions = [
 ];
 
 const ProfileInfo: React.FC = () => {
-  const { profileData, profileRequest, profileUpdate, isLoading } =
+  const { profileRequest, profileUpdate, isLoading } =
     useProfileState();
-  const [updateData, setUpdateData] = useState<ProfileResponse>({
-    age: profileData?.age || null,
-    gender: profileData?.gender || "",
-    state: profileData?.state || "",
-    city: profileData?.city || "",
-    address: profileData?.address || "",
-    description_myself: profileData?.description_myself || "",
-  });
+
+  const initialFormState: ProfileResponse = {
+    age: null,
+    gender: "",
+    state: "",
+    city: "",
+    address: "",
+    description_myself: "",
+  };
+
+  const { formState, updateForm } = useForm<ProfileResponse>(initialFormState);
 
   const inputChangeHandler = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setUpdateData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+    updateForm(name as keyof ProfileResponse, value);
   };
 
   const selectChangeHandler = (name: keyof ProfileResponse, value: string) => {
-    setUpdateData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    updateForm(name, value);
   };
 
   const onSubmitProfileHandler = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
     e.preventDefault();
-    const response = await profileUpdate(updateData);
+    const response = await profileUpdate(formState);
     if (response.success) {
       profileRequest();
     }
@@ -70,7 +69,7 @@ const ProfileInfo: React.FC = () => {
             name="age"
             type="number"
             size="lg"
-            value={updateData?.age || ""}
+            value={formState.age ?? ""}
             onChange={inputChangeHandler}
           />
 
@@ -81,7 +80,7 @@ const ProfileInfo: React.FC = () => {
             label={"جنسیت"}
             name="gender"
             placeholder={"جنسیت خود را وارد کنید"}
-            value={updateData?.gender || ""}
+            value={formState.gender ?? ""}
             onSelectionChange={(keys) =>
               selectChangeHandler("gender", Array.from(keys)[0] as string)
             }
@@ -105,7 +104,7 @@ const ProfileInfo: React.FC = () => {
             size="lg"
             placeholder={"استان خود را وارد کنید"}
             name="state"
-            value={updateData.state ?? ""}
+            value={formState.state ?? ""}
             onSelectionChange={(keys) =>
               selectChangeHandler("state", Array.from(keys)[0] as string)
             }
@@ -122,7 +121,7 @@ const ProfileInfo: React.FC = () => {
             size="lg"
             name="city"
             placeholder={"شهر خود را وارد کنید"}
-            value={updateData.city ?? ""}
+            value={formState.city ?? ""}
             onSelectionChange={(keys) =>
               selectChangeHandler("city", Array.from(keys)[0] as string)
             }
@@ -143,7 +142,7 @@ const ProfileInfo: React.FC = () => {
           classNames={{
             inputWrapper: "py-4 ",
           }}
-          value={updateData.address ?? ""}
+          value={formState.address ?? ""}
           onChange={inputChangeHandler}
         />
 
@@ -156,23 +155,18 @@ const ProfileInfo: React.FC = () => {
             base: "w-full mt-5",
             input: "resize-y h-[150px] max-h-[150px] font-light",
           }}
-          placeholder={
-            updateData?.description_myself ||
-            "چند کلمه در مورد خودتون توضیح بدید"
-          }
-          value={updateData?.description_myself || ""}
+          placeholder={"چند کلمه در مورد خودتون توضیح بدید"}
+          value={formState.description_myself ?? ""}
           size="lg"
           onChange={(e) =>
-            setUpdateData((prev) => ({
-              ...prev,
-              description_myself: e.target.value,
-            }))
+            updateForm("description_myself", e.target.value)
           }
         />
 
         <Btn
           type="submit"
           className="w-full text-lg mt-3 bg-green-dark dark:bg-green-900 text-light"
+          isDisabled={isLoading || !formState.age || !formState.gender || !formState.state || !formState.city || !formState.address || !formState.description_myself || formState.description_myself.length < 5}
         >
           {isLoading ? <Spinner /> : "ثبت تغییرات"}
         </Btn>
