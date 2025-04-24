@@ -5,63 +5,47 @@ import { ProfileResponse } from "@/utils/type/profileStateType";
 import { cookies } from "next/headers";
 
 export const profileUpdateAction = async (
-  data: ProfileResponse
+  updateData: ProfileResponse
 ): Promise<RequestResult> => {
-  const slug = (await cookies()).get("user_slug")?.value;
+  const slug = (await cookies()).get("user_id")?.value;
   const accessToken = (await cookies()).get("access_token")?.value;
 
-  if (!slug && !accessToken) {
+  if (!slug || !accessToken) {
     return {
       success: false,
       status: 400,
       message: "شناسه کاربر یافت نشد.",
     };
   }
-  try {
-    const response = await api.patch<ProfileResponse>(
-      `/private/profile/profile-info/${slug}/`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
 
-    if (response.status === 200) {
+  try {
+    const response = await api.patch(`/private/profile/update/`, updateData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (response.data.status === "success") {
       return {
         success: true,
         status: response.status,
-        message: "تغییر شما ثبت شده",
+        message: response.data.message,
       };
     }
 
     return {
       success: false,
       status: response.status,
-      message: "خطا در به‌روزرسانی پروفایل.",
+      message: response.data.message,
     };
-  } catch (error) {
-    const status =
-      (error as { response?: { status?: number } })?.response?.status || 500;
-
-    let message = "";
-    switch (status) {
-      case 404:
-        message = "حساب کاربری پیدا نشد";
-        break;
-      case 500:
-        message = "خطای سرور. لطفاً مجدد تلاش کنید.";
-        break;
-      default:
-        message = "خطای ناشناخته.";
-        break;
-    }
-
+  } catch (error: any) {
     return {
       success: false,
-      status: status,
-      message: message,
+      status: error?.response?.status || 500,
+      message:
+        error?.response?.data?.message ||
+        error.message ||
+        "خطای ناشناخته‌ای رخ داد.",
     };
   }
 };

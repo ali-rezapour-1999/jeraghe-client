@@ -6,7 +6,7 @@ export interface ProfileResponse {
   state: string | null;
   city: string | null;
   address: string | null;
-  description_myself: string | null;
+  description: string | null;
 }
 
 export interface WorkHistoryResponse {

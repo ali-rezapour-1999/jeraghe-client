@@ -8,13 +8,14 @@ export const profileRequestAction = async (): Promise<RequestResult> => {
   const accessToken = (await cookies()).get("access_token")?.value;
   try {
     if (accessToken) {
-      const response = await api.get(`private/profile/info`, {
+      const response = await api.get(`public/get-profile/`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
       return {
-        data: response.data as ProfileResponse,
+        data: response.data,
+        message: response.data.message,
         success: true,
       };
     } else {

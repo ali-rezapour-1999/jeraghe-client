@@ -10,7 +10,7 @@ const ProfileUpdateSection = () => {
       aria-label="Options"
       classNames={{
         tab: "text-xl h-10 w-full",
-        tabContent: "px-20 w-full",
+        tabContent: "px-10 w-full",
         tabList: "w-full",
         base: "w-full",
       }}

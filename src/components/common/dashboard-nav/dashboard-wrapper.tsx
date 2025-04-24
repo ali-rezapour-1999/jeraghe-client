@@ -16,7 +16,7 @@ const DashboardWrapper: React.FC<Props> = ({ children }) => {
       <div className="max-w-[1500px] mx-auto px-3 lg:px-10">
         <DashboardHeader />
         <main className="flex items-center justify-center h-full w-full mx-auto overflow-y-auto">
-          <div className="w-full dark:bg-primary-dark/30 bg-primary-dark/10 px-30 py-10 rounded-b-2xl">
+          <div className="w-full dark:bg-primary-dark/30 bg-primary-dark/10 px-8 md:px-14 lg:px-20 py-10 rounded-b-2xl">
             {children}
           </div>
         </main>
