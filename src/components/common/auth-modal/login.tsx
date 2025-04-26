@@ -121,6 +121,7 @@ const Login = ({ changePage }: { changePage: any }) => {
             <Input
               variant="underlined"
               isRequired
+              autoComplete="off"
               label="رمز عبور"
               labelPlacement="outside"
               name="password"

@@ -42,7 +42,7 @@ const MainNavBar: React.FC = () => {
         </p>
       </NavbarBrand>
       <NavbarContent justify="end" className="gap-2">
-        <NavbarItem className="border-l-1">
+        <NavbarItem >
           <PageDropdownMenu />
         </NavbarItem>
 
