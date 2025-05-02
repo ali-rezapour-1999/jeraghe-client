@@ -35,26 +35,21 @@ const config = {
           dark: "#15803D",
           light: "#4ADE80",
         },
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
         muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          DEFAULT: "hsl(210 40% 96.1%)",
+          foreground: "hsl(215.4 16.3% 46.9%)",
+        },
+        destructive: {
+          DEFAULT: "hsl(0 84.2% 60.2%)",
+          foreground: "hsl(210 40% 98%)",
         },
         card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+          DEFAULT: "hsl(222 47% 11%)",
+          foreground: "hsl(0 0% 100%)",
         },
         popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+          DEFAULT: "hsl(222 47% 11%)",
+          foreground: "hsl(0 0% 100%)",
         },
       },
       fontFamily: {

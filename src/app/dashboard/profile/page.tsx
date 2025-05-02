@@ -25,7 +25,7 @@ export default function ProfilePage() {
       </div>
 
       <div className="grid gap-6 md:grid-cols-2">
-        <Card>
+        <Card className="bg-card">
           <CardHeader className="pb-2">
             <CardTitle>اطلاعات شخصی</CardTitle>
             <CardDescription>اطلاعات شخصی و تماس شما</CardDescription>
