@@ -1,66 +1,65 @@
-"use client";
+import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
+import { cn } from "@/lib/utils"
 
-import { Button } from "@heroui/react";
-import React, { forwardRef } from "react";
-import Link from "next/link";
-import { Loader2 } from "lucide-react"; // یا آیکون دلخواه برای حالت لودینگ
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-offset-2 cursor-pointer",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-white text-black hover:bg-gray-100 active:bg-gray-200 dark:bg-primary-dark dark:text-white dark:hover:bg-primary/80 dark:active:bg-primary/70",
 
-interface ButtonProps {
-  children: React.ReactNode;
-  onClick?: () => void;
-  className?: string;
-  link?: string;
-  type?: "button" | "submit" | "reset";
-  style?: React.CSSProperties;
-  isDisabled?: boolean;
-  isLoading?: boolean;
-  loadingText?: string;
-  iconLeft?: React.ReactNode;
-  iconRight?: React.ReactNode;
+        main:
+          "bg-primary-dark text-white hover:bg-primary-dark/70 active:bg-primary-dark/20 dark:bg-primary dark:text-primary-dark dark:hover:bg-primary/70 dark:active:bg-primary/90",
+        secondary:
+          "bg-secondary text-white hover:bg-secondary-light active:bg-secondary-dark dark:bg-secondary-dark dark:text-white dark:hover:bg-secondary/90 dark:active:bg-secondary/80",
+        accent:
+          "bg-accent text-white hover:bg-accent-light active:bg-accent-dark dark:bg-accent-dark dark:hover:bg-accent dark:active:bg-accent-light",
+        outline:
+          "border border-black text-black bg-transparent hover:bg-black/10 active:bg-black/20 dark:border-white dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20",
+        ghost:
+          "bg-transparent text-black hover:bg-black/10 active:bg-black/20 dark:text-white dark:hover:bg-white/10 dark:active:bg-white/20",
+        link:
+          "text-accent underline-offset-4 hover:underline active:opacity-80 dark:text-accent-light",
+        destructive:
+          "bg-red-600 text-white hover:bg-red-700 active:bg-red-800 dark:bg-red-500 dark:hover:bg-red-600 dark:active:bg-red-700",
+      },
+      size: {
+        default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        icon: "size-9",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+)
+
+function Button({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof buttonVariants> & {
+    asChild?: boolean
+  }) {
+  const Comp = asChild ? Slot : "button"
+
+  return (
+    <Comp
+      dir="rtl"
+      data-slot="button"
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  )
 }
 
-const Btn = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      children,
-      onClick,
-      className = "",
-      link,
-      type = "button",
-      style,
-      isDisabled = false,
-      isLoading = false,
-      loadingText = "Loading...",
-      iconLeft,
-      iconRight,
-    },
-    ref
-  ) => {
-    const content = (
-      <Button
-        ref={ref}
-        type={type}
-        onPress={onClick}
-        isDisabled={isDisabled || isLoading}
-        className={`focus:outline-none rounded-md min-w-0 flex items-center gap-2 ${className}`}
-        style={style}
-      >
-        {isLoading && <Loader2 className="animate-spin w-4 h-4 text-white" />}
-        {!isLoading && iconLeft}
-        {isLoading ? loadingText : children}
-        {!isLoading && iconRight}
-      </Button>
-    );
-
-    return link ? (
-      <Link href={link} passHref legacyBehavior>
-        {content}
-      </Link>
-    ) : (
-      content
-    );
-  }
-);
-
-Btn.displayName = "Btn";
-export default Btn;
+export { Button, buttonVariants }

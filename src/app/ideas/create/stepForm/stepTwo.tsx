@@ -1,11 +1,13 @@
-import { IsLoading } from "@/components/common/isLoading";
-import Editor from "@/components/editor/editor";
-import InputSectionWrapper from "@/components/section/inputWrapperSection";
-import Btn from "@/components/ui/button";
+import InputSectionWrapper from "@/components/shared/wrapper/inputWrapperSection";
+import Editor from "@/components/shared/editor/editor";
+import { IsLoading } from "@/components/shared/isLoading";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import IdeaContentFileModal from "@/components/ui/modals/ideaContentFileModal";
 import { Heading } from "@/components/ui/text";
-import { FormState } from "@/utils/type/ideaStateType";
-import { Input, Alert } from "@heroui/react";
+import { FormState } from "@/types/ideaStateType";
+import { AlertCircle } from "lucide-react";
 import React, { useCallback, useEffect } from "react";
 
 interface Props {
@@ -16,16 +18,12 @@ interface Props {
   editorRef: any;
 }
 
-const StepTwo = ({
-  formState,
-  editorRef,
-  setStep,
-  updateForm,
-}: Props) => {
+const StepTwo = ({ formState, editorRef, setStep, updateForm }: Props) => {
   const [contentLoading, setContetntLoading] = React.useState(false);
   const [editorContent, setEditorContent] = React.useState("");
   const [contentFile, setContentFile] = React.useState<File | null>(null);
-  const isStep2NextDisabled = formState.content.trim().length <= 100 && !contentFile;
+  const isStep2NextDisabled =
+    formState.content.trim().length <= 100 && !contentFile;
 
   const handleEditContentFile = useCallback(() => {
     if (!formState.content) {
@@ -37,7 +35,6 @@ const StepTwo = ({
       setContetntLoading(false);
     }, 500);
   }, [formState.content, setEditorContent]);
-
 
   const handleFileUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,11 +53,24 @@ const StepTwo = ({
         reader.onerror = () => {
           updateForm("content", "");
           setContentFile(null);
-          <Alert title="خطا در خواندن فایل!" />;
+          <Alert>
+            <AlertCircle className="h-4 w-4" />
+            <AlertTitle>Heads up!</AlertTitle>
+            <AlertDescription>
+              خطا در خواندن فایل میباشد لطفاً یک فایل markdown (.md) انتخاب
+              کنید.
+            </AlertDescription>
+          </Alert>;
         };
         reader.readAsText(file);
       } else {
-        <Alert title="لطفاً یک فایل markdown (.md) انتخاب کنید." />
+        <Alert>
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Heads up!</AlertTitle>
+          <AlertDescription>
+            خطا در خواندن فایل میباشد لطفاً یک فایل markdown (.md) انتخاب کنید.
+          </AlertDescription>
+        </Alert>;
         e.target.value = "";
         setContentFile(null);
       }
@@ -94,27 +104,34 @@ const StepTwo = ({
         </Heading>
         <div className="flex items-center gap-5 my-5">
           <p className="text-sm">
-            با اضافه کردن محتوای ایده‌ات شما می‌توانید از طریق یک فایل markdown یا
-            متن خود ایده‌ات را به سایت اضافه کنید.
+            با اضافه کردن محتوای ایده‌ات شما می‌توانید از طریق یک فایل markdown
+            یا متن خود ایده‌ات را به سایت اضافه کنید.
           </p>
 
           <div className="relative bg-light dark:bg-primary-dark/80 rounded-full flex items-center px-2">
-            <Btn className="bg-transparent ">
+            <Button className="bg-transparent ">
               <span>اضافه کردن فایل Readme.md</span>
               <Input
                 type="file"
                 accept=".md,text/markdown"
-                variant="bordered"
                 onChange={handleFileUpload}
                 className="max-w-xs absolute top-0 right-0 bottom-0 opacity-0 cursor-pointer z-50"
               />
-            </Btn>
+            </Button>
             {contentFile && formState.content.trim().length > 0 && (
               <div className="flex gap-2 mt-2 sm:mt-0">
-                <Btn onClick={() => updateForm("isOpenContent", true)} className="rounded-r-full rounded-l-2xl h-max py-1">
+                <Button
+                  onClick={() => updateForm("isOpenContent", true)}
+                  className="rounded-r-full rounded-l-2xl h-max py-1"
+                >
                   خواندن محتوا
-                </Btn>
-                <Btn onClick={handleEditContentFile} className="rounded-l-full rounded-r-2xl  h-max py-1">نیاز به تغییرات داره</Btn>
+                </Button>
+                <Button
+                  onClick={handleEditContentFile}
+                  className="rounded-l-full rounded-r-2xl  h-max py-1"
+                >
+                  نیاز به تغییرات داره
+                </Button>
               </div>
             )}
             <IdeaContentFileModal

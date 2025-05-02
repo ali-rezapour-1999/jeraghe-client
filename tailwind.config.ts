@@ -1,59 +1,61 @@
-import type { Config } from "tailwindcss";
-import { heroui } from "@heroui/react";
+import type { Config } from "tailwindcss"
 
-export default {
+const config = {
   darkMode: "class",
   content: [
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+    "*.{js,ts,jsx,tsx,mdx}",
   ],
+  prefix: "",
   theme: {
-    extend: {
+    container: {
+      center: true,
+      padding: "2rem",
       screens: {
-        sm: "480px",
-        md: "768px",
-        lg: "976px",
-        xl: "1440px",
-        "2xl": "1736px",
+        "2xl": "1400px",
       },
+    },
+    extend: {
       colors: {
-        code: {
-          DEFAULT: "#0D1117",
-        },
         primary: {
-          DEFAULT: "#201D47",
-          light: "#37346F",
-          dark: "#0f0f0f",
-          gray: "#27272A",
+          DEFAULT: "#F7F9FC",
+          light: "#FFFFFF",
+          dark: "#1A1A2E",
         },
         secondary: {
-          DEFAULT: "#37346F",
-          light: "#D5F7E8",
-          dark: "#201D47",
+          DEFAULT: "#FF6B4A",
+          dark: "#FF4F2A",
+          light: "#FF876A",
         },
         accent: {
-          DEFAULT: "#E3507A",
-          light: "#F28A9D",
-          dark: "#B12A55",
+          DEFAULT: "#22C55E",
+          dark: "#15803D",
+          light: "#4ADE80",
         },
-        green: {
-          DEFAULT: "#D5F7E8",
-          light: "#86EFAC",
-          dark: "#22C55E",
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
-        dark: {
-          DEFAULT: "#131313",
-          light: "#1E1E1E",
-          gray: "#27272A",
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
-        light: {
-          DEFAULT: "#F1F1F1",
-          light: "#FFFFFF",
-          dark: "#CED4DA",
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
-        "primary-gray": "var(--primary-gray)",
-        background: "var(--background)",
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
       },
       fontFamily: {
         dana: ["Dana", "sans-serif"],
@@ -61,13 +63,23 @@ export default {
       lineHeight: {
         normal: "1.75",
       },
-      backgroundImage: {
-        "light-gradient":
-          "linear-gradient(to bottom, rgb(226, 255, 243) 20%, rgb(255, 255, 255) 70%, rgb(255, 255, 255) 100%)",
-        "dark-gradient":
-          "linear-gradient(180deg, oklab(16.8% -0.024 -0.017), oklab(22.4% -0.032 -0.023), oklab(27.7% -0.041 -0.026), oklab(32.7% -0.049 -0.029), oklab(37.2% -0.055 -0.034))",
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
-  plugins: [heroui()],
-} satisfies Config;
+  plugins: [],
+} satisfies Config
+
+export default config

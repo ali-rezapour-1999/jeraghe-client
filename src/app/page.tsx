@@ -1,10 +1,10 @@
-import MainNavBar from "@/components/common/navbar";
 import Image from "next/image";
 import ideaImage from "../../public/main-image/idea_picture.png";
 import partnerShipImage from "../../public/main-image/page_partner.png";
-import MainSectionContainer from "@/components/container/mainContainer";
+import MainSectionContainer from "@/components/ui/container";
 import Link from "next/link";
 import { Heading, Paragraph } from "@/components/ui/text";
+import MainNavBar from "@/components/shared/navbar/navbar";
 
 const Home = () => {
   return (
@@ -53,10 +53,7 @@ const Home = () => {
           delay={0.7}
           className="w-full flex flex-col md:flex-row px-10 md:px-5 justify-center items-center overflow-hidden mt-5 2xl:mt-10 gap-16"
         >
-          <Link
-            href="/post/create"
-            className="md:pl-10"
-          >
+          <Link href="/post/create" className="md:pl-10">
             <Image
               src={ideaImage}
               alt="blog image"

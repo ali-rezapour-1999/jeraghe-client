@@ -1,199 +1,247 @@
 "use client";
 import React, { useEffect } from "react";
-import {
-  Form,
-  Input,
-  SelectItem,
-  Select,
-  Textarea,
-  Spinner,
-  addToast,
-} from "@heroui/react";
-import { ProfileResponse } from "@/utils/type/profileStateType";
-import Btn from "@/components/ui/button";
-import { useProfileState } from "@/state/userInformationStore";
-import { useForm } from "@/hook/useFormData";
-import { IsLoading } from "@/components/common/isLoading";
+import { ProfileResponse } from "@/types/profileStateType";
+import { Button } from "@/components/ui/button";
+import { useProfileState } from "@/store/profileStore";
+import { IsLoading } from "@/components/shared/isLoading";
+import Spinner from "@/components/shared/spinner";
+import { toast } from "sonner";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const genderOptions = [
   { id: 1, label: "مرد" },
   { id: 2, label: "زن" },
 ];
 
+const stateOptions = [
+  { id: 1, label: "مازندران" },
+  // می‌توانید گزینه‌های بیشتری اضافه کنید
+];
+
+const formSchema = z.object({
+  age: z
+    .number({ invalid_type_error: "سن باید یک عدد باشد" })
+    .min(1, "سن خود را وارد کنید")
+    .max(120, "سن معتبر نیست")
+    .nullable(),
+  gender: z.string().min(1, "جنسیت خود را انتخاب کنید"),
+  state: z.string().min(1, "استان خود را انتخاب کنید"),
+  city: z.string().min(1, "شهر خود را وارد کنید"),
+  address: z.string().min(1, "آدرس خود را وارد کنید"),
+  description: z.string().max(500, "توضیحات حداکثر ۵۰۰ کاراکتر می‌تواند باشد").optional(),
+});
+
+type FormData = z.infer<typeof formSchema>;
+
 const ProfileInfo = () => {
-  const { profileData, profileRequest, profileUpdate, isLoading } =
-    useProfileState();
+  const { profileData, profileRequest, profileUpdate, isLoading } = useProfileState();
 
-  const initialFormState: ProfileResponse = {
-    age: profileData?.age ?? null,
-    gender: profileData?.gender ?? "",
-    state: profileData?.state ?? "",
-    city: profileData?.city ?? "",
-    address: profileData?.address ?? "",
-    description: profileData?.description ?? "",
-  };
-
-  const { formState, updateForm } = useForm<ProfileResponse>(initialFormState);
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      age: profileData?.age ? parseInt(profileData.age) : null,
+      gender: profileData?.gender ?? "",
+      state: profileData?.state ?? "",
+      city: profileData?.city ?? "",
+      address: profileData?.address ?? "",
+      description: profileData?.description ?? "",
+    },
+  });
 
   useEffect(() => {
     if (profileData) {
-      updateForm("age", profileData.age ?? null);
-      updateForm("gender", profileData.gender ?? "");
-      updateForm("state", profileData.state ?? "");
-      updateForm("city", profileData.city ?? "");
-      updateForm("address", profileData.address ?? "");
-      updateForm("description", profileData.description ?? "");
-    }
-  }, [profileData]);
-
-  const inputChangeHandler = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    updateForm(name as keyof ProfileResponse, value);
-  };
-
-  const selectChangeHandler = (name: keyof ProfileResponse, value: string) => {
-    updateForm(name, value);
-  };
-
-  const onSubmitProfileHandler = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    e.preventDefault();
-    const response = await profileUpdate(formState);
-    if (response.success) {
-      addToast({
-        title: response.message,
-        color: "success",
+      form.reset({
+        age: profileData.age ? parseInt(profileData.age) : null,
+        gender: profileData.gender ?? "",
+        state: profileData.state ?? "",
+        city: profileData.city ?? "",
+        address: profileData.address ?? "",
+        description: profileData.description ?? "",
       });
+    }
+  }, [profileData, form]);
+
+  const onSubmitProfileHandler = async (data: FormData) => {
+    const transformedData: ProfileResponse = {
+      age: data.age !== null ? data.age.toString() : null,
+      gender: data.gender || null,
+      state: data.state || null,
+      city: data.city || null,
+      address: data.address || null,
+      description: data.description ?? null,
+    };
+
+    const response = await profileUpdate(transformedData);
+    if (response.success) {
+      toast.success(response.message);
       profileRequest();
     } else {
-      addToast({
-        title: response.message,
-        color: "danger",
-      });
+      toast.error(response.message);
     }
   };
+
   if (!profileData) return <IsLoading />;
+
   return (
-    <div>
-      <Form
-        className="w-full max-w-full flex flex-col"
-        validationBehavior="native"
-        onSubmit={onSubmitProfileHandler}
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmitProfileHandler)}
+        className="w-full max-w-full flex flex-col gap-6"
       >
-        <div className="w-full h-max lg:h-[100px] flex gap-8 flex-col lg:flex-row justify-start items-start ">
-          <Input
-            label="سن"
-            labelPlacement="outside"
-            placeholder={profileData?.age || "سن خود را وارد کنید"}
+        <div className="w-full flex flex-col lg:flex-row gap-8">
+          <FormField
+            control={form.control}
             name="age"
-            type="number"
-            size="lg"
-            value={formState.age ?? ""}
-            onChange={inputChangeHandler}
+            render={({ field, fieldState }) => (
+              <FormItem className="flex-1">
+                <FormLabel>سن</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="سن خود را وارد کنید"
+                    type="number"
+                    className={fieldState.error ? "border-red-500 dark:border-red-400" : ""}
+                    {...field}
+                    value={field.value ?? ""}
+                    onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : null)}
+                  />
+                </FormControl>
+                <FormMessage className="text-red-500 text-sm" />
+              </FormItem>
+            )}
           />
 
-          <Select
-            labelPlacement="outside"
-            className="dark:text-light text-primary"
-            size="lg"
-            label={"جنسیت"}
+          <FormField
+            control={form.control}
             name="gender"
-            placeholder={profileData?.gender || "جنسیت خود را وارد کنید"}
-            value={formState.gender ?? ""}
-            onSelectionChange={(keys) =>
-              selectChangeHandler("gender", Array.from(keys)[0] as string)
-            }
-          >
-            {genderOptions.map((item) => (
-              <SelectItem
-                key={item.label}
-                className="dark:text-light text-primary"
-              >
-                {item.label}
-              </SelectItem>
-            ))}
-          </Select>
+            render={({ field, fieldState }) => (
+              <FormItem className="flex-1">
+                <FormLabel>جنسیت</FormLabel>
+                <FormControl>
+                  <select
+                    className={`w-full p-2 border rounded-md dark:bg-gray-800 dark:text-light text-primary ${fieldState.error ? "border-red-500 dark:border-red-400" : "border-gray-300"
+                      }`}
+                    {...field}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    value={field.value}
+                  >
+                    <option value="" disabled>
+                      جنسیت خود را انتخاب کنید
+                    </option>
+                    {genderOptions.map((option) => (
+                      <option key={option.id} value={option.label}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </FormControl>
+                <FormMessage className="text-red-500 text-sm" />
+              </FormItem>
+            )}
+          />
         </div>
 
-        <div className="w-full h-max lg:h-[100px] flex gap-8 flex-col lg:flex-row justify-start items-start ">
-          <Select
-            labelPlacement="outside"
-            className="dark:text-light text-primary"
-            label={"استان"}
-            size="lg"
-            placeholder={profileData?.state || "استان خود را وارد کنید"}
+        <div className="w-full flex flex-col lg:flex-row gap-8">
+          <FormField
+            control={form.control}
             name="state"
-            value={formState.state ?? ""}
-            onSelectionChange={(keys) =>
-              selectChangeHandler("state", Array.from(keys)[0] as string)
-            }
-          >
-            <SelectItem key="مازندران" className="dark:text-light text-primary">
-              مازندران
-            </SelectItem>
-          </Select>
+            render={({ field, fieldState }) => (
+              <FormItem className="flex-1">
+                <FormLabel>استان</FormLabel>
+                <FormControl>
+                  <select
+                    className={`w-full p-2 border rounded-md dark:bg-gray-800 dark:text-light text-primary ${fieldState.error ? "border-red-500 dark:border-red-400" : "border-gray-300"
+                      }`}
+                    {...field}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    value={field.value}
+                  >
+                    <option value="" disabled>
+                      استان خود را انتخاب کنید
+                    </option>
+                    {stateOptions.map((option) => (
+                      <option key={option.id} value={option.label}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </FormControl>
+                <FormMessage className="text-red-500 text-sm" />
+              </FormItem>
+            )}
+          />
 
-          <Select
-            labelPlacement="outside"
-            className="dark:text-light text-primary"
-            label={"شهر"}
-            size="lg"
+          <FormField
+            control={form.control}
             name="city"
-            placeholder={profileData?.city || "شهر خود را وارد کنید"}
-            value={formState.city ?? ""}
-            onSelectionChange={(keys) =>
-              selectChangeHandler("city", Array.from(keys)[0] as string)
-            }
-          >
-            <SelectItem key="بابل" className="dark:text-light text-primary">
-              بابل
-            </SelectItem>
-          </Select>
+            render={({ field, fieldState }) => (
+              <FormItem className="flex-1">
+                <FormLabel>شهر</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="شهر خود را وارد کنید"
+                    type="text"
+                    className={fieldState.error ? "border-red-500 dark:border-red-400" : ""}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-red-500 text-sm" />
+              </FormItem>
+            )}
+          />
         </div>
 
-        <Input
-          label="آدرس"
-          labelPlacement="outside"
+        <FormField
+          control={form.control}
           name="address"
-          placeholder={profileData?.address || "آدرس خود را وراد کنید"}
-          type="text"
-          size="lg"
-          classNames={{
-            inputWrapper: "py-4 ",
-          }}
-          value={formState.address ?? ""}
-          onChange={inputChangeHandler}
+          render={({ field, fieldState }) => (
+            <FormItem>
+              <FormLabel>آدرس</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="آدرس خود را وارد کنید"
+                  type="text"
+                  className={fieldState.error ? "border-red-500 dark:border-red-400" : ""}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="text-red-500 text-sm" />
+            </FormItem>
+          )}
         />
 
-        <Textarea
-          label="درباره من"
-          disableAnimation
-          disableAutosize
+        <FormField
+          control={form.control}
           name="description"
-          classNames={{
-            base: "w-full mt-5",
-            input: "resize-y h-[150px] max-h-[150px] font-light",
-          }}
-          placeholder={
-            profileData?.description || "چند کلمه در مورد خودتون توضیح بدید"
-          }
-          value={formState.description ?? ""}
-          size="lg"
-          onChange={(e) => updateForm("description", e.target.value)}
+          render={({ field, fieldState }) => (
+            <FormItem>
+              <FormLabel>توضیحات</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="چند کلمه در مورد خودتون توضیح بدید"
+                  className={`resize-y h-[150px] max-h-[150px] font-light ${fieldState.error ? "border-red-500 dark:border-red-400" : ""
+                    }`}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage className="text-red-500 text-sm" />
+            </FormItem>
+          )}
         />
 
-        <Btn
+        <Button
           type="submit"
-          className="w-full text-lg mt-3 bg-green-dark dark:bg-green-900 text-light"
-          isDisabled={isLoading}
+          className="w-full text-lg mt-3 text-light dark:text-secondary bg-primary dark:bg-light"
+          disabled={isLoading || form.formState.isSubmitting}
         >
-          {isLoading ? <Spinner /> : "ثبت تغییرات"}
-        </Btn>
-      </Form>
-    </div>
+          {isLoading || form.formState.isSubmitting ? <Spinner color="success" /> : "ثبت تغییرات"}
+        </Button>
+      </form>
+    </Form>
   );
 };
 

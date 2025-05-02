@@ -4,7 +4,7 @@ import React from "react";
 import logo from "../../../../public/logo.png";
 import { Hourglass } from "lucide-react";
 import { motion } from "framer-motion";
-import { useThemeState } from "@/state/themeState";
+import { useThemeState } from "@/store/themeState";
 import { Heading } from "../text";
 
 interface CartItemProps {

@@ -1,4 +1,4 @@
-import { Breadcrumbs, BreadcrumbItem } from "@heroui/react";
+import { BreadcrumbItem, BreadcrumbList } from "../breadcrumb";
 
 const listPage = [
   { title: "عنوان ایده", id: 1 },
@@ -8,12 +8,12 @@ const listPage = [
 const BreadcrumbsIdea = ({ step }: { step: number }) => {
   return (
     <div>
-      <Breadcrumbs underline="none">
+      <BreadcrumbList >
         {listPage.slice(0, step).map((item, index) => (
           <BreadcrumbItem key={index}>{item.title}</BreadcrumbItem>
         ))}
-      </Breadcrumbs>
-    </div>
+      </BreadcrumbList>
+    </div >
   );
 };
 

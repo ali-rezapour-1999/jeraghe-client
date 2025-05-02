@@ -1,18 +1,16 @@
-import {
-  Modal,
-  ModalContent,
-  ModalBody,
-  ModalFooter,
-  ScrollShadow,
-} from "@heroui/react";
 import { useEffect, useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
 import rehypeSanitize from "rehype-sanitize";
 import remarkEmoji from "remark-emoji";
 import rehypeRaw from "rehype-raw";
-import Btn from "../button";
+import { Button } from "../button";
 
 interface Props {
   content: string;
@@ -49,32 +47,27 @@ const IdeaContentFileModal: React.FC<Props> = ({
   }, [content, isOpen]);
 
   return (
-    <Modal
-      isOpen={isOpen}
+    <Dialog
       onOpenChange={setOpen}
-      size="5xl"
-      hideCloseButton={true}
     >
-      <ModalContent>
-        <ModalBody className="p-10">
-          <ScrollShadow className="w-full h-[400px] md:h-[700px]" hideScrollBar>
-            <div className="markdown-body">
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm, remarkEmoji]}
-                rehypePlugins={[rehypeRaw, rehypeSanitize, rehypeHighlight]}
-              >
-                {markdown}
-              </ReactMarkdown>
-            </div>
-          </ScrollShadow>
-        </ModalBody>
-        <ModalFooter>
-          <Btn className="w-full" onClick={setOpen}>
+      <DialogContent className="bg-gradient-to-br from-default-300 to-default-60 dark:from-[#00171E] dark:to-[#004551]">
+        <div className="p-10">
+          <div className="markdown-body">
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm, remarkEmoji]}
+              rehypePlugins={[rehypeRaw, rehypeSanitize, rehypeHighlight]}
+            >
+              {markdown}
+            </ReactMarkdown>
+          </div>
+        </div>
+        <DialogFooter className="w-full flex flex-col justify-center items-center">
+          <Button className="w-full" onClick={setOpen}>
             بستن
-          </Btn>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+          </Button>
+        </DialogFooter>
+      </DialogContent >
+    </Dialog >
   );
 };
 

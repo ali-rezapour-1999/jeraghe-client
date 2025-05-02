@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "../style/globals.css";
 import "../style/drawer.css";
-import { Providers } from "@/utils/lib/provider";
 import MainLayout from "./wrapper";
 
 export const metadata: Metadata = {
@@ -36,9 +35,7 @@ export default function RootLayout({
   return (
     <html lang="fa" dir="rtl" suppressHydrationWarning>
       <body>
-        <Providers>
-          <MainLayout>{children}</MainLayout>
-        </Providers>
+        <MainLayout>{children}</MainLayout>
       </body>
     </html>
   );

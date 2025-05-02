@@ -1,13 +1,15 @@
 import React from "react";
-import {
-  Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownSection,
-  DropdownItem,
-  Button,
-} from "@heroui/react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Paragraph } from "@/components/ui/text";
 
 type navLintType = {
   id: number;
@@ -52,69 +54,44 @@ const navLinkList: navLintType[] = [
 export const PageDropdownMenu = () => {
   const router = useRouter();
   return (
-    <Dropdown
-      backdrop="opaque"
-      size="lg"
-      classNames={{
-        base: "before:bg-default-400 w-[300px]",
-        content:
-          "py-1 px-1 bg-gradient-to-br from-default-300 to-default-60 dark:from-[#00171E] dark:to-[#004551] w-[300px]",
-      }}
-    >
-      <DropdownTrigger>
-        <Button className="w-max h-8 px-4 md:h-10 min-w-0 flex bg-transparent rounded-lg">
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button className="w-max h-8 px-4 md:h-10 min-w-0 flex rounded-lg" variant='ghost'>
           <span className="text-[16px]"> کشف محتواها 📜</span>
         </Button>
-      </DropdownTrigger>
-      <DropdownMenu
-        aria-label="Dropdown menu with description"
-        variant="faded"
-        itemClasses={{
-          base: [
-            "rounded-md",
-            "text-primary",
-            "dark:text-light",
-            "transition-opacity",
-            "data-[hover=true]:text-primary",
-            "data-[hover=true]:bg-primary/20",
-            "dark:data-[hover=true]:bg-black/30",
-            "data-[pressed=true]:opacity-70",
-            "data-[focus-visible=true]:ring-primary-500",
-          ],
-        }}
-      >
-        <DropdownSection showDivider title="🌐 صفحات اصلی">
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuGroup title="🌐 صفحات اصلی">
           {navLinkList.map((item) => (
-            <DropdownItem
+            <DropdownMenuItem
               key={item.id}
-              description={item.description}
-              className="text-primary dark:text-light"
-              onPress={() => router.push(item.href)}
+              onClick={() => router.push(item.href)}
             >
-              <p className="text-lg">{item.label}</p>
-            </DropdownItem>
+              <Paragraph variant="default" className="text-lg">{item.label}</Paragraph>
+            </DropdownMenuItem>
           ))}
-        </DropdownSection>
+        </DropdownMenuGroup>
 
-        <DropdownSection title="🔥 صفحات ویژه">
-          <DropdownItem
+        <DropdownMenuGroup title="🔥 صفحات ویژه">
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
             key="post"
             className="text-danger"
-            description="یه داستان یا تجربه هیجان‌انگیز رو با ما به اشتراک بذار!"
-            onPress={() => router.push("/post/create")}
+            onClick={() => router.push("/post/create")}
           >
-            <p className="text-lg">✍️ اشتراک‌گذاری تجربیات</p>
-          </DropdownItem>
-          <DropdownItem
+            <Paragraph className="text-lg">
+              ✍️ اشتراک‌گذاری تجربیات
+            </Paragraph>
+          </DropdownMenuItem>
+          <DropdownMenuItem
             key="idea"
-            className="text-green-dark"
-            description="یه ایده ناب داری؟ بگو تا بترکونیم!"
-            onPress={() => router.push("/ideas/create")}
+            className=""
+            onClick={() => router.push("/ideas/create")}
           >
-            <p className="text-lg"> 💡 اشتراک‌گذاری ایده</p>
-          </DropdownItem>
-        </DropdownSection>
-      </DropdownMenu>
-    </Dropdown>
+            <Paragraph className="text-lg"> 💡 اشتراک‌گذاری ایده</Paragraph>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };

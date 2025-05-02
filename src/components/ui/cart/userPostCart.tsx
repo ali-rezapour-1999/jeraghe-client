@@ -1,8 +1,8 @@
-import { PostType } from "@/utils/type/postStateType";
+import { PostType } from "@/types/postStateType";
 import React from "react";
-import Btn from "../button";
 import { Edit, Eye, Trash } from "lucide-react";
 import { Heading, Paragraph } from "../text";
+import { Button } from "../button";
 
 const UserPostCart: React.FC<PostType> = ({
   title,
@@ -30,15 +30,15 @@ const UserPostCart: React.FC<PostType> = ({
             </span>
           </Paragraph>
           <div>
-            <Btn className="bg-transparent dark:bg-transparent text-text-green  dark:text-green px-2">
+            <Button className="bg-transparent dark:bg-transparent text-text-accent  dark:text-accent px-2">
               <Eye />
-            </Btn>
-            <Btn className="bg-transparent dark:bg-transparent text-blue-400 dark:text-blue-400 px-2">
+            </Button>
+            <Button className="bg-transparent dark:bg-transparent text-blue-400 dark:text-blue-400 px-2">
               <Edit />
-            </Btn>
-            <Btn className="bg-transparent dark:bg-transparent text-red-700 dark:text-red-700 px-2">
+            </Button>
+            <Button className="bg-transparent dark:bg-transparent text-red-700 dark:text-red-700 px-2">
               <Trash />
-            </Btn>
+            </Button>
           </div>
         </div>
       </div>

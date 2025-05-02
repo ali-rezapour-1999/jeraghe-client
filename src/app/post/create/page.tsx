@@ -1,5 +1,5 @@
 "use client";
-import Editor from "@/components/editor/editor";
+import Editor from "@/components/shared/editor/editor";
 import React, { useState } from "react";
 
 const CreatePost = () => {

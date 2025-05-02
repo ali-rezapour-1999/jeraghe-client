@@ -1,10 +1,10 @@
-import MainNavBar from "@/components/common/navbar";
+import Navbar from "@/components/shared/navbar/navbar";
 import React from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <article>
-      <MainNavBar />
+      <Navbar />
       {children}
     </article>
   );

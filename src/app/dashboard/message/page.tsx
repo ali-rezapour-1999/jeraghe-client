@@ -1,7 +1,7 @@
 import React from "react";
 
-const MassageSection: React.FC = () => {
+const Massage: React.FC = () => {
   return <div>massage section </div>;
 };
 
-export default MassageSection;
+export default Massage;

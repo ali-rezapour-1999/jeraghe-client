@@ -1,13 +1,11 @@
-import MainNavBar from '@/components/common/navbar'
-import React from 'react'
+import React from "react";
 
 const Post = () => {
-  return <div>
-    <MainNavBar />
+  return (
     <div>
-      Post Detial
+      <div>Post Detial</div>
     </div>
-  </div>
-}
+  );
+};
 
-export default Post
+export default Post;
