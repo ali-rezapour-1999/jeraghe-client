@@ -11,6 +11,7 @@ import {
   Repeat,
   Twitter,
 } from "lucide-react";
+import Image from "next/image";
 
 export function SocialMediaPosts() {
   return (
@@ -48,10 +49,12 @@ export function SocialMediaPosts() {
               <p>{post.content}</p>
               {post.image && (
                 <div className="mt-2 rounded-lg overflow-hidden">
-                  <img
+                  <Image
                     src={post.image || "/placeholder.svg"}
                     alt="تصویر پست"
                     className="w-full h-auto"
+                    width={100}
+                    height={100}
                   />
                 </div>
               )}

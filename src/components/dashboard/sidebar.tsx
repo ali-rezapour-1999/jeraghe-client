@@ -21,7 +21,7 @@ import { Link } from "../ui/link";
 interface MenuItem {
   path: string
   label: string
-  icon: React.ComponentType<{ className?: string }>
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>
 }
 
 const mainMenuItems: MenuItem[] = [
@@ -58,13 +58,13 @@ export function DashboardSidebar() {
         )}
       >
         {path === "#logout" ? (
-          <Button onClick={logout} className="flex items-center" variant="destructive">
-            <Icon className="ml-2 w-6 h-6" />
-            {isOpen && <span>{label}</span>}
+          <Button onClick={logout} className={`flex items-center dark:hover:bg-primary/20 hover:bg-red-800/20  h-12 ${!isOpen ? "justify-center" : "justify-start"}`} variant="ghost">
+            <Icon className="ml-2 !w-6 !h-6 text-red-500" />
+            {isOpen && <span className="text-red-500">{label}</span>}
           </Button>
         ) : (
-          <Link href={path} className={`flex items-center hover:bg-primary/20 p-0 ${isOpen ? "justify-center" : "justify-start"} `} variant="ghost">
-            <Icon className="ml-2 w-22 h-22 p-0 " />
+          <Link href={path} className={`flex items-center dark:hover:bg-primary/20 hover:bg-primary-dark/10  h-12 ${!isOpen ? "justify-center" : "justify-start"}`} variant="ghost">
+            <Icon className="ml-2 !w-6 !h-6" />
             {isOpen && <span>{label}</span>}
           </Link>
         )}
@@ -88,11 +88,11 @@ export function DashboardSidebar() {
           <SidebarMenu>{footerMenuItems.map((item) => renderMenuItem(item))}</SidebarMenu>
         </SidebarFooter>
       </div>
-      <SidebarRail onClick={toggleSidebar} className={`bg-primary/20 flex items-center rounded-l-full`}>
+      <SidebarRail onClick={toggleSidebar} className={`dark:bg-primary-dark/20 bg-primary hover:bg-white flex items-center rounded-l-full w-6`}>
         {isOpen ?
-          <ChevronRight className="w-10 h-10 size-7" size={10} />
+          <ChevronRight className="!w-10 !h-10" />
           :
-          <ChevronLeft className="w-10 h-10 size-7" size={10} />
+          <ChevronLeft className="!w-10 !h-10" />
         }
       </SidebarRail>
     </Sidebar>

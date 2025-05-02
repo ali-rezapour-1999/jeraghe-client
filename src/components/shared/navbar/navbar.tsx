@@ -43,7 +43,8 @@ const Navbar: React.FC = () => {
             )
           ) : (
             <Button
-              className="h-8 md:h-10 flex px-3 text-primary-dark dark-primary-light"
+              className="h-8 md:h-10 flex px-3 "
+              variant='main'
               onClick={userStatusHanlder}
             >
               <Paragraph className="hidden md:block">ورود / ثبت نام</Paragraph>

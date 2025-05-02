@@ -21,33 +21,36 @@ interface EditorTextAlignProps {
 const EditorTextAlign = ({ editor }: EditorTextAlignProps) => {
   const [selectedAlign, setSelectedAlign] = useState<string>("right");
 
-  const alignOptions = [
-    {
-      key: "right",
-      icon: <PiTextAlignRightBold className="size-5" />,
-      label: "راست‌چین",
-    },
-    {
-      key: "left",
-      icon: <PiTextAlignLeftBold className="size-5" />,
-      label: "چپ‌چین",
-    },
-    {
-      key: "center",
-      icon: <PiTextAlignCenterBold className="size-5" />,
-      label: "وسط‌چین",
-    },
-    {
-      key: "justify",
-      icon: <PiTextAlignJustifyDuotone className="size-5" />,
-      label: "منظم‌چین",
-    },
-  ];
+  const alignOptions = useMemo(
+    () => [
+      {
+        key: "right",
+        icon: <PiTextAlignRightBold className="size-5" />,
+        label: "راست‌چین",
+      },
+      {
+        key: "left",
+        icon: <PiTextAlignLeftBold className="size-5" />,
+        label: "چپ‌چین",
+      },
+      {
+        key: "center",
+        icon: <PiTextAlignCenterBold className="size-5" />,
+        label: "وسط‌چین",
+      },
+      {
+        key: "justify",
+        icon: <PiTextAlignJustifyDuotone className="size-5" />,
+        label: "منظم‌چین",
+      },
+    ],
+    []
+  );
 
   const currentIcon = useMemo(() => {
     const option = alignOptions.find((opt) => opt.key === selectedAlign);
     return option ? option.icon : <PiTextAlignRightBold className="size-5" />;
-  }, [selectedAlign]);
+  }, [selectedAlign, alignOptions]);
 
   const handleAlignChange = (align: string) => {
     setSelectedAlign(align);
