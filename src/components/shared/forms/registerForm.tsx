@@ -171,7 +171,7 @@ const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
                     />
                     <Button
                       aria-label="toggle password visibility"
-                      className="absolute inset-y-0 left-0 h-full  flex items-center pr-3 bg-transparent min-w-0 hover:bg-transparent"
+                      className="absolute inset-y-0 left-1 top-2 flex items-center pr-3 bg-transparent min-w-0 hover:bg-transparent"
                       type="button"
                       onClick={toggleVisibility}
                     >
@@ -237,7 +237,7 @@ const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
             className="dark:bg-accent-900 bg-accent-dark text-white dark:text-light w-full rounded-md"
             disabled={isLoading}
           >
-            {isLoading ? <Spinner color="success" /> : "ثبت نام"}
+            {isLoading ? <Spinner variant="secondary" /> : "ثبت نام"}
           </Button>
         </form>
       </Form>

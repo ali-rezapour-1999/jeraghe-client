@@ -126,7 +126,7 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
                   />
                   <Button
                     aria-label="toggle password visibility"
-                    className="absolute inset-y-0 left-0 h-full  flex items-center pr-3 bg-transparent min-w-0 hover:bg-transparent"
+                    className="absolute inset-y-0 left-1 top-2 flex items-center pr-3 bg-transparent min-w-0 hover:bg-transparent"
                     type="button"
                     onClick={toggleVisibility}
                   >
@@ -175,7 +175,7 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
             disabled={isLoading}
             className="w-full bg-secondary-light dark:bg-secondary-dark dark:text-primary-light text-primary-light rounded-md py-2"
           >
-            {isLoading ? <Spinner color="success" /> : "ورود"}
+            {isLoading ? <Spinner variant="secondary" /> : "ورود"}
           </Button>
         </div>
       </form>

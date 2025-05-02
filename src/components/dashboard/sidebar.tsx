@@ -27,7 +27,7 @@ interface MenuItem {
 const mainMenuItems: MenuItem[] = [
   { path: "/dashboard", label: "داشبورد", icon: MdDashboard },
   { path: "/dashboard/profile", label: "پروفایل", icon: User },
-  { path: "/dashboard/post", label: "مدیریت مقالات", icon: FileText },
+  { path: "/dashboard/posts", label: "مدیریت مقالات", icon: FileText },
   { path: "/dashboard/idea", label: "مدیریت ایده", icon: Briefcase },
   { path: "/dashboard/ticket", label: "تیکت‌ها", icon: Ticket },
   { path: "/dashboard/setting", label: "تنظیمات", icon: Settings },

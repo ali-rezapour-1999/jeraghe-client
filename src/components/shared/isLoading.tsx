@@ -5,7 +5,7 @@ import Spinner from "./spinner";
 export const IsLoading = () => {
   return (
     <div className="flex gap-2 py-3 items-center">
-      <Spinner color="success" />
+      <Spinner variant="primary" />
       <Heading as="h1" className="text-primary-dark dark:text-light">
         در حال بارگذاری اطلاعات...
       </Heading>
@@ -20,7 +20,7 @@ export const AuthIsLoading = () => {
         برای ورود به این بخش باید حساب کاربری داشته باشی یه لحظه داریم بررسی
         میکنم حساب داری یا نه واسا یه لحظه ....
       </Heading>
-      <Spinner color="success" />
+      <Spinner variant="primary" />
     </div>
   );
 };

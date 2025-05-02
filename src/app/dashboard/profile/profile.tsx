@@ -238,7 +238,7 @@ const ProfileInfo = () => {
           className="w-full text-lg mt-3 text-light dark:text-secondary bg-primary dark:bg-light"
           disabled={isLoading || form.formState.isSubmitting}
         >
-          {isLoading || form.formState.isSubmitting ? <Spinner color="success" /> : "ثبت تغییرات"}
+          {isLoading || form.formState.isSubmitting ? <Spinner variant="card" /> : "ثبت تغییرات"}
         </Button>
       </form>
     </Form>

@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
         <div>
           {isAuthenticated && user?.username ? (
             isLoading ? (
-              <Spinner color="success" />
+              <Spinner variant="primary" />
             ) : (
               <UserDropdownMenu />
             )
