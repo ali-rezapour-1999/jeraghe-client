@@ -20,10 +20,7 @@ export function SocialMediaPosts() {
         <Card key={post.id} className="p-4">
           <div className="flex items-start gap-4">
             <Avatar className="h-10 w-10">
-              <AvatarImage
-                src={post.profileImage || "/placeholder.svg"}
-                alt={post.username}
-              />
+              <AvatarImage src={post.profileImage || ""} alt={post.username} />
               <AvatarFallback>{post.username.substring(0, 2)}</AvatarFallback>
             </Avatar>
             <div className="flex-1 space-y-2">
@@ -50,7 +47,7 @@ export function SocialMediaPosts() {
               {post.image && (
                 <div className="mt-2 rounded-lg overflow-hidden">
                   <Image
-                    src={post.image || "/placeholder.svg"}
+                    src={post.image || ""}
                     alt="تصویر پست"
                     className="w-full h-auto"
                     width={100}
@@ -87,12 +84,12 @@ const posts = [
   {
     id: 1,
     username: "شرکت شما",
-    profileImage: "/placeholder.svg?height=40&width=40",
+    profileImage: "?height=40&width=40",
     platform: { name: "instagram", icon: Instagram, color: "text-pink-500" },
     date: "۲ ساعت پیش",
     content:
       "خوشحالیم که محصول جدید خود را معرفی می‌کنیم! با ویژگی‌های منحصر به فرد و طراحی مدرن، این محصول تجربه کاربری فوق‌العاده‌ای را برای شما به ارمغان می‌آورد. #محصول_جدید #نوآوری",
-    image: "/placeholder.svg?height=300&width=500",
+    image: "?height=300&width=500",
     likes: "۱۲۵",
     comments: "۲۳",
     shares: "۴۵",
@@ -101,7 +98,7 @@ const posts = [
   {
     id: 2,
     username: "شرکت شما",
-    profileImage: "/placeholder.svg?height=40&width=40",
+    profileImage: "?height=40&width=40",
     platform: { name: "twitter", icon: Twitter, color: "text-blue-500" },
     date: "۱ روز پیش",
     content:
@@ -115,12 +112,12 @@ const posts = [
   {
     id: 3,
     username: "شرکت شما",
-    profileImage: "/placeholder.svg?height=40&width=40",
+    profileImage: "?height=40&width=40",
     platform: { name: "linkedin", icon: Linkedin, color: "text-blue-700" },
     date: "۳ روز پیش",
     content:
       "خوشحالیم اعلام کنیم که وبینار آموزشی «مهارت‌های ضروری برای موفقیت در بازار کار» در تاریخ ۲۰ خرداد برگزار خواهد شد. برای ثبت‌نام به وب‌سایت ما مراجعه کنید.",
-    image: "/placeholder.svg?height=300&width=500",
+    image: "?height=300&width=500",
     likes: "۱۵۶",
     comments: "۳۲",
     shares: "۶۷",
@@ -129,12 +126,12 @@ const posts = [
   {
     id: 4,
     username: "شرکت شما",
-    profileImage: "/placeholder.svg?height=40&width=40",
+    profileImage: "?height=40&width=40",
     platform: { name: "facebook", icon: Facebook, color: "text-blue-600" },
     date: "۵ روز پیش",
     content:
       "با افتخار اعلام می‌کنیم که شرکت ما به عنوان یکی از برترین شرکت‌های حوزه کاریابی در سال ۱۴۰۱ انتخاب شده است. از همه مشتریان و همکاران عزیز سپاسگزاریم.",
-    image: "/placeholder.svg?height=300&width=500",
+    image: "?height=300&width=500",
     likes: "۲۱۰",
     comments: "۴۵",
     shares: "۷۸",

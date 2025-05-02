@@ -2,9 +2,10 @@ import { baseApiType } from "./baseType";
 
 export interface User extends baseApiType {
   email: string;
-  image?: any;
+  image_url?: any;
   username: string;
   phone_number?: string;
+  create_at: string;
 }
 
 export type AuthResult<T = any> = {

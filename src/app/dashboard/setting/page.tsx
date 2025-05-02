@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
-import Image from "next/image";
+import ProfileUpdate from "./profileUpdate";
 
 export default function SettingsPage() {
   return (
@@ -23,7 +23,7 @@ export default function SettingsPage() {
         </p>
       </div>
 
-      <Tabs defaultValue="profile" className="space-y-4">
+      <Tabs dir="rtl" defaultValue="profile" className="space-y-4">
         <TabsList>
           <TabsTrigger value="profile">پروفایل</TabsTrigger>
           <TabsTrigger value="account">حساب کاربری</TabsTrigger>
@@ -31,68 +31,8 @@ export default function SettingsPage() {
           <TabsTrigger value="appearance">ظاهر</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="profile" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>اطلاعات پروفایل</CardTitle>
-              <CardDescription>
-                اطلاعات پروفایل خود را ویرایش کنید
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="name">نام</Label>
-                  <Input id="name" placeholder="نام خود را وارد کنید" />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="family">نام خانوادگی</Label>
-                  <Input
-                    id="family"
-                    placeholder="نام خانوادگی خود را وارد کنید"
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">ایمیل</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="ایمیل خود را وارد کنید"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="bio">بیوگرافی</Label>
-                <textarea
-                  id="bio"
-                  className="flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                  placeholder="درباره خود بنویسید"
-                />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>ذخیره تغییرات</Button>
-            </CardFooter>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>تصویر پروفایل</CardTitle>
-              <CardDescription>تصویر پروفایل خود را تغییر دهید</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex items-center gap-4">
-                <Image
-                  src="/placeholder.svg?height=100&width=100"
-                  alt="تصویر پروفایل"
-                  className="h-24 w-24 rounded-full"
-                  width={100}
-                  height={100}
-                />
-                <Button>آپلود تصویر</Button>
-              </div>
-            </CardContent>
-          </Card>
+        <TabsContent dir="rtl" value="profile" className=" w-full">
+          <ProfileUpdate />
         </TabsContent>
 
         <TabsContent value="account" className="space-y-4">

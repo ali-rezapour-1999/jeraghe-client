@@ -1,3 +1,4 @@
+'use client'
 import {
   Card,
   CardContent,
@@ -9,15 +10,13 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Github,
-  Globe,
-  Instagram,
   Linkedin,
-  MapPin,
-  Twitter,
 } from "lucide-react";
 
 export default function ProfilePage() {
+  const { user } = useAuthStore();
+  const { profileData } = useProfileState();
+  const persianDate = usePersianDate(user?.created_at);
   return (
     <div className="space-y-6">
       <div>
@@ -35,7 +34,8 @@ export default function ProfilePage() {
             <div className="flex flex-col items-center space-y-4 text-center sm:flex-row sm:space-x-4 sm:space-y-0 sm:text-right">
               <Avatar className="h-24 w-24">
                 <AvatarImage
-                  src="/placeholder.svg?height=96&width=96"
+                  src={user?.image_url}
+                  className="object-cover shadow-2xl drop-shadow-2xl"
                   alt="تصویر پروفایل"
                 />
                 <AvatarFallback>کاربر</AvatarFallback>
@@ -54,33 +54,29 @@ export default function ProfilePage() {
             </div>
 
             <div className="mt-6 space-y-4">
-              <div className="flex justify-between border-b pb-2">
+              <div className="flex justify-between pb-2">
                 <span className="font-medium">ایمیل:</span>
-                <span>example@example.com</span>
+                <span>{user?.email}</span>
               </div>
-              <div className="flex justify-between border-b pb-2">
+              <div className="flex justify-between pb-2">
                 <span className="font-medium">شماره تماس:</span>
-                <span>۰۹۱۲۳۴۵۶۷۸۹</span>
+                <span>{user?.phone_number}</span>
               </div>
-              <div className="flex justify-between border-b pb-2">
+              <div className="flex justify-between pb-2">
                 <span className="font-medium">سن:</span>
-                <span>۳۲ سال</span>
+                <span>{user?.age || "هنوز وارد نشده"} سال</span>
               </div>
-              <div className="flex justify-between border-b pb-2">
+              <div className="flex justify-between pb-2">
                 <span className="font-medium">شهر:</span>
-                <span>تهران</span>
+                <span>{profileData?.city || "هنوز وارد نشده"}</span>
               </div>
-              <div className="flex justify-between border-b pb-2">
+              <div className="flex justify-between pb-2">
                 <span className="font-medium">استان:</span>
-                <span>تهران</span>
+                <span>{profileData?.state || "هنوز وارد نشده"}</span>
               </div>
-              <div className="flex justify-between border-b pb-2">
-                <span className="font-medium">کشور:</span>
-                <span>ایران</span>
-              </div>
-              <div className="flex justify-between border-b pb-2">
+              <div className="flex justify-between pb-2">
                 <span className="font-medium">تاریخ عضویت:</span>
-                <span>۱۴۰۱/۰۶/۱۵</span>
+                <span>{persianDate}</span>
               </div>
             </div>
 
@@ -98,9 +94,10 @@ export default function ProfilePage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <a
+                <Link
                   href="https://linkedin.com/in/username"
-                  className="flex items-center gap-3 rounded-md border p-3 transition-colors hover:bg-muted"
+                  variant="outline"
+                  className="flex items-center justify-start gap-3 rounded-md p-8 transition-colors hover:bg-muted"
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
                     <Linkedin className="h-5 w-5 text-blue-700 dark:text-blue-300" />
@@ -111,69 +108,11 @@ export default function ProfilePage() {
                       linkedin.com/in/username
                     </p>
                   </div>
-                </a>
-
-                <a
-                  href="https://github.com/username"
-                  className="flex items-center gap-3 rounded-md border p-3 transition-colors hover:bg-muted"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
-                    <Github className="h-5 w-5 text-gray-700 dark:text-gray-300" />
-                  </div>
-                  <div>
-                    <p className="font-medium">گیت‌هاب</p>
-                    <p className="text-sm text-muted-foreground">
-                      github.com/username
-                    </p>
-                  </div>
-                </a>
-
-                <a
-                  href="https://instagram.com/username"
-                  className="flex items-center gap-3 rounded-md border p-3 transition-colors hover:bg-muted"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-pink-100 dark:bg-pink-900">
-                    <Instagram className="h-5 w-5 text-pink-600 dark:text-pink-300" />
-                  </div>
-                  <div>
-                    <p className="font-medium">اینستاگرام</p>
-                    <p className="text-sm text-muted-foreground">
-                      instagram.com/username
-                    </p>
-                  </div>
-                </a>
-
-                <a
-                  href="https://twitter.com/username"
-                  className="flex items-center gap-3 rounded-md border p-3 transition-colors hover:bg-muted"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
-                    <Twitter className="h-5 w-5 text-blue-500 dark:text-blue-300" />
-                  </div>
-                  <div>
-                    <p className="font-medium">توییتر</p>
-                    <p className="text-sm text-muted-foreground">
-                      twitter.com/username
-                    </p>
-                  </div>
-                </a>
-
-                <a
-                  href="https://example.com"
-                  className="flex items-center gap-3 rounded-md border p-3 transition-colors hover:bg-muted"
-                >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
-                    <Globe className="h-5 w-5 text-green-600 dark:text-green-300" />
-                  </div>
-                  <div>
-                    <p className="font-medium">وب‌سایت شخصی</p>
-                    <p className="text-sm text-muted-foreground">example.com</p>
-                  </div>
-                </a>
+                </Link>
               </div>
 
               <div className="mt-4">
-                <Button variant="outline" className="w-full">
+                <Button variant="accent" className="w-full">
                   افزودن شبکه اجتماعی
                 </Button>
               </div>
@@ -235,37 +174,16 @@ export default function ProfilePage() {
             </div>
           </CardContent>
         </Card>
-
-        <Card className="md:col-span-2">
-          <CardHeader className="pb-2">
-            <CardTitle>موقعیت مکانی</CardTitle>
-            <CardDescription>محل سکونت و کار</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-4 rounded-lg border p-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary/20">
-                <MapPin className="h-6 w-6 text-secondary" />
-              </div>
-              <div>
-                <h4 className="font-medium">تهران، ایران</h4>
-                <p className="text-sm text-muted-foreground">
-                  منطقه ۳، خیابان ولیعصر
-                </p>
-                <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-                  <Badge variant="outline">منطقه زمانی: GMT+3:30</Badge>
-                  <Badge variant="outline">کد پستی: ۱۹۹۳۶۳۴۴۱۱</Badge>
-                </div>
-              </div>
-            </div>
-
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
 }
 
 import { BookText, FileText, MessageSquare, Settings } from "lucide-react";
+import { Link } from "@/components/ui/link";
+import { useAuthStore } from "@/store/authState";
+import { usePersianDate } from "@/hooks/useToPersionDate";
+import { useProfileState } from "@/store/profileStore";
 
 const activities = [
   {
