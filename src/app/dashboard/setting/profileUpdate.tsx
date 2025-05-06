@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useAuthStore } from '@/store/authState'
 import React from 'react'
+import SocialMediaEdit from './socialMediaEdit'
 const ProfileUpdate = () => {
   const { user } = useAuthStore()
   return (<>
@@ -83,8 +84,8 @@ const ProfileUpdate = () => {
         </CardContent>
       </Card>
     </div>
-
     <Button className='mt-5 text-lg w-1/3' variant="accent">ذخیره تغییرات</Button>
+    <SocialMediaEdit />
   </>
   )
 }

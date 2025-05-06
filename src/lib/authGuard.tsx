@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import useBaseState from "@/store/baseState";
-import AuthButtons from "@/app/(auth)/rest-password/login-register/auth";
 import { IsLoading } from "@/components/shared/isLoading";
+import AuthButtons from "@/app/(auth)/authWithForm/login-register/auth";
 
 export default function AuthProvider({
   children,

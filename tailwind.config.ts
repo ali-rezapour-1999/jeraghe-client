@@ -45,11 +45,7 @@ const config = {
         },
         card: {
           DEFAULT: "hsl(222 47% 11%)",
-          foreground: "hsl(0 0% 100%)",
-        },
-        popover: {
-          DEFAULT: "hsl(222 47% 11%)",
-          foreground: "hsl(0 0% 100%)",
+          light: "#E9ECEF",
         },
       },
       fontFamily: {

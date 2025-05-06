@@ -1,6 +1,6 @@
 "use client"
 
-import { Briefcase, ChevronLeft, ChevronRight, FileText, LifeBuoy, LogOut, Settings, Ticket, User } from "lucide-react"
+import { Briefcase, ChevronLeft, ChevronRight, FileText, LifeBuoy, LogOut, MessageCircleMore, Settings, Ticket, User } from "lucide-react"
 import { MdDashboard } from "react-icons/md";
 import { usePathname } from "next/navigation"
 import { useState } from "react"
@@ -29,6 +29,7 @@ const mainMenuItems: MenuItem[] = [
   { path: "/dashboard/profile", label: "پروفایل", icon: User },
   { path: "/dashboard/posts", label: "مدیریت مقالات", icon: FileText },
   { path: "/dashboard/idea", label: "مدیریت ایده", icon: Briefcase },
+  { path: "/dashboard/message", label: "پیام ها", icon: MessageCircleMore },
   { path: "/dashboard/ticket", label: "تیکت‌ها", icon: Ticket },
   { path: "/dashboard/setting", label: "تنظیمات", icon: Settings },
 ]

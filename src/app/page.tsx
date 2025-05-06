@@ -1,14 +1,14 @@
-import Image from "next/image";
-import ideaImage from "../../public/main-image/idea_picture.png";
-import partnerShipImage from "../../public/main-image/page_partner.png";
 import MainSectionContainer from "@/components/ui/container";
-import Link from "next/link";
 import { Heading, Paragraph } from "@/components/ui/text";
 import MainNavBar from "@/components/shared/navbar/navbar";
+import { Input } from "@/components/ui/input";
+import { FileText, Lightbulb, Search } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+import Link from "next/link";
 
 const Home = () => {
   return (
-    <main>
+    <main className="h-screen">
       <MainNavBar />
       <section>
         <div className="flex flex-col justify-center items-center gap-3 md:gap-10 mt-6 md:mt-20">
@@ -41,7 +41,7 @@ const Home = () => {
               <span className="underline underline-offset-4 mx-1 text-primary dark:text-light">
                 ایده‌ها همکاری{" "}
               </span>{" "}
-              کنی .
+              کنی
             </Paragraph>
 
             <p className="mt-2 text-gray-500 dark:text-gray-400 text-[.7em] md:text-[1em] 2xl:text-[1.1em]">
@@ -49,31 +49,45 @@ const Home = () => {
             </p>
           </MainSectionContainer>
         </div>
-        <MainSectionContainer
-          delay={0.7}
-          className="w-full flex flex-col md:flex-row px-10 md:px-5 justify-center items-center overflow-hidden mt-5 2xl:mt-10 gap-16"
-        >
-          <Link href="/post/create" className="md:pl-10">
-            <Image
-              src={ideaImage}
-              alt="blog image"
-              width={800}
-              height={800}
-              className="rounded-2xl w-[250px] lg:w-[350px] 2xl:w-[450px]"
-              property="true"
-            />
+      </section>
+      <section className=" flex justify-center items-center mt-10 md:mt-20 flex-col">
+        <div className="w-full md:w-[90%] xl:w-[80%] h-16 flex items-center dark:bg-primary-dark bg-primary-dark/5 rounded-full pl-5 shadow-xl">
+          <Input
+            type="text"
+            className="!border-none !ring-0 !outline-none !focus:border-none !hover:border-none !active:border-none !focus:ring-0 !focus:outline-none !focus-visible:border-none !focus-visible:ring-0 bg-transparent pr-10 text-xl shadow-none h-full"
+            placeholder="جستجو برای شغل و ساخت ایده‌ها"
+          />
+          <Search className="size-7" />
+        </div>
+        <div className="flex items-center flex-col lg:flex-row gap-1 lg:gap-10 mt-20">
+          <Link href="/idea/create">
+            <Card className="hover:shadow-md transition-shadow max-w-[450px] h-[200px] bg-primary-dark/5">
+              <CardContent className="flex justify-center gap-4 items-center px-10 py-4">
+                <Lightbulb className="h-18 w-18 mr-4 text-amber-500" />
+                <div className="w-2/3">
+                  <Heading as="h2" className="text-2xl mb-2 font-semibold">نوشتن ایده</Heading>
+                  <Paragraph className="text-muted-foreground text-wrap text-start">
+                    ایده‌های خام و ناب خود را با دیگران به اشتراک بگذارید؛ اولین قدم برای ساختن آینده، همین‌جاست.
+                  </Paragraph>
+                </div>
+              </CardContent>
+            </Card>
           </Link>
-          <Link href="/ideas/create">
-            <Image
-              src={partnerShipImage}
-              alt="partnership image"
-              width={500}
-              height={500}
-              className="rounded-2xl w-[250px] lg:w-[300px] 2xl:w-[400px]"
-              property="true"
-            />
+          <div className="mx-3 text-2xl w-16 h-16 flex items-center justify-center rounded-full shadow-xl my-10 bg-primary-dark dark:bg-primary text-white dark:text-primary-dark pt-1">یا</div>
+          <Link href="/post/create">
+            <Card className="hover:shadow-md transition-shadow max-w-[450px] h-[200px] bg-primary-dark/5">
+              <CardContent className="flex justify-center gap-4 items-center px-10 py-4">
+                <FileText className="h-18 w-18 mr-4 text-blue-500" />
+                <div className="w-2/3">
+                  <Heading as="h2" className="text-2xl mb-2 font-semibold">نوشتن پست</Heading>
+                  <Paragraph className="text-muted-foreground text-wrap text-justify">
+                    تجربه‌ها، دانش یا تحلیل‌های خود را منتشر کنید و با دیگران تعامل سازنده داشته باشید.
+                  </Paragraph>
+                </div>
+              </CardContent>
+            </Card>
           </Link>
-        </MainSectionContainer>
+        </div>
       </section>
     </main>
   );

@@ -6,12 +6,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import ProfileUpdate from "./profileUpdate";
+import NewPassword from "./newPassword";
 
 export default function SettingsPage() {
   return (
@@ -26,7 +26,7 @@ export default function SettingsPage() {
       <Tabs dir="rtl" defaultValue="profile" className="space-y-4">
         <TabsList>
           <TabsTrigger value="profile">پروفایل</TabsTrigger>
-          <TabsTrigger value="account">حساب کاربری</TabsTrigger>
+          <TabsTrigger value="new-pass">حساب کاربری</TabsTrigger>
           <TabsTrigger value="notifications">اعلان‌ها</TabsTrigger>
           <TabsTrigger value="appearance">ظاهر</TabsTrigger>
         </TabsList>
@@ -35,30 +35,8 @@ export default function SettingsPage() {
           <ProfileUpdate />
         </TabsContent>
 
-        <TabsContent value="account" className="space-y-4">
-          <Card>
-            <CardHeader>
-              <CardTitle>تغییر رمز عبور</CardTitle>
-              <CardDescription>رمز عبور خود را تغییر دهید</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="current-password">رمز عبور فعلی</Label>
-                <Input id="current-password" type="password" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="new-password">رمز عبور جدید</Label>
-                <Input id="new-password" type="password" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="confirm-password">تکرار رمز عبور جدید</Label>
-                <Input id="confirm-password" type="password" />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>تغییر رمز عبور</Button>
-            </CardFooter>
-          </Card>
+        <TabsContent value="new-pass" className="space-y-4">
+          <NewPassword />
         </TabsContent>
 
         <TabsContent value="notifications" className="space-y-4">
