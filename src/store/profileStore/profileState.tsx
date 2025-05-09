@@ -24,7 +24,6 @@ export const useProfileState = create<ProfileState>((set) => ({
 
   profileUpdate: async (data: ProfileResponse): Promise<RequestResult> => {
     set({ isLoading: true });
-
     const response = await profileUpdateAction(data);
     if (response != null) {
       set({ isLoading: false });

@@ -11,11 +11,11 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import ProfileUpdate from "./profileUpdate";
-import NewPassword from "./newPassword";
+import Account from "./account";
 
 export default function SettingsPage() {
   return (
-    <div className="space-y-6">
+    <main className="space-y-6 px-2 lg:px-16">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">تنظیمات</h1>
         <p className="text-muted-foreground">
@@ -26,7 +26,7 @@ export default function SettingsPage() {
       <Tabs dir="rtl" defaultValue="profile" className="space-y-4">
         <TabsList>
           <TabsTrigger value="profile">پروفایل</TabsTrigger>
-          <TabsTrigger value="new-pass">حساب کاربری</TabsTrigger>
+          <TabsTrigger value="account">حساب کاربری</TabsTrigger>
           <TabsTrigger value="notifications">اعلان‌ها</TabsTrigger>
           <TabsTrigger value="appearance">ظاهر</TabsTrigger>
         </TabsList>
@@ -35,8 +35,8 @@ export default function SettingsPage() {
           <ProfileUpdate />
         </TabsContent>
 
-        <TabsContent value="new-pass" className="space-y-4">
-          <NewPassword />
+        <TabsContent value="account" className="space-y-4">
+          <Account />
         </TabsContent>
 
         <TabsContent value="notifications" className="space-y-4">
@@ -155,6 +155,6 @@ export default function SettingsPage() {
           </Card>
         </TabsContent>
       </Tabs>
-    </div>
+    </main>
   );
 }

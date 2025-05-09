@@ -4,9 +4,7 @@ import { RequestResult } from "@/types/baseType";
 import { ProfileResponse } from "@/types/profileStateType";
 import { cookies } from "next/headers";
 
-export const profileUpdateAction = async (
-  updateData: ProfileResponse
-): Promise<RequestResult> => {
+export const profileUpdateAction = async (updateData: ProfileResponse): Promise<RequestResult> => {
   const slug = (await cookies()).get("user_id")?.value;
   const accessToken = (await cookies()).get("access_token")?.value;
 

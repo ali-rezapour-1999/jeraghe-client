@@ -14,7 +14,7 @@ export default function DashboardLayout({
         <DashboardHeader />
         <div className="flex flex-1">
           <DashboardSidebar />
-          <main className="p-4 md:p-6 transition-all duration-300 ease-in-out w-full">
+          <main className="py-4 lg:py-7 transition-all duration-300 ease-in-out w-full px-2 lg:px-16">
             <div>{children}</div>
           </main>
         </div>

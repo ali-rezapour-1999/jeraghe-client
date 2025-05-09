@@ -8,7 +8,7 @@ import Link from "next/link";
 
 const Home = () => {
   return (
-    <main className="h-screen">
+    <main>
       <MainNavBar />
       <section>
         <div className="flex flex-col justify-center items-center gap-3 md:gap-10 mt-6 md:mt-20">
@@ -61,7 +61,7 @@ const Home = () => {
         </div>
         <div className="flex items-center flex-col lg:flex-row gap-1 lg:gap-10 mt-20">
           <Link href="/idea/create">
-            <Card className="hover:shadow-md transition-shadow max-w-[450px] h-[200px] bg-primary-dark/5">
+            <Card className="hover:shadow-md transition-shadow max-w-[450px] h-[200px] dark:bg-primary-dark bg-primary-dark/5 ">
               <CardContent className="flex justify-center gap-4 items-center px-10 py-4">
                 <Lightbulb className="h-18 w-18 mr-4 text-amber-500" />
                 <div className="w-2/3">
@@ -75,7 +75,7 @@ const Home = () => {
           </Link>
           <div className="mx-3 text-2xl w-16 h-16 flex items-center justify-center rounded-full shadow-xl my-10 bg-primary-dark dark:bg-primary text-white dark:text-primary-dark pt-1">یا</div>
           <Link href="/post/create">
-            <Card className="hover:shadow-md transition-shadow max-w-[450px] h-[200px] bg-primary-dark/5">
+            <Card className="hover:shadow-md transition-shadow max-w-[450px] h-[200px] dark:bg-primary-dark bg-primary-dark/5 ">
               <CardContent className="flex justify-center gap-4 items-center px-10 py-4">
                 <FileText className="h-18 w-18 mr-4 text-blue-500" />
                 <div className="w-2/3">

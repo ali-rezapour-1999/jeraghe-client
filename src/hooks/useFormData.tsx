@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-export const useForm = <T extends Record<string, any>>(initialState: T) => {
+export const useCustomFormState = <T extends Record<string, any>>(initialState: T) => {
   const [formState, setFormState] = useState<T>(initialState);
 
   const updateForm = useCallback(
