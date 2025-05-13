@@ -32,48 +32,98 @@ import { Textarea } from "@/components/ui/textarea";
 import { useProfileState } from "@/store/profileStore";
 import { ProfileResponse } from "@/types/profileStateType";
 import { toast } from "sonner";
+import { useEffect } from "react";
+import Spinner from "@/components/shared/spinner";
 
 const formSchema = z.object({
-  gender: z.enum(["man", "woman", ""], {
-    errorMap: () => ({ message: "جنسیت وارد نکردی یا نامعتبره" }),
-  }),
-  state: z.string().min(1, "استان وارد نکردی"),
-  city: z.string(),
-  age: z.object({
-    year: z.string().regex(/^\d{4}$/, "سال باید ۴ رقم باشد"),
-    month: z.string().regex(/^(0?[1-9]|1[0-2])$/, "ماه باید بین ۱ تا ۱۲ باشد"),
-    day: z.string().regex(/^(0?[1-9]|[12]\d|3[01])$/, "روز باید بین ۱ تا ۳۱ باشد"),
-  }),
-  address: z.string(),
-  description: z.string(),
+  gender: z
+    .enum(["مرد", "زن", ""], {
+      errorMap: () => ({ message: "جنسیت وارد نکردی یا نامعتبره" }),
+    })
+    .optional(),
+  state: z.string().optional(),
+  city: z.string().optional(),
+  age: z
+    .object({
+      year: z.string().optional(),
+      month: z.string().optional(),
+      day: z.string().optional(),
+    })
+    .optional()
+    .refine(
+      (data) => {
+        if (data && (data.year || data.month || data.day)) {
+          return data.year && data.month && data.day;
+        }
+        return true;
+      },
+      { message: "تاریخ باید کامل وارد شود یا کاملاً خالی باشد" }
+    ),
+  address: z.string().optional(),
+  description: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 const ProfileUpdate = () => {
-  const { profileUpdate } = useProfileState()
+  const { profileUpdate, profileRequest, profileData, isLoading } =
+    useProfileState();
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      gender: "",
-      state: "",
-      city: "",
-      age: {
-        year: "",
-        month: "",
-        day: "",
-      },
-      address: "",
-      description: "",
+      gender: profileData?.gender || "",
+      state: profileData?.state || "",
+      city: profileData?.city || "",
+      age: profileData?.age
+        ? {
+          year: profileData.age.split("-")[0],
+          month: profileData.age.split("-")[1],
+          day: profileData.age.split("-")[2],
+        }
+        : {
+          year: "",
+          month: "",
+          day: "",
+        },
+      address: profileData?.address || "",
+      description: profileData?.description || "",
     },
   });
 
+  useEffect(() => {
+    profileRequest();
+  }, [profileRequest]);
+
+  const { formState: { isDirty, dirtyFields } } = form;
+
   const onSubmit = async (data: FormData) => {
-    const formattedDate = `${data.age.year}-${data.age.month.padStart(2, "0")}-${data.age.day.padStart(2, "0")}`;
-    const payload: ProfileResponse = {
-      ...data,
-      age: formattedDate,
-    };
+    const payload: ProfileResponse = {};
+
+    if (dirtyFields.gender) {
+      payload.gender = data.gender || "";
+    }
+    if (dirtyFields.state) {
+      payload.state = data.state || "";
+    }
+    if (dirtyFields.city) {
+      payload.city = data.city || "";
+    }
+    if (dirtyFields.age && data.age?.year && data.age?.month && data.age?.day) {
+      payload.age = `${data.age.year}-${data.age.month.padStart(2, "0")}-${data.age.day.padStart(2, "0")}`;
+    }
+    if (dirtyFields.address) {
+      payload.address = data.address || "";
+    }
+    if (dirtyFields.description) {
+      payload.description = data.description || "";
+    }
+
+    if (Object.keys(payload).length === 0) {
+      toast.info("هیچ تغییری برای ارسال وجود ندارد");
+      return;
+    }
+
     const res = await profileUpdate(payload);
     if (res.success) {
       toast.success(res.message);
@@ -106,11 +156,15 @@ const ProfileUpdate = () => {
                         value={field.value}
                       >
                         <SelectTrigger className="w-full py-6">
-                          <SelectValue placeholder="جنسیت خود را انتخاب کنید" />
+                          <SelectValue
+                            placeholder={
+                              profileData?.gender || "جنسیت خود را انتخاب کنید"
+                            }
+                          />
                         </SelectTrigger>
                         <SelectContent className="dark:bg-primary-dark bg-primary border-none">
-                          <SelectItem value="woman">زن</SelectItem>
-                          <SelectItem value="man">مرد</SelectItem>
+                          <SelectItem value="زن">زن</SelectItem>
+                          <SelectItem value="مرد">مرد</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage className="text-red-500 text-sm" />
@@ -122,9 +176,18 @@ const ProfileUpdate = () => {
                   name="age"
                   label="تاریخ تولد"
                   placeholder={{
-                    year: "سال",
-                    month: "ماه",
-                    day: "روز",
+                    year:
+                      profileData?.age && typeof profileData.age === "string"
+                        ? profileData.age.split("-")[0]
+                        : "سال",
+                    month:
+                      profileData?.age && typeof profileData.age === "string"
+                        ? profileData.age.split("-")[1]
+                        : "ماه",
+                    day:
+                      profileData?.age && typeof profileData.age === "string"
+                        ? profileData.age.split("-")[2]
+                        : "روز",
                   }}
                   control={form.control}
                 />
@@ -139,7 +202,10 @@ const ProfileUpdate = () => {
                       <Label>استان</Label>
                       <Input
                         {...field}
-                        placeholder="استان خود را وارد کنید"
+                        placeholder={
+                          profileData?.state || "استان خود را وارد کنید"
+                        }
+                        value={field.value || ""}
                       />
                       <FormMessage className="text-red-500 text-sm" />
                     </FormItem>
@@ -153,7 +219,10 @@ const ProfileUpdate = () => {
                       <Label>شهر</Label>
                       <Input
                         {...field}
-                        placeholder="شهر خود را وارد کنید"
+                        placeholder={
+                          profileData?.city || "شهر خود را وارد کنید"
+                        }
+                        value={field.value || ""}
                       />
                       <FormMessage className="text-red-500 text-sm" />
                     </FormItem>
@@ -169,7 +238,10 @@ const ProfileUpdate = () => {
                     <Label>آدرس</Label>
                     <Input
                       {...field}
-                      placeholder="آدرس خود را وارد کنید"
+                      placeholder={
+                        profileData?.address || "آدرس خود را وارد کنید"
+                      }
+                      value={field.value || ""}
                     />
                     <FormMessage className="text-red-500 text-sm" />
                   </FormItem>
@@ -184,11 +256,15 @@ const ProfileUpdate = () => {
                     <Label htmlFor="bio">بیوگرافی</Label>
                     <Textarea
                       id="bio"
-                      placeholder="درباره خود بنویسید"
+                      placeholder={
+                        profileData?.description || "درباره خود بنویسید"
+                      }
                       {...field}
+                      value={field.value || ""}
                     />
                     <FormDescription>
-                      نوشتن بیوگرافی شما در این قسمت ممکن است به عنوان یک نکته کمک کند.
+                      نوشتن بیوگرافی شما در این قسمت ممکن است به عنوان یک نکته
+                      کمک کند.
                     </FormDescription>
                     <FormMessage className="text-red-500 text-sm" />
                   </FormItem>
@@ -200,8 +276,9 @@ const ProfileUpdate = () => {
             className="mt-5 text-lg w-full"
             variant="accent"
             type="submit"
+            disabled={!isDirty}
           >
-            ذخیره تغییرات
+            {isLoading ? <Spinner /> : "ذخیره تغییرات"}
           </Button>
         </form>
       </Form>

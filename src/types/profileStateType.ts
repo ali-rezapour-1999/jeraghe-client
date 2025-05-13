@@ -1,12 +1,12 @@
 import { IsLoadingType, RequestResult } from "./baseType";
 
 export interface ProfileResponse {
-  age: string | null;
-  gender: string | null;
-  state: string | null;
-  city: string | null;
-  address: string | null;
-  description: string | null;
+  age?: string | null;
+  gender?: "مرد" | "زن" | "" | undefined;
+  state?: string | null;
+  city?: string | null;
+  address?: string | null;
+  description?: string | null;
 }
 
 export interface WorkHistoryResponse {

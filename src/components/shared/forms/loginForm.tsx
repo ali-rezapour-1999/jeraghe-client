@@ -81,8 +81,7 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
         onSubmit={form.handleSubmit(onSubmitLogin)}
         className="flex flex-col space-y-4 px-3"
         dir="rtl"
-      >
-        <FormField
+      > <FormField
           control={form.control}
           name="email"
           render={({ field, fieldState }) => (

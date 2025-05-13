@@ -15,7 +15,7 @@ import Account from "./account";
 
 export default function SettingsPage() {
   return (
-    <main className="space-y-6 px-2 lg:px-16">
+    <main className="space-y-6 ">
       <div>
         <h1 className="text-3xl font-bold tracking-tight">تنظیمات</h1>
         <p className="text-muted-foreground">
