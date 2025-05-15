@@ -97,7 +97,7 @@ const AuthButtons = () => {
 
   return (
     <Dialog open={isOpenAuthRequireModal} onOpenChange={hadlerBacktoHome}>
-      <DialogContent className="sm:max-w-xl dark:bg-primary-dark bg-primary-light w-full">
+      <DialogContent className="sm:max-w-xl dark:bg-primary-dark bg-primary-light w-full border-none">
         <DialogTitle />
         {authTabs}
         <SocialMediaLogin />

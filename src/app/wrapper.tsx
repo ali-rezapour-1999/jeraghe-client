@@ -16,17 +16,16 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { restoreAuthState, userInformation } = useAuthStore();
   const { profileRequest } = useProfileState();
 
-  const initializeAuth = useCallback(async () => {
-    const res = await restoreAuthState();
-    if (res.success) {
-      userInformation();
-      profileRequest();
-    }
-  }, [restoreAuthState, userInformation, profileRequest]);
-
   useEffect(() => {
+    const initializeAuth = async () => {
+      const res = await restoreAuthState();
+      if (res.success) {
+        userInformation();
+        profileRequest();
+      }
+    }
     initializeAuth();
-  }, [initializeAuth]);
+  }, [userInformation, profileRequest, restoreAuthState]);
 
   return (
     <NextThemesProvider
