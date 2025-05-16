@@ -10,16 +10,10 @@ export function middleware(request: NextRequest) {
 
   const isPrivatePath = privatePaths.some((path) => pathname.startsWith(path));
   const isDashPrivatePath = dashPrivatePaths.some((path) =>
-    pathname.startsWith(path),
+    pathname.startsWith(path)
   );
 
-  if (isPrivatePath && !token) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("redirectUrl", pathname);
-    return NextResponse.redirect(loginUrl);
-  }
-
-  if (isDashPrivatePath && !token) {
+  if ((isPrivatePath || isDashPrivatePath) && !token) {
     const response = NextResponse.next();
     response.headers.set("x-require-login", "true");
     return response;
