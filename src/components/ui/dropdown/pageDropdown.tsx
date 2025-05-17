@@ -56,7 +56,7 @@ export const PageDropdownMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="w-max h-8 px-4 md:h-10 min-w-0 flex rounded-lg" variant='ghost'>
+        <Button className="w-max h-8 px-4 md:h-9 min-w-0 flex rounded-full" variant='ghost'>
           <span className="text-[16px]"> کشف محتواها 📜</span>
         </Button>
       </DropdownMenuTrigger>

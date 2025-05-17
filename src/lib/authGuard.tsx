@@ -15,20 +15,25 @@ export default function AuthProvider({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
     const checkAuth = async () => {
       try {
         const response = await fetch(pathname, { method: "HEAD" });
-        if (response.headers.get("x-require-login") === "true") {
+        if (isMounted && response.headers.get("x-require-login") === "true") {
           setOpenAuthRequireModel(true);
         }
       } catch {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
 
     checkAuth();
+
+    return () => {
+      isMounted = false;
+    };
   }, [pathname, setOpenAuthRequireModel]);
 
   if (loading) return <IsLoading />;

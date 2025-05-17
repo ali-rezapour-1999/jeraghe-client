@@ -5,9 +5,7 @@ import { RequestResult } from "@/types/baseType";
 import { SocialMediaResponse } from "@/types/profileStateType";
 import { cookies } from "next/headers";
 
-export const socialMediaCreateAction = async (
-  data: SocialMediaResponse
-): Promise<RequestResult> => {
+export const socialMediaCreateAction = async (data: SocialMediaResponse): Promise<RequestResult> => {
   const slug = (await cookies()).get("user_slug")?.value;
   const accessToken = (await cookies()).get("access_token")?.value;
 

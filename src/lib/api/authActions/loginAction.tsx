@@ -3,10 +3,7 @@ import api from "@/lib/baseApi";
 import { AuthResult } from "@/types/authStateType";
 import { cookies } from "next/headers";
 
-export async function loginAction(
-  email: string,
-  password: string
-): Promise<AuthResult> {
+export async function loginAction(email: string, password: string): Promise<AuthResult> {
   try {
     const response = await api.post("private/auth/login/", { email, password });
     (await cookies()).set("access_token", response.data.data.access, {

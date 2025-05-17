@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import StepOne from "@/app/ideas/create/stepForm/stepOne";
 import { FormState, PageStepProps } from "@/types/ideaStateType";
 import StepTwo from "@/app/ideas/create/stepForm/stepTwo";
-import { useForm } from "@/hooks/useFormData";
+import { useCustomFormState } from "@/hooks/useFormData";
 import StepThree from "@/app/ideas/create/stepForm/setThree";
 
 const PageStep: React.FC<PageStepProps> = ({ step, setStep }) => {
@@ -20,7 +20,7 @@ const PageStep: React.FC<PageStepProps> = ({ step, setStep }) => {
     imageBanner: null,
   };
 
-  const { formState, updateForm } = useForm<FormState>(initialFormState);
+  const { formState, updateForm } = useCustomFormState<FormState>(initialFormState);
 
   useEffect(() => {
     if (formState.content && editorRef.current) {

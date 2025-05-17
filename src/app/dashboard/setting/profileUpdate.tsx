@@ -27,20 +27,15 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { PersianDateInput } from "@/components/shared/dateInput";
-import SocialMediaEdit from "./socialMediaEdit";
+import Skills from "./skill/skills";
 import { Textarea } from "@/components/ui/textarea";
 import { useProfileState } from "@/store/profileStore";
 import { ProfileResponse } from "@/types/profileStateType";
 import { toast } from "sonner";
-import { useEffect } from "react";
 import Spinner from "@/components/shared/spinner";
 
 const formSchema = z.object({
-  gender: z
-    .enum(["مرد", "زن", ""], {
-      errorMap: () => ({ message: "جنسیت وارد نکردی یا نامعتبره" }),
-    })
-    .optional(),
+  gender: z.string().optional(),
   state: z.string().optional(),
   city: z.string().optional(),
   age: z
@@ -66,7 +61,7 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const ProfileUpdate = () => {
-  const { profileUpdate, profileRequest, profileData, isLoading } =
+  const { profileUpdate, profileData, isLoading } =
     useProfileState();
 
   const form = useForm<FormData>({
@@ -91,9 +86,6 @@ const ProfileUpdate = () => {
     },
   });
 
-  useEffect(() => {
-    profileRequest();
-  }, [profileRequest]);
 
   const { formState: { isDirty, dirtyFields } } = form;
 
@@ -282,7 +274,7 @@ const ProfileUpdate = () => {
           </Button>
         </form>
       </Form>
-      <SocialMediaEdit />
+      <Skills />
     </>
   );
 };

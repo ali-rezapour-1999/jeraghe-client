@@ -43,7 +43,7 @@ const Navbar: React.FC = () => {
             )
           ) : (
             <Button
-              className="h-8 md:h-10 flex px-3 "
+              className="h-8 md:h-9 flex px-3 rounded-full"
               variant='main'
               onClick={userStatusHanlder}
             >

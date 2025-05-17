@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import dynamic from "next/dynamic";
 import { useAuthStore } from "@/store/authState";
@@ -23,9 +23,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         userInformation();
         profileRequest();
       }
-    }
+    };
     initializeAuth();
-  }, [userInformation, profileRequest, restoreAuthState]);
+  }, [restoreAuthState, userInformation, profileRequest]);
 
   return (
     <NextThemesProvider

@@ -6,9 +6,10 @@ import { usePathname } from "next/navigation";
 import {
   Bell,
   Briefcase,
+  ChevronLeft,
+  ChevronRight,
   FileText,
   Home,
-  PanelLeft,
   Settings,
   Share2,
   TicketCheck,
@@ -80,7 +81,9 @@ const DashboardSidebar = () => {
           aria-label={isCollapsed ? "باز کردن نوار کناری" : "جمع کردن نوار کناری"}
           aria-expanded={!isCollapsed}
         >
-          <PanelLeft className="h-5 w-5" />
+          {
+            isCollapsed ? <ChevronRight /> : <ChevronLeft />
+          }
         </Button>
       </div>
 

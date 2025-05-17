@@ -32,15 +32,13 @@ interface Props {
 }
 
 const StepOne: React.FC<Props> = ({ formState, updateForm, setStep }) => {
-  const { categoryData, categoryList, isLoading } =
-    useCategroryState() as CategoryState;
+  const { categoryData, categoryList, isLoading } = useCategroryState() as CategoryState;
 
   const isStep1NextDisabled =
     formState.title.trim().length <= 5 ||
     !formState.category ||
     !formState.ideaStatus;
 
-  // حالت‌های باز و بسته شدن برای Popover
   const [openCategory, setOpenCategory] = useState(false);
   const [openIdeaStatus, setOpenIdeaStatus] = useState(false);
 

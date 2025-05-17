@@ -2,7 +2,7 @@ import { IsLoadingType, RequestResult } from "./baseType";
 
 export interface ProfileResponse {
   age?: string | null;
-  gender?: "مرد" | "زن" | "" | undefined;
+  gender?: string | null
   state?: string | null;
   city?: string | null;
   address?: string | null;
@@ -41,4 +41,10 @@ export interface SocialMediaState extends IsLoadingType {
 export interface WorkHistoryState extends IsLoadingType {
   workHistoryData: WorkHistoryResponse | null;
   workHistoryUpdate: (data: WorkHistoryResponse) => Promise<RequestResult>;
+}
+
+export interface SkillState extends IsLoadingType {
+  skillData: [] | null;
+  skillRequest: () => Promise<void>;
+  createSkill: (data: string) => Promise<RequestResult>;
 }
