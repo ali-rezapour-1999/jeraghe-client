@@ -1,6 +1,6 @@
 "use client"
 
-import { Briefcase, ChevronLeft, ChevronRight, FileText, LifeBuoy, LogOut, MessageCircleMore, Settings, Ticket, User } from "lucide-react"
+import { Briefcase, ChevronLeft, ChevronRight, FileText, Heading, LifeBuoy, LogOut, MessageCircleMore, Settings, Ticket, User } from "lucide-react"
 import { MdDashboard } from "react-icons/md";
 import { usePathname } from "next/navigation"
 import { useState } from "react"
@@ -17,6 +17,8 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useAuthStore } from "@/store/authState";
 import { Link } from "../ui/link";
+import useBreakpoint from "@/hooks/useBreakPoint";
+import Logo from "../shared/logo";
 
 interface MenuItem {
   path: string
@@ -43,7 +45,7 @@ export function DashboardSidebar() {
   const pathname = usePathname()
   const { logout } = useAuthStore()
   const [isOpen, setIsOpen] = useState(true)
-
+  const isMobile = useBreakpoint()
   const isActive = (path: string) => pathname === path
 
   const toggleSidebar = () => setIsOpen(!isOpen)
@@ -53,10 +55,7 @@ export function DashboardSidebar() {
       <SidebarMenuButton
         asChild
         isActive={isActive(path)}
-        className={cn(
-          isActive(path) ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground",
-          "text-lg mt-4",
-        )}
+        className={cn(isActive(path) ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground", "text-lg mt-4",)}
       >
         {path === "#logout" ? (
           <Button onClick={logout} className={`flex items-center dark:hover:bg-primary/20 hover:bg-red-800/20  h-12 ${!isOpen ? "justify-center" : "justify-start"}`} variant="ghost">
@@ -76,12 +75,13 @@ export function DashboardSidebar() {
   return (
     <Sidebar
       side="right"
-      className={cn("fixed top-[54px] right-0 z-40 h-[calc(100vh-44px)]  bg-sidebar text-sidebar-foreground transition-all duration-300 ease-in-out md:sticky md:top-[64px] md:h-[calc(100vh-64px)] md:w-64 lg:w-72",
-        isOpen ? "translate-x-0 px-3" : "w-16 md:w-16 lg:w-16",
+      className={cn("fixed top-[54px] right-0 z-40 h-[calc(100vh-44px)] dark:bg-primary-dark bg-primary text-sidebar-foreground transition-all duration-300 ease-in-out md:sticky md:top-[64px] md:h-[calc(100vh-64px)] md:w-64 lg:w-72 !px-10 md:px-0",
       )}
 
     >
-      <SidebarContent>
+
+      <Logo className="md:hidden" />
+      <SidebarContent >
         <SidebarMenu>{mainMenuItems.map((item) => renderMenuItem(item))}</SidebarMenu>
       </SidebarContent>
       <div className="mt-auto">
@@ -89,13 +89,15 @@ export function DashboardSidebar() {
           <SidebarMenu>{footerMenuItems.map((item) => renderMenuItem(item))}</SidebarMenu>
         </SidebarFooter>
       </div>
-      <SidebarRail onClick={toggleSidebar} className={`dark:bg-primary-dark/20 bg-primary hover:bg-white flex items-center rounded-l-full w-6`}>
-        {isOpen ?
-          <ChevronRight className="!w-10 !h-10" />
-          :
-          <ChevronLeft className="!w-10 !h-10" />
-        }
-      </SidebarRail>
-    </Sidebar>
+      {isMobile ? null :
+        < SidebarRail onClick={toggleSidebar} className={`dark:bg-primary-dark/20 bg-primary hover:bg-white flex items-center rounded-l-full w-6`}>
+          {isOpen ?
+            <ChevronRight className="!w-10 !h-10" />
+            :
+            <ChevronLeft className="!w-10 !h-10" />
+          }
+        </SidebarRail>
+      }
+    </Sidebar >
   )
 }
