@@ -3,7 +3,11 @@ import api from "@/lib/baseApi";
 import { RequestResult } from "@/types/baseType";
 import { cookies } from "next/headers";
 
-export const UserSkillsAction = async (data: string): Promise<RequestResult> => {
+export const UserSkillsAction = async ({ title, profile }: { title: string, profile: number }): Promise<RequestResult> => {
+  const data = {
+    title,
+    profile,
+  };
   const accessToken = (await cookies()).get("access_token")?.value;
   if (!accessToken) {
     return {
@@ -14,7 +18,7 @@ export const UserSkillsAction = async (data: string): Promise<RequestResult> => 
   }
 
   try {
-    const response = await api.post(`private/profile/user-skill/`, { title: data }, {
+    const response = await api.post(`private/profile/user-skill/`, data, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -49,7 +53,7 @@ export const UserSkillsAction = async (data: string): Promise<RequestResult> => 
 
 
 export const UserSkillsRequestAction = async (): Promise<RequestResult> => {
-  const accessToken = (await cookies()).get("access_token");
+  const accessToken = (await cookies()).get("access_token")?.value;
   if (!accessToken) {
     return {
       success: false,
@@ -59,7 +63,7 @@ export const UserSkillsRequestAction = async (): Promise<RequestResult> => {
   }
 
   try {
-    const response = await api.get(`/public/user-skill`, {
+    const response = await api.get(`public/get-profile-skill/`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -68,10 +72,11 @@ export const UserSkillsRequestAction = async (): Promise<RequestResult> => {
       data: response.data,
       success: true,
     };
-  } catch {
+  } catch (error: any) {
     return {
       data: {},
       success: false,
+      message: error.response.data.message,
     };
   }
 };

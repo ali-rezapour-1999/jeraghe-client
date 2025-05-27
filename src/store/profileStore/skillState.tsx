@@ -12,15 +12,14 @@ export const useSkillState = create<SkillState>((set) => ({
   skillRequest: async () => {
     set({ isLoading: true });
     const response = await UserSkillsRequestAction();
-    console.log(response)
     if (response != null) set({ isLoading: false });
     if (response.success)
-      set({ skillData: response.data, isLoading: false });
+      set({ skillData: response.data.data, isLoading: false });
   },
 
-  createSkill: async (data: string): Promise<RequestResult> => {
+  createSkill: async ({ title, profile }: { title: string, profile: number }): Promise<RequestResult> => {
     set({ isLoading: true });
-    const response = await UserSkillsAction(data);
+    const response = await UserSkillsAction({ title, profile });
     if (response != null) set({ isLoading: false });
     return { message: response.message, success: response.success };
   },

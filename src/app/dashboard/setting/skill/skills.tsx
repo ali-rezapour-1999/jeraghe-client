@@ -2,24 +2,31 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import SkillItems from './skillItems'
 import useBaseState from '@/store/baseState'
-import SkillFormModal from '@/components/shared/modal/skillFormModal'
 import { Input } from '@/components/ui/input'
 import { useSkillState } from '@/store/profileStore/skillState'
 import { toast } from 'sonner'
+import { useProfileState } from '@/store/profileStore'
+import SkillList from './skillList'
+import AddSkillsForm from './addSkillsForm'
 
 
 const formSchema = z.object({
   title: z.string().min(1, "عنوان وارد نکردی"),
+  profile: z.number().optional(),
 });
 
 const Skills = () => {
   const { setOpneSkillProfileModal } = useBaseState();
-  const { createSkill } = useSkillState()
+  const { profileData } = useProfileState()
+  const { createSkill, skillRequest, skillData } = useSkillState()
+
+  useEffect(() => {
+    skillRequest();
+  }, [skillRequest, createSkill]);
 
   type FormData = z.infer<typeof formSchema>;
   const form = useForm<FormData>({
@@ -31,7 +38,7 @@ const Skills = () => {
 
   const { formState: { isDirty } } = form;
   const onSubmitHandler = async (data: FormData) => {
-    const response = await createSkill(data.title);
+    const response = await createSkill({ title: data.title, profile: profileData!.ID });
     if (response.success) {
       toast.success(response.message);
     }
@@ -60,7 +67,7 @@ const Skills = () => {
                 <FormItem>
                   <FormControl>
                     <Input id="title"
-                      placeholder="عنوان مهارت خود را وارد کنید"
+                      placeholder={skillData?.title || "عنوان مهارت خود را وارد کنید"}
                       className={
                         fieldState.error
                           ? "border-red-500 dark:border-red-400"
@@ -82,9 +89,9 @@ const Skills = () => {
       </form>
     </Form >
     <div className='w-full md:w-1/2'>
-      <SkillItems />
+      <SkillList />
     </div>
-    <SkillFormModal />
+    <AddSkillsForm />
   </main>
 }
 

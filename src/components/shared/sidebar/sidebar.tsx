@@ -3,18 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Bell,
-  Briefcase,
-  ChevronLeft,
-  ChevronRight,
-  FileText,
-  Home,
-  Settings,
-  Share2,
-  TicketCheck,
-  User,
-} from "lucide-react";
+import { Bell, Briefcase, ChevronLeft, ChevronRight, FileText, Home, Settings, Share2, TicketCheck, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -66,7 +55,7 @@ const DashboardSidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <aside
+    <div
       className={cn(
         "flex h-screen flex-col border-r bg-transparent transition-all duration-300 ease-in-out",
         isCollapsed ? "w-[70px]" : "w-[300px] lg:w-[280px]"
@@ -110,7 +99,7 @@ const DashboardSidebar = () => {
           ))}
         </ul>
       </nav>
-    </aside>
+    </div>
   );
 };
 

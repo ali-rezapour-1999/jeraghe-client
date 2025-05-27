@@ -6,21 +6,10 @@ import { IdeaChoiseItems } from "@/constans/ideaChoicesItems";
 import { CategoryState, FormState } from "@/types/ideaStateType";
 import { Heading, Paragraph } from "@/components/ui/text";
 import whyCreateIdea from "../../../../../public/main-image/i_dont_nkow.png";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { ChevronsUpDown, Check } from "lucide-react";
 import { cn } from "@/lib/utils";

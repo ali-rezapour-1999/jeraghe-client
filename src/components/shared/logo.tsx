@@ -3,9 +3,9 @@ import Link from "next/link";
 import React from "react";
 import logoImage from "../../../public/logo.png";
 
-const Logo = () => {
+const Logo = ({ className }: { className?: string }) => {
   return (
-    <Link href="/" className="w-[60px] 2xl:w-[70px] h-[70px]">
+    <Link href="/" className={`w-[60px] 2xl:w-[70px] h-[70px] ${className}`}>
       <Image
         src={logoImage}
         width={70}

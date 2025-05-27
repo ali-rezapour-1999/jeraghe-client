@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
   };
   return (
     <MotionNav
-      className="w-full px-0 md:px-10 py-1 main-nav-bar bg-transparent dark:bg-transparent flex justify-between items-center"
+      className="w-full px-4 md:px-10 py-1 main-nav-bar bg-transparent dark:bg-transparent flex justify-between items-center"
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}

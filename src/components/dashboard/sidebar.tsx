@@ -1,23 +1,14 @@
 "use client"
 
-import { Briefcase, ChevronLeft, ChevronRight, FileText, Heading, LifeBuoy, LogOut, MessageCircleMore, Settings, Ticket, User } from "lucide-react"
+import { Briefcase, ChevronLeft, ChevronRight, FileText, LifeBuoy, LogOut, MessageCircleMore, Settings, Ticket, User } from "lucide-react"
 import { MdDashboard } from "react-icons/md";
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-} from "@/components/ui/sidebar"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarRail } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useAuthStore } from "@/store/authState";
 import { Link } from "../ui/link";
-import useBreakpoint from "@/hooks/useBreakPoint";
 import Logo from "../shared/logo";
 
 interface MenuItem {
@@ -45,7 +36,6 @@ export function DashboardSidebar() {
   const pathname = usePathname()
   const { logout } = useAuthStore()
   const [isOpen, setIsOpen] = useState(true)
-  const isMobile = useBreakpoint()
   const isActive = (path: string) => pathname === path
 
   const toggleSidebar = () => setIsOpen(!isOpen)
@@ -75,11 +65,8 @@ export function DashboardSidebar() {
   return (
     <Sidebar
       side="right"
-      className={cn("fixed top-[54px] right-0 z-40 h-[calc(100vh-44px)] dark:bg-primary-dark bg-primary text-sidebar-foreground transition-all duration-300 ease-in-out md:sticky md:top-[64px] md:h-[calc(100vh-64px)] md:w-64 lg:w-72 !px-10 md:px-0",
-      )}
-
+      className={cn(`fixed top-[54px] right-0 z-40 h-[calc(100vh-44px)] dark:bg-primary-dark/30 bg-primary text-sidebar-foreground transition-all duration-300 ease-in-out md:sticky md:top-[64px] md:h-[calc(100vh-64px)] md:w-64 lg:w-72 !px-3 md:px-0 ${isOpen ? "w-[200px] md:w-64 lg:w-72" : "w-[100px] md:w-16 lg:w-20"}`,)}
     >
-
       <Logo className="md:hidden" />
       <SidebarContent >
         <SidebarMenu>{mainMenuItems.map((item) => renderMenuItem(item))}</SidebarMenu>
@@ -89,15 +76,13 @@ export function DashboardSidebar() {
           <SidebarMenu>{footerMenuItems.map((item) => renderMenuItem(item))}</SidebarMenu>
         </SidebarFooter>
       </div>
-      {isMobile ? null :
-        < SidebarRail onClick={toggleSidebar} className={`dark:bg-primary-dark/20 bg-primary hover:bg-white flex items-center rounded-l-full w-6`}>
-          {isOpen ?
-            <ChevronRight className="!w-10 !h-10" />
-            :
-            <ChevronLeft className="!w-10 !h-10" />
-          }
-        </SidebarRail>
-      }
+      < SidebarRail onClick={toggleSidebar} className={`dark:bg-primary-dark/70 bg-primary hover:bg-white flex items-center rounded-l-full w-5`}>
+        {isOpen ?
+          <ChevronRight className="!w-10 !h-10" />
+          :
+          <ChevronLeft className="!w-10 !h-10" />
+        }
+      </SidebarRail>
     </Sidebar >
   )
 }

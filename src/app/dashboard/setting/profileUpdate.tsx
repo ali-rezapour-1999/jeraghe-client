@@ -1,28 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Form,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Form, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -90,7 +72,9 @@ const ProfileUpdate = () => {
   const { formState: { isDirty, dirtyFields } } = form;
 
   const onSubmit = async (data: FormData) => {
-    const payload: ProfileResponse = {};
+    const payload: ProfileResponse = {
+      ID: profileData!.ID,
+    };
 
     if (dirtyFields.gender) {
       payload.gender = data.gender || "";
@@ -119,6 +103,7 @@ const ProfileUpdate = () => {
     const res = await profileUpdate(payload);
     if (res.success) {
       toast.success(res.message);
+      window.location.reload();
     } else {
       toast.error(res.message);
     }
