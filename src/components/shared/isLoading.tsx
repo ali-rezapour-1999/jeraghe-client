@@ -4,7 +4,7 @@ import Spinner from "./spinner";
 
 export const IsLoading = () => {
   return (
-    <div className="flex gap-2 py-3 items-center">
+    <div className="w-full flex gap-2 py-3 items-center justify-center">
       <Spinner variant="primary" />
       <Heading as="h1" className="text-primary-dark dark:text-light">
         در حال بارگذاری اطلاعات...

@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { useAuthStore } from "@/store/authState";
 import "highlight.js/styles/github.css";
 import "github-markdown-css/github-markdown.css";
-import { useProfileState } from "@/store/profileStore";
 import { Toaster } from "sonner";
 
 const AuthProvider = dynamic(() => import("@/lib/authGuard"), {
@@ -14,18 +13,16 @@ const AuthProvider = dynamic(() => import("@/lib/authGuard"), {
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { restoreAuthState, userInformation } = useAuthStore();
-  const { profileRequest } = useProfileState();
 
   useEffect(() => {
     const initializeAuth = async () => {
       const res = await restoreAuthState();
       if (res.success) {
         userInformation();
-        profileRequest();
       }
     };
     initializeAuth();
-  }, [restoreAuthState, userInformation, profileRequest]);
+  }, []);
 
   return (
     <NextThemesProvider
