@@ -21,6 +21,6 @@ export const categoryListAction = async (): Promise<RequestResult> => {
   }
   return {
     success: false,
-    data: {},
+    data: null,
   };
 };

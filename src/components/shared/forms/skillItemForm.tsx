@@ -3,7 +3,6 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import CategorySelect from '@/components/ui/select/categorySelect';
 import { Heading } from '@/components/ui/text';
-import { Category } from '@/types/baseType';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -35,7 +34,7 @@ const SkillItemForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <Heading className='text-center mb-6'>افزودن/ویرایش مهارت کاربر</Heading>
+        <Heading className='text-center mb-6 mt-5 md:mt-3'>مهارت کاربر</Heading>
         <div className="space-y-4">
           <FormField
             control={form.control}
@@ -46,7 +45,7 @@ const SkillItemForm = () => {
                 <FormControl>
                   <Input
                     id="title"
-                    placeholder="مثلا: طراحی وبسایت با React"
+                    placeholder="مهارت خود را وارد کنید"
                     className={
                       fieldState.error
                         ? "border-red-500 dark:border-red-400"
@@ -65,12 +64,7 @@ const SkillItemForm = () => {
             name="category"
             render={({ field }) => (<FormItem>
               <FormControl>
-                <CategorySelect
-                  label="دسته‌بندی مهارت"
-                  placeholder="انتخاب دسته‌بندی..."
-                  value={field.value as Category | null}
-                  onChange={field.onChange}
-                />
+                <CategorySelect onSelect={field.onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>
