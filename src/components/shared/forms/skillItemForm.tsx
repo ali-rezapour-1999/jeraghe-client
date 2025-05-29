@@ -62,12 +62,18 @@ const SkillItemForm = () => {
           <FormField
             control={form.control}
             name="category"
-            render={({ field }) => (<FormItem>
-              <FormControl>
-                <CategorySelect onSelect={field.onChange} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>دسته‌بندی مهارت</FormLabel>
+                <FormControl>
+                  <CategorySelect
+                    onSelect={field.onChange}
+                    value={field.value as string}
+                    placeholder="انتخاب دسته‌بندی"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
             )}
           />
         </div>

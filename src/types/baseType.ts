@@ -15,7 +15,7 @@ export interface Tags {
 }
 
 export interface Category {
-  id: string;
+  ID: number;
   title: string;
 }
 
