@@ -12,47 +12,60 @@ import { toast } from 'sonner'
 import { useProfileState } from '@/store/profileStore'
 import SkillList from './skillList'
 import AddSkillsForm from './addSkillsForm'
+import CategorySelect from '@/components/ui/select/categorySelect'
+import Spinner from '@/components/shared/spinner'
 
 
 const formSchema = z.object({
-  title: z.string().min(1, "عنوان وارد نکردی"),
+  title: z.string({ required_error: "عنوان وارد نکردی" }),
   profile: z.number().optional(),
+  category: z.number({
+    required_error: "لطفاً یک دسته‌بندی برای مهارت انتخاب کنید.",
+  }),
 });
+type FormData = z.infer<typeof formSchema>;
 
 const Skills = () => {
   const { setOpneSkillProfileModal } = useBaseState();
   const { profileData } = useProfileState()
-  const { createSkill, skillRequest, skillData } = useSkillState()
+  const { createSkill, skillRequest, skillData, isLoading } = useSkillState()
 
   useEffect(() => {
     skillRequest();
   }, [skillRequest, createSkill]);
 
-  type FormData = z.infer<typeof formSchema>;
+  const defaultValues = {
+    title: skillData?.title || "",
+    category: skillData?.category?.ID ?? undefined,
+    profile: profileData?.ID,
+  };
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-    },
+    defaultValues
   });
 
-  const { formState: { isDirty } } = form;
   const onSubmitHandler = async (data: FormData) => {
-    const response = await createSkill({ title: data.title, profile: profileData!.ID });
+    const formData = { title: data.title, profile: profileData!.ID, category: data.category }
+    const response = await createSkill(formData);
     if (response.success) {
       toast.success(response.message);
+      await skillRequest();
     }
     else {
       toast.error(response.message);
     }
   };
 
+  const watchFields = form.watch();
+  const isChanged = watchFields.title !== defaultValues.title || watchFields.category !== defaultValues.category;
+
   return <main className='flex flex-col items-start  gap-10 md:flex-row mt-10'>
     <Form {...form} >
       <form className="md:w-1/2 w-full"
         onSubmit={form.handleSubmit(onSubmitHandler)}
       >
-        <Card >
+        <Card>
           <CardHeader>
             <CardTitle>مهارت کاربر</CardTitle>
             <CardDescription>
@@ -73,17 +86,40 @@ const Skills = () => {
                           ? "border-red-500 dark:border-red-400"
                           : ""
                       }
-                      {...field}
+                      value={field.value ?? ""}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      name={field.name}
+                      ref={field.ref}
                     />
                   </FormControl>
-                  <FormMessage className="text-red-500 text-sm" />
+                  <FormMessage className="text-red-500 text-sm">{fieldState.error?.message}</FormMessage>
                 </FormItem>
               )}
             />
-            <Button disabled={!isDirty} variant="accent" type='submit' className='w-full mt-3' >ذخیره</Button>
+
+            <CardContent className="w-full mt-3 px-0">
+              <FormField
+                control={form.control}
+                name="category"
+                render={({ field, fieldState }) => (
+                  <FormItem className='w-full'>
+                    <FormControl>
+                      <CategorySelect placeholder={skillData?.category?.title || "دسته بندی را انتخاب کنید"} onSelect={(val) => field.onChange(Number(val))}
+                        value={field.value !== undefined ? field.value.toString() : ""}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-500 text-sm">{fieldState.error?.message}</FormMessage>
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+            <Button
+              disabled={form.formState.isSubmitting || !isChanged}
+              variant="accent" type='submit' className='w-full mt-3' >{isLoading || form.formState.isSubmitting ? <Spinner variant="card" /> : "ذخیره"}</Button>
           </CardContent>
           <CardContent>
-            <Button variant="outline" type='button' onClick={() => setOpneSkillProfileModal(true)} className='w-full' >افزودن مهارت</Button>
+            <Button disabled={skillData?.ID == null} variant="outline" type='button' onClick={() => setOpneSkillProfileModal(true)} className='w-full' >افزودن مهارت</Button>
           </CardContent>
         </Card >
       </form>

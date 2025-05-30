@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { ProfileResponse } from "@/types/profileStateType";
 import { Button } from "@/components/ui/button";
 import { useProfileState } from "@/store/profileStore";
-import { IsLoading } from "@/components/shared/isLoading";
 import Spinner from "@/components/shared/spinner";
 import { toast } from "sonner";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -18,10 +17,6 @@ const genderOptions = [
   { id: 2, label: "زن" },
 ];
 
-const stateOptions = [
-  { id: 1, label: "مازندران" },
-  // می‌توانید گزینه‌های بیشتری اضافه کنید
-];
 
 const formSchema = z.object({
   age: z
@@ -68,6 +63,7 @@ const ProfileInfo = () => {
 
   const onSubmitProfileHandler = async (data: FormData) => {
     const transformedData: ProfileResponse = {
+      ID: profileData?.ID || 0,
       age: data.age !== null ? data.age.toString() : null,
       gender: data.gender || null,
       state: data.state || null,
@@ -85,7 +81,6 @@ const ProfileInfo = () => {
     }
   };
 
-  if (!profileData) return <IsLoading />;
 
   return (
     <Form {...form}>
@@ -146,35 +141,6 @@ const ProfileInfo = () => {
         </div>
 
         <div className="w-full flex flex-col lg:flex-row gap-8">
-          <FormField
-            control={form.control}
-            name="state"
-            render={({ field, fieldState }) => (
-              <FormItem className="flex-1">
-                <FormLabel>استان</FormLabel>
-                <FormControl>
-                  <select
-                    className={`w-full p-2 border rounded-md dark:bg-gray-800 dark:text-light text-primary ${fieldState.error ? "border-red-500 dark:border-red-400" : "border-gray-300"
-                      }`}
-                    {...field}
-                    onChange={(e) => field.onChange(e.target.value)}
-                    value={field.value}
-                  >
-                    <option value="" disabled>
-                      استان خود را انتخاب کنید
-                    </option>
-                    {stateOptions.map((option) => (
-                      <option key={option.id} value={option.label}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </FormControl>
-                <FormMessage className="text-red-500 text-sm" />
-              </FormItem>
-            )}
-          />
-
           <FormField
             control={form.control}
             name="city"

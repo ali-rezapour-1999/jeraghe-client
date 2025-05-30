@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 
 export default function DashboardWrapper({ children }: { children: React.ReactNode; }) {
   const { isLoading, profileRequest } = useProfileState()
+
   useEffect(() => {
     profileRequest();
   }, []);

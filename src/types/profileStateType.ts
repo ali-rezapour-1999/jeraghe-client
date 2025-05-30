@@ -1,4 +1,4 @@
-import { IsLoadingType, RequestResult } from "./baseType";
+import { Category, IsLoadingType, RequestResult } from "./baseType";
 
 export interface ProfileResponse {
   ID: number;
@@ -30,6 +30,7 @@ export interface SkillResponse {
   ID: number;
   title: string | null;
   profile_id?: number | null;
+  category?: Category | null;
 }
 
 export interface ProfileState extends IsLoadingType {
@@ -53,5 +54,5 @@ export interface WorkHistoryState extends IsLoadingType {
 export interface SkillState extends IsLoadingType {
   skillData: SkillResponse | null;
   skillRequest: () => Promise<void>;
-  createSkill: ({ title, profile }: { title: string, profile: number }) => Promise<RequestResult>;
+  createSkill: ({ title, profile, category }: { title: string, profile: number, category: number }) => Promise<RequestResult>;
 }

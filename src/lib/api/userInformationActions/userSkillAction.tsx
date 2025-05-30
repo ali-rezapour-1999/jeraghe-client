@@ -3,10 +3,11 @@ import api from "@/lib/baseApi";
 import { RequestResult } from "@/types/baseType";
 import { cookies } from "next/headers";
 
-export const UserSkillsAction = async ({ title, profile }: { title: string, profile: number }): Promise<RequestResult> => {
+export const UserSkillsAction = async ({ title, profile, category }: { title: string, profile: number, category: number }): Promise<RequestResult> => {
   const data = {
     title,
     profile,
+    category
   };
   const accessToken = (await cookies()).get("access_token")?.value;
   if (!accessToken) {

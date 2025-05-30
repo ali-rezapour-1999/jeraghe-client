@@ -1,19 +1,17 @@
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import CategorySelect from '@/components/ui/select/categorySelect';
 import { Heading } from '@/components/ui/text';
 import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import Tags from './tags';
 
 
 const formSchema = z.object({
   title: z.string().min(1, "عنوان مهارت را وارد نکردید"),
-  category: z.string().nullable().refine(id => id !== null && id !== "", {
-    message: "لطفاً یک دسته‌بندی برای مهارت انتخاب کنید.",
-  }),
+  tags: z.array(z.string()).min(1, "تگ را وارد نکردید"),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -23,12 +21,12 @@ const SkillItemForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      category: "",
+      tags: [],
     },
   });
 
   const onSubmit = (data: FormData) => {
-    console.log("Form Data Submitted:", data);
+    return data
   };
 
   return (
@@ -61,16 +59,12 @@ const SkillItemForm = () => {
 
           <FormField
             control={form.control}
-            name="category"
+            name="tags"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>دسته‌بندی مهارت</FormLabel>
+                <FormLabel>تگ‌ها</FormLabel>
                 <FormControl>
-                  <CategorySelect
-                    onSelect={field.onChange}
-                    value={field.value as string}
-                    placeholder="انتخاب دسته‌بندی"
-                  />
+                  <Tags value={field.value as string[]} onChange={field.onChange} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
