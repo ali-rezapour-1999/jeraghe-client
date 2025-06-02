@@ -3,30 +3,60 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Heading } from '@/components/ui/text';
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import Tags from './tags';
+import EnumSelect from '@/components/ui/select/enumSelect';
+import { useEnumState } from '@/store/enumStore/enumState';
+import { EnumType } from '@/types/enumType';
+import { useSkillState } from '@/store/profileStore/skillState';
+import { SkillState } from '@/types/profileStateType';
+import { toast } from 'sonner';
+import { useProfileState } from '@/store/profileStore';
+import useBaseState from '@/store/baseState';
 
 
 const formSchema = z.object({
-  title: z.string().min(1, "عنوان مهارت را وارد نکردید"),
-  tags: z.array(z.string()).min(1, "تگ را وارد نکردید"),
+  skill: z.string({ required_error: "عنوان مهارت را وارد نکردید" }),
+  level: z.string({ required_error: "هنوز سطح تجربه را انتخاب نکردید" }),
+  profile: z.number().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
 
 const SkillItemForm = () => {
+  const { enumData, skillLevelEnumRequest } = useEnumState() as EnumType;
+  const { skillItem, skillItemListRequest } = useSkillState() as SkillState;
+  const { profileData } = useProfileState()
+  const { setOpneSkillProfileModal } = useBaseState();
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: "",
-      tags: [],
+      skill: "",
+      level: "",
+      profile: profileData?.ID,
     },
   });
 
-  const onSubmit = (data: FormData) => {
-    return data
+  useEffect(() => {
+    const request = async () => {
+      await skillLevelEnumRequest();
+    }
+    request();
+  }, [])
+
+  const onSubmit = async (data: FormData) => {
+    const formData = { skill: data.skill, profile: profileData!.ID, level: data.level }
+    const result = await skillItem(formData);
+    if (result.success) {
+      toast.success(result.message);
+      setOpneSkillProfileModal(false)
+      await skillItemListRequest()
+    } else {
+      toast.error(result.message);
+    }
+
   };
 
   return (
@@ -36,7 +66,7 @@ const SkillItemForm = () => {
         <div className="space-y-4">
           <FormField
             control={form.control}
-            name="title"
+            name="skill"
             render={({ field, fieldState }) => (
               <FormItem>
                 <FormLabel>عنوان مهارت</FormLabel>
@@ -59,12 +89,17 @@ const SkillItemForm = () => {
 
           <FormField
             control={form.control}
-            name="tags"
+            name="level"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>تگ‌ها</FormLabel>
+                <FormLabel>سطح تجربه</FormLabel>
                 <FormControl>
-                  <Tags value={field.value as string[]} onChange={field.onChange} />
+                  <EnumSelect
+                    enumData={enumData}
+                    value={field.value as string}
+                    onSelect={(val) => field.onChange(val)}
+                    placeholder="سطح تجربه را انتخاب کنید"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>

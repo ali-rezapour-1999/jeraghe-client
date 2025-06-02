@@ -2,7 +2,10 @@ import { create } from "zustand";
 
 import { ProfileResponse, ProfileState } from "@/types/profileStateType";
 import { RequestResult } from "@/types/baseType";
-import { profileRequestAction, profileUpdateAction } from "@/lib/api/userInformationActions";
+import {
+  profileRequestAction,
+  profileUpdateAction,
+} from "@/api/userInformationActions";
 
 export const useProfileState = create<ProfileState>((set) => ({
   isLoading: false,

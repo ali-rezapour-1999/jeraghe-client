@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { categoryListType } from "@/types/baseType";
-import { categoryListAction } from "@/lib/api/baseActions/categoryAction";
+import { categoryListAction } from "@/api/baseActions/categoryAction";
 
 export const useCategroryState = create<categoryListType>((set) => ({
   categoryData: [],

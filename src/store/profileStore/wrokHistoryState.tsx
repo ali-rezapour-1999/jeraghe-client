@@ -7,7 +7,7 @@ import { RequestResult } from "@/types/baseType";
 import {
   workHistoryAction,
   workHistoryUpdateAction,
-} from "@/lib/api/userInformationActions";
+} from "@/api/userInformationActions";
 
 export const useWorkHistoryState = create<WorkHistoryState>((set) => ({
   isLoading: false,

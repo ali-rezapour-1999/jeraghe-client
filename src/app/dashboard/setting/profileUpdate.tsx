@@ -120,7 +120,7 @@ const ProfileUpdate = () => {
                 اطلاعات پروفایل خود را ویرایش کنید
               </CardDescription>
             </CardHeader>
-            <CardContent className="w-full px-2 md:px-30">
+            <CardContent className="w-full px-2 md:px-16 lg:px-32">
               <div className="grid grid-cols-1 gap-4 md:gap-10 md:grid-cols-2">
                 <FormField
                   name="gender"

@@ -1,4 +1,6 @@
-import { Category, IsLoadingType, RequestResult } from "./baseType";
+import { BaseApiType, baseApiType, Category, IsLoadingType, RequestResult, Tags } from "./baseType";
+import { SkillLevel } from "./enumType";
+
 
 export interface ProfileResponse {
   ID: number;
@@ -51,8 +53,18 @@ export interface WorkHistoryState extends IsLoadingType {
   workHistoryUpdate: (data: WorkHistoryResponse) => Promise<RequestResult>;
 }
 
+export interface SkillItemsList extends BaseApiType {
+  level: SkillLevel;
+  profile_id: number;
+  skill_id: number;
+  tag: Tags
+}
+
 export interface SkillState extends IsLoadingType {
   skillData: SkillResponse | null;
+  skillItemListData: SkillItemsList[] | null;
   skillRequest: () => Promise<void>;
   createSkill: ({ title, profile, category }: { title: string, profile: number, category: number }) => Promise<RequestResult>;
+  skillItem: ({ skill, profile, level }: { skill: string, profile: number, level: string }) => Promise<RequestResult>;
+  skillItemListRequest: () => Promise<void>
 }

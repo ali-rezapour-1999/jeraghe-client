@@ -35,22 +35,13 @@ const Navbar: React.FC = () => {
         </div>
 
         <div>
-          {isAuthenticated && user?.username ? (
-            isLoading ? (
-              <Spinner variant="primary" />
-            ) : (
-              <UserDropdownMenu />
-            )
-          ) : (
-            <Button
-              className="h-8 md:h-9 flex px-3 rounded-full"
-              variant='main'
-              onClick={userStatusHanlder}
-            >
-              <Paragraph className="hidden md:block">ورود / ثبت نام</Paragraph>
-              <UserRound size={20} />
-            </Button>
-          )}
+          {isAuthenticated && user?.username ? (isLoading ? (<Spinner variant="primary" />) : (<UserDropdownMenu />))
+            : (
+              <Button className="h-8 md:h-9 flex px-3 rounded-xl" variant='main' onClick={userStatusHanlder}>
+                <Paragraph>ورود / ثبت نام</Paragraph>
+                <UserRound size={20} />
+              </Button>
+            )}
         </div>
       </div>
     </MotionNav>

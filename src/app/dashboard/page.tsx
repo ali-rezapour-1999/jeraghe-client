@@ -1,9 +1,7 @@
 'use client'
 import {
   Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
+  CardContent, CardDescription, CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Overview } from "@/components/dashboard/overview";

@@ -2,7 +2,7 @@ export interface RequestResult {
   success?: boolean;
   status?: number;
   message?: string;
-  data?: any;
+  result?: any;
 }
 
 export interface IsLoadingType {
@@ -10,7 +10,7 @@ export interface IsLoadingType {
   setLoading: (isLoading: boolean) => void;
 }
 
-export interface Tags {
+export interface Tags extends BaseApiType {
   title: string;
 }
 
@@ -19,11 +19,13 @@ export interface Category {
   title: string;
 }
 
-export interface baseApiType {
-  slug?: number;
-  created_at?: string;
-  updated_at?: string;
-  is_active?: boolean;
+export interface BaseApiType {
+  ID?: number;
+  CreatedAt?: string;
+  UpdatedAt?: string;
+  IsActive?: boolean;
+  DeletedAt?: string;
+  slug_id?: string;
 }
 
 export interface categoryListType extends IsLoadingType {

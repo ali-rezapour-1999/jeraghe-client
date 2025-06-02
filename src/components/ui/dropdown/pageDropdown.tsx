@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Paragraph } from "@/components/ui/text";
+import { BsMenuDown } from "react-icons/bs";
 
 type navLintType = {
   id: number;
@@ -56,8 +57,9 @@ export const PageDropdownMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="w-max h-8 px-4 md:h-9 min-w-0 flex rounded-full" variant='ghost'>
-          <span className="text-[16px]"> کشف محتواها 📜</span>
+        <Button className="w-max h-8 py-2 px-4 md:h-9 min-w-0 flex rounded-xl" variant='ghost'>
+          <span className="text-[16px] hidden md:block"> کشف محتواها</span>
+          <BsMenuDown className="size-6" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>

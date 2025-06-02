@@ -6,14 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeClosed, RefreshCw } from "lucide-react";
 import { Heading } from "@/components/ui/text";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -79,9 +72,10 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmitLogin)}
-        className="flex flex-col space-y-4 px-3"
+        className="flex flex-col space-y-5 px-3"
         dir="rtl"
-      > <FormField
+      >
+        <FormField
           control={form.control}
           name="email"
           render={({ field, fieldState }) => (
@@ -125,7 +119,7 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
                   />
                   <Button
                     aria-label="toggle password visibility"
-                    className="absolute inset-y-0 left-1 top-2 flex items-center pr-3 bg-transparent min-w-0 hover:bg-transparent"
+                    className="absolute inset-y-0 left-1 top-0.5 flex items-center pr-3 bg-transparent min-w-0 hover:bg-transparent"
                     type="button"
                     onClick={toggleVisibility}
                   >

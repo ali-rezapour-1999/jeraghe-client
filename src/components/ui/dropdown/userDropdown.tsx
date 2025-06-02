@@ -20,7 +20,7 @@ const UserDropdownMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="h-8 md:h-9 flex rounded-full px-3" variant="main">
+        <Button className="h-8 md:h-9 flex rounded-xl px-3" variant="main">
           <Paragraph>{user.username}</Paragraph>
           <UserRound size={20} />
         </Button>

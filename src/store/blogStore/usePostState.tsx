@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { ViewPostType } from "@/types/postStateType";
 import { RequestResult } from "@/types/baseType";
-import { createPostAction } from "@/lib/api/postBlogActions/createPostAction";
+import { createPostAction } from "@/api/postBlogActions/createPostAction";
 
 export const useUserPostState = create<ViewPostType>((set) => ({
   postData: null,

@@ -8,7 +8,7 @@ import {
   socialMediaAction,
   socialMediaCreateAction,
   socialMediaDeleteAction,
-} from "@/lib/api/userInformationActions";
+} from "@/api/userInformationActions";
 export const useSocialMediaState = create<SocialMediaState>((set) => ({
   isLoading: false,
   socialMediaData: null,

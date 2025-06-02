@@ -7,7 +7,7 @@ import {
   registerAction,
   updateAction,
   userInfoAction,
-} from "@/lib/api/authActions";
+} from "@/api/authActions";
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
