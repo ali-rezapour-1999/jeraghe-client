@@ -64,7 +64,7 @@ const Skills = () => {
   const watchFields = form.watch();
   const isChanged = watchFields.title !== defaultValues.title || watchFields.category !== defaultValues.category;
 
-  return <main className='flex flex-col items-start gap-10 mt-10 lg:mt-0 w-full lg:w-1/3'>
+  return <main className='flex flex-col md:flex-row lg:flex-col items-start gap-10 mt-10 lg:mt-0 w-full lg:w-1/3'>
     <Form {...form} >
       <form className="w-full"
         onSubmit={form.handleSubmit(onSubmitHandler)}
