@@ -18,7 +18,7 @@ export const useSocialMediaState = create<SocialMediaState>((set) => ({
     set({ isLoading: true });
     const response = await socialMediaAction();
     if (response.success)
-      set({ socialMediaData: response.data, isLoading: false });
+      set({ socialMediaData: response.result, isLoading: false });
   },
 
   socialMedia: async (data: SocialMediaResponse): Promise<RequestResult> => {

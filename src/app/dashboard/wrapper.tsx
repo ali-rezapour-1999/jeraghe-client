@@ -8,7 +8,7 @@ export default function DashboardWrapper({ children }: { children: React.ReactNo
 
   useEffect(() => {
     profileRequest();
-  }, []);
+  }, [profileRequest])
 
   if (isLoading) return <IsLoading />
   return (

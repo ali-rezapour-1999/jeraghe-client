@@ -10,11 +10,11 @@ export const categoryListAction = async (): Promise<RequestResult> => {
     return {
       status: response.status,
       success: true,
-      data: response.data,
+      result: response.data,
     };
   }
   return {
     success: false,
-    data: {},
+    result: {},
   };
 };

@@ -17,7 +17,7 @@ export const useProfileState = create<ProfileState>((set) => ({
     const response = await profileRequestAction();
     if (response.success)
       set({
-        profileData: response.data.data,
+        profileData: response.result.data,
         isLoading: false,
       });
   },

@@ -22,7 +22,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
       }
     };
     initializeAuth();
-  }, []);
+  }, [restoreAuthState, userInformation]);
 
   return (
     <NextThemesProvider

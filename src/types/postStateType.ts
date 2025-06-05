@@ -1,6 +1,6 @@
-import { baseApiType, IsLoadingType, RequestResult } from "./baseType";
+import { BaseApiType, IsLoadingType, RequestResult } from "./baseType";
 
-export interface PostType extends baseApiType {
+export interface PostType extends BaseApiType {
   id?: number;
   title?: string;
   content?: string;

@@ -17,7 +17,7 @@ const CategorySelect = ({ onSelect, placeholder = "دسته بندی رو انت
 
   useEffect(() => {
     if (autoFetch) categoryList();
-  }, [autoFetch]);
+  }, [categoryList, autoFetch]);
 
 
   const handleSelectChange = (selectedId: string) => {

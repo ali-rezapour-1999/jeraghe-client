@@ -4,14 +4,7 @@ import { Eye, EyeClosed } from "lucide-react";
 import { Heading } from "@/components/ui/text";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import Spinner from "../spinner";
 import Link from "next/link";

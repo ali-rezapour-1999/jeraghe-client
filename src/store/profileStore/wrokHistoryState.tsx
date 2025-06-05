@@ -18,7 +18,7 @@ export const useWorkHistoryState = create<WorkHistoryState>((set) => ({
     set({ isLoading: true });
     const respose = await workHistoryAction();
     if (respose.success) {
-      set({ workHistoryData: respose.data, isLoading: false });
+      set({ workHistoryData: respose.result, isLoading: false });
     }
   },
 

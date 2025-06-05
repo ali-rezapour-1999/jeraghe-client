@@ -14,7 +14,7 @@ export const useUserPostState = create<ViewPostType>((set) => ({
     const response = await createPostAction(data);
     if (response.success)
       set({
-        postData: response.data,
+        postData: response.result,
         isLoading: false,
       });
     return { message: response.message, success: response.success };

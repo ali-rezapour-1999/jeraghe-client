@@ -30,7 +30,7 @@ export const createPostAction = async (
       success: true,
       status: response.status,
       message: "پست با موفقیت ایجاد شد",
-      data: response.data,
+      result: response.data,
     };
   } catch (error: any) {
     return {

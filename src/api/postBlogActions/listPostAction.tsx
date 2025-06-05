@@ -20,11 +20,11 @@ export const listPostAction = async (): Promise<RequestResult> => {
   if (response.status == 200) {
     return {
       success: true,
-      data: response.data as PostType,
+      result: response.data as PostType,
     };
   }
   return {
     success: false,
-    data: {} as PostType,
+    result: {} as PostType,
   };
 };

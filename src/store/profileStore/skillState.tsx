@@ -55,7 +55,6 @@ export const useSkillState = create<SkillState>((set) => ({
 
   skillItemDelete: async (id: number): Promise<RequestResult> => {
     const response = await DeleteSkillItem({ id })
-    console.log(response)
     if (response != null) {
       return { success: response.success, message: response.message };
     }

@@ -23,12 +23,12 @@ export const workHistoryAction = async (): Promise<RequestResult> => {
       },
     });
     return {
-      data: response.data as WorkHistoryResponse,
+      result: response.data as WorkHistoryResponse,
       success: true,
     };
   } catch {
     return {
-      data: {} as WorkHistoryResponse,
+      result: {} as WorkHistoryResponse,
       success: false,
     };
   }

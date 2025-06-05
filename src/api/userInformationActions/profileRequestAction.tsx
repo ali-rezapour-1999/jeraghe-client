@@ -14,19 +14,19 @@ export const profileRequestAction = async (): Promise<RequestResult> => {
         },
       });
       return {
-        data: response.data,
+        result: response.data,
         message: response.data.message,
         success: true,
       };
     } else {
       return {
-        data: {} as ProfileResponse,
+        result: {} as ProfileResponse,
         success: false,
       };
     }
   } catch {
     return {
-      data: {} as ProfileResponse,
+      result: {} as ProfileResponse,
       success: false,
     };
   }

@@ -13,7 +13,7 @@ export const useCategroryState = create<categoryListType>((set) => ({
     if (response != null) {
       if (response.success)
         set({
-          categoryData: response.data.data,
+          categoryData: response.result.data,
           isLoading: false,
         });
     }

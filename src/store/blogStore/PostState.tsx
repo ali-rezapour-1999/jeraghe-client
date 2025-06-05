@@ -12,7 +12,7 @@ export const useListPostState = create<ViewPostType>((set) => ({
     const response = await listPostAction();
     if (response.success)
       set({
-        postData: response.data,
+        postData: response.result,
         isLoading: false,
       });
   },

@@ -24,12 +24,12 @@ export const socialMediaAction = async (): Promise<RequestResult> => {
   if (response.status == 200 || response.status == 201) {
     return {
       success: true,
-      data: response.data as SocialMediaResponse,
+      result: response.data as SocialMediaResponse,
     };
   }
 
   return {
     success: false,
-    data: {} as SocialMediaResponse,
+    result: {} as SocialMediaResponse,
   };
 };
