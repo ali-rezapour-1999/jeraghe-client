@@ -1,6 +1,6 @@
-import { baseApiType } from "./baseType";
+import { BaseApiType } from "./baseType";
 
-export interface User extends baseApiType {
+export interface User extends BaseApiType {
   email: string;
   image_url?: any;
   username: string;
@@ -23,11 +23,7 @@ export interface AuthState {
   setLoading: (isLoading: boolean) => void;
   restoreAuthState: () => Promise<AuthResult>;
   login: (email: string, password: string) => Promise<AuthResult>;
-  register: (
-    email: string,
-    password: string,
-    username: string,
-  ) => Promise<AuthResult>;
+  register: (email: string, password: string, username: string) => Promise<AuthResult>;
   logout: () => void;
   userUpdate: (data: FormData) => Promise<AuthResult>;
   userInformation: () => void;

@@ -14,11 +14,15 @@ import { SkillState } from '@/types/profileStateType';
 import { toast } from 'sonner';
 import { useProfileState } from '@/store/profileStore';
 import useBaseState from '@/store/baseState';
+import { IsLoading } from '../isLoading';
 
 
 const formSchema = z.object({
-  skill: z.string({ required_error: "عنوان مهارت را وارد نکردید" }),
-  level: z.string({ required_error: "هنوز سطح تجربه را انتخاب نکردید" }),
+  id: z.number().optional(),
+  skill_id: z.number().optional(),
+  skill: z.string({ required_error: "عنوان مهارت را وارد نکردید" }).min(1, { message: "عنوان مهارت را وارد نکردید" }).max(30, { message: "عنوان مهارت بیش از 30 کاراکتر است" }),
+  level: z.string({ required_error: "هنوز سطح تجربه را انتخاب نکردید" })
+    .min(1, { message: "سطح تجربه را انتخاب نکردید" }),
   profile: z.number().optional(),
 });
 
@@ -26,15 +30,17 @@ type FormData = z.infer<typeof formSchema>;
 
 const SkillItemForm = () => {
   const { enumData, skillLevelEnumRequest } = useEnumState() as EnumType;
-  const { skillItem, skillItemListRequest } = useSkillState() as SkillState;
+  const { skillItemCreate, skillItemListRequest, getItemData, isLoading, skillItemDelete } = useSkillState() as SkillState;
   const { profileData } = useProfileState()
   const { setOpneSkillProfileModal } = useBaseState();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      skill: "",
-      level: "",
+      id: getItemData == null ? 0 : getItemData?.ID,
+      skill_id: getItemData == null ? 0 : getItemData?.tag.ID,
+      skill: getItemData == null ? "" : getItemData?.tag.title || "",
+      level: getItemData == null ? "" : getItemData?.level || "",
       profile: profileData?.ID,
     },
   });
@@ -44,20 +50,33 @@ const SkillItemForm = () => {
       await skillLevelEnumRequest();
     }
     request();
-  }, [])
+  }, [skillLevelEnumRequest])
 
-  const onSubmit = async (data: FormData) => {
-    const formData = { skill: data.skill, profile: profileData!.ID, level: data.level }
-    const result = await skillItem(formData);
+
+  const onSubmit = async () => {
+    const formData = form.getValues()
+    const result = await skillItemCreate(formData);
     if (result.success) {
       toast.success(result.message);
+      skillItemListRequest()
       setOpneSkillProfileModal(false)
-      await skillItemListRequest()
     } else {
       toast.error(result.message);
     }
-
   };
+  const removeSkillItem = async () => {
+
+    const result = await skillItemDelete(getItemData?.ID ?? 0);
+    if (result.success) {
+      toast.success("مهارت حذف شد");
+      skillItemListRequest()
+      setOpneSkillProfileModal(false)
+    } else {
+      toast.error(result.message);
+    }
+  };
+
+  if (isLoading) return <IsLoading />
 
   return (
     <Form {...form}>
@@ -106,9 +125,14 @@ const SkillItemForm = () => {
             )}
           />
         </div>
-        <Button variant='accent' type="submit" className='w-full mt-8'>
-          افزودن مهارت
-        </Button>
+        <div>
+          <Button variant='accent' type="submit" className='w-full mt-8'>
+            {getItemData == null ? "افزودن مهارت" : "ویرایش مهارت"}
+          </Button>
+          <Button variant='outline' type="button" className='w-full mt-8' onClick={removeSkillItem}>
+            حذف مهارت
+          </Button>
+        </div>
       </form>
     </Form>
   );

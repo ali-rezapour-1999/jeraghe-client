@@ -28,7 +28,7 @@ type FormData = z.infer<typeof formSchema>;
 const Skills = () => {
   const { setOpneSkillProfileModal } = useBaseState();
   const { profileData } = useProfileState()
-  const { createSkill, skillRequest, skillData, isLoading } = useSkillState()
+  const { createSkill, skillRequest, skillData, isLoading, setItemNull } = useSkillState()
 
   useEffect(() => {
     skillRequest();
@@ -57,12 +57,16 @@ const Skills = () => {
     }
   };
 
+  const openAddSkillModal = () => {
+    setItemNull();
+    setOpneSkillProfileModal(true);
+  }
   const watchFields = form.watch();
   const isChanged = watchFields.title !== defaultValues.title || watchFields.category !== defaultValues.category;
 
-  return <main className='flex flex-col items-start  gap-10 md:flex-row mt-10'>
+  return <main className='flex flex-col items-start gap-10 mt-10 lg:mt-0 w-full lg:w-1/3'>
     <Form {...form} >
-      <form className="md:w-1/2 w-full"
+      <form className="w-full"
         onSubmit={form.handleSubmit(onSubmitHandler)}
       >
         <Card>
@@ -119,12 +123,12 @@ const Skills = () => {
               variant="accent" type='submit' className='w-full mt-3' >{isLoading || form.formState.isSubmitting ? <Spinner variant="card" /> : "ذخیره"}</Button>
           </CardContent>
           <CardContent>
-            <Button disabled={skillData?.ID == null} variant="outline" type='button' onClick={() => setOpneSkillProfileModal(true)} className='w-full' >افزودن مهارت</Button>
+            <Button disabled={skillData?.ID == null} variant="outline" type='button' onClick={openAddSkillModal} className='w-full' >افزودن مهارت</Button>
           </CardContent>
         </Card >
       </form>
     </Form >
-    <div className='w-full md:w-1/2'>
+    <div className='w-full'>
       <SkillList />
     </div>
     <AddSkillsForm />

@@ -28,7 +28,6 @@ const EnumSelect = ({
     return selected ? selected.label : "";
   }, [value, enumData]);
 
-  console.log(enumData)
   return (
     <Select onValueChange={handleSelectChange} value={value}>
       <SelectTrigger className="w-full">

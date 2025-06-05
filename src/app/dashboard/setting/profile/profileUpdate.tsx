@@ -110,10 +110,10 @@ const ProfileUpdate = () => {
   };
 
   return (
-    <>
+    <main className="w-full flex flex-col lg:flex-row gap-10">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <Card className="w-full">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="w-full lg:w-2/3">
+          <Card className="w-full ">
             <CardHeader>
               <CardTitle>اطلاعات پروفایل</CardTitle>
               <CardDescription>
@@ -259,8 +259,10 @@ const ProfileUpdate = () => {
           </Button>
         </form>
       </Form>
+
+      {/* Skills Items */}
       <Skills />
-    </>
+    </main>
   );
 };
 

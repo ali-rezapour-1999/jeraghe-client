@@ -1,13 +1,6 @@
 import { create } from "zustand";
 import { AuthResult, AuthState } from "@/types/authStateType";
-import {
-  isAuthCheckAction,
-  loginAction,
-  logoutAction,
-  registerAction,
-  updateAction,
-  userInfoAction,
-} from "@/api/authActions";
+import { isAuthCheckAction, loginAction, logoutAction, registerAction, updateAction, userInfoAction } from "@/api/authActions";
 
 export const useAuthStore = create<AuthState>((set) => ({
   isAuthenticated: false,
@@ -38,11 +31,7 @@ export const useAuthStore = create<AuthState>((set) => ({
     return { message: response.message, success: response.success };
   },
 
-  register: async (
-    email: string,
-    password: string,
-    username: string
-  ): Promise<AuthResult> => {
+  register: async (email: string, password: string, username: string): Promise<AuthResult> => {
     set({ isLoading: true });
 
     const response = await registerAction(email, password, username);

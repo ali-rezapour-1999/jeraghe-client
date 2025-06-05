@@ -1,12 +1,14 @@
 import { create } from "zustand";
-import { SkillState } from "@/types/profileStateType";
+import { SkillItemType, SkillState } from "@/types/profileStateType";
 import { RequestResult } from "@/types/baseType";
-import { UserSkillsAction, UserSkillsRequestAction, SkillItemAction, SkillItemListAction } from "@/api/userInformationActions/userSkillAction";
+import { DeleteSkillItem, GetSkillItem, SkillItemAction, SkillItemListAction, UserSkillsAction, UserSkillsRequestAction } from "@/api/userInformationActions/userSkillAction";
 export const useSkillState = create<SkillState>((set) => ({
   isLoading: false,
   skillData: null,
+  getItemData: null,
   skillItemListData: [],
   setLoading: (isLoading) => set({ isLoading }),
+  setItemNull: () => set({ getItemData: null }),
 
   skillRequest: async () => {
     set({ isLoading: true });
@@ -27,9 +29,9 @@ export const useSkillState = create<SkillState>((set) => ({
     return { message: response.message, success: response.success };
   },
 
-  skillItem: async ({ skill, profile, level }: { skill: string; profile: number; level: string }): Promise<RequestResult> => {
+  skillItemCreate: async ({ skill, profile, level, id, skill_id }: SkillItemType): Promise<RequestResult> => {
     set({ isLoading: true });
-    const response = await SkillItemAction({ skill, profile, level });
+    const response = await SkillItemAction({ skill, profile, level, id, skill_id });
     if (response != null) set({ isLoading: false });
     return { message: response.message, success: response.success };
   },
@@ -37,9 +39,27 @@ export const useSkillState = create<SkillState>((set) => ({
   skillItemListRequest: async () => {
     set({ isLoading: true });
     const response = await SkillItemListAction()
-    console.log(response)
     if (response != null) {
       set({ skillItemListData: response.result, isLoading: false });
     }
   },
+
+  getSkillItem: async (ID: number): Promise<RequestResult> => {
+    const response = await GetSkillItem({ ID })
+    if (response != null) {
+      set({ getItemData: response.result, isLoading: false });
+      return { success: response.success };
+    }
+    return { success: false };
+  },
+
+  skillItemDelete: async (id: number): Promise<RequestResult> => {
+    const response = await DeleteSkillItem({ id })
+    console.log(response)
+    if (response != null) {
+      return { success: response.success, message: response.message };
+    }
+    return { success: false };
+  }
 }));
+

@@ -1,11 +1,11 @@
-import { BaseApiType, baseApiType, Category, IsLoadingType, RequestResult, Tags } from "./baseType";
+import { BaseApiType, Category, IsLoadingType, RequestResult, Tags } from "./baseType";
 import { SkillLevel } from "./enumType";
 
 
 export interface ProfileResponse {
   ID: number;
   age?: string | null;
-  gender?: string | null
+  gender?: string | null;
   state?: string | null;
   city?: string | null;
   address?: string | null;
@@ -60,11 +60,23 @@ export interface SkillItemsList extends BaseApiType {
   tag: Tags
 }
 
+export interface SkillItemType {
+  id?: number;
+  skill_id?: number;
+  skill: string;
+  level: SkillLevel | string;
+  profile?: number;
+}
+
 export interface SkillState extends IsLoadingType {
   skillData: SkillResponse | null;
   skillItemListData: SkillItemsList[] | null;
   skillRequest: () => Promise<void>;
   createSkill: ({ title, profile, category }: { title: string, profile: number, category: number }) => Promise<RequestResult>;
-  skillItem: ({ skill, profile, level }: { skill: string, profile: number, level: string }) => Promise<RequestResult>;
+  skillItemCreate: ({ skill, profile, level, skill_id, id }: SkillItemType) => Promise<RequestResult>;
   skillItemListRequest: () => Promise<void>
+  getSkillItem: (id: number) => Promise<RequestResult>
+  getItemData: SkillItemsList | null
+  setItemNull: () => void
+  skillItemDelete: (id: number) => Promise<RequestResult>;
 }

@@ -1,6 +1,7 @@
 import { IsLoading } from '@/components/shared/isLoading'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
+import useBaseState from '@/store/baseState'
 import { useSkillState } from '@/store/profileStore/skillState'
 import { SkillLevel } from '@/types/enumType'
 import React, { useEffect } from 'react'
@@ -14,49 +15,37 @@ const skillLevels = [
   { label: 'نوآموز', level: SkillLevel.Novice, color: 'bg-rose-400', text: 'text-rose-400' },
 ]
 
-function getLevelRank(level: SkillLevel): number {
-  switch (level) {
-    case SkillLevel.Expert:
-      return 5
-    case SkillLevel.Advanced:
-      return 4
-    case SkillLevel.Intermediate:
-      return 3
-    case SkillLevel.Beginner:
-      return 2
-    case SkillLevel.Novice:
-      return 1
-    default:
-      return 0
-  }
-}
-
 const SkillItems = () => {
-  const { skillItemListData = [], skillItemListRequest, isLoading } = useSkillState()
+  const { skillItemListData = [], skillItemListRequest, isLoading, getSkillItem } = useSkillState()
+  const { setOpneSkillProfileModal } = useBaseState()
 
   useEffect(() => {
     skillItemListRequest()
-  }, [])
+  }, [skillItemListRequest])
+
+  const skillItemOnClickHandler = async (id?: number) => {
+    if (id == null) return
+    const res = await getSkillItem(id)
+    if (res.success) setOpneSkillProfileModal(true)
+  }
 
   if (isLoading) return <IsLoading />
 
   return (
     <Card>
       <CardContent>
-        <div className="flex flex-wrap gap-5">
+        <div className="flex gap-5 flex-wrap w-full">
           {skillItemListData?.map((skill, index) => (
-            <div key={index} className="space-y-2 hover:bg-gray-200/30 transition-all duration-300 rounded-lg p-2 w-max cursor-pointer">
+            <div key={index} onClick={() => skillItemOnClickHandler(skill?.ID)} className="space-y-2 hover:bg-gray-200/30 transition-all duration-300 rounded-lg p-2 w-max cursor-pointer">
               <div className="flex gap-2 items-center">
                 <h3 className="font-medium">{skill.tag.title}</h3>
                 <Badge className={`${skillLevels.find(item => item.level === skill.level)?.color} h-[20px] pt-[4px]`}>
                   {skillLevels.find(item => item.level === skill.level)?.label}
-
                 </Badge>
               </div>
             </div>
           ))}
         </div>
-
       </CardContent>
     </Card >
   )

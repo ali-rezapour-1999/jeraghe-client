@@ -1,17 +1,11 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
-import ProfileUpdate from "./profileUpdate";
+import ProfileUpdate from "./profile/profileUpdate";
 import Account from "./account";
+import { Paragraph } from "@/components/ui/text";
 
 export default function SettingsPage() {
   return (
@@ -59,19 +53,19 @@ export default function SettingsPage() {
               </div>
               <div className="flex items-center justify-between space-y-2">
                 <div>
-                  <p className="font-medium">اعلان‌های پیامکی</p>
-                  <p className="text-sm text-muted-foreground">
+                  <Paragraph>دریافت اعلان‌ها از طریق پیامک</Paragraph>
+                  <Paragraph className="text-sm text-muted-foreground">
                     دریافت اعلان‌ها از طریق پیامک
-                  </p>
+                  </Paragraph>
                 </div>
                 <Switch />
               </div>
               <div className="flex items-center justify-between space-y-2">
                 <div>
-                  <p className="font-medium">اعلان‌های مرورگر</p>
-                  <p className="text-sm text-muted-foreground">
+                  <Paragraph className="font-medium">اعلان‌های مرورگر</Paragraph>
+                  <Paragraph className="text-sm text-muted-foreground">
                     دریافت اعلان‌ها در مرورگر
-                  </p>
+                  </Paragraph>
                 </div>
                 <Switch defaultChecked />
               </div>
