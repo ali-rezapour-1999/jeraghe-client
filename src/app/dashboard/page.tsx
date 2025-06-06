@@ -3,7 +3,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { LinkedinIcon } from "lucide-react";
 
 export default function ProfilePage() {
   const { user } = useAuthStore();
@@ -83,9 +82,6 @@ export default function ProfilePage() {
                   variant="outline"
                   className="flex items-center justify-start gap-3 rounded-md p-8 transition-colors hover:bg-muted"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
-                    <LinkedinIcon className="h-5 w-5 text-blue-700 dark:text-blue-300" />
-                  </div>
                   <div>
                     <p className="font-medium">لینکدین</p>
                     <p className="text-sm text-muted-foreground">
