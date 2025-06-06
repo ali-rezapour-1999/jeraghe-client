@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import useBaseState from "@/store/baseState";
 import { IsLoading } from "@/components/shared/isLoading";
-import AuthButtons from "@/app/(auth)/authWithForm/login-register/auth";
 
 export default function AuthProvider({
   children,
@@ -39,7 +38,6 @@ export default function AuthProvider({
   if (loading) return <IsLoading />;
   return (
     <main>
-      <AuthButtons />
       {children}
     </main>
   );

@@ -6,17 +6,15 @@ import { Switch } from "@/components/ui/switch";
 import ProfileUpdate from "./profile/profileUpdate";
 import Account from "./account";
 import { Paragraph } from "@/components/ui/text";
+import { DynamicTitleBar } from "@/components/dashboard/dynamicTitleBar";
 
 export default function SettingsPage() {
   return (
     <main className="space-y-6 ">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">تنظیمات</h1>
-        <p className="text-muted-foreground">
-          مدیریت تنظیمات حساب کاربری و سایت
-        </p>
-      </div>
+      {/* Dynamic Title Bar */}
+      <DynamicTitleBar />
 
+      {/* Tabs For Settings Dashboard Page */}
       <Tabs dir="rtl" defaultValue="profile" className="space-y-4">
         <TabsList>
           <TabsTrigger value="profile">پروفایل</TabsTrigger>

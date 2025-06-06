@@ -11,9 +11,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import Spinner from "../spinner";
 import { useAuthStore } from "@/store/authState";
 import { toast } from "sonner";
+import Spinner from "@/components/shared/spinner";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   email: z.string().email("ایمیل معتبر نیست").min(1, "ایمیل وارد نکردی"),
@@ -29,6 +30,7 @@ interface LoginFormProps {
 const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const { login, isLoading, setLoading } = useAuthStore();
   const [isVisible, setIsVisible] = useState(false);
+  const router = useRouter();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -46,6 +48,7 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
       const result = await login(data.email, data.password);
       if (result.success) {
         toast.success(result.message);
+        router.push("/dashboard");
         onSuccess?.();
       } else {
         toast.error(result.message);
@@ -119,9 +122,10 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
                   />
                   <Button
                     aria-label="toggle password visibility"
-                    className="absolute inset-y-0 left-1 top-0.5 flex items-center pr-3 bg-transparent min-w-0 hover:bg-transparent"
+                    className="absolute inset-y-0 left-1 top-1 flex items-center pr-3 bg-transparent min-w-0 hover:bg-transparent"
                     type="button"
                     onClick={toggleVisibility}
+                    variant="ghost"
                   >
                     {isVisible ? (
                       <Eye className="text-2xl text-default-400 pointer-events-none" />
@@ -166,18 +170,12 @@ const LoginForm = ({ onSuccess }: LoginFormProps) => {
           <Button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-secondary-light dark:bg-secondary-dark dark:text-primary-light text-primary-light rounded-md py-2"
+            variant="gradient"
           >
             {isLoading ? <Spinner variant="secondary" /> : "ورود"}
           </Button>
         </div>
       </form>
-
-      <div className="flex items-center mt-3">
-        <hr className="flex-grow border-t border-gray-300 dark:border-gray-600" />
-        <span className="mx-3 text-gray-500 dark:text-gray-400">یا</span>
-        <hr className="flex-grow border-t border-gray-300 dark:border-gray-600" />
-      </div>
     </Form>
   );
 };

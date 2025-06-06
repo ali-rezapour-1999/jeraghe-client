@@ -46,11 +46,6 @@ const MotionNav = motion.create("nav");
 
 const Navbar: React.FC = () => {
   const { isAuthenticated, user, isLoading } = useAuthStore();
-  const { setOpenAuthRequireModel, setOpenUserProfile } = useBaseState();
-  const userStatusHanlder = async () => {
-    if (isAuthenticated) setOpenUserProfile(true);
-    else setOpenAuthRequireModel(true);
-  };
   return (
     <MotionNav
       className="w-full px-4 md:px-10 py-1 main-nav-bar bg-transparent dark:bg-transparent flex justify-between items-center"
@@ -81,9 +76,11 @@ const Navbar: React.FC = () => {
           <FaExclamationCircle className="size-5" />
           {isAuthenticated && user?.username ? (isLoading ? (<Spinner variant="primary" />) : (<UserDropdownMenu />))
             : (
-              <Button className="flex px-3 rounded-xl" onClick={userStatusHanlder} variant="gradient">
-                <Paragraph>ورود / ثبت نام</Paragraph>
-                <UserRound size={20} />
+              <Button className="px-3 rounded-xl" variant="gradient">
+                <Link href="/auth" className="flex gap-2">
+                  <Paragraph>ورود / ثبت نام</Paragraph>
+                  <UserRound size={20} />
+                </Link>
               </Button>
             )}
         </div>

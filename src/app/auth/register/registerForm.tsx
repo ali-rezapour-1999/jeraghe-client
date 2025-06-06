@@ -6,11 +6,11 @@ import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import Spinner from "../spinner";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Spinner from "@/components/shared/spinner";
 
 const formSchema = z
   .object({
@@ -164,9 +164,10 @@ const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
                     />
                     <Button
                       aria-label="toggle password visibility"
-                      className="absolute inset-y-0 left-1 top-2 flex items-center pr-3 bg-transparent min-w-0 hover:bg-transparent"
+                      className="absolute inset-y-0 left-1 top-1 flex items-center pr-3 bg-transparent min-w-0 hover:bg-transparent"
                       type="button"
                       onClick={toggleVisibility}
+                      variant='ghost'
                     >
                       {isVisible ? (
                         <Eye className="text-2xl text-default-400 pointer-events-none" />
@@ -227,19 +228,13 @@ const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
 
           <Button
             type="submit"
-            className="dark:bg-accent-900 bg-accent-dark text-white dark:text-light w-full rounded-md"
             disabled={isLoading}
+            variant="gradient"
           >
             {isLoading ? <Spinner variant="secondary" /> : "ثبت نام"}
           </Button>
         </form>
       </Form>
-
-      <div className="flex items-center mt-3">
-        <hr className="flex-grow border-t border-gray-300 dark:border-gray-600" />
-        <span className="mx-3 text-gray-500 dark:text-gray-400">یا</span>
-        <hr className="flex-grow border-t border-gray-300 dark:border-gray-600" />
-      </div>
     </div>
   );
 };

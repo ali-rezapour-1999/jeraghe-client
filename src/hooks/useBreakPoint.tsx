@@ -15,6 +15,7 @@ const defaultBreakpoints: Breakpoints = {
 };
 
 interface BreakpointState {
+  size: number;
   isMobile: boolean;
   isTablet: boolean;
   isLaptop: boolean;
@@ -26,6 +27,7 @@ const useBreakpoint = (
 ): BreakpointState => {
   const breakpoints = { ...defaultBreakpoints, ...customBreakpoints };
   const [breakpointState, setBreakpointState] = useState<BreakpointState>({
+    size: 0,
     isMobile: false,
     isTablet: false,
     isLaptop: false,
@@ -38,6 +40,7 @@ const useBreakpoint = (
 
       if (width < breakpoints.md) {
         setBreakpointState({
+          size: width,
           isMobile: true,
           isTablet: false,
           isLaptop: false,
@@ -45,6 +48,7 @@ const useBreakpoint = (
         });
       } else if (width >= breakpoints.md && width < breakpoints.lg) {
         setBreakpointState({
+          size: width,
           isMobile: false,
           isTablet: true,
           isLaptop: false,
@@ -52,6 +56,7 @@ const useBreakpoint = (
         });
       } else {
         setBreakpointState({
+          size: width,
           isMobile: false,
           isTablet: false,
           isLaptop: true,

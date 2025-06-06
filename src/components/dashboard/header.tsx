@@ -14,20 +14,17 @@ export function DashboardHeader() {
   const { user } = useAuthStore();
 
   return (
-    <header className="sticky top-0 flex h-16 items-center gap-4 px-4 shadow-lg  md:px-6 z-50 backdrop-blur-md">
-      <div className="flex flex-1 items-center gap-4">
+    <header className="sticky top-0 flex h-16 items-center gap-4 px-4 md:px-6 z-50 backdrop-blur-md justify-between w-full">
+      <div className="flex flex-1 items-center gap-4 md:w-1/4">
         <div className="flex items-center gap-2">
-          <div className="flex h-18 w-18 items-center justify-center rounded-md  text-white">
+          <div className="flex h-16 w-16 items-center justify-center rounded-md  text-white">
             <Logo />
           </div>
-          <span className="text-sm md:text-xl font-bold md:inline-block">
-            به جرقه خوش آمدید
-          </span>
         </div>
-
       </div>
 
-      <div className="flex items-center gap-2 md:gap-4">
+
+      <div className="flex items-center gap-2 md:gap-4 md:w-1/4 justify-end">
         {isMobile && <SidebarTrigger />}
 
         <Button variant="ghost" size="icon" className="relative">
@@ -64,6 +61,7 @@ export function DashboardHeader() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+
     </header>
   );
 }
