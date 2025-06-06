@@ -22,7 +22,7 @@ const UserDropdownMenu = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="rounded-full px-0">
-          <Avatar className="h-8 w-8 transition-all duration-200 hover:ring-2 hover:ring-secondary">
+          <Avatar className="h-10 w-10 transition-all duration-200 hover:ring-2 hover:ring-secondary">
             <AvatarImage
               src={user?.image_url}
               className="object-cover shadow-2xl drop-shadow-2xl"

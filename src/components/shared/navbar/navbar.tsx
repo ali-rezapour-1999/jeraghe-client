@@ -72,7 +72,7 @@ const Navbar: React.FC = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <FaExclamationCircle className="size-5" />
+          <FaExclamationCircle className="size-6" />
           {isAuthenticated && user?.username ? (isLoading ? (<Spinner variant="primary" />) : (<UserDropdownMenu />))
             : (
               <Button className="px-3 rounded-xl" variant="gradient">

@@ -8,6 +8,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import Logo from "../shared/logo";
 import { useAuthStore } from "@/store/authState";
+import DarkModeToggle from "../shared/darkModeToggle";
 
 export function DashboardHeader() {
   const { isMobile } = useSidebar();
@@ -24,20 +25,17 @@ export function DashboardHeader() {
       </div>
 
 
-      <div className="flex items-center gap-2 md:gap-4 md:w-1/4 justify-end">
+      <div className="flex items-center gap-2 md:gap-0 md:w-1/4 justify-end">
         {isMobile && <SidebarTrigger />}
 
-        <Button variant="ghost" size="icon" className="relative">
-          <Bell className="h-6 w-6 size-3" />
+        <Button variant="ghost" className="rounded-xl">
+          <Bell className="size-5" />
         </Button>
+        <DarkModeToggle />
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative h-8 w-8 rounded-full"
-            >
+            <Button variant="ghost" >
               <Avatar className="h-8 w-8 transition-all duration-200 hover:ring-2 hover:ring-secondary">
                 <AvatarImage
                   src={user?.image_url}

@@ -6,7 +6,8 @@ export default function DarkModeToggle() {
   const { setTheme, theme } = useTheme();
   return (
     <Button
-      className="min-w-0 h-10 w-10 p-0 bg-primary-dark dark:text-light dark:bg-light rounded-xl"
+      variant="ghost"
+      className="rounded-xl"
       onClick={() => setTheme(theme == "light" ? "dark" : "light")}
     >
       {theme == "light" ? (
