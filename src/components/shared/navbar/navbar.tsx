@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Logo from "../logo";
 import { useAuthStore } from "@/store/authState";
-import useBaseState from "@/store/baseState";
 import { PageDropdownMenu } from "@/components/ui/dropdown/pageDropdown";
 import Spinner from "../spinner";
 import UserDropdownMenu from "@/components/ui/dropdown/userDropdown";
