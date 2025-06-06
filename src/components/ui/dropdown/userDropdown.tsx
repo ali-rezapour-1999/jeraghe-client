@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Paragraph } from "@/components/ui/text";
 import { useAuthStore } from "@/store/authState";
-import { Bell, MoonIcon, SettingsIcon, SunIcon, UserRound } from "lucide-react";
+import { Bell, MoonIcon, SettingsIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "../avatar";
 
 const UserDropdownMenu = () => {
   const { setTheme, theme } = useTheme();
@@ -20,9 +21,17 @@ const UserDropdownMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="h-8 md:h-9 flex rounded-xl px-3" variant="main">
-          <Paragraph>{user.username}</Paragraph>
-          <UserRound size={20} />
+        <Button variant="ghost" className="rounded-full px-0">
+          <Avatar className="h-8 w-8 transition-all duration-200 hover:ring-2 hover:ring-secondary">
+            <AvatarImage
+              src={user?.image_url}
+              className="object-cover shadow-2xl drop-shadow-2xl"
+              alt="تصویر کاربر"
+            />
+            <AvatarFallback className="bg-secondary text-white">
+              {user?.username.substring(0, 2)}
+            </AvatarFallback>
+          </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-50">

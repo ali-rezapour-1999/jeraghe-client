@@ -11,48 +11,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Paragraph } from "@/components/ui/text";
 import { BsMenuDown } from "react-icons/bs";
+import { navLintType } from "@/components/shared/navbar/navbar";
 
-type navLintType = {
-  id: number;
-  href: string;
-  label: string;
-  description: string;
-};
 
-const navLinkList: navLintType[] = [
-  {
-    id: 1,
-    href: "/explorer",
-    label: "🚀 مجموعه‌ها",
-    description: "دنیایی از مجموعه‌ها و موضوعات جذاب رو کشف کن!",
-  },
-  {
-    id: 2,
-    href: "/ideas",
-    label: "💡 ایده‌ها",
-    description: "همه ایده‌های ناب و خلاقانه رو اینجا ببین!",
-  },
-  {
-    id: 3,
-    href: "/posts",
-    label: "📖 تجربیات",
-    description: "خوندن تجربه‌ها و نکات مفید کاربران درباره ایده‌ها!",
-  },
-  {
-    id: 4,
-    href: "/rule",
-    label: "📜 قوانین",
-    description: "قبل از هرچیز، قانون‌ها رو بخون که رفیق بمونیم!",
-  },
-  {
-    id: 5,
-    href: "/about-us",
-    label: "🤔 چرا ما؟",
-    description: "ببین چطوری دنیای ما شکل گرفته و بهت کمک می‌کنه!",
-  },
-];
-
-export const PageDropdownMenu = () => {
+export const PageDropdownMenu = ({ navLinkList }: { navLinkList: navLintType[] }) => {
   const router = useRouter();
   return (
     <DropdownMenu>

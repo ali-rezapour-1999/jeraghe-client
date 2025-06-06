@@ -125,13 +125,15 @@ const SkillItemForm = () => {
             )}
           />
         </div>
-        <div>
-          <Button variant='accent' type="submit" className='w-full mt-8'>
+        <div className='flex items-center justify-center w-full mt-6 gap-2'>
+          <Button variant='accent' type="submit" className={getItemData == null ? "w-full" : 'w-1/2'}>
             {getItemData == null ? "افزودن مهارت" : "ویرایش مهارت"}
           </Button>
-          <Button variant='outline' type="button" className='w-full mt-8' onClick={removeSkillItem}>
-            حذف مهارت
-          </Button>
+          {getItemData != null && (
+            <Button variant='ghost' type="button" className='w-1/2 bg-red-400' onClick={removeSkillItem}>
+              حذف مهارت
+            </Button>
+          )}
         </div>
       </form>
     </Form>

@@ -120,13 +120,13 @@ const ProfileUpdate = () => {
                 اطلاعات پروفایل خود را ویرایش کنید
               </CardDescription>
             </CardHeader>
-            <CardContent className="w-full px-2 md:px-16 lg:px-32">
+            <CardContent className="w-full px-2 md:px-16 lg:px-24">
               <div className="grid grid-cols-1 gap-4 md:gap-10 md:grid-cols-2">
                 <FormField
                   name="gender"
                   control={form.control}
                   render={({ field }) => (
-                    <FormItem className="space-y-1">
+                    <FormItem className="space-y-1 my-5 lg:my-2">
                       <Label>جنسیت</Label>
                       <Select
                         onValueChange={field.onChange}
@@ -170,12 +170,12 @@ const ProfileUpdate = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 md:gap-10 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 md:gap-10 md:grid-cols-2 lg:grid-cols-1 lg:gap-0">
                 <FormField
                   name="state"
                   control={form.control}
                   render={({ field }) => (
-                    <FormItem className="space-y-1 my-5">
+                    <FormItem className="space-y-1 my-5 lg:my-2">
                       <Label>استان</Label>
                       <Input
                         {...field}

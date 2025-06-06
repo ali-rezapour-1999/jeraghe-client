@@ -11,6 +11,36 @@ import { PageDropdownMenu } from "@/components/ui/dropdown/pageDropdown";
 import Spinner from "../spinner";
 import UserDropdownMenu from "@/components/ui/dropdown/userDropdown";
 import { Paragraph } from "@/components/ui/text";
+import Link from "next/link";
+import { FaExclamationCircle } from "react-icons/fa";
+
+export type navLintType = {
+  id: number;
+  href: string;
+  label: string;
+  description: string;
+};
+
+const navLinkList: navLintType[] = [
+  {
+    id: 1,
+    href: "/explorer",
+    label: "🌐 مجموعه‌ها",
+    description: "دنیایی از مجموعه‌ها و موضوعات جذاب رو کشف کن!",
+  },
+  {
+    id: 2,
+    href: "/ideas",
+    label: "💡 ایده‌ها",
+    description: "همه ایده‌های ناب و خلاقانه رو اینجا ببین!",
+  },
+  {
+    id: 3,
+    href: "/posts",
+    label: "📖 تجربیات",
+    description: "خوندن تجربه‌ها و نکات مفید کاربران درباره ایده‌ها!",
+  },
+];
 
 const MotionNav = motion.create("nav");
 
@@ -29,15 +59,29 @@ const Navbar: React.FC = () => {
       transition={{ duration: 0.5 }}
     >
       <Logo />
+      <div className="hidden md:flex items-center gap-4">
+        {navLinkList.map((item) => (
+          <Link
+            key={item.id}
+            className="flex px-2 rounded-xl"
+            href={item.href}
+          >
+            <Paragraph variant="default" className="text-md">
+              {item.label}
+            </Paragraph>
+          </Link>
+        ))}
+      </div>
       <div className="gap-2 flex">
-        <div>
-          <PageDropdownMenu />
+        <div className="block md:hidden">
+          <PageDropdownMenu navLinkList={navLinkList} />
         </div>
 
-        <div>
+        <div className="flex items-center gap-2">
+          <FaExclamationCircle className="size-5" />
           {isAuthenticated && user?.username ? (isLoading ? (<Spinner variant="primary" />) : (<UserDropdownMenu />))
             : (
-              <Button className="h-8 md:h-9 flex px-3 rounded-xl" variant='main' onClick={userStatusHanlder}>
+              <Button className="flex px-3 rounded-xl" onClick={userStatusHanlder} variant="gradient">
                 <Paragraph>ورود / ثبت نام</Paragraph>
                 <UserRound size={20} />
               </Button>

@@ -1,63 +1,82 @@
-import MainSectionContainer from "@/components/ui/container";
+'use client'
 import { Heading, Paragraph } from "@/components/ui/text";
 import MainNavBar from "@/components/shared/navbar/navbar";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { useAuthStore } from "@/store/authState";
 
 const Home = () => {
+  const { isAuthenticated } = useAuthStore()
   return (
     <main>
       <MainNavBar />
-      <section>
-        <div className="flex flex-col justify-center items-center gap-3 md:gap-10 mt-12 md:mt-34">
-          <MainSectionContainer
-            delay={0.3}
-            className="text-center font-bold text-primary dark:text-light"
-          >
-            <Heading as="h1" className="text-3xl lg:text-5xl 2xl:text-6xl">
-              مسیرت برای شغل و ساخت ایده‌ها هموار شده 🚀
-            </Heading>
-          </MainSectionContainer>
-          <MainSectionContainer
-            delay={0.5}
-            className="text-center text-xl w-[90%] leading-relaxed text-primary dark:text-gray-400 "
-          >
-            <Paragraph className="text-[.7em] md:text-[.9em] lg:text-[1.1em] 2xl:text-[1.2em] text-center mt-5">
-              <span className="font-bold">جرقه</span> قراره جایی باشه که بتونی{" "}
-              <span className="underline underline-offset-4 mx-1 text-primary dark:text-light">
-                یاد بگیری
-              </span>
-              ،{" "}
-              <span className="underline underline-offset-4 mx-1 text-primary dark:text-light">
-                مشکلات رو حل
-              </span>{" "}
-              کنی،{" "}
-              <span className="underline underline-offset-4 mx-1 text-primary dark:text-light">
-                ایده‌های جدید
-              </span>{" "}
-              پیدا کنی و توی{" "}
-              <span className="underline underline-offset-4 mx-1 text-primary dark:text-light">
-                ایده‌ها همکاری{" "}
-              </span>{" "}
-              کنی
-            </Paragraph>
+      <section className="container mx-auto px-4 py-20 text-center">
+        <div className="max-w-4xl mx-auto">
+          <Badge className="mb-6 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-900/50 rounded-full px-6 py-2 text-sm font-medium border-0">
+            🚀 ارتباط • همکاری • موفقیت
+          </Badge>
 
-            <p className="mt-2 text-gray-500 dark:text-gray-400 text-[.8em] md:text-[1em] 2xl:text-[1.1em]">
-              یه فضای خلاق و مطمئن برای رشد، یادگیری و پیشرفت!
-            </p>
-          </MainSectionContainer>
+          <Heading as='h1' className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <span className="bg-gradient-to-l from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              همکار ایده‌آل
+            </span>
+            <br />
+            <span className="text-foreground">خود را پیدا کنید</span>
+          </Heading>
+
+          <Paragraph className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto leading-relaxed">
+            جراقه بزرگترین شبکه همکاری حرفه‌ای ایران است. متخصصان، کارآفرینان و خلاقان را به هم متصل می‌کند تا پروژه‌های
+            بزرگ بسازند.
+          </Paragraph>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Button
+              size="lg"
+              asChild
+              variant="gradient"
+              className="rounded-2xl px-10 py-6 text-lg"
+            >
+              <Link href={isAuthenticated ? "/dashboard" : "/register"}>
+                شروع همکاری <ArrowLeft className="mr-2 h-5 w-5" />
+              </Link>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              asChild
+              className="rounded-2xl px-10 py-6 text-lg border-2 hover:bg-muted/50"
+            >
+              <Link href="/search">
+                <Search className="ml-2 h-5 w-5" />
+                کاوش پروفایل‌ها
+              </Link>
+            </Button>
+          </div>
+
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">۱۵ هزار+</div>
+              <div className="text-muted-foreground text-sm">کاربر فعال</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-2">۳.۲ هزار+</div>
+              <div className="text-muted-foreground text-sm">همکاری موفق</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">۸۵۰+</div>
+              <div className="text-muted-foreground text-sm">پروژه فعال</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">۹۷٪</div>
+              <div className="text-muted-foreground text-sm">رضایت کاربران</div>
+            </div>
+          </div>
         </div>
       </section>
-      <section className=" flex justify-center items-center mt-12 md:mt-20 flex-col mx-3">
-        <div className="w-full md:w-[65%] h-14 md:h-16 flex items-center dark:bg-primary-dark bg-primary-dark/5 rounded-full pl-5 shadow-xl">
-          <Input
-            type="text"
-            className="!border-none !ring-0 !outline-none !focus:border-none !hover:border-none !active:border-none !focus:ring-0 !focus:outline-none !focus-visible:border-none !focus-visible:ring-0 bg-transparent pr-10 text-xl shadow-none h-full"
-            placeholder="جستجو برای شغل و ساخت ایده‌ها"
-          />
-          <Search className="size-5 md:size-7" />
-        </div>
-      </section>
+
     </main>
   );
 };
